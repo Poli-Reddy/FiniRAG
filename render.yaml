@@ -7,7 +7,13 @@ services:
     # serving. /api/v1/health reports "degraded" when the database probe
     # fails, which is exactly the state a restart can fix.
     healthCheckPath: /api/v1/health
-    buildCommand: python -m pip install --upgrade pip && python -m pip install -r backend/requirements.txt
+    # --only-binary prevents Render from silently attempting a long native
+    # build when a Python version has no compatible wheel (the Python 3.14
+    # PyMuPDF failure). .python-version pins the tested Python 3.12 runtime.
+    buildCommand: >-
+      python -c "import sys; assert sys.version_info[:2] == (3, 12), 'Python 3.12 required'"
+      && python -m pip install --upgrade pip
+      && python -m pip install --only-binary=:all: -r backend/requirements.txt
     startCommand: python -m uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: DATABASE_URL
