@@ -1,0 +1,985 @@
+{
+  "document_name": "batch2-0499.jpg",
+  "document_type": "invoice",
+  "processing_status": "PASS",
+  "file_validation": {
+    "file_type": "image/jpeg",
+    "is_supported": true,
+    "is_readable": true,
+    "page_count": 1,
+    "status": "PASS",
+    "error": null
+  },
+  "extracted_data": {
+    "invoice_number": {
+      "value": "6825",
+      "original_value": "6825",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "Invoice#: 6825",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "invoice_date": {
+      "value": "Nov 03, 2022",
+      "original_value": "Nov 03, 2022",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "Invoice date: Nov 03, 2022",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "due_date": {
+      "value": "Dec 03, 2022",
+      "original_value": "Dec 03, 2022",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "Due date: Dec 03, 2022",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_name": {
+      "value": "TAYLOR CERTIFIED PROCESSING INC",
+      "original_value": "TAYLOR CERTIFIED PROCESSING INC",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "TAYLOR CERTIFIED PROCESSING INC",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_address": {
+      "value": "101 B Devon Road BRAMPTON",
+      "original_value": "101 B Devon Road BRAMPTON",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "101 B Devon Road BRAMPTON",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_tax_id": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_name": {
+      "value": "THE ORTHOTIC GROUP INC.",
+      "original_value": "THE ORTHOTIC GROUP INC.",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "THE ORTHOTIC GROUP INC.",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_address": {
+      "value": "160 Markland Street MARKHAM, Ontario, Canada L6C 0C6",
+      "original_value": "160 Markland Street MARKHAM, Ontario, Canada L6C 0C6",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "160 Markland Street MARKHAM, Ontario, Canada L6C 0C6",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_tax_id": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "currency": {
+      "value": "$",
+      "original_value": "$",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "$",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "subtotal": {
+      "value": "135.00",
+      "original_value": "135.00",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "$135.00",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "$"
+    },
+    "tax_amount": {
+      "value": "12.48",
+      "original_value": "12.48",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "$12.48",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "$"
+    },
+    "tax_rate": {
+      "value": "8",
+      "original_value": "8",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "8",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "PERCENT"
+    },
+    "discount": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "$"
+    },
+    "total_amount": {
+      "value": "157.48",
+      "original_value": "157.48",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "$157.48",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "$"
+    },
+    "amount_paid": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "$"
+    },
+    "amount_due": {
+      "value": "157.48",
+      "original_value": "157.48",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "$157.48",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "$"
+    },
+    "cash_paid": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "$"
+    },
+    "change_given": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "$"
+    },
+    "rounding_adjustment": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "$"
+    },
+    "payment_method": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "line_items": [
+      {
+        "description": {
+          "value": "3M 80 Rubber&Vinyl Spray Adh. Yellow 24 fl oz. 6 cans/case",
+          "original_value": "3M 80 Rubber&Vinyl Spray Adh. Yellow 24 fl oz. 6 cans/case",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "| 01 | 3M 80 Rubber&Vinyl Spray Adh. Yellow 24 fl oz. 6 cans/case | 2 | $8.00 | $16.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "2",
+          "original_value": "2",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "| 01 | 3M 80 Rubber&Vinyl Spray Adh. Yellow 24 fl oz. 6 cans/case | 2 | $8.00 | $16.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_of_measure": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "8.00",
+          "original_value": "8.00",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "| 01 | 3M 80 Rubber&Vinyl Spray Adh. Yellow 24 fl oz. 6 cans/case | 2 | $8.00 | $16.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "amount": {
+          "value": "16.00",
+          "original_value": "16.00",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "| 01 | 3M 80 Rubber&Vinyl Spray Adh. Yellow 24 fl oz. 6 cans/case | 2 | $8.00 | $16.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "tax_code": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "| 01 | 3M 80 Rubber&Vinyl Spray Adh. Yellow 24 fl oz. 6 cans/case | 2 | $8.00 | $16.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "| 01 | 3M 80 Rubber&Vinyl Spray Adh. Yellow 24 fl oz. 6 cans/case | 2 | $8.00 | $16.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "| 01 | 3M 80 Rubber&Vinyl Spray Adh. Yellow 24 fl oz. 6 cans/case | 2 | $8.00 | $16.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      },
+      {
+        "description": {
+          "value": "3M 570 Seam Sealer WHT 12oz 12 cartridges/case 10760667-011PW",
+          "original_value": "3M 570 Seam Sealer WHT 12oz 12 cartridges/case 10760667-011PW",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "| 02 | 3M 570 Seam Sealer WHT 12oz 12 cartridges/case 10760667-011PW | 4 | $14.00 | $56.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "4",
+          "original_value": "4",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "| 02 | 3M 570 Seam Sealer WHT 12oz 12 cartridges/case 10760667-011PW | 4 | $14.00 | $56.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_of_measure": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "14.00",
+          "original_value": "14.00",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "| 02 | 3M 570 Seam Sealer WHT 12oz 12 cartridges/case 10760667-011PW | 4 | $14.00 | $56.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "amount": {
+          "value": "56.00",
+          "original_value": "56.00",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "| 02 | 3M 570 Seam Sealer WHT 12oz 12 cartridges/case 10760667-011PW | 4 | $14.00 | $56.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "tax_code": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "| 02 | 3M 570 Seam Sealer WHT 12oz 12 cartridges/case 10760667-011PW | 4 | $14.00 | $56.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "| 02 | 3M 570 Seam Sealer WHT 12oz 12 cartridges/case 10760667-011PW | 4 | $14.00 | $56.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "| 02 | 3M 570 Seam Sealer WHT 12oz 12 cartridges/case 10760667-011PW | 4 | $14.00 | $56.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      },
+      {
+        "description": {
+          "value": "0485 D/C FilmTp. 1/2\"x98'-1/64 44 rolls/case",
+          "original_value": "0485 D/C FilmTp. 1/2\"x98'-1/64 44 rolls/case",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "| 03 | 0485 D/C FilmTp. 1/2\"x98'-1/64 44 rolls/case | 5 | $6.00 | $30.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "5",
+          "original_value": "5",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "| 03 | 0485 D/C FilmTp. 1/2\"x98'-1/64 44 rolls/case | 5 | $6.00 | $30.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_of_measure": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "6.00",
+          "original_value": "6.00",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "| 03 | 0485 D/C FilmTp. 1/2\"x98'-1/64 44 rolls/case | 5 | $6.00 | $30.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "amount": {
+          "value": "30.00",
+          "original_value": "30.00",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "| 03 | 0485 D/C FilmTp. 1/2\"x98'-1/64 44 rolls/case | 5 | $6.00 | $30.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "tax_code": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "| 03 | 0485 D/C FilmTp. 1/2\"x98'-1/64 44 rolls/case | 5 | $6.00 | $30.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "| 03 | 0485 D/C FilmTp. 1/2\"x98'-1/64 44 rolls/case | 5 | $6.00 | $30.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "| 03 | 0485 D/C FilmTp. 1/2\"x98'-1/64 44 rolls/case | 5 | $6.00 | $30.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      },
+      {
+        "description": {
+          "value": "3M 3762LM-PG Hot Melt TAN 1\" x 3\" 22 pounds/case",
+          "original_value": "3M 3762LM-PG Hot Melt TAN 1\" x 3\" 22 pounds/case",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "| 04 | 3M 3762LM-PG Hot Melt TAN 1\" x 3\" 22 pounds/case | 4 | $7.00 | $28.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "4",
+          "original_value": "4",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "| 04 | 3M 3762LM-PG Hot Melt TAN 1\" x 3\" 22 pounds/case | 4 | $7.00 | $28.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_of_measure": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "7.00",
+          "original_value": "7.00",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "| 04 | 3M 3762LM-PG Hot Melt TAN 1\" x 3\" 22 pounds/case | 4 | $7.00 | $28.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "amount": {
+          "value": "28.00",
+          "original_value": "28.00",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "| 04 | 3M 3762LM-PG Hot Melt TAN 1\" x 3\" 22 pounds/case | 4 | $7.00 | $28.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "tax_code": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "| 04 | 3M 3762LM-PG Hot Melt TAN 1\" x 3\" 22 pounds/case | 4 | $7.00 | $28.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "| 04 | 3M 3762LM-PG Hot Melt TAN 1\" x 3\" 22 pounds/case | 4 | $7.00 | $28.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "| 04 | 3M 3762LM-PG Hot Melt TAN 1\" x 3\" 22 pounds/case | 4 | $7.00 | $28.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      },
+      {
+        "description": {
+          "value": "Nitrile 18756 Medical Glove BLK Medium Powder/Latex Free",
+          "original_value": "Nitrile 18756 Medical Glove BLK Medium Powder/Latex Free",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "| 05 | Nitrile 18756 Medical Glove BLK Medium Powder/Latex Free | 100/BX | 5 | $3.00 | $15.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "5",
+          "original_value": "5",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "| 05 | Nitrile 18756 Medical Glove BLK Medium Powder/Latex Free | 100/BX | 5 | $3.00 | $15.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "100/BX"
+        },
+        "unit_of_measure": {
+          "value": "100/BX",
+          "original_value": "100/BX",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "100/BX",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "3.00",
+          "original_value": "3.00",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "| 05 | Nitrile 18756 Medical Glove BLK Medium Powder/Latex Free | 100/BX | 5 | $3.00 | $15.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "amount": {
+          "value": "15.00",
+          "original_value": "15.00",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "| 05 | Nitrile 18756 Medical Glove BLK Medium Powder/Latex Free | 100/BX | 5 | $3.00 | $15.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "tax_code": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "| 05 | Nitrile 18756 Medical Glove BLK Medium Powder/Latex Free | 100/BX | 5 | $3.00 | $15.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "| 05 | Nitrile 18756 Medical Glove BLK Medium Powder/Latex Free | 100/BX | 5 | $3.00 | $15.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "| 05 | Nitrile 18756 Medical Glove BLK Medium Powder/Latex Free | 100/BX | 5 | $3.00 | $15.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      }
+    ],
+    "additional_tables": [],
+    "additional_fields": [
+      {
+        "label": "Vendor Email",
+        "value": {
+          "value": "KiranP@taylor-corp.ca",
+          "original_value": "KiranP@taylor-corp.ca",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "KiranP@taylor-corp.ca",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Customer Email",
+        "value": {
+          "value": "ap@ohi.net",
+          "original_value": "ap@ohi.net",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "ap@ohi.net",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Shipping and Handling",
+        "value": {
+          "value": "10.00",
+          "original_value": "10.00",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "10.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Terms and conditions",
+        "value": {
+          "value": "Please send payment within 30 days of receiving this invoice. There will be a 1.5% interest charge per month on late invoices.",
+          "original_value": "Please send payment within 30 days of receiving this invoice. There will be a 1.5% interest charge per month on late invoices.",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "Please send payment within 30 days of receiving this invoice. There will be a 1.5% interest charge per month on late invoices.",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      }
+    ],
+    "tax_inclusive": null,
+    "subtotal_confirmed_pretax": false
+  },
+  "validation": {
+    "checks": [
+      {
+        "name": "line_total_check_1",
+        "formula": "quantity × unit_price",
+        "operands": {
+          "quantity": "2",
+          "unit_price": "8.00",
+          "amount": "16.00"
+        },
+        "calculated_value": "16.00",
+        "reported_value": "16.00",
+        "variance": "0.00",
+        "tolerance": "0.01600",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "line_total_check_2",
+        "formula": "quantity × unit_price",
+        "operands": {
+          "quantity": "4",
+          "unit_price": "14.00",
+          "amount": "56.00"
+        },
+        "calculated_value": "56.00",
+        "reported_value": "56.00",
+        "variance": "0.00",
+        "tolerance": "0.05600",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "line_total_check_3",
+        "formula": "quantity × unit_price",
+        "operands": {
+          "quantity": "5",
+          "unit_price": "6.00",
+          "amount": "30.00"
+        },
+        "calculated_value": "30.00",
+        "reported_value": "30.00",
+        "variance": "0.00",
+        "tolerance": "0.03000",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "line_total_check_4",
+        "formula": "quantity × unit_price",
+        "operands": {
+          "quantity": "4",
+          "unit_price": "7.00",
+          "amount": "28.00"
+        },
+        "calculated_value": "28.00",
+        "reported_value": "28.00",
+        "variance": "0.00",
+        "tolerance": "0.02800",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "line_total_check_5",
+        "formula": "quantity × unit_price",
+        "operands": {
+          "quantity": "5",
+          "unit_price": "3.00",
+          "amount": "15.00"
+        },
+        "calculated_value": "15.00",
+        "reported_value": "15.00",
+        "variance": "0.00",
+        "tolerance": "0.01500",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "sum_lines_vs_subtotal",
+        "formula": "sum(line_amounts)",
+        "operands": {
+          "line_amounts": "16.00, 56.00, 30.00, 28.00, 15.00",
+          "line_count": "5",
+          "subtotal": "135.00",
+          "tax_amount": "12.48"
+        },
+        "calculated_value": "145.00",
+        "reported_value": "135.00",
+        "variance": "10.00",
+        "tolerance": "0.13500",
+        "status": "FAIL",
+        "reason": ""
+      },
+      {
+        "name": "sum_lines_vs_total",
+        "formula": "",
+        "operands": {},
+        "calculated_value": null,
+        "reported_value": null,
+        "variance": null,
+        "tolerance": null,
+        "status": "NOT_APPLICABLE",
+        "reason": "Missing operand(s)"
+      },
+      {
+        "name": "subtotal_plus_tax_vs_total",
+        "formula": "subtotal + tax_amount",
+        "operands": {
+          "subtotal": "135.00",
+          "tax_amount": "12.48",
+          "total_amount": "157.48",
+          "tax_inclusive": "not stated"
+        },
+        "calculated_value": "147.48",
+        "reported_value": "157.48",
+        "variance": "10.00",
+        "tolerance": "0.15748",
+        "status": "FAIL",
+        "reason": ""
+      },
+      {
+        "name": "rate_times_base_vs_tax",
+        "formula": "taxable_base × 0.08",
+        "operands": {
+          "taxable_base": "135.00",
+          "base_source": "subtotal",
+          "tax_rate": "8",
+          "rate_reading": "percent (magnitude >= 1)",
+          "rate_as_multiplier": "0.08",
+          "tax_amount": "12.48"
+        },
+        "calculated_value": "10.8000",
+        "reported_value": "12.48",
+        "variance": "1.6800",
+        "tolerance": "0.01248",
+        "status": "FAIL",
+        "reason": ""
+      },
+      {
+        "name": "cash_change_check",
+        "formula": "",
+        "operands": {},
+        "calculated_value": null,
+        "reported_value": null,
+        "variance": null,
+        "tolerance": null,
+        "status": "NOT_APPLICABLE",
+        "reason": "Missing operand(s)"
+      }
+    ],
+    "overall_status": "FAIL",
+    "summary": {
+      "pass": 5,
+      "fail": 3,
+      "not_applicable": 2
+    }
+  },
+  "processing_metadata": {
+    "text_extraction_method": "ocr",
+    "ocr_provider": "mistral",
+    "llm_provider": "gemini",
+    "processed_at": "2026-09-11T12:43:00.439532+00:00",
+    "processing_time_ms": 58981
+  },
+  "error": null,
+  "_harness": {
+    "source": "dataset",
+    "file_size_bytes": 415370,
+    "wall_time_ms": 58981,
+    "crashed": false
+  }
+}

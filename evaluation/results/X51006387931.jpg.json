@@ -1,0 +1,584 @@
+{
+  "document_name": "X51006387931.jpg",
+  "document_type": "invoice",
+  "processing_status": "PASS",
+  "file_validation": {
+    "file_type": "image/jpeg",
+    "is_supported": true,
+    "is_readable": true,
+    "page_count": 1,
+    "status": "PASS",
+    "error": null
+  },
+  "extracted_data": {
+    "invoice_number": {
+      "value": "0002300417000148",
+      "original_value": "0002300417000148",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "P/S #02 A INV-No.0002300417000148",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "invoice_date": {
+      "value": "2017-04-30",
+      "original_value": "2017-04-30",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "30/04/2017 (Sun) 23:59",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "due_date": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_name": {
+      "value": "AMANO MALAYSIA SDN BHD",
+      "original_value": "AMANO MALAYSIA SDN BHD",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "AMANO MALAYSIA SDN BHD",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_address": {
+      "value": "12 JALAN PENGACARA U1/48 TEMASYA INDUSTRIAL PARK 40150 SHAH ALAM SELANGOR",
+      "original_value": "12 JALAN PENGACARA U1/48 TEMASYA INDUSTRIAL PARK 40150 SHAH ALAM SELANGOR",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "12 JALAN PENGACARA U1/48\nTEMASYA INDUSTRIAL PARK\n40150 SHAH ALAM SELANGOR",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_tax_id": {
+      "value": "001137704960",
+      "original_value": "001137704960",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "GST ID: 001137704960",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_name": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_address": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_tax_id": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "currency": {
+      "value": "RM",
+      "original_value": "RM",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "RM",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "subtotal": {
+      "value": "2.83",
+      "original_value": "2.83",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "RM2.83",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "tax_amount": {
+      "value": "0.17",
+      "original_value": "0.17",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "RM0.17",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "tax_rate": {
+      "value": "6",
+      "original_value": "6",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "6.00 %",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "PERCENT"
+    },
+    "discount": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "total_amount": {
+      "value": "3.00",
+      "original_value": "3.00",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "RM3.00",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "amount_paid": {
+      "value": "3.00",
+      "original_value": "3.00",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "RM3.00",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "amount_due": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "cash_paid": {
+      "value": "3.00",
+      "original_value": "3.00",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "RM3.00",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "change_given": {
+      "value": "0",
+      "original_value": "0.00",
+      "status": "EXPLICIT_ZERO",
+      "evidence": {
+        "source_text": "RM0.00",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "rounding_adjustment": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "payment_method": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "line_items": [
+      {
+        "description": {
+          "value": "Parking Fee",
+          "original_value": "Parking Fee",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "Parking Fee RM2.83",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "Parking Fee RM2.83",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_of_measure": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "Parking Fee RM2.83",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "amount": {
+          "value": "2.83",
+          "original_value": "2.83",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "Parking Fee RM2.83",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "tax_code": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": "6.00",
+          "original_value": "6.00",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "Parking Fee RM2.83",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "Parking Fee RM2.83",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "Parking Fee RM2.83",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      }
+    ],
+    "additional_tables": [],
+    "additional_fields": [
+      {
+        "label": "Company Registration No.",
+        "value": {
+          "value": "682288-V",
+          "original_value": "682288-V",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "682288-V",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "TEL",
+        "value": {
+          "value": "03-55695002/5003",
+          "original_value": "03-55695002/5003",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "03-55695002/5003",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "P/S #",
+        "value": {
+          "value": "02 A",
+          "original_value": "02 A",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "02 A",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "T/D #",
+        "value": {
+          "value": "11",
+          "original_value": "11",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "11",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Ticket No.",
+        "value": {
+          "value": "029386",
+          "original_value": "029386",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "029386",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Entry Time",
+        "value": {
+          "value": "30/04/2017 (Sun) 20:35",
+          "original_value": "30/04/2017 (Sun) 20:35",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "30/04/2017 (Sun) 20:35",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Paid Time",
+        "value": {
+          "value": "30/04/2017 (Sun) 23:59",
+          "original_value": "30/04/2017 (Sun) 23:59",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "30/04/2017 (Sun) 23:59",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Parking Time",
+        "value": {
+          "value": "3:24",
+          "original_value": "3:24",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "3:24",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Rate Type",
+        "value": {
+          "value": "Type Rate A",
+          "original_value": "Type Rate A",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "Type Rate A",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      }
+    ],
+    "tax_inclusive": true,
+    "subtotal_confirmed_pretax": false
+  },
+  "validation": {
+    "checks": [
+      {
+        "name": "line_total_check_1",
+        "formula": "",
+        "operands": {},
+        "calculated_value": null,
+        "reported_value": null,
+        "variance": null,
+        "tolerance": null,
+        "status": "NOT_APPLICABLE",
+        "reason": "Missing operand(s)"
+      },
+      {
+        "name": "sum_lines_vs_subtotal",
+        "formula": "sum(line_amounts)",
+        "operands": {
+          "line_amounts": "2.83",
+          "line_count": "1",
+          "subtotal": "2.83",
+          "tax_amount": "0.17"
+        },
+        "calculated_value": "2.83",
+        "reported_value": "2.83",
+        "variance": "0.00",
+        "tolerance": "0.01",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "sum_lines_vs_total",
+        "formula": "",
+        "operands": {},
+        "calculated_value": null,
+        "reported_value": null,
+        "variance": null,
+        "tolerance": null,
+        "status": "NOT_APPLICABLE",
+        "reason": "Missing operand(s)"
+      },
+      {
+        "name": "subtotal_plus_tax_vs_total",
+        "formula": "subtotal + tax_amount",
+        "operands": {
+          "subtotal": "2.83",
+          "tax_amount": "0.17",
+          "total_amount": "3.00",
+          "tax_inclusive": "True"
+        },
+        "calculated_value": "3.00",
+        "reported_value": "3.00",
+        "variance": "0.00",
+        "tolerance": "0.01",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "rate_times_base_vs_tax",
+        "formula": "",
+        "operands": {},
+        "calculated_value": null,
+        "reported_value": null,
+        "variance": null,
+        "tolerance": null,
+        "status": "NOT_APPLICABLE",
+        "reason": "Cannot establish independent taxable base"
+      },
+      {
+        "name": "cash_change_check",
+        "formula": "cash_paid − total",
+        "operands": {
+          "cash_paid": "3.00",
+          "total_amount": "3.00",
+          "change_given": "0"
+        },
+        "calculated_value": "0.00",
+        "reported_value": "0",
+        "variance": "0.00",
+        "tolerance": "0.01",
+        "status": "PASS",
+        "reason": ""
+      }
+    ],
+    "overall_status": "PASS",
+    "summary": {
+      "pass": 3,
+      "fail": 0,
+      "not_applicable": 3
+    }
+  },
+  "processing_metadata": {
+    "text_extraction_method": "ocr",
+    "ocr_provider": "mistral",
+    "llm_provider": "gemini",
+    "processed_at": "2026-09-11T12:53:52.166401+00:00",
+    "processing_time_ms": 22748
+  },
+  "error": null,
+  "_harness": {
+    "source": "dataset",
+    "file_size_bytes": 264995,
+    "wall_time_ms": 22748,
+    "crashed": false
+  }
+}

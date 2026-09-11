@@ -1,0 +1,588 @@
+{
+  "document_name": "X51005806685.jpg",
+  "document_type": "invoice",
+  "processing_status": "PASS",
+  "file_validation": {
+    "file_type": "image/jpeg",
+    "is_supported": true,
+    "is_readable": true,
+    "page_count": 1,
+    "status": "PASS",
+    "error": null
+  },
+  "extracted_data": {
+    "invoice_number": {
+      "value": "389772",
+      "original_value": "389772",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "389772",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "invoice_date": {
+      "value": "17/01/2018 8:08:53",
+      "original_value": "17/01/2018 8:08:53",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "17/01/2018 8:08:53",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "due_date": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_name": {
+      "value": "ADVANCO COMPANY",
+      "original_value": "ADVANCO COMPANY",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "ADVANCO COMPANY",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_address": {
+      "value": "NO 1&3, Jalan Wangsa Delima 12, Wangsa Link, Wangsa Maju, 53300 Kuala Lumpur",
+      "original_value": "NO 1&3, Jalan Wangsa Delima 12, Wangsa Link, Wangsa Maju, 53300 Kuala Lumpur",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "NO 1&3, Jalan Wangsa Delima 12,\n\nWangsa Link, Wangsa Maju,\n\n53300 Kuala Lumpur",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_tax_id": {
+      "value": "001658445824",
+      "original_value": "001658445824",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "001658445824",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_name": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_address": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_tax_id": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "currency": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "subtotal": {
+      "value": "29.00",
+      "original_value": "29.00",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "29.00",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "tax_amount": {
+      "value": "1.64",
+      "original_value": "1.64",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "1.64",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "tax_rate": {
+      "value": "6",
+      "original_value": "6",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "6%",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "PERCENT"
+    },
+    "discount": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "total_amount": {
+      "value": "29.00",
+      "original_value": "29.00",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "29.00",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "amount_paid": {
+      "value": "50.00",
+      "original_value": "50.00",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "50.00",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "amount_due": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "cash_paid": {
+      "value": "50.00",
+      "original_value": "50.00",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "50.00",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "change_given": {
+      "value": "21.00",
+      "original_value": "21.00",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "21.00",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "rounding_adjustment": {
+      "value": "0",
+      "original_value": "0.00",
+      "status": "EXPLICIT_ZERO",
+      "evidence": {
+        "source_text": "0.00",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "payment_method": {
+      "value": "CASH",
+      "original_value": "CASH",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "CASH",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "line_items": [
+      {
+        "description": {
+          "value": "CANON PG-47BK E400 BLACK FINE C SR",
+          "original_value": "CANON PG-47BK E400 BLACK FINE C SR",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "CANON PG-47BK E400 BLACK FINE C SR\n1 27736\n29.00\n29.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "1",
+          "original_value": "1",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "CANON PG-47BK E400 BLACK FINE C SR\n1 27736\n29.00\n29.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_of_measure": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "29.00",
+          "original_value": "29.00",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "CANON PG-47BK E400 BLACK FINE C SR\n1 27736\n29.00\n29.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "amount": {
+          "value": "29.00",
+          "original_value": "29.00",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "CANON PG-47BK E400 BLACK FINE C SR\n1 27736\n29.00\n29.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_code": {
+          "value": "SR",
+          "original_value": "SR",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "CANON PG-47BK E400 BLACK FINE C SR\n1 27736\n29.00\n29.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "CANON PG-47BK E400 BLACK FINE C SR\n1 27736\n29.00\n29.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "CANON PG-47BK E400 BLACK FINE C SR\n1 27736\n29.00\n29.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      }
+    ],
+    "additional_tables": [
+      {
+        "table_name": "GST Summary",
+        "headers": [
+          "Code",
+          "%",
+          "Net Amt",
+          "GST",
+          "Total"
+        ],
+        "rows": [
+          {
+            "Code": "SR",
+            "%": "6%",
+            "Net Amt": "27.36",
+            "GST": "1.64",
+            "Total": "29.00"
+          },
+          {
+            "Code": "Total",
+            "%": null,
+            "Net Amt": "27.36",
+            "GST": "1.64",
+            "Total": "29.00"
+          }
+        ],
+        "page_number": 1
+      }
+    ],
+    "additional_fields": [
+      {
+        "label": "Company Reg. No.",
+        "value": {
+          "value": "725186-V",
+          "original_value": "725186-V",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "725186-V",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Phone Number",
+        "value": {
+          "value": "03-41318972",
+          "original_value": "03-41318972",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "03-41318972",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "CB#",
+        "value": {
+          "value": "389772",
+          "original_value": "389772",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "389772",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "M#",
+        "value": {
+          "value": "M1 - 0",
+          "original_value": "M1 - 0",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "M1 - 0",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Cashier",
+        "value": {
+          "value": "c1000 -",
+          "original_value": "c1000 -",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "c1000 -",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Item Code",
+        "value": {
+          "value": "27736",
+          "original_value": "27736",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "27736",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Type Count",
+        "value": {
+          "value": "1 Type: 1",
+          "original_value": "1 Type: 1",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "1 Type: 1",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      }
+    ],
+    "tax_inclusive": true,
+    "subtotal_confirmed_pretax": false
+  },
+  "validation": {
+    "checks": [
+      {
+        "name": "line_total_check_1",
+        "formula": "quantity × unit_price",
+        "operands": {
+          "quantity": "1",
+          "unit_price": "29.00",
+          "amount": "29.00"
+        },
+        "calculated_value": "29.00",
+        "reported_value": "29.00",
+        "variance": "0.00",
+        "tolerance": "0.02900",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "sum_lines_vs_subtotal",
+        "formula": "sum(line_amounts)",
+        "operands": {
+          "line_amounts": "29.00",
+          "line_count": "1",
+          "subtotal": "29.00",
+          "tax_amount": "1.64"
+        },
+        "calculated_value": "29.00",
+        "reported_value": "29.00",
+        "variance": "0.00",
+        "tolerance": "0.02900",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "sum_lines_vs_total",
+        "formula": "",
+        "operands": {},
+        "calculated_value": null,
+        "reported_value": null,
+        "variance": null,
+        "tolerance": null,
+        "status": "NOT_APPLICABLE",
+        "reason": "Missing operand(s)"
+      },
+      {
+        "name": "subtotal_plus_tax_vs_total",
+        "formula": "subtotal (tax already included in total)",
+        "operands": {
+          "subtotal": "29.00",
+          "tax_amount": "1.64",
+          "total_amount": "29.00",
+          "tax_inclusive": "True"
+        },
+        "calculated_value": "29.00",
+        "reported_value": "29.00",
+        "variance": "0.00",
+        "tolerance": "0.02900",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "rate_times_base_vs_tax",
+        "formula": "",
+        "operands": {},
+        "calculated_value": null,
+        "reported_value": null,
+        "variance": null,
+        "tolerance": null,
+        "status": "NOT_APPLICABLE",
+        "reason": "Cannot establish independent taxable base"
+      },
+      {
+        "name": "cash_change_check",
+        "formula": "cash_paid − total",
+        "operands": {
+          "cash_paid": "50.00",
+          "total_amount": "29.00",
+          "change_given": "21.00"
+        },
+        "calculated_value": "21.00",
+        "reported_value": "21.00",
+        "variance": "0.00",
+        "tolerance": "0.02100",
+        "status": "PASS",
+        "reason": ""
+      }
+    ],
+    "overall_status": "PASS",
+    "summary": {
+      "pass": 4,
+      "fail": 0,
+      "not_applicable": 2
+    }
+  },
+  "processing_metadata": {
+    "text_extraction_method": "ocr",
+    "ocr_provider": "mistral",
+    "llm_provider": "gemini",
+    "processed_at": "2026-09-11T12:52:45.638364+00:00",
+    "processing_time_ms": 30493
+  },
+  "error": null,
+  "_harness": {
+    "source": "dataset",
+    "file_size_bytes": 477881,
+    "wall_time_ms": 30493,
+    "crashed": false
+  }
+}

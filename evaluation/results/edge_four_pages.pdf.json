@@ -1,0 +1,32 @@
+{
+  "document_name": "edge_four_pages.pdf",
+  "document_type": "cash_flow_statement",
+  "processing_status": "FAILED",
+  "file_validation": {
+    "file_type": "application/pdf",
+    "is_supported": true,
+    "is_readable": true,
+    "page_count": 4,
+    "status": "FAIL",
+    "error": "PAGE_LIMIT_EXCEEDED"
+  },
+  "extracted_data": null,
+  "validation": null,
+  "processing_metadata": {
+    "text_extraction_method": "",
+    "ocr_provider": null,
+    "llm_provider": "",
+    "processed_at": "2026-09-11T12:55:45.517217+00:00",
+    "processing_time_ms": 6
+  },
+  "error": {
+    "code": "PAGE_LIMIT_EXCEEDED",
+    "message": "PAGE_LIMIT_EXCEEDED"
+  },
+  "_harness": {
+    "source": "edge_case",
+    "file_size_bytes": 1798,
+    "wall_time_ms": 6,
+    "crashed": false
+  }
+}

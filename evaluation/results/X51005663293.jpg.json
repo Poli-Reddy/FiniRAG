@@ -1,0 +1,932 @@
+{
+  "document_name": "X51005663293.jpg",
+  "document_type": "invoice",
+  "processing_status": "PASS",
+  "file_validation": {
+    "file_type": "image/jpeg",
+    "is_supported": true,
+    "is_readable": true,
+    "page_count": 1,
+    "status": "PASS",
+    "error": null
+  },
+  "extracted_data": {
+    "invoice_number": {
+      "value": "593101",
+      "original_value": "593101",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "INV No.: 593101",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "invoice_date": {
+      "value": "14-02-2018 13:02:42",
+      "original_value": "14-02-2018 13:02:42",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "Date : 14-02-2018 13:02:42",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "due_date": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_name": {
+      "value": "SWEET FOREST CAFE",
+      "original_value": "SWEET FOREST CAFE",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "SWEET FOREST CAFE",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_address": {
+      "value": "NO 21,JLN BUNGA KANTAN\nTAMAN P.RAMLEE SETAPAK\n53000 KUALA LUMPUR.",
+      "original_value": "NO 21,JLN BUNGA KANTAN\nTAMAN P.RAMLEE SETAPAK\n53000 KUALA LUMPUR.",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "NO 21,JLN BUNGA KANTAN\nTAMAN P.RAMLEE SETAPAK\n53000 KUALA LUMPUR.",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_tax_id": {
+      "value": "000465809408",
+      "original_value": "000465809408",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "000465809408",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_name": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_address": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_tax_id": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "currency": {
+      "value": "RM",
+      "original_value": "RM",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "RM",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "subtotal": {
+      "value": "28.58",
+      "original_value": "28.58",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "Total (Excluding GST): 28.58",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "tax_amount": {
+      "value": "1.72",
+      "original_value": "1.72",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "GST payable (6%): 1.72",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "tax_rate": {
+      "value": "6",
+      "original_value": "6",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "6%",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "PERCENT"
+    },
+    "discount": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "total_amount": {
+      "value": "30.30",
+      "original_value": "30.30",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "TOTAL: 30.30",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "amount_paid": {
+      "value": "50.00",
+      "original_value": "50.00",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "50.00",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "amount_due": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "cash_paid": {
+      "value": "50.00",
+      "original_value": "50.00",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "50.00",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "change_given": {
+      "value": "19.70",
+      "original_value": "19.70",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "19.70",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "rounding_adjustment": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "payment_method": {
+      "value": "cash",
+      "original_value": "cash",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "cash",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "line_items": [
+      {
+        "description": {
+          "value": "Smoked Duck Spaghetti",
+          "original_value": "Smoked Duck Spaghetti",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "Smoked Duck Spaghetti\n1 x | 12.50 | 12.50 | SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "1",
+          "original_value": "1",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "Smoked Duck Spaghetti\n1 x | 12.50 | 12.50 | SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_of_measure": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "12.50",
+          "original_value": "12.50",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "Smoked Duck Spaghetti\n1 x | 12.50 | 12.50 | SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "amount": {
+          "value": "12.50",
+          "original_value": "12.50",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "Smoked Duck Spaghetti\n1 x | 12.50 | 12.50 | SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "tax_code": {
+          "value": "SR",
+          "original_value": "SR",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "Smoked Duck Spaghetti\n1 x | 12.50 | 12.50 | SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "Smoked Duck Spaghetti\n1 x | 12.50 | 12.50 | SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "Smoked Duck Spaghetti\n1 x | 12.50 | 12.50 | SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      },
+      {
+        "description": {
+          "value": "Hot Green Tea",
+          "original_value": "Hot Green Tea",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "Hot Green Tea\n1 x | 3.00 | 3.00 | SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "1",
+          "original_value": "1",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "Hot Green Tea\n1 x | 3.00 | 3.00 | SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_of_measure": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "3.00",
+          "original_value": "3.00",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "Hot Green Tea\n1 x | 3.00 | 3.00 | SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "amount": {
+          "value": "3.00",
+          "original_value": "3.00",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "Hot Green Tea\n1 x | 3.00 | 3.00 | SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "tax_code": {
+          "value": "SR",
+          "original_value": "SR",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "Hot Green Tea\n1 x | 3.00 | 3.00 | SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "Hot Green Tea\n1 x | 3.00 | 3.00 | SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "Hot Green Tea\n1 x | 3.00 | 3.00 | SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      },
+      {
+        "description": {
+          "value": "Coffee(H)",
+          "original_value": "Coffee(H)",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "Coffee(H)\n1 x | 4.90 | 4.90 | SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "1",
+          "original_value": "1",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "Coffee(H)\n1 x | 4.90 | 4.90 | SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_of_measure": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "4.90",
+          "original_value": "4.90",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "Coffee(H)\n1 x | 4.90 | 4.90 | SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "amount": {
+          "value": "4.90",
+          "original_value": "4.90",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "Coffee(H)\n1 x | 4.90 | 4.90 | SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "tax_code": {
+          "value": "SR",
+          "original_value": "SR",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "Coffee(H)\n1 x | 4.90 | 4.90 | SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "Coffee(H)\n1 x | 4.90 | 4.90 | SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "Coffee(H)\n1 x | 4.90 | 4.90 | SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      },
+      {
+        "description": {
+          "value": "Rendang Chicken Rice",
+          "original_value": "Rendang Chicken Rice",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "Rendang Chicken Rice\n1 x | 9.90 | 9.90 | SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "1",
+          "original_value": "1",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "Rendang Chicken Rice\n1 x | 9.90 | 9.90 | SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_of_measure": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "9.90",
+          "original_value": "9.90",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "Rendang Chicken Rice\n1 x | 9.90 | 9.90 | SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "amount": {
+          "value": "9.90",
+          "original_value": "9.90",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "Rendang Chicken Rice\n1 x | 9.90 | 9.90 | SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "tax_code": {
+          "value": "SR",
+          "original_value": "SR",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "Rendang Chicken Rice\n1 x | 9.90 | 9.90 | SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "Rendang Chicken Rice\n1 x | 9.90 | 9.90 | SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "Rendang Chicken Rice\n1 x | 9.90 | 9.90 | SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      }
+    ],
+    "additional_tables": [
+      {
+        "table_name": "GST Summary",
+        "headers": [
+          "GST Summary",
+          "Amount(RM)",
+          "Tax(RM)"
+        ],
+        "rows": [
+          {
+            "GST Summary": "SR (@ 6%)",
+            "Amount(RM)": "28.58",
+            "Tax(RM)": "1.72/"
+          }
+        ],
+        "page_number": 1
+      }
+    ],
+    "additional_fields": [
+      {
+        "label": "Document Header Number",
+        "value": {
+          "value": "31802013",
+          "original_value": "31802013",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "31802013",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Table",
+        "value": {
+          "value": "15",
+          "original_value": "15",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "15",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Pax(s)",
+        "value": {
+          "value": "2",
+          "original_value": "2",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "2",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Cashier",
+        "value": {
+          "value": "SIM JIAN WAI",
+          "original_value": "SIM JIAN WAI",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "SIM JIAN WAI",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Total QTY",
+        "value": {
+          "value": "4",
+          "original_value": "4",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "4",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Closed",
+        "value": {
+          "value": "001 14-02-2018 13:50:58",
+          "original_value": "001 14-02-2018 13:50:58",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "001 14-02-2018 13:50:58",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Server",
+        "value": {
+          "value": "SIM JIAN WAI",
+          "original_value": "SIM JIAN WAI",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "SIM JIAN WAI",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      }
+    ],
+    "tax_inclusive": true,
+    "subtotal_confirmed_pretax": true
+  },
+  "validation": {
+    "checks": [
+      {
+        "name": "line_total_check_1",
+        "formula": "quantity × unit_price",
+        "operands": {
+          "quantity": "1",
+          "unit_price": "12.50",
+          "amount": "12.50"
+        },
+        "calculated_value": "12.50",
+        "reported_value": "12.50",
+        "variance": "0.00",
+        "tolerance": "0.01250",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "line_total_check_2",
+        "formula": "quantity × unit_price",
+        "operands": {
+          "quantity": "1",
+          "unit_price": "3.00",
+          "amount": "3.00"
+        },
+        "calculated_value": "3.00",
+        "reported_value": "3.00",
+        "variance": "0.00",
+        "tolerance": "0.01",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "line_total_check_3",
+        "formula": "quantity × unit_price",
+        "operands": {
+          "quantity": "1",
+          "unit_price": "4.90",
+          "amount": "4.90"
+        },
+        "calculated_value": "4.90",
+        "reported_value": "4.90",
+        "variance": "0.00",
+        "tolerance": "0.01",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "line_total_check_4",
+        "formula": "quantity × unit_price",
+        "operands": {
+          "quantity": "1",
+          "unit_price": "9.90",
+          "amount": "9.90"
+        },
+        "calculated_value": "9.90",
+        "reported_value": "9.90",
+        "variance": "0.00",
+        "tolerance": "0.01",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "sum_lines_vs_subtotal",
+        "formula": "sum(line_amounts) − tax_amount (lines are tax-inclusive)",
+        "operands": {
+          "line_amounts": "12.50, 3.00, 4.90, 9.90",
+          "line_count": "4",
+          "subtotal": "28.58",
+          "tax_amount": "1.72"
+        },
+        "calculated_value": "28.58",
+        "reported_value": "28.58",
+        "variance": "0.00",
+        "tolerance": "0.02858",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "sum_lines_vs_total",
+        "formula": "",
+        "operands": {},
+        "calculated_value": null,
+        "reported_value": null,
+        "variance": null,
+        "tolerance": null,
+        "status": "NOT_APPLICABLE",
+        "reason": "Missing operand(s)"
+      },
+      {
+        "name": "subtotal_plus_tax_vs_total",
+        "formula": "subtotal + tax_amount",
+        "operands": {
+          "subtotal": "28.58",
+          "tax_amount": "1.72",
+          "total_amount": "30.30",
+          "tax_inclusive": "True"
+        },
+        "calculated_value": "30.30",
+        "reported_value": "30.30",
+        "variance": "0.00",
+        "tolerance": "0.03030",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "rate_times_base_vs_tax",
+        "formula": "taxable_base × 0.06",
+        "operands": {
+          "taxable_base": "28.58",
+          "base_source": "subtotal (confirmed pre-tax)",
+          "tax_rate": "6",
+          "rate_reading": "percent (magnitude >= 1)",
+          "rate_as_multiplier": "0.06",
+          "tax_amount": "1.72"
+        },
+        "calculated_value": "1.7148",
+        "reported_value": "1.72",
+        "variance": "0.0052",
+        "tolerance": "0.01",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "cash_change_check",
+        "formula": "cash_paid − total",
+        "operands": {
+          "cash_paid": "50.00",
+          "total_amount": "30.30",
+          "change_given": "19.70"
+        },
+        "calculated_value": "19.70",
+        "reported_value": "19.70",
+        "variance": "0.00",
+        "tolerance": "0.01970",
+        "status": "PASS",
+        "reason": ""
+      }
+    ],
+    "overall_status": "PASS",
+    "summary": {
+      "pass": 8,
+      "fail": 0,
+      "not_applicable": 1
+    }
+  },
+  "processing_metadata": {
+    "text_extraction_method": "ocr",
+    "ocr_provider": "mistral",
+    "llm_provider": "gemini",
+    "processed_at": "2026-09-11T12:51:34.967330+00:00",
+    "processing_time_ms": 34506
+  },
+  "error": null,
+  "_harness": {
+    "source": "dataset",
+    "file_size_bytes": 582479,
+    "wall_time_ms": 34508,
+    "crashed": false
+  }
+}

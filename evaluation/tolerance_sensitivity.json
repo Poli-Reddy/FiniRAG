@@ -1,0 +1,952 @@
+{
+  "variance": {
+    "total_checks": 360,
+    "exact_matches": 343,
+    "inexact": [
+      {
+        "document": "batch3-1495.jpg",
+        "check": "sum_lines_vs_total",
+        "variance": "1777",
+        "reported": "5257",
+        "relative": "0.3380254898230930188320334792",
+        "tolerance": "5.257",
+        "status": "FAIL"
+      },
+      {
+        "document": "batch2-0999.jpg",
+        "check": "line_total_check_3",
+        "variance": "680.00",
+        "reported": "136.00",
+        "relative": "5",
+        "tolerance": "0.13600",
+        "status": "FAIL"
+      },
+      {
+        "document": "batch2-0999.jpg",
+        "check": "line_total_check_2",
+        "variance": "678.00",
+        "reported": "226.00",
+        "relative": "3",
+        "tolerance": "0.22600",
+        "status": "FAIL"
+      },
+      {
+        "document": "batch2-0999.jpg",
+        "check": "line_total_check_4",
+        "variance": "672.00",
+        "reported": "96.00",
+        "relative": "7",
+        "tolerance": "0.09600",
+        "status": "FAIL"
+      },
+      {
+        "document": "batch2-0999.jpg",
+        "check": "line_total_check_1",
+        "variance": "346.00",
+        "reported": "346.00",
+        "relative": "1",
+        "tolerance": "0.34600",
+        "status": "FAIL"
+      },
+      {
+        "document": "batch2-0999.jpg",
+        "check": "subtotal_plus_tax_vs_total",
+        "variance": "49.00",
+        "reported": "916.47",
+        "relative": "0.05346601634532499699935622552",
+        "tolerance": "0.91647",
+        "status": "FAIL"
+      },
+      {
+        "document": "batch2-0499.jpg",
+        "check": "sum_lines_vs_subtotal",
+        "variance": "10.00",
+        "reported": "135.00",
+        "relative": "0.07407407407407407407407407407",
+        "tolerance": "0.13500",
+        "status": "FAIL"
+      },
+      {
+        "document": "batch2-0499.jpg",
+        "check": "subtotal_plus_tax_vs_total",
+        "variance": "10.00",
+        "reported": "157.48",
+        "relative": "0.06350012700025400050800101600",
+        "tolerance": "0.15748",
+        "status": "FAIL"
+      },
+      {
+        "document": "batch2-0499.jpg",
+        "check": "rate_times_base_vs_tax",
+        "variance": "1.6800",
+        "reported": "12.48",
+        "relative": "0.1346153846153846153846153846",
+        "tolerance": "0.01248",
+        "status": "FAIL"
+      },
+      {
+        "document": "batch2-0999.jpg",
+        "check": "rate_times_base_vs_tax",
+        "variance": "0.85",
+        "reported": "63.47",
+        "relative": "0.01339215377343626910351347093",
+        "tolerance": "0.06347",
+        "status": "FAIL"
+      },
+      {
+        "document": "Consolidated Cash Flow Statement 2022.pdf",
+        "check": "2022_sum_operating_items",
+        "variance": "0.01",
+        "reported": "-11959.57",
+        "relative": "8.361504636036245450296289917E-7",
+        "tolerance": "11.95957",
+        "status": "PASS"
+      },
+      {
+        "document": "Consolidated Cash Flow Statement 2023.pdf",
+        "check": "2022_sum_operating_items",
+        "variance": "0.01",
+        "reported": "-11959.57",
+        "relative": "8.361504636036245450296289917E-7",
+        "tolerance": "11.95957",
+        "status": "PASS"
+      },
+      {
+        "document": "X51008099071.jpg",
+        "check": "line_total_check_1",
+        "variance": "0.00600",
+        "reported": "50.00",
+        "relative": "0.00012",
+        "tolerance": "0.05000",
+        "status": "PASS"
+      },
+      {
+        "document": "X51005663293.jpg",
+        "check": "rate_times_base_vs_tax",
+        "variance": "0.0052",
+        "reported": "1.72",
+        "relative": "0.003023255813953488372093023256",
+        "tolerance": "0.01",
+        "status": "PASS"
+      },
+      {
+        "document": "20251118_000612.jpg",
+        "check": "line_total_check_5",
+        "variance": "0.0048",
+        "reported": "0.60",
+        "relative": "0.008",
+        "tolerance": "0.01",
+        "status": "PASS"
+      },
+      {
+        "document": "20251118_000612.jpg",
+        "check": "line_total_check_2",
+        "variance": "0.0036",
+        "reported": "0.45",
+        "relative": "0.008",
+        "tolerance": "0.01",
+        "status": "PASS"
+      },
+      {
+        "document": "batch1-1109.jpg",
+        "check": "rate_times_base_vs_tax",
+        "variance": "0.003",
+        "reported": "12.63",
+        "relative": "0.0002375296912114014251781472684",
+        "tolerance": "0.01263",
+        "status": "PASS"
+      }
+    ],
+    "max_variance_among_passing": "0.01",
+    "min_variance_among_failing": "0.85",
+    "passing": 350,
+    "failing": 10
+  },
+  "sweep": [
+    {
+      "floor": "0",
+      "factor": "0",
+      "pass": 343,
+      "fail": 17,
+      "flipped_vs_current": 7,
+      "flipped_examples": [
+        "20251118_000612.jpg :: line_total_check_2",
+        "20251118_000612.jpg :: line_total_check_5",
+        "batch1-1109.jpg :: rate_times_base_vs_tax",
+        "Consolidated Cash Flow Statement 2022.pdf :: 2022_sum_operating_items",
+        "Consolidated Cash Flow Statement 2023.pdf :: 2022_sum_operating_items"
+      ]
+    },
+    {
+      "floor": "0",
+      "factor": "0.000001",
+      "pass": 345,
+      "fail": 15,
+      "flipped_vs_current": 5,
+      "flipped_examples": [
+        "20251118_000612.jpg :: line_total_check_2",
+        "20251118_000612.jpg :: line_total_check_5",
+        "batch1-1109.jpg :: rate_times_base_vs_tax",
+        "X51005663293.jpg :: rate_times_base_vs_tax",
+        "X51008099071.jpg :: line_total_check_1"
+      ]
+    },
+    {
+      "floor": "0",
+      "factor": "0.00001",
+      "pass": 345,
+      "fail": 15,
+      "flipped_vs_current": 5,
+      "flipped_examples": [
+        "20251118_000612.jpg :: line_total_check_2",
+        "20251118_000612.jpg :: line_total_check_5",
+        "batch1-1109.jpg :: rate_times_base_vs_tax",
+        "X51005663293.jpg :: rate_times_base_vs_tax",
+        "X51008099071.jpg :: line_total_check_1"
+      ]
+    },
+    {
+      "floor": "0",
+      "factor": "0.0001",
+      "pass": 345,
+      "fail": 15,
+      "flipped_vs_current": 5,
+      "flipped_examples": [
+        "20251118_000612.jpg :: line_total_check_2",
+        "20251118_000612.jpg :: line_total_check_5",
+        "batch1-1109.jpg :: rate_times_base_vs_tax",
+        "X51005663293.jpg :: rate_times_base_vs_tax",
+        "X51008099071.jpg :: line_total_check_1"
+      ]
+    },
+    {
+      "floor": "0",
+      "factor": "0.001",
+      "pass": 347,
+      "fail": 13,
+      "flipped_vs_current": 3,
+      "flipped_examples": [
+        "20251118_000612.jpg :: line_total_check_2",
+        "20251118_000612.jpg :: line_total_check_5",
+        "X51005663293.jpg :: rate_times_base_vs_tax"
+      ]
+    },
+    {
+      "floor": "0",
+      "factor": "0.01",
+      "pass": 350,
+      "fail": 10,
+      "flipped_vs_current": 0,
+      "flipped_examples": []
+    },
+    {
+      "floor": "0",
+      "factor": "0.1",
+      "pass": 354,
+      "fail": 6,
+      "flipped_vs_current": 4,
+      "flipped_examples": [
+        "batch2-0499.jpg :: sum_lines_vs_subtotal",
+        "batch2-0499.jpg :: subtotal_plus_tax_vs_total",
+        "batch2-0999.jpg :: subtotal_plus_tax_vs_total",
+        "batch2-0999.jpg :: rate_times_base_vs_tax"
+      ]
+    },
+    {
+      "floor": "0.01",
+      "factor": "0",
+      "pass": 350,
+      "fail": 10,
+      "flipped_vs_current": 0,
+      "flipped_examples": []
+    },
+    {
+      "floor": "0.01",
+      "factor": "0.000001",
+      "pass": 350,
+      "fail": 10,
+      "flipped_vs_current": 0,
+      "flipped_examples": []
+    },
+    {
+      "floor": "0.01",
+      "factor": "0.00001",
+      "pass": 350,
+      "fail": 10,
+      "flipped_vs_current": 0,
+      "flipped_examples": []
+    },
+    {
+      "floor": "0.01",
+      "factor": "0.0001",
+      "pass": 350,
+      "fail": 10,
+      "flipped_vs_current": 0,
+      "flipped_examples": []
+    },
+    {
+      "floor": "0.01",
+      "factor": "0.001",
+      "pass": 350,
+      "fail": 10,
+      "flipped_vs_current": 0,
+      "flipped_examples": []
+    },
+    {
+      "floor": "0.01",
+      "factor": "0.01",
+      "pass": 350,
+      "fail": 10,
+      "flipped_vs_current": 0,
+      "flipped_examples": []
+    },
+    {
+      "floor": "0.01",
+      "factor": "0.1",
+      "pass": 354,
+      "fail": 6,
+      "flipped_vs_current": 4,
+      "flipped_examples": [
+        "batch2-0499.jpg :: sum_lines_vs_subtotal",
+        "batch2-0499.jpg :: subtotal_plus_tax_vs_total",
+        "batch2-0999.jpg :: subtotal_plus_tax_vs_total",
+        "batch2-0999.jpg :: rate_times_base_vs_tax"
+      ]
+    },
+    {
+      "floor": "1",
+      "factor": "0",
+      "pass": 351,
+      "fail": 9,
+      "flipped_vs_current": 1,
+      "flipped_examples": [
+        "batch2-0999.jpg :: rate_times_base_vs_tax"
+      ]
+    },
+    {
+      "floor": "1",
+      "factor": "0.000001",
+      "pass": 351,
+      "fail": 9,
+      "flipped_vs_current": 1,
+      "flipped_examples": [
+        "batch2-0999.jpg :: rate_times_base_vs_tax"
+      ]
+    },
+    {
+      "floor": "1",
+      "factor": "0.00001",
+      "pass": 351,
+      "fail": 9,
+      "flipped_vs_current": 1,
+      "flipped_examples": [
+        "batch2-0999.jpg :: rate_times_base_vs_tax"
+      ]
+    },
+    {
+      "floor": "1",
+      "factor": "0.0001",
+      "pass": 351,
+      "fail": 9,
+      "flipped_vs_current": 1,
+      "flipped_examples": [
+        "batch2-0999.jpg :: rate_times_base_vs_tax"
+      ]
+    },
+    {
+      "floor": "1",
+      "factor": "0.001",
+      "pass": 351,
+      "fail": 9,
+      "flipped_vs_current": 1,
+      "flipped_examples": [
+        "batch2-0999.jpg :: rate_times_base_vs_tax"
+      ]
+    },
+    {
+      "floor": "1",
+      "factor": "0.01",
+      "pass": 351,
+      "fail": 9,
+      "flipped_vs_current": 1,
+      "flipped_examples": [
+        "batch2-0999.jpg :: rate_times_base_vs_tax"
+      ]
+    },
+    {
+      "floor": "1",
+      "factor": "0.1",
+      "pass": 354,
+      "fail": 6,
+      "flipped_vs_current": 4,
+      "flipped_examples": [
+        "batch2-0499.jpg :: sum_lines_vs_subtotal",
+        "batch2-0499.jpg :: subtotal_plus_tax_vs_total",
+        "batch2-0999.jpg :: subtotal_plus_tax_vs_total",
+        "batch2-0999.jpg :: rate_times_base_vs_tax"
+      ]
+    },
+    {
+      "floor": "100",
+      "factor": "0",
+      "pass": 355,
+      "fail": 5,
+      "flipped_vs_current": 5,
+      "flipped_examples": [
+        "batch2-0499.jpg :: sum_lines_vs_subtotal",
+        "batch2-0499.jpg :: subtotal_plus_tax_vs_total",
+        "batch2-0499.jpg :: rate_times_base_vs_tax",
+        "batch2-0999.jpg :: subtotal_plus_tax_vs_total",
+        "batch2-0999.jpg :: rate_times_base_vs_tax"
+      ]
+    },
+    {
+      "floor": "100",
+      "factor": "0.000001",
+      "pass": 355,
+      "fail": 5,
+      "flipped_vs_current": 5,
+      "flipped_examples": [
+        "batch2-0499.jpg :: sum_lines_vs_subtotal",
+        "batch2-0499.jpg :: subtotal_plus_tax_vs_total",
+        "batch2-0499.jpg :: rate_times_base_vs_tax",
+        "batch2-0999.jpg :: subtotal_plus_tax_vs_total",
+        "batch2-0999.jpg :: rate_times_base_vs_tax"
+      ]
+    },
+    {
+      "floor": "100",
+      "factor": "0.00001",
+      "pass": 355,
+      "fail": 5,
+      "flipped_vs_current": 5,
+      "flipped_examples": [
+        "batch2-0499.jpg :: sum_lines_vs_subtotal",
+        "batch2-0499.jpg :: subtotal_plus_tax_vs_total",
+        "batch2-0499.jpg :: rate_times_base_vs_tax",
+        "batch2-0999.jpg :: subtotal_plus_tax_vs_total",
+        "batch2-0999.jpg :: rate_times_base_vs_tax"
+      ]
+    },
+    {
+      "floor": "100",
+      "factor": "0.0001",
+      "pass": 355,
+      "fail": 5,
+      "flipped_vs_current": 5,
+      "flipped_examples": [
+        "batch2-0499.jpg :: sum_lines_vs_subtotal",
+        "batch2-0499.jpg :: subtotal_plus_tax_vs_total",
+        "batch2-0499.jpg :: rate_times_base_vs_tax",
+        "batch2-0999.jpg :: subtotal_plus_tax_vs_total",
+        "batch2-0999.jpg :: rate_times_base_vs_tax"
+      ]
+    },
+    {
+      "floor": "100",
+      "factor": "0.001",
+      "pass": 355,
+      "fail": 5,
+      "flipped_vs_current": 5,
+      "flipped_examples": [
+        "batch2-0499.jpg :: sum_lines_vs_subtotal",
+        "batch2-0499.jpg :: subtotal_plus_tax_vs_total",
+        "batch2-0499.jpg :: rate_times_base_vs_tax",
+        "batch2-0999.jpg :: subtotal_plus_tax_vs_total",
+        "batch2-0999.jpg :: rate_times_base_vs_tax"
+      ]
+    },
+    {
+      "floor": "100",
+      "factor": "0.01",
+      "pass": 355,
+      "fail": 5,
+      "flipped_vs_current": 5,
+      "flipped_examples": [
+        "batch2-0499.jpg :: sum_lines_vs_subtotal",
+        "batch2-0499.jpg :: subtotal_plus_tax_vs_total",
+        "batch2-0499.jpg :: rate_times_base_vs_tax",
+        "batch2-0999.jpg :: subtotal_plus_tax_vs_total",
+        "batch2-0999.jpg :: rate_times_base_vs_tax"
+      ]
+    },
+    {
+      "floor": "100",
+      "factor": "0.1",
+      "pass": 355,
+      "fail": 5,
+      "flipped_vs_current": 5,
+      "flipped_examples": [
+        "batch2-0499.jpg :: sum_lines_vs_subtotal",
+        "batch2-0499.jpg :: subtotal_plus_tax_vs_total",
+        "batch2-0499.jpg :: rate_times_base_vs_tax",
+        "batch2-0999.jpg :: subtotal_plus_tax_vs_total",
+        "batch2-0999.jpg :: rate_times_base_vs_tax"
+      ]
+    },
+    {
+      "floor": "10000",
+      "factor": "0",
+      "pass": 360,
+      "fail": 0,
+      "flipped_vs_current": 10,
+      "flipped_examples": [
+        "batch2-0499.jpg :: sum_lines_vs_subtotal",
+        "batch2-0499.jpg :: subtotal_plus_tax_vs_total",
+        "batch2-0499.jpg :: rate_times_base_vs_tax",
+        "batch2-0999.jpg :: line_total_check_1",
+        "batch2-0999.jpg :: line_total_check_2"
+      ]
+    },
+    {
+      "floor": "10000",
+      "factor": "0.000001",
+      "pass": 360,
+      "fail": 0,
+      "flipped_vs_current": 10,
+      "flipped_examples": [
+        "batch2-0499.jpg :: sum_lines_vs_subtotal",
+        "batch2-0499.jpg :: subtotal_plus_tax_vs_total",
+        "batch2-0499.jpg :: rate_times_base_vs_tax",
+        "batch2-0999.jpg :: line_total_check_1",
+        "batch2-0999.jpg :: line_total_check_2"
+      ]
+    },
+    {
+      "floor": "10000",
+      "factor": "0.00001",
+      "pass": 360,
+      "fail": 0,
+      "flipped_vs_current": 10,
+      "flipped_examples": [
+        "batch2-0499.jpg :: sum_lines_vs_subtotal",
+        "batch2-0499.jpg :: subtotal_plus_tax_vs_total",
+        "batch2-0499.jpg :: rate_times_base_vs_tax",
+        "batch2-0999.jpg :: line_total_check_1",
+        "batch2-0999.jpg :: line_total_check_2"
+      ]
+    },
+    {
+      "floor": "10000",
+      "factor": "0.0001",
+      "pass": 360,
+      "fail": 0,
+      "flipped_vs_current": 10,
+      "flipped_examples": [
+        "batch2-0499.jpg :: sum_lines_vs_subtotal",
+        "batch2-0499.jpg :: subtotal_plus_tax_vs_total",
+        "batch2-0499.jpg :: rate_times_base_vs_tax",
+        "batch2-0999.jpg :: line_total_check_1",
+        "batch2-0999.jpg :: line_total_check_2"
+      ]
+    },
+    {
+      "floor": "10000",
+      "factor": "0.001",
+      "pass": 360,
+      "fail": 0,
+      "flipped_vs_current": 10,
+      "flipped_examples": [
+        "batch2-0499.jpg :: sum_lines_vs_subtotal",
+        "batch2-0499.jpg :: subtotal_plus_tax_vs_total",
+        "batch2-0499.jpg :: rate_times_base_vs_tax",
+        "batch2-0999.jpg :: line_total_check_1",
+        "batch2-0999.jpg :: line_total_check_2"
+      ]
+    },
+    {
+      "floor": "10000",
+      "factor": "0.01",
+      "pass": 360,
+      "fail": 0,
+      "flipped_vs_current": 10,
+      "flipped_examples": [
+        "batch2-0499.jpg :: sum_lines_vs_subtotal",
+        "batch2-0499.jpg :: subtotal_plus_tax_vs_total",
+        "batch2-0499.jpg :: rate_times_base_vs_tax",
+        "batch2-0999.jpg :: line_total_check_1",
+        "batch2-0999.jpg :: line_total_check_2"
+      ]
+    },
+    {
+      "floor": "10000",
+      "factor": "0.1",
+      "pass": 360,
+      "fail": 0,
+      "flipped_vs_current": 10,
+      "flipped_examples": [
+        "batch2-0499.jpg :: sum_lines_vs_subtotal",
+        "batch2-0499.jpg :: subtotal_plus_tax_vs_total",
+        "batch2-0499.jpg :: rate_times_base_vs_tax",
+        "batch2-0999.jpg :: line_total_check_1",
+        "batch2-0999.jpg :: line_total_check_2"
+      ]
+    }
+  ],
+  "masking_at_current_rule": {
+    "checked": 140,
+    "vulnerable": [
+      {
+        "document": "Consolidated Balance Sheet 2017.pdf",
+        "check": "2017_sum_liabilities",
+        "smallest_component": "2914389",
+        "label": "Minority interest",
+        "tolerance": "8923441.607"
+      },
+      {
+        "document": "Consolidated Balance Sheet 2017.pdf",
+        "check": "2016_sum_liabilities",
+        "smallest_component": "1806228",
+        "label": "Minority interest",
+        "tolerance": "7622123.264"
+      },
+      {
+        "document": "Consolidated Balance Sheet 2018.pdf",
+        "check": "2018_sum_liabilities",
+        "smallest_component": "3563322",
+        "label": "Minority interest",
+        "tolerance": "11031861.695"
+      },
+      {
+        "document": "Consolidated Balance Sheet 2018.pdf",
+        "check": "2017_sum_liabilities",
+        "smallest_component": "2914389",
+        "label": "Minority interest",
+        "tolerance": "8923441.607"
+      },
+      {
+        "document": "Consolidated Balance Sheet 2019.pdf",
+        "check": "2019_sum_liabilities",
+        "smallest_component": "5017945",
+        "label": "Minority interest",
+        "tolerance": "12928057.065"
+      },
+      {
+        "document": "Consolidated Balance Sheet 2019.pdf",
+        "check": "2018_sum_liabilities",
+        "smallest_component": "3563322",
+        "label": "Minority interest",
+        "tolerance": "11031861.695"
+      },
+      {
+        "document": "Consolidated Balance Sheet 2020.pdf",
+        "check": "2020_sum_liabilities",
+        "smallest_component": "5483286",
+        "label": "Capital",
+        "tolerance": "15808304.373"
+      },
+      {
+        "document": "Consolidated Balance Sheet 2020.pdf",
+        "check": "2019_sum_liabilities",
+        "smallest_component": "5017945",
+        "label": "Minority interest",
+        "tolerance": "12928057.065"
+      },
+      {
+        "document": "Consolidated Balance Sheet 2021.pdf",
+        "check": "2021_sum_liabilities",
+        "smallest_component": "5512776",
+        "label": "Capital",
+        "tolerance": "17995066.442"
+      },
+      {
+        "document": "Consolidated Balance Sheet 2021.pdf",
+        "check": "2020_sum_liabilities",
+        "smallest_component": "5483286",
+        "label": "Capital",
+        "tolerance": "15808304.373"
+      },
+      {
+        "document": "Consolidated Balance Sheet 2022.pdf",
+        "check": "2022_sum_assets",
+        "smallest_component": "148.79",
+        "label": "Goodwill on Consolidation",
+        "tolerance": "2122.93430"
+      },
+      {
+        "document": "Consolidated Balance Sheet 2022.pdf",
+        "check": "2022_sum_liabilities",
+        "smallest_component": "554.55",
+        "label": "Capital",
+        "tolerance": "2122.93430"
+      },
+      {
+        "document": "Consolidated Balance Sheet 2022.pdf",
+        "check": "2021_sum_assets",
+        "smallest_component": "148.79",
+        "label": "Goodwill on Consolidation",
+        "tolerance": "1799.50663"
+      },
+      {
+        "document": "Consolidated Balance Sheet 2022.pdf",
+        "check": "2021_sum_liabilities",
+        "smallest_component": "551.28",
+        "label": "Capital",
+        "tolerance": "1799.50663"
+      },
+      {
+        "document": "Consolidated Balance Sheet 2023.pdf",
+        "check": "2023_sum_assets",
+        "smallest_component": "148.79",
+        "label": "Goodwill on Consolidation",
+        "tolerance": "2530.43244"
+      },
+      {
+        "document": "Consolidated Balance Sheet 2023.pdf",
+        "check": "2023_sum_liabilities",
+        "smallest_component": "557.97",
+        "label": "Capital",
+        "tolerance": "2530.43244"
+      },
+      {
+        "document": "Consolidated Balance Sheet 2023.pdf",
+        "check": "2022_sum_assets",
+        "smallest_component": "148.79",
+        "label": "Goodwill on Consolidation",
+        "tolerance": "2122.93430"
+      },
+      {
+        "document": "Consolidated Balance Sheet 2023.pdf",
+        "check": "2022_sum_liabilities",
+        "smallest_component": "554.55",
+        "label": "Capital",
+        "tolerance": "2122.93430"
+      },
+      {
+        "document": "Consolidated Balance Sheet 2024.pdf",
+        "check": "2024_sum_liabilities",
+        "smallest_component": "759.69",
+        "label": "Capital",
+        "tolerance": "4030.19426"
+      },
+      {
+        "document": "Consolidated Balance Sheet 2024.pdf",
+        "check": "2023_sum_assets",
+        "smallest_component": "148.79",
+        "label": "Goodwill on Consolidation",
+        "tolerance": "2530.43244"
+      },
+      {
+        "document": "Consolidated Balance Sheet 2024.pdf",
+        "check": "2023_sum_liabilities",
+        "smallest_component": "557.97",
+        "label": "Capital",
+        "tolerance": "2530.43244"
+      },
+      {
+        "document": "Consolidated Balance Sheet 2025.pdf",
+        "check": "2025_sum_liabilities",
+        "smallest_component": "765.22",
+        "label": "Capital",
+        "tolerance": "4392.41742"
+      },
+      {
+        "document": "Consolidated Balance Sheet 2025.pdf",
+        "check": "2024_sum_liabilities",
+        "smallest_component": "759.69",
+        "label": "Capital",
+        "tolerance": "4030.19426"
+      },
+      {
+        "document": "Consolidated Balance Sheet 2026.pdf",
+        "check": "2026_sum_liabilities",
+        "smallest_component": "1539.34",
+        "label": "Capital",
+        "tolerance": "4908.04084"
+      },
+      {
+        "document": "Consolidated Balance Sheet 2026.pdf",
+        "check": "2025_sum_liabilities",
+        "smallest_component": "765.22",
+        "label": "Capital",
+        "tolerance": "4392.41742"
+      },
+      {
+        "document": "Consolidated Cash Flow Statement 2017.pdf",
+        "check": "2017_sum_operating_items",
+        "smallest_component": "16229",
+        "label": "(Profit) / loss on sale of fixed assets",
+        "tolerance": "172815.931"
+      },
+      {
+        "document": "Consolidated Cash Flow Statement 2017.pdf",
+        "check": "2016_sum_operating_items",
+        "smallest_component": "1185",
+        "label": "(Profit) / loss on sale of fixed assets",
+        "tolerance": "344353.663"
+      },
+      {
+        "document": "Consolidated Cash Flow Statement 2017.pdf",
+        "check": "2016_sum_financing_items",
+        "smallest_component": "189954",
+        "label": "Increase in minority interest",
+        "tolerance": "378151.341"
+      },
+      {
+        "document": "Consolidated Cash Flow Statement 2018.pdf",
+        "check": "2018_sum_operating_items",
+        "smallest_component": "5221",
+        "label": "Share in current year's profits of associates",
+        "tolerance": "172143.764"
+      },
+      {
+        "document": "Consolidated Cash Flow Statement 2018.pdf",
+        "check": "2017_sum_operating_items",
+        "smallest_component": "16229",
+        "label": "(Profit) / loss on sale of fixed assets",
+        "tolerance": "172815.931"
+      },
+      {
+        "document": "Consolidated Cash Flow Statement 2019.pdf",
+        "check": "2019_sum_operating_items",
+        "smallest_component": "47066",
+        "label": "Provision for diminution in value of investments",
+        "tolerance": "628715.447"
+      },
+      {
+        "document": "Consolidated Cash Flow Statement 2019.pdf",
+        "check": "2018_sum_operating_items",
+        "smallest_component": "5221",
+        "label": "Share in current year's profits of associates",
+        "tolerance": "172143.764"
+      },
+      {
+        "document": "Consolidated Cash Flow Statement 2020.pdf",
+        "check": "2020_sum_operating_items",
+        "smallest_component": "81865",
+        "label": "(Profit) / loss on sale of fixed assets",
+        "tolerance": "168690.920"
+      },
+      {
+        "document": "Consolidated Cash Flow Statement 2020.pdf",
+        "check": "2019_sum_operating_items",
+        "smallest_component": "62054",
+        "label": "(Profit) / loss on sale of fixed assets",
+        "tolerance": "628715.447"
+      },
+      {
+        "document": "Consolidated Cash Flow Statement 2021.pdf",
+        "check": "2021_sum_operating_items",
+        "smallest_component": "2859",
+        "label": "(Profit) / loss on sale of fixed assets",
+        "tolerance": "424764.563"
+      },
+      {
+        "document": "Consolidated Cash Flow Statement 2021.pdf",
+        "check": "2020_sum_operating_items",
+        "smallest_component": "81865",
+        "label": "(Profit) / loss on sale of fixed assets",
+        "tolerance": "168690.920"
+      },
+      {
+        "document": "Consolidated Cash Flow Statement 2022.pdf",
+        "check": "2022_sum_operating_items",
+        "smallest_component": "3.25",
+        "label": "(Profit) / loss on sale of fixed assets",
+        "tolerance": "11.95957"
+      },
+      {
+        "document": "Consolidated Cash Flow Statement 2022.pdf",
+        "check": "2021_sum_operating_items",
+        "smallest_component": "0.29",
+        "label": "(Profit) / loss on sale of fixed assets",
+        "tolerance": "42.47645"
+      },
+      {
+        "document": "Consolidated Cash Flow Statement 2023.pdf",
+        "check": "2023_sum_operating_items",
+        "smallest_component": "8.05",
+        "label": "(Profit) / loss on sale of fixed assets",
+        "tolerance": "20.81370"
+      },
+      {
+        "document": "Consolidated Cash Flow Statement 2023.pdf",
+        "check": "2022_sum_operating_items",
+        "smallest_component": "3.25",
+        "label": "(Profit) / loss on sale of fixed assets",
+        "tolerance": "11.95957"
+      },
+      {
+        "document": "Consolidated Cash Flow Statement 2024.pdf",
+        "check": "2023_sum_operating_items",
+        "smallest_component": "8.05",
+        "label": "Profit on sale of fixed assets",
+        "tolerance": "20.81370"
+      },
+      {
+        "document": "Consolidated Cash Flow Statement 2025.pdf",
+        "check": "2025_sum_operating_items",
+        "smallest_component": "8.00",
+        "label": "(Profit) / loss on sale of investment in subsidiary",
+        "tolerance": "127.24184"
+      },
+      {
+        "document": "Consolidated Cash Flow Statement 2026.pdf",
+        "check": "2025_sum_operating_items",
+        "smallest_component": "8.00",
+        "label": "(Profit) / loss on sale of investment in subsidiary",
+        "tolerance": "127.24184"
+      }
+    ]
+  },
+  "largest_factor_with_no_masking": "0.000003441229547774550607873162075",
+  "recommended_factor": "0.000001",
+  "documents": [
+    "20251118_000612.jpg",
+    "Consolidated Balance Sheet 2017.pdf",
+    "Consolidated Balance Sheet 2018.pdf",
+    "Consolidated Balance Sheet 2019.pdf",
+    "Consolidated Balance Sheet 2020.pdf",
+    "Consolidated Balance Sheet 2021.pdf",
+    "Consolidated Balance Sheet 2022.pdf",
+    "Consolidated Balance Sheet 2023.pdf",
+    "Consolidated Balance Sheet 2024.pdf",
+    "Consolidated Balance Sheet 2025.pdf",
+    "Consolidated Balance Sheet 2026.pdf",
+    "Consolidated Cash Flow Statement 2017.pdf",
+    "Consolidated Cash Flow Statement 2018.pdf",
+    "Consolidated Cash Flow Statement 2019.pdf",
+    "Consolidated Cash Flow Statement 2020.pdf",
+    "Consolidated Cash Flow Statement 2021.pdf",
+    "Consolidated Cash Flow Statement 2022.pdf",
+    "Consolidated Cash Flow Statement 2023.pdf",
+    "Consolidated Cash Flow Statement 2024.pdf",
+    "Consolidated Cash Flow Statement 2025.pdf",
+    "Consolidated Cash Flow Statement 2026.pdf",
+    "Consolidated Profit & Loss 2017.pdf",
+    "Consolidated Profit & Loss 2018.pdf",
+    "Consolidated Profit & Loss 2019.pdf",
+    "Consolidated Profit & Loss 2020.pdf",
+    "Consolidated Profit & Loss 2021.pdf",
+    "Consolidated Profit & Loss 2022.pdf",
+    "Consolidated Profit & Loss 2023.pdf",
+    "Consolidated Profit & Loss 2024.pdf",
+    "Consolidated Profit & Loss 2025.pdf",
+    "Consolidated Profit & Loss 2026.pdf",
+    "X00016469619.jpg",
+    "X51005361895.jpg",
+    "X51005663293.jpg",
+    "X51005719883.jpg",
+    "X51005757342.jpg",
+    "X51005806685.jpg",
+    "X51006328913.jpg",
+    "X51006334741.jpg",
+    "X51006387931.jpg",
+    "X51008099043.jpg",
+    "X51008099071.jpg",
+    "X51008142038.jpg",
+    "X51008145450.jpg",
+    "batch1-1109.jpg",
+    "batch2-0499.jpg",
+    "batch2-0999.jpg",
+    "batch3-1354.jpg",
+    "batch3-1445.jpg",
+    "batch3-1495.jpg"
+  ],
+  "document_types": [
+    "balance_sheet",
+    "cash_flow_statement",
+    "invoice",
+    "profit_and_loss"
+  ]
+}

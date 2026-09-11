@@ -1,0 +1,32 @@
+{
+  "document_name": "edge_unsupported_type.txt",
+  "document_type": "invoice",
+  "processing_status": "FAILED",
+  "file_validation": {
+    "file_type": "text/plain",
+    "is_supported": false,
+    "is_readable": false,
+    "page_count": 0,
+    "status": "FAIL",
+    "error": "UNSUPPORTED_FILE_TYPE"
+  },
+  "extracted_data": null,
+  "validation": null,
+  "processing_metadata": {
+    "text_extraction_method": "",
+    "ocr_provider": null,
+    "llm_provider": "",
+    "processed_at": "2026-09-11T12:55:45.478481+00:00",
+    "processing_time_ms": 16
+  },
+  "error": {
+    "code": "UNSUPPORTED_FILE_TYPE",
+    "message": "UNSUPPORTED_FILE_TYPE"
+  },
+  "_harness": {
+    "source": "edge_case",
+    "file_size_bytes": 24,
+    "wall_time_ms": 17,
+    "crashed": false
+  }
+}

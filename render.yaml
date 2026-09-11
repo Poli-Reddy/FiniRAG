@@ -1,0 +1,43 @@
+services:
+  - type: web
+    name: finirag
+    runtime: python
+    plan: free
+    # healthCheckPath lets Render replace an instance that is up but not
+    # serving. /api/v1/health reports "degraded" when the database probe
+    # fails, which is exactly the state a restart can fix.
+    healthCheckPath: /api/v1/health
+    buildCommand: python -m pip install --upgrade pip && python -m pip install -r backend/requirements.txt
+    startCommand: python -m uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: finirag-db
+          property: connectionString
+      # One key per provider. Set each in the Render dashboard — sync:false
+      # keeps them out of this file and out of git.
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: MISTRAL_API_KEY
+        sync: false
+      - key: OCR_PROVIDER
+        value: mistral
+      - key: LLM_PROVIDER
+        value: gemini
+      - key: ENVIRONMENT
+        value: production
+      - key: LOG_LEVEL
+        value: INFO
+      - key: MAX_FILE_SIZE_MB
+        value: "10"
+      - key: MAX_PAGES
+        value: "3"
+      # Keep Render on the Python version used for the tested dependency set.
+      - key: PYTHON_VERSION
+        value: 3.12.10
+
+databases:
+  - name: finirag-db
+    plan: free

@@ -1,0 +1,861 @@
+{
+  "document_name": "Consolidated Profit & Loss 2023.pdf",
+  "document_type": "profit_and_loss",
+  "processing_status": "PASS",
+  "file_validation": {
+    "file_type": "application/pdf",
+    "is_supported": true,
+    "is_readable": true,
+    "page_count": 1,
+    "status": "PASS",
+    "error": null
+  },
+  "extracted_data": {
+    "company_name": {
+      "value": "HDFC Bank Limited",
+      "original_value": "HDFC Bank Limited",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "HDFC Bank Limited",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "statement_type": {
+      "value": "Profit and Loss Account",
+      "original_value": "Profit and Loss Account",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "Profit and Loss Account",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "unit_descriptor": {
+      "value": "₹ in crore",
+      "original_value": "₹ in crore",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "₹ in crore",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "unit_code": "INR_CRORE",
+    "periods": {
+      "2023": {
+        "year": "2023",
+        "interest_earned": {
+          "value": "170754.05",
+          "original_value": "170,754.05",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "|  Interest earned | 13 | 170,754.05 | 135,936.41  |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_CRORE"
+        },
+        "other_income": {
+          "value": "33912.05",
+          "original_value": "33,912.05",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "|  Other income | 14 | 33,912.05 | 31,758.99  |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_CRORE"
+        },
+        "total_income": {
+          "value": "204666.10",
+          "original_value": "204,666.10",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "|  **Total** |  | **204,666.10** | **167,695.40**  |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_CRORE"
+        },
+        "interest_expended": {
+          "value": "77779.94",
+          "original_value": "77,779.94",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "|  Interest expended | 15 | 77,779.94 | 58,584.33  |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_CRORE"
+        },
+        "operating_expenses": {
+          "value": "51533.69",
+          "original_value": "51,533.69",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "|  Operating expenses | 16 | 51,533.69 | 40,312.43  |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_CRORE"
+        },
+        "provisions_and_contingencies": {
+          "value": "29203.77",
+          "original_value": "29,203.77",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "|  Provisions and contingencies [Refer Schedule 18 (11)] |  | 29,203.77 | 30,647.74  |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_CRORE"
+        },
+        "total_expenditure": {
+          "value": "158517.40",
+          "original_value": "158,517.40",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "|  **Total** |  | **158,517.40** | **129,544.50**  |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_CRORE"
+        },
+        "net_profit_before_minority": {
+          "value": "46148.70",
+          "original_value": "46,148.70",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "|  Consolidated Net Profit for the year before minorities' interest |  | 46,148.70 | 38,150.90  |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_CRORE"
+        },
+        "minority_interest": {
+          "value": "151.59",
+          "original_value": "151.59",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "|  Less : Minorities' Interest |  | 151.59 | 98.15  |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_CRORE"
+        },
+        "share_in_profits_of_associates": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_CRORE"
+        },
+        "consolidated_net_profit": {
+          "value": "45997.11",
+          "original_value": "45,997.11",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "|  Consolidated Net Profit for the year attributable to the group |  | 45,997.11 | 38,052.75  |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_CRORE"
+        },
+        "addition_on_amalgamation": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_CRORE"
+        },
+        "brought_forward_profit": {
+          "value": "99062.77",
+          "original_value": "99,062.77",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "|  Add: Brought forward consolidated profit attributable to the group |  | 99,062.77 | 78,594.20  |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_CRORE"
+        },
+        "total_available_for_appropriation": {
+          "value": "145059.88",
+          "original_value": "145,059.88",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "|  **Total** |  | **145,059.88** | **116,646.95**  |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_CRORE"
+        },
+        "appropriations": {
+          "Transfer to Statutory Reserve": {
+            "value": "11445.96",
+            "original_value": "11,445.96",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "11,445.96",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          },
+          "Transfer to General Reserve": {
+            "value": "4410.87",
+            "original_value": "4,410.87",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "4,410.87",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          },
+          "Transfer to Special Reserve": {
+            "value": "500.00",
+            "original_value": "500.00",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "500.00",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          },
+          "Transfer to Capital Reserve": {
+            "value": "4.62",
+            "original_value": "4.62",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "4.62",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          },
+          "Transfer to / (from) Investment Reserve Account (net)": {
+            "value": "-294.79",
+            "original_value": "(294.79)",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "(294.79)",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          },
+          "Transfer to / (from) Investment Fluctuation Reserve": {
+            "value": "82.00",
+            "original_value": "82.00",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "82.00",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          },
+          "Dividend pertaining to previous year paid during the year": {
+            "value": "8604.52",
+            "original_value": "8,604.52",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "8,604.52",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          },
+          "Transfer to / (from) Minority Interest (opening adjustment)": {
+            "value": "-62.65",
+            "original_value": "(62.65)",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "(62.65)",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          },
+          "Balance carried over to consolidated balance sheet": {
+            "value": "120369.35",
+            "original_value": "120,369.35",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "120,369.35",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          }
+        },
+        "balance_carried_forward": {
+          "value": "120369.35",
+          "original_value": "120,369.35",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "|  Balance carried over to consolidated balance sheet |  | 120,369.35 | 99,062.77  |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_CRORE"
+        },
+        "basic_eps": {
+          "value": "82.64",
+          "original_value": "82.64",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "|  Diluted |  | 82.64 | 68.77  |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_PER_SHARE"
+        },
+        "diluted_eps": {
+          "value": "82.27",
+          "original_value": "82.27",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "|   |  | 82.27 | 68.31  |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_PER_SHARE"
+        },
+        "face_value_per_share": {
+          "value": "1",
+          "original_value": "1",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "1",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_PER_SHARE"
+        },
+        "additional_fields": [],
+        "schedule_refs": {
+          "Interest earned": "13",
+          "Other income": "14",
+          "Interest expended": "15",
+          "Operating expenses": "16",
+          "Significant accounting policies and notes to the Consolidated financial statements": "17 & 18"
+        }
+      },
+      "2022": {
+        "year": "2022",
+        "interest_earned": {
+          "value": "135936.41",
+          "original_value": "135,936.41",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "|  Interest earned | 13 | 170,754.05 | 135,936.41  |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_CRORE"
+        },
+        "other_income": {
+          "value": "31758.99",
+          "original_value": "31,758.99",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "|  Other income | 14 | 33,912.05 | 31,758.99  |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_CRORE"
+        },
+        "total_income": {
+          "value": "167695.40",
+          "original_value": "167,695.40",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "|  **Total** |  | **204,666.10** | **167,695.40**  |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_CRORE"
+        },
+        "interest_expended": {
+          "value": "58584.33",
+          "original_value": "58,584.33",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "|  Interest expended | 15 | 77,779.94 | 58,584.33  |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_CRORE"
+        },
+        "operating_expenses": {
+          "value": "40312.43",
+          "original_value": "40,312.43",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "|  Operating expenses | 16 | 51,533.69 | 40,312.43  |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_CRORE"
+        },
+        "provisions_and_contingencies": {
+          "value": "30647.74",
+          "original_value": "30,647.74",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "|  Provisions and contingencies [Refer Schedule 18 (11)] |  | 29,203.77 | 30,647.74  |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_CRORE"
+        },
+        "total_expenditure": {
+          "value": "129544.50",
+          "original_value": "129,544.50",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "|  **Total** |  | **158,517.40** | **129,544.50**  |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_CRORE"
+        },
+        "net_profit_before_minority": {
+          "value": "38150.90",
+          "original_value": "38,150.90",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "|  Consolidated Net Profit for the year before minorities' interest |  | 46,148.70 | 38,150.90  |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_CRORE"
+        },
+        "minority_interest": {
+          "value": "98.15",
+          "original_value": "98.15",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "|  Less : Minorities' Interest |  | 151.59 | 98.15  |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_CRORE"
+        },
+        "share_in_profits_of_associates": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_CRORE"
+        },
+        "consolidated_net_profit": {
+          "value": "38052.75",
+          "original_value": "38,052.75",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "|  Consolidated Net Profit for the year attributable to the group |  | 45,997.11 | 38,052.75  |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_CRORE"
+        },
+        "addition_on_amalgamation": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_CRORE"
+        },
+        "brought_forward_profit": {
+          "value": "78594.20",
+          "original_value": "78,594.20",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "|  Add: Brought forward consolidated profit attributable to the group |  | 99,062.77 | 78,594.20  |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_CRORE"
+        },
+        "total_available_for_appropriation": {
+          "value": "116646.95",
+          "original_value": "116,646.95",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "|  **Total** |  | **145,059.88** | **116,646.95**  |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_CRORE"
+        },
+        "appropriations": {
+          "Transfer to Statutory Reserve": {
+            "value": "9444.38",
+            "original_value": "9,444.38",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "9,444.38",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          },
+          "Transfer to General Reserve": {
+            "value": "3696.14",
+            "original_value": "3,696.14",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "3,696.14",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          },
+          "Transfer to Special Reserve": {
+            "value": "0",
+            "original_value": "-",
+            "status": "EXPLICIT_ZERO",
+            "evidence": {
+              "source_text": "-",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          },
+          "Transfer to Capital Reserve": {
+            "value": "666.47",
+            "original_value": "666.47",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "666.47",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          },
+          "Transfer to / (from) Investment Reserve Account (net)": {
+            "value": "233.13",
+            "original_value": "233.13",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "233.13",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          },
+          "Transfer to / (from) Investment Fluctuation Reserve": {
+            "value": "0",
+            "original_value": "-",
+            "status": "EXPLICIT_ZERO",
+            "evidence": {
+              "source_text": "-",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          },
+          "Dividend pertaining to previous year paid during the year": {
+            "value": "3592.40",
+            "original_value": "3,592.40",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "3,592.40",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          },
+          "Transfer to / (from) Minority Interest (opening adjustment)": {
+            "value": "-48.34",
+            "original_value": "(48.34)",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "(48.34)",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          },
+          "Balance carried over to consolidated balance sheet": {
+            "value": "99062.77",
+            "original_value": "99,062.77",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "99,062.77",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          }
+        },
+        "balance_carried_forward": {
+          "value": "99062.77",
+          "original_value": "99,062.77",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "|  Balance carried over to consolidated balance sheet |  | 120,369.35 | 99,062.77  |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_CRORE"
+        },
+        "basic_eps": {
+          "value": "68.77",
+          "original_value": "68.77",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "|  Diluted |  | 82.64 | 68.77  |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_PER_SHARE"
+        },
+        "diluted_eps": {
+          "value": "68.31",
+          "original_value": "68.31",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "|   |  | 82.27 | 68.31  |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_PER_SHARE"
+        },
+        "face_value_per_share": {
+          "value": "1",
+          "original_value": "1",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "1",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_PER_SHARE"
+        },
+        "additional_fields": [],
+        "schedule_refs": {
+          "Interest earned": "13",
+          "Other income": "14",
+          "Interest expended": "15",
+          "Operating expenses": "16",
+          "Significant accounting policies and notes to the Consolidated financial statements": "17 & 18"
+        }
+      }
+    }
+  },
+  "validation": {
+    "checks": [
+      {
+        "name": "2023_income_minus_expenditure",
+        "formula": "total_income − total_expenditure [± adjustments]",
+        "operands": {
+          "total_income": "204666.10",
+          "total_expenditure": "158517.40",
+          "minority_interest": "-151.59",
+          "consolidated_net_profit": "45997.11"
+        },
+        "calculated_value": "45997.11",
+        "reported_value": "45997.11",
+        "variance": "0.00",
+        "tolerance": "45.99711",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "2023_net_profit_before_minority",
+        "formula": "total_income − total_expenditure",
+        "operands": {
+          "total_income": "204666.10",
+          "total_expenditure": "158517.40",
+          "net_profit_before_minority": "46148.70"
+        },
+        "calculated_value": "46148.70",
+        "reported_value": "46148.70",
+        "variance": "0.00",
+        "tolerance": "46.14870",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "2023_sum_income",
+        "formula": "interest_earned + other_income",
+        "operands": {
+          "interest_earned": "170754.05",
+          "other_income": "33912.05"
+        },
+        "calculated_value": "204666.10",
+        "reported_value": "204666.10",
+        "variance": "0.00",
+        "tolerance": "204.66610",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "2023_sum_expenditure",
+        "formula": "interest_expended + operating_expenses + provisions",
+        "operands": {
+          "interest_expended": "77779.94",
+          "operating_expenses": "51533.69",
+          "provisions_and_contingencies": "29203.77"
+        },
+        "calculated_value": "158517.40",
+        "reported_value": "158517.40",
+        "variance": "0.00",
+        "tolerance": "158.51740",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "2023_appropriation",
+        "formula": "total_available − sum(appropriations)",
+        "operands": {
+          "Transfer to Statutory Reserve": "11445.96",
+          "Transfer to General Reserve": "4410.87",
+          "Transfer to Special Reserve": "500.00",
+          "Transfer to Capital Reserve": "4.62",
+          "Transfer to / (from) Investment Reserve Account (net)": "-294.79",
+          "Transfer to / (from) Investment Fluctuation Reserve": "82.00",
+          "Dividend pertaining to previous year paid during the year": "8604.52",
+          "Transfer to / (from) Minority Interest (opening adjustment)": "-62.65",
+          "total_available_for_appropriation": "145059.88",
+          "balance_carried_forward": "120369.35",
+          "excluded_from_sum": "Balance carried over to consolidated balance sheet"
+        },
+        "calculated_value": "120369.35",
+        "reported_value": "120369.35",
+        "variance": "0.00",
+        "tolerance": "120.36935",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "2022_income_minus_expenditure",
+        "formula": "total_income − total_expenditure [± adjustments]",
+        "operands": {
+          "total_income": "167695.40",
+          "total_expenditure": "129544.50",
+          "minority_interest": "-98.15",
+          "consolidated_net_profit": "38052.75"
+        },
+        "calculated_value": "38052.75",
+        "reported_value": "38052.75",
+        "variance": "0.00",
+        "tolerance": "38.05275",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "2022_net_profit_before_minority",
+        "formula": "total_income − total_expenditure",
+        "operands": {
+          "total_income": "167695.40",
+          "total_expenditure": "129544.50",
+          "net_profit_before_minority": "38150.90"
+        },
+        "calculated_value": "38150.90",
+        "reported_value": "38150.90",
+        "variance": "0.00",
+        "tolerance": "38.15090",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "2022_sum_income",
+        "formula": "interest_earned + other_income",
+        "operands": {
+          "interest_earned": "135936.41",
+          "other_income": "31758.99"
+        },
+        "calculated_value": "167695.40",
+        "reported_value": "167695.40",
+        "variance": "0.00",
+        "tolerance": "167.69540",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "2022_sum_expenditure",
+        "formula": "interest_expended + operating_expenses + provisions",
+        "operands": {
+          "interest_expended": "58584.33",
+          "operating_expenses": "40312.43",
+          "provisions_and_contingencies": "30647.74"
+        },
+        "calculated_value": "129544.50",
+        "reported_value": "129544.50",
+        "variance": "0.00",
+        "tolerance": "129.54450",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "2022_appropriation",
+        "formula": "total_available − sum(appropriations)",
+        "operands": {
+          "Transfer to Statutory Reserve": "9444.38",
+          "Transfer to General Reserve": "3696.14",
+          "Transfer to Special Reserve": "0",
+          "Transfer to Capital Reserve": "666.47",
+          "Transfer to / (from) Investment Reserve Account (net)": "233.13",
+          "Transfer to / (from) Investment Fluctuation Reserve": "0",
+          "Dividend pertaining to previous year paid during the year": "3592.40",
+          "Transfer to / (from) Minority Interest (opening adjustment)": "-48.34",
+          "total_available_for_appropriation": "116646.95",
+          "balance_carried_forward": "99062.77",
+          "excluded_from_sum": "Balance carried over to consolidated balance sheet"
+        },
+        "calculated_value": "99062.77",
+        "reported_value": "99062.77",
+        "variance": "0.00",
+        "tolerance": "99.06277",
+        "status": "PASS",
+        "reason": ""
+      }
+    ],
+    "overall_status": "PASS",
+    "summary": {
+      "pass": 10,
+      "fail": 0,
+      "not_applicable": 0
+    }
+  },
+  "processing_metadata": {
+    "text_extraction_method": "ocr",
+    "ocr_provider": "mistral",
+    "llm_provider": "gemini",
+    "processed_at": "2026-09-11T12:37:06.216174+00:00",
+    "processing_time_ms": 197143
+  },
+  "error": null,
+  "_harness": {
+    "source": "dataset",
+    "file_size_bytes": 160634,
+    "wall_time_ms": 197143,
+    "crashed": false
+  }
+}

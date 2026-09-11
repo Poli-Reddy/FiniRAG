@@ -1,0 +1,913 @@
+{
+  "document_name": "Consolidated Cash Flow Statement 2020.pdf",
+  "document_type": "cash_flow_statement",
+  "processing_status": "PASS",
+  "file_validation": {
+    "file_type": "application/pdf",
+    "is_supported": true,
+    "is_readable": true,
+    "page_count": 2,
+    "status": "PASS",
+    "error": null
+  },
+  "extracted_data": {
+    "company_name": {
+      "value": "HDFC Bank Limited",
+      "original_value": "HDFC Bank Limited",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "HDFC Bank Limited",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "statement_type": {
+      "value": "Cash Flow Statement",
+      "original_value": "Cash Flow Statement",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "Cash Flow Statement",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "unit_descriptor": {
+      "value": "\u20b9 in '000",
+      "original_value": "\u20b9 in '000",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "\u20b9 in '000",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "unit_code": "INR_THOUSANDS",
+    "periods": {
+      "2020": {
+        "year": "2020",
+        "operating_items": {
+          "Consolidated profit before income tax": {
+            "value": "381525366",
+            "original_value": "381,525,366",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "381,525,366",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_THOUSANDS"
+          },
+          "Depreciation on fixed assets": {
+            "value": "12767714",
+            "original_value": "12,767,714",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "12,767,714",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_THOUSANDS"
+          },
+          "(Profit) / loss on revaluation of investments": {
+            "value": "7021095",
+            "original_value": "7,021,095",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "7,021,095",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_THOUSANDS"
+          },
+          "Amortisation of premium on held to maturity investments": {
+            "value": "5014137",
+            "original_value": "5,014,137",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "5,014,137",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_THOUSANDS"
+          },
+          "(Profit) / loss on sale of fixed assets": {
+            "value": "81865",
+            "original_value": "81,865",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "81,865",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_THOUSANDS"
+          },
+          "Provision / charge for non performing assets": {
+            "value": "110657129",
+            "original_value": "110,657,129",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "110,657,129",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_THOUSANDS"
+          },
+          "Provision for standard assets and Contingencies": {
+            "value": "30574317",
+            "original_value": "30,574,317",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "30,574,317",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_THOUSANDS"
+          },
+          "(Increase) / decrease in investments": {
+            "value": "-1010700996",
+            "original_value": "(1,010,700,996)",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "(1,010,700,996)",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_THOUSANDS"
+          },
+          "(Increase) / decrease in advances": {
+            "value": "-1855003617",
+            "original_value": "(1,855,003,617)",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "(1,855,003,617)",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_THOUSANDS"
+          },
+          "Increase / (decrease) in deposits": {
+            "value": "2237044557",
+            "original_value": "2,237,044,557",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "2,237,044,557",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_THOUSANDS"
+          },
+          "(Increase) / decrease in other assets": {
+            "value": "-72497457",
+            "original_value": "(72,497,457)",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "(72,497,457)",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_THOUSANDS"
+          },
+          "Increase / (decrease) in other liabilities and provisions": {
+            "value": "93598719",
+            "original_value": "93,598,719",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "93,598,719",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_THOUSANDS"
+          },
+          "Direct taxes paid (net of refunds)": {
+            "value": "-108773749",
+            "original_value": "(108,773,749)",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "(108,773,749)",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_THOUSANDS"
+          }
+        },
+        "net_cash_from_operating": {
+          "value": "-168690920",
+          "original_value": "(168,690,920)",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "(168,690,920)",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_THOUSANDS"
+        },
+        "investing_items": {
+          "Purchase of fixed assets": {
+            "value": "-16358706",
+            "original_value": "(16,358,706)",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "(16,358,706)",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_THOUSANDS"
+          },
+          "Proceeds from sale of fixed assets": {
+            "value": "189462",
+            "original_value": "189,462",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "189,462",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_THOUSANDS"
+          }
+        },
+        "net_cash_from_investing": {
+          "value": "-16169244",
+          "original_value": "(16,169,244)",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "(16,169,244)",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_THOUSANDS"
+        },
+        "financing_items": {
+          "Increase in minority interest": {
+            "value": "748468",
+            "original_value": "748,468",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "748,468",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_THOUSANDS"
+          },
+          "Proceeds from issue of share capital, net of issue expenses": {
+            "value": "18486821",
+            "original_value": "18,486,821",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "18,486,821",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_THOUSANDS"
+          },
+          "Proceeds from issue of Tier I and Tier II capital bonds": {
+            "value": "7435000",
+            "original_value": "7,435,000",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "7,435,000",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_THOUSANDS"
+          },
+          "Redemption of Tier II capital bonds": {
+            "value": "0",
+            "original_value": "-",
+            "status": "EXPLICIT_ZERO",
+            "evidence": {
+              "source_text": "-",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_THOUSANDS"
+          },
+          "Increase / (decrease) in other borrowings": {
+            "value": "283580441",
+            "original_value": "283,580,441",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "283,580,441",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_THOUSANDS"
+          },
+          "Dividend paid during the year (including tax on dividend)": {
+            "value": "-66305761",
+            "original_value": "(66,305,761)",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "(66,305,761)",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_THOUSANDS"
+          }
+        },
+        "net_cash_from_financing": {
+          "value": "243944969",
+          "original_value": "243,944,969",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "243,944,969",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_THOUSANDS"
+        },
+        "fx_translation_adjustment": {
+          "value": "2139891",
+          "original_value": "2,139,891",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "2,139,891",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_THOUSANDS"
+        },
+        "net_increase_in_cash": {
+          "value": "61224696",
+          "original_value": "61,224,696",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "61,224,696",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_THOUSANDS"
+        },
+        "cash_acquired_on_amalgamation": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_THOUSANDS"
+        },
+        "amalgamation_position": null,
+        "opening_cash": {
+          "value": "818176423",
+          "original_value": "818,176,423",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "818,176,423",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_THOUSANDS"
+        },
+        "closing_cash": {
+          "value": "879401119",
+          "original_value": "879,401,119",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "879,401,119",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_THOUSANDS"
+        },
+        "additional_fields": []
+      },
+      "2019": {
+        "year": "2019",
+        "operating_items": {
+          "Consolidated profit before income tax": {
+            "value": "342049793",
+            "original_value": "342,049,793",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "342,049,793",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_THOUSANDS"
+          },
+          "Depreciation on fixed assets": {
+            "value": "12206675",
+            "original_value": "12,206,675",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "12,206,675",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_THOUSANDS"
+          },
+          "(Profit) / loss on revaluation of investments": {
+            "value": "152437",
+            "original_value": "152,437",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "152,437",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_THOUSANDS"
+          },
+          "Amortisation of premium on held to maturity investments": {
+            "value": "4534626",
+            "original_value": "4,534,626",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "4,534,626",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_THOUSANDS"
+          },
+          "(Profit) / loss on sale of fixed assets": {
+            "value": "-62054",
+            "original_value": "(62,054)",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "(62,054)",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_THOUSANDS"
+          },
+          "Provision / charge for non performing assets": {
+            "value": "74233774",
+            "original_value": "74,233,774",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "74,233,774",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_THOUSANDS"
+          },
+          "Provision for standard assets and Contingencies": {
+            "value": "11852505",
+            "original_value": "11,852,505",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "11,852,505",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_THOUSANDS"
+          },
+          "(Increase) / decrease in investments": {
+            "value": "-514583611",
+            "original_value": "(514,583,611)",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "(514,583,611)",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_THOUSANDS"
+          },
+          "(Increase) / decrease in advances": {
+            "value": "-1766074976",
+            "original_value": "(1,766,074,976)",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "(1,766,074,976)",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_THOUSANDS"
+          },
+          "Increase / (decrease) in deposits": {
+            "value": "1341275360",
+            "original_value": "1,341,275,360",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "1,341,275,360",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_THOUSANDS"
+          },
+          "(Increase) / decrease in other assets": {
+            "value": "-97167983",
+            "original_value": "(97,167,983)",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "(97,167,983)",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_THOUSANDS"
+          },
+          "Increase / (decrease) in other liabilities and provisions": {
+            "value": "87851107",
+            "original_value": "87,851,107",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "87,851,107",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_THOUSANDS"
+          },
+          "Direct taxes paid (net of refunds)": {
+            "value": "-124983100",
+            "original_value": "(124,983,100)",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "(124,983,100)",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_THOUSANDS"
+          }
+        },
+        "net_cash_from_operating": {
+          "value": "-628715447",
+          "original_value": "(628,715,447)",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "(628,715,447)",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_THOUSANDS"
+        },
+        "investing_items": {
+          "Purchase of fixed assets": {
+            "value": "-16206124",
+            "original_value": "(16,206,124)",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "(16,206,124)",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_THOUSANDS"
+          },
+          "Proceeds from sale of fixed assets": {
+            "value": "222037",
+            "original_value": "222,037",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "222,037",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_THOUSANDS"
+          }
+        },
+        "net_cash_from_investing": {
+          "value": "-15984087",
+          "original_value": "(15,984,087)",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "(15,984,087)",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_THOUSANDS"
+        },
+        "financing_items": {
+          "Increase in minority interest": {
+            "value": "1454623",
+            "original_value": "1,454,623",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "1,454,623",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_THOUSANDS"
+          },
+          "Proceeds from issue of share capital, net of issue expenses": {
+            "value": "257904302",
+            "original_value": "257,904,302",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "257,904,302",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_THOUSANDS"
+          },
+          "Proceeds from issue of Tier I and Tier II capital bonds": {
+            "value": "9000000",
+            "original_value": "9,000,000",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "9,000,000",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_THOUSANDS"
+          },
+          "Redemption of Tier II capital bonds": {
+            "value": "-28750000",
+            "original_value": "(28,750,000)",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "(28,750,000)",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_THOUSANDS"
+          },
+          "Increase / (decrease) in other borrowings": {
+            "value": "32656942",
+            "original_value": "32,656,942",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "32,656,942",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_THOUSANDS"
+          },
+          "Dividend paid during the year (including tax on dividend)": {
+            "value": "-40958935",
+            "original_value": "(40,958,935)",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "(40,958,935)",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_THOUSANDS"
+          }
+        },
+        "net_cash_from_financing": {
+          "value": "231306932",
+          "original_value": "231,306,932",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "231,306,932",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_THOUSANDS"
+        },
+        "fx_translation_adjustment": {
+          "value": "953463",
+          "original_value": "953,463",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "953,463",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_THOUSANDS"
+        },
+        "net_increase_in_cash": {
+          "value": "-412439139",
+          "original_value": "(412,439,139)",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "(412,439,139)",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_THOUSANDS"
+        },
+        "cash_acquired_on_amalgamation": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_THOUSANDS"
+        },
+        "amalgamation_position": null,
+        "opening_cash": {
+          "value": "1230615562",
+          "original_value": "1,230,615,562",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "1,230,615,562",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_THOUSANDS"
+        },
+        "closing_cash": {
+          "value": "818176423",
+          "original_value": "818,176,423",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "818,176,423",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_THOUSANDS"
+        },
+        "additional_fields": []
+      }
+    }
+  },
+  "validation": {
+    "checks": [
+      {
+        "name": "2020_cash_flow_components",
+        "formula": "operating + investing + financing [+ FX] [+ amalgamation]",
+        "operands": {
+          "net_cash_from_operating": "-168690920",
+          "net_cash_from_investing": "-16169244",
+          "net_cash_from_financing": "243944969",
+          "fx_translation_adjustment": "2139891",
+          "net_increase_in_cash": "61224696"
+        },
+        "calculated_value": "61224696",
+        "reported_value": "61224696",
+        "variance": "0",
+        "tolerance": "61224.696",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "2020_cash_reconciliation",
+        "formula": "opening + net_increase [+ amalgamation]",
+        "operands": {
+          "opening_cash": "818176423",
+          "net_increase_in_cash": "61224696",
+          "closing_cash": "879401119"
+        },
+        "calculated_value": "879401119",
+        "reported_value": "879401119",
+        "variance": "0",
+        "tolerance": "879401.119",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "2020_sum_operating_items",
+        "formula": "sum(operating_items)",
+        "operands": {
+          "Consolidated profit before income tax": "381525366",
+          "Depreciation on fixed assets": "12767714",
+          "(Profit) / loss on revaluation of investments": "7021095",
+          "Amortisation of premium on held to maturity investments": "5014137",
+          "(Profit) / loss on sale of fixed assets": "81865",
+          "Provision / charge for non performing assets": "110657129",
+          "Provision for standard assets and Contingencies": "30574317",
+          "(Increase) / decrease in investments": "-1010700996",
+          "(Increase) / decrease in advances": "-1855003617",
+          "Increase / (decrease) in deposits": "2237044557",
+          "(Increase) / decrease in other assets": "-72497457",
+          "Increase / (decrease) in other liabilities and provisions": "93598719",
+          "Direct taxes paid (net of refunds)": "-108773749"
+        },
+        "calculated_value": "-168690920",
+        "reported_value": "-168690920",
+        "variance": "0",
+        "tolerance": "168690.920",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "2020_sum_investing_items",
+        "formula": "sum(investing_items)",
+        "operands": {
+          "Purchase of fixed assets": "-16358706",
+          "Proceeds from sale of fixed assets": "189462"
+        },
+        "calculated_value": "-16169244",
+        "reported_value": "-16169244",
+        "variance": "0",
+        "tolerance": "16169.244",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "2020_sum_financing_items",
+        "formula": "sum(financing_items)",
+        "operands": {
+          "Increase in minority interest": "748468",
+          "Proceeds from issue of share capital, net of issue expenses": "18486821",
+          "Proceeds from issue of Tier I and Tier II capital bonds": "7435000",
+          "Redemption of Tier II capital bonds": "0",
+          "Increase / (decrease) in other borrowings": "283580441",
+          "Dividend paid during the year (including tax on dividend)": "-66305761"
+        },
+        "calculated_value": "243944969",
+        "reported_value": "243944969",
+        "variance": "0",
+        "tolerance": "243944.969",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "2019_cash_flow_components",
+        "formula": "operating + investing + financing [+ FX] [+ amalgamation]",
+        "operands": {
+          "net_cash_from_operating": "-628715447",
+          "net_cash_from_investing": "-15984087",
+          "net_cash_from_financing": "231306932",
+          "fx_translation_adjustment": "953463",
+          "net_increase_in_cash": "-412439139"
+        },
+        "calculated_value": "-412439139",
+        "reported_value": "-412439139",
+        "variance": "0",
+        "tolerance": "412439.139",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "2019_cash_reconciliation",
+        "formula": "opening + net_increase [+ amalgamation]",
+        "operands": {
+          "opening_cash": "1230615562",
+          "net_increase_in_cash": "-412439139",
+          "closing_cash": "818176423"
+        },
+        "calculated_value": "818176423",
+        "reported_value": "818176423",
+        "variance": "0",
+        "tolerance": "818176.423",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "2019_sum_operating_items",
+        "formula": "sum(operating_items)",
+        "operands": {
+          "Consolidated profit before income tax": "342049793",
+          "Depreciation on fixed assets": "12206675",
+          "(Profit) / loss on revaluation of investments": "152437",
+          "Amortisation of premium on held to maturity investments": "4534626",
+          "(Profit) / loss on sale of fixed assets": "-62054",
+          "Provision / charge for non performing assets": "74233774",
+          "Provision for standard assets and Contingencies": "11852505",
+          "(Increase) / decrease in investments": "-514583611",
+          "(Increase) / decrease in advances": "-1766074976",
+          "Increase / (decrease) in deposits": "1341275360",
+          "(Increase) / decrease in other assets": "-97167983",
+          "Increase / (decrease) in other liabilities and provisions": "87851107",
+          "Direct taxes paid (net of refunds)": "-124983100"
+        },
+        "calculated_value": "-628715447",
+        "reported_value": "-628715447",
+        "variance": "0",
+        "tolerance": "628715.447",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "2019_sum_investing_items",
+        "formula": "sum(investing_items)",
+        "operands": {
+          "Purchase of fixed assets": "-16206124",
+          "Proceeds from sale of fixed assets": "222037"
+        },
+        "calculated_value": "-15984087",
+        "reported_value": "-15984087",
+        "variance": "0",
+        "tolerance": "15984.087",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "2019_sum_financing_items",
+        "formula": "sum(financing_items)",
+        "operands": {
+          "Increase in minority interest": "1454623",
+          "Proceeds from issue of share capital, net of issue expenses": "257904302",
+          "Proceeds from issue of Tier I and Tier II capital bonds": "9000000",
+          "Redemption of Tier II capital bonds": "-28750000",
+          "Increase / (decrease) in other borrowings": "32656942",
+          "Dividend paid during the year (including tax on dividend)": "-40958935"
+        },
+        "calculated_value": "231306932",
+        "reported_value": "231306932",
+        "variance": "0",
+        "tolerance": "231306.932",
+        "status": "PASS",
+        "reason": ""
+      }
+    ],
+    "overall_status": "PASS",
+    "summary": {
+      "pass": 10,
+      "fail": 0,
+      "not_applicable": 0
+    }
+  },
+  "processing_metadata": {
+    "text_extraction_method": "ocr",
+    "ocr_provider": "mistral",
+    "llm_provider": "gemini",
+    "processed_at": "2026-09-11T12:21:43.482572+00:00",
+    "processing_time_ms": 36787
+  },
+  "error": null,
+  "_harness": {
+    "source": "dataset",
+    "file_size_bytes": 183022,
+    "wall_time_ms": 36787,
+    "crashed": false
+  }
+}

@@ -1,0 +1,1200 @@
+{
+  "document_name": "batch1-1109.jpg",
+  "document_type": "invoice",
+  "processing_status": "PASS",
+  "file_validation": {
+    "file_type": "image/jpeg",
+    "is_supported": true,
+    "is_readable": true,
+    "page_count": 1,
+    "status": "PASS",
+    "error": null
+  },
+  "extracted_data": {
+    "invoice_number": {
+      "value": "94404257",
+      "original_value": "94404257",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "94404257",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "invoice_date": {
+      "value": "07/03/2013",
+      "original_value": "07/03/2013",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "07/03/2013",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "due_date": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_name": {
+      "value": "Cruz PLC",
+      "original_value": "Cruz PLC",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "Cruz PLC",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_address": {
+      "value": "USNV Harris\nFPO AA 34966",
+      "original_value": "USNV Harris\nFPO AA 34966",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "USNV Harris\nFPO AA 34966",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_tax_id": {
+      "value": "964-99-8203",
+      "original_value": "964-99-8203",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "964-99-8203",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_name": {
+      "value": "Sandoval-Phillips",
+      "original_value": "Sandoval-Phillips",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "Sandoval-Phillips",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_address": {
+      "value": "23699 James Villages Suite 818\nWest Tamara, MS 58825",
+      "original_value": "23699 James Villages Suite 818\nWest Tamara, MS 58825",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "23699 James Villages Suite 818\nWest Tamara, MS 58825",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_tax_id": {
+      "value": "976-94-5245",
+      "original_value": "976-94-5245",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "976-94-5245",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "currency": {
+      "value": "$",
+      "original_value": "$",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "$",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "subtotal": {
+      "value": "126.27",
+      "original_value": "126,27",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "126,27",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "$"
+    },
+    "tax_amount": {
+      "value": "12.63",
+      "original_value": "12,63",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "12,63",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "$"
+    },
+    "tax_rate": {
+      "value": "10",
+      "original_value": "10",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "10",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "PERCENT"
+    },
+    "discount": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "$"
+    },
+    "total_amount": {
+      "value": "138.90",
+      "original_value": "138,90",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "138,90",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "$"
+    },
+    "amount_paid": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "$"
+    },
+    "amount_due": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "$"
+    },
+    "cash_paid": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "$"
+    },
+    "change_given": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "$"
+    },
+    "rounding_adjustment": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "$"
+    },
+    "payment_method": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "line_items": [
+      {
+        "description": {
+          "value": "B0028NAO6C Shoeless Joe",
+          "original_value": "B0028NAO6C Shoeless Joe",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "1. | B0028NAO6C Shoeless Joe | 5,00 | each | 3,49 | 17,45 | 10% | 19,20",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "5.00",
+          "original_value": "5,00",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "1. | B0028NAO6C Shoeless Joe | 5,00 | each | 3,49 | 17,45 | 10% | 19,20",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "each"
+        },
+        "unit_of_measure": {
+          "value": "each",
+          "original_value": "each",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "each",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "3.49",
+          "original_value": "3,49",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "1. | B0028NAO6C Shoeless Joe | 5,00 | each | 3,49 | 17,45 | 10% | 19,20",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "amount": {
+          "value": "17.45",
+          "original_value": "17,45",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "1. | B0028NAO6C Shoeless Joe | 5,00 | each | 3,49 | 17,45 | 10% | 19,20",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "tax_code": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": "10",
+          "original_value": "10%",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "1. | B0028NAO6C Shoeless Joe | 5,00 | each | 3,49 | 17,45 | 10% | 19,20",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "1. | B0028NAO6C Shoeless Joe | 5,00 | each | 3,49 | 17,45 | 10% | 19,20",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "1. | B0028NAO6C Shoeless Joe | 5,00 | each | 3,49 | 17,45 | 10% | 19,20",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      },
+      {
+        "description": {
+          "value": "The Fifty Greatest Conspiracies of All Time History s Biggest Myster",
+          "original_value": "The Fifty Greatest Conspiracies of All Time History s Biggest Myster",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "2. | The Fifty Greatest Conspiracies of All Time History s Biggest Myster | 3,00 | each | 4,49 | 13,47 | 10% | 14,82",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "3.00",
+          "original_value": "3,00",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "2. | The Fifty Greatest Conspiracies of All Time History s Biggest Myster | 3,00 | each | 4,49 | 13,47 | 10% | 14,82",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "each"
+        },
+        "unit_of_measure": {
+          "value": "each",
+          "original_value": "each",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "each",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "4.49",
+          "original_value": "4,49",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "2. | The Fifty Greatest Conspiracies of All Time History s Biggest Myster | 3,00 | each | 4,49 | 13,47 | 10% | 14,82",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "amount": {
+          "value": "13.47",
+          "original_value": "13,47",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "2. | The Fifty Greatest Conspiracies of All Time History s Biggest Myster | 3,00 | each | 4,49 | 13,47 | 10% | 14,82",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "tax_code": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": "10",
+          "original_value": "10%",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "2. | The Fifty Greatest Conspiracies of All Time History s Biggest Myster | 3,00 | each | 4,49 | 13,47 | 10% | 14,82",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "2. | The Fifty Greatest Conspiracies of All Time History s Biggest Myster | 3,00 | each | 4,49 | 13,47 | 10% | 14,82",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "2. | The Fifty Greatest Conspiracies of All Time History s Biggest Myster | 3,00 | each | 4,49 | 13,47 | 10% | 14,82",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      },
+      {
+        "description": {
+          "value": "Story of a Soul: The Autobiography of St. Therese of Lisieux",
+          "original_value": "Story of a Soul: The Autobiography of St. Therese of Lisieux",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "3. | Story of a Soul: The Autobiography of St. Therese of Lisieux | 5,00 | each | 9,35 | 46,75 | 10% | 51,42",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "5.00",
+          "original_value": "5,00",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "3. | Story of a Soul: The Autobiography of St. Therese of Lisieux | 5,00 | each | 9,35 | 46,75 | 10% | 51,42",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "each"
+        },
+        "unit_of_measure": {
+          "value": "each",
+          "original_value": "each",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "each",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "9.35",
+          "original_value": "9,35",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "3. | Story of a Soul: The Autobiography of St. Therese of Lisieux | 5,00 | each | 9,35 | 46,75 | 10% | 51,42",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "amount": {
+          "value": "46.75",
+          "original_value": "46,75",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "3. | Story of a Soul: The Autobiography of St. Therese of Lisieux | 5,00 | each | 9,35 | 46,75 | 10% | 51,42",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "tax_code": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": "10",
+          "original_value": "10%",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "3. | Story of a Soul: The Autobiography of St. Therese of Lisieux | 5,00 | each | 9,35 | 46,75 | 10% | 51,42",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "3. | Story of a Soul: The Autobiography of St. Therese of Lisieux | 5,00 | each | 9,35 | 46,75 | 10% | 51,42",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "3. | Story of a Soul: The Autobiography of St. Therese of Lisieux | 5,00 | each | 9,35 | 46,75 | 10% | 51,42",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      },
+      {
+        "description": {
+          "value": "The Complete Idiots Guide to Trouble-Free Home Re",
+          "original_value": "The Complete Idiots Guide to Trouble-Free Home Re",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "4. | The Complete Idiots Guide to Trouble-Free Home Re | 4,00 | each | 4,49 | 17,96 | 10% | 19,76",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "4.00",
+          "original_value": "4,00",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "4. | The Complete Idiots Guide to Trouble-Free Home Re | 4,00 | each | 4,49 | 17,96 | 10% | 19,76",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "each"
+        },
+        "unit_of_measure": {
+          "value": "each",
+          "original_value": "each",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "each",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "4.49",
+          "original_value": "4,49",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "4. | The Complete Idiots Guide to Trouble-Free Home Re | 4,00 | each | 4,49 | 17,96 | 10% | 19,76",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "amount": {
+          "value": "17.96",
+          "original_value": "17,96",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "4. | The Complete Idiots Guide to Trouble-Free Home Re | 4,00 | each | 4,49 | 17,96 | 10% | 19,76",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "tax_code": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": "10",
+          "original_value": "10%",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "4. | The Complete Idiots Guide to Trouble-Free Home Re | 4,00 | each | 4,49 | 17,96 | 10% | 19,76",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "4. | The Complete Idiots Guide to Trouble-Free Home Re | 4,00 | each | 4,49 | 17,96 | 10% | 19,76",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "4. | The Complete Idiots Guide to Trouble-Free Home Re | 4,00 | each | 4,49 | 17,96 | 10% | 19,76",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      },
+      {
+        "description": {
+          "value": "Rebecca to the Rescue (American Girl (Quality))",
+          "original_value": "Rebecca to the Rescue (American Girl (Quality))",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "5. | Rebecca to the Rescue (American Girl (Quality)) | 2,00 | each | 4,89 | 9,78 | 10% | 10,76",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "2.00",
+          "original_value": "2,00",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "5. | Rebecca to the Rescue (American Girl (Quality)) | 2,00 | each | 4,89 | 9,78 | 10% | 10,76",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "each"
+        },
+        "unit_of_measure": {
+          "value": "each",
+          "original_value": "each",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "each",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "4.89",
+          "original_value": "4,89",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "5. | Rebecca to the Rescue (American Girl (Quality)) | 2,00 | each | 4,89 | 9,78 | 10% | 10,76",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "amount": {
+          "value": "9.78",
+          "original_value": "9,78",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "5. | Rebecca to the Rescue (American Girl (Quality)) | 2,00 | each | 4,89 | 9,78 | 10% | 10,76",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "tax_code": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": "10",
+          "original_value": "10%",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "5. | Rebecca to the Rescue (American Girl (Quality)) | 2,00 | each | 4,89 | 9,78 | 10% | 10,76",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "5. | Rebecca to the Rescue (American Girl (Quality)) | 2,00 | each | 4,89 | 9,78 | 10% | 10,76",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "5. | Rebecca to the Rescue (American Girl (Quality)) | 2,00 | each | 4,89 | 9,78 | 10% | 10,76",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      },
+      {
+        "description": {
+          "value": "Tales from the Buffalo Bills",
+          "original_value": "Tales from the Buffalo Bills",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "6. | Tales from the Buffalo Bills | 1,00 | each | 5,50 | 5,50 | 10% | 6,05",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "1.00",
+          "original_value": "1,00",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "6. | Tales from the Buffalo Bills | 1,00 | each | 5,50 | 5,50 | 10% | 6,05",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "each"
+        },
+        "unit_of_measure": {
+          "value": "each",
+          "original_value": "each",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "each",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "5.50",
+          "original_value": "5,50",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "6. | Tales from the Buffalo Bills | 1,00 | each | 5,50 | 5,50 | 10% | 6,05",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "amount": {
+          "value": "5.50",
+          "original_value": "5,50",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "6. | Tales from the Buffalo Bills | 1,00 | each | 5,50 | 5,50 | 10% | 6,05",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "tax_code": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": "10",
+          "original_value": "10%",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "6. | Tales from the Buffalo Bills | 1,00 | each | 5,50 | 5,50 | 10% | 6,05",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "6. | Tales from the Buffalo Bills | 1,00 | each | 5,50 | 5,50 | 10% | 6,05",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "6. | Tales from the Buffalo Bills | 1,00 | each | 5,50 | 5,50 | 10% | 6,05",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      },
+      {
+        "description": {
+          "value": "Vietnam, The Decisive Battles",
+          "original_value": "Vietnam, The Decisive Battles",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "7. | Vietnam, The Decisive Battles | 2,00 | each | 7,68 | 15,36 | 10% | 16,90",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "2.00",
+          "original_value": "2,00",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "7. | Vietnam, The Decisive Battles | 2,00 | each | 7,68 | 15,36 | 10% | 16,90",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "each"
+        },
+        "unit_of_measure": {
+          "value": "each",
+          "original_value": "each",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "each",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "7.68",
+          "original_value": "7,68",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "7. | Vietnam, The Decisive Battles | 2,00 | each | 7,68 | 15,36 | 10% | 16,90",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "amount": {
+          "value": "15.36",
+          "original_value": "15,36",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "7. | Vietnam, The Decisive Battles | 2,00 | each | 7,68 | 15,36 | 10% | 16,90",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "tax_code": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": "10",
+          "original_value": "10%",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "7. | Vietnam, The Decisive Battles | 2,00 | each | 7,68 | 15,36 | 10% | 16,90",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "7. | Vietnam, The Decisive Battles | 2,00 | each | 7,68 | 15,36 | 10% | 16,90",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "7. | Vietnam, The Decisive Battles | 2,00 | each | 7,68 | 15,36 | 10% | 16,90",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      }
+    ],
+    "additional_tables": [
+      {
+        "table_name": "SUMMARY",
+        "headers": [
+          "VAT [%]",
+          "Net worth",
+          "VAT",
+          "Gross worth"
+        ],
+        "rows": [
+          {
+            "VAT [%]": "10%",
+            "Net worth": "126,27",
+            "VAT": "12,63",
+            "Gross worth": "138,90"
+          },
+          {
+            "VAT [%]": "Total",
+            "Net worth": "$ 126,27",
+            "VAT": "$ 12,63",
+            "Gross worth": "$ 138,90"
+          }
+        ],
+        "page_number": 1
+      }
+    ],
+    "additional_fields": [
+      {
+        "label": "IBAN",
+        "value": {
+          "value": "GB31XOVK34958853133204",
+          "original_value": "GB31XOVK34958853133204",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "GB31XOVK34958853133204",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      }
+    ],
+    "tax_inclusive": false,
+    "subtotal_confirmed_pretax": true
+  },
+  "validation": {
+    "checks": [
+      {
+        "name": "line_total_check_1",
+        "formula": "quantity × unit_price",
+        "operands": {
+          "quantity": "5.00",
+          "unit_price": "3.49",
+          "amount": "17.45"
+        },
+        "calculated_value": "17.4500",
+        "reported_value": "17.45",
+        "variance": "0.0000",
+        "tolerance": "0.01745",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "line_total_check_2",
+        "formula": "quantity × unit_price",
+        "operands": {
+          "quantity": "3.00",
+          "unit_price": "4.49",
+          "amount": "13.47"
+        },
+        "calculated_value": "13.4700",
+        "reported_value": "13.47",
+        "variance": "0.0000",
+        "tolerance": "0.01347",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "line_total_check_3",
+        "formula": "quantity × unit_price",
+        "operands": {
+          "quantity": "5.00",
+          "unit_price": "9.35",
+          "amount": "46.75"
+        },
+        "calculated_value": "46.7500",
+        "reported_value": "46.75",
+        "variance": "0.0000",
+        "tolerance": "0.04675",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "line_total_check_4",
+        "formula": "quantity × unit_price",
+        "operands": {
+          "quantity": "4.00",
+          "unit_price": "4.49",
+          "amount": "17.96"
+        },
+        "calculated_value": "17.9600",
+        "reported_value": "17.96",
+        "variance": "0.0000",
+        "tolerance": "0.01796",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "line_total_check_5",
+        "formula": "quantity × unit_price",
+        "operands": {
+          "quantity": "2.00",
+          "unit_price": "4.89",
+          "amount": "9.78"
+        },
+        "calculated_value": "9.7800",
+        "reported_value": "9.78",
+        "variance": "0.0000",
+        "tolerance": "0.01",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "line_total_check_6",
+        "formula": "quantity × unit_price",
+        "operands": {
+          "quantity": "1.00",
+          "unit_price": "5.50",
+          "amount": "5.50"
+        },
+        "calculated_value": "5.5000",
+        "reported_value": "5.50",
+        "variance": "0.0000",
+        "tolerance": "0.01",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "line_total_check_7",
+        "formula": "quantity × unit_price",
+        "operands": {
+          "quantity": "2.00",
+          "unit_price": "7.68",
+          "amount": "15.36"
+        },
+        "calculated_value": "15.3600",
+        "reported_value": "15.36",
+        "variance": "0.0000",
+        "tolerance": "0.01536",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "sum_lines_vs_subtotal",
+        "formula": "sum(line_amounts)",
+        "operands": {
+          "line_amounts": "17.45, 13.47, 46.75, 17.96, 9.78, 5.50, 15.36",
+          "line_count": "7",
+          "subtotal": "126.27",
+          "tax_amount": "12.63"
+        },
+        "calculated_value": "126.27",
+        "reported_value": "126.27",
+        "variance": "0.00",
+        "tolerance": "0.12627",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "sum_lines_vs_total",
+        "formula": "",
+        "operands": {},
+        "calculated_value": null,
+        "reported_value": null,
+        "variance": null,
+        "tolerance": null,
+        "status": "NOT_APPLICABLE",
+        "reason": "Missing operand(s)"
+      },
+      {
+        "name": "subtotal_plus_tax_vs_total",
+        "formula": "subtotal + tax_amount",
+        "operands": {
+          "subtotal": "126.27",
+          "tax_amount": "12.63",
+          "total_amount": "138.90",
+          "tax_inclusive": "False"
+        },
+        "calculated_value": "138.90",
+        "reported_value": "138.90",
+        "variance": "0.00",
+        "tolerance": "0.13890",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "rate_times_base_vs_tax",
+        "formula": "taxable_base × 0.1",
+        "operands": {
+          "taxable_base": "126.27",
+          "base_source": "subtotal",
+          "tax_rate": "10",
+          "rate_reading": "percent (magnitude >= 1)",
+          "rate_as_multiplier": "0.1",
+          "tax_amount": "12.63"
+        },
+        "calculated_value": "12.627",
+        "reported_value": "12.63",
+        "variance": "0.003",
+        "tolerance": "0.01263",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "cash_change_check",
+        "formula": "",
+        "operands": {},
+        "calculated_value": null,
+        "reported_value": null,
+        "variance": null,
+        "tolerance": null,
+        "status": "NOT_APPLICABLE",
+        "reason": "Missing operand(s)"
+      }
+    ],
+    "overall_status": "PASS",
+    "summary": {
+      "pass": 10,
+      "fail": 0,
+      "not_applicable": 2
+    }
+  },
+  "processing_metadata": {
+    "text_extraction_method": "ocr",
+    "ocr_provider": "mistral",
+    "llm_provider": "gemini",
+    "processed_at": "2026-09-11T12:42:01.451747+00:00",
+    "processing_time_ms": 23006
+  },
+  "error": null,
+  "_harness": {
+    "source": "dataset",
+    "file_size_bytes": 217666,
+    "wall_time_ms": 23006,
+    "crashed": false
+  }
+}

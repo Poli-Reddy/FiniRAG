@@ -1,0 +1,938 @@
+{
+  "document_name": "batch3-1495.jpg",
+  "document_type": "invoice",
+  "processing_status": "PASS",
+  "file_validation": {
+    "file_type": "image/jpeg",
+    "is_supported": true,
+    "is_readable": true,
+    "page_count": 1,
+    "status": "PASS",
+    "error": null
+  },
+  "extracted_data": {
+    "invoice_number": {
+      "value": "Meld #298839",
+      "original_value": "Meld #298839",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "Meld #298839",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "invoice_date": {
+      "value": "Sept. 5, 2023",
+      "original_value": "Sept. 5, 2023",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "Sept. 5, 2023",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "due_date": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_name": {
+      "value": "# BEYOND DIGITAL IMAGING",
+      "original_value": "# BEYOND DIGITAL IMAGING",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "# BEYOND DIGITAL IMAGING",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_address": {
+      "value": "36 Apple Creek Blvd.\nMARKHAM, L3R 4Y4",
+      "original_value": "36 Apple Creek Blvd.\nMARKHAM, L3R 4Y4",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "36 Apple Creek Blvd.\nMARKHAM, L3R 4Y4",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_tax_id": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_name": {
+      "value": "MARKHAM",
+      "original_value": "MARKHAM",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "MARKHAM",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_address": {
+      "value": "L3R 4Y4",
+      "original_value": "L3R 4Y4",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "L3R 4Y4",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_tax_id": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "currency": {
+      "value": "$",
+      "original_value": "$",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "$5257",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "subtotal": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "$"
+    },
+    "tax_amount": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "$"
+    },
+    "tax_rate": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "PERCENT"
+    },
+    "discount": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "$"
+    },
+    "total_amount": {
+      "value": "5257",
+      "original_value": "$5257",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "Total: $5257",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "$"
+    },
+    "amount_paid": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "$"
+    },
+    "amount_due": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "$"
+    },
+    "cash_paid": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "$"
+    },
+    "change_given": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "$"
+    },
+    "rounding_adjustment": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "$"
+    },
+    "payment_method": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "line_items": [
+      {
+        "description": {
+          "value": "3M SJ3550 Dual Lock Fastener",
+          "original_value": "3M SJ3550 Dual Lock Fastener",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "5991 | 3M SJ3550 Dual Lock Fastener | 9 | $367 | $367 | $3303",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "9",
+          "original_value": "9",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "5991 | 3M SJ3550 Dual Lock Fastener | 9 | $367 | $367 | $3303",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_of_measure": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "367",
+          "original_value": "$367",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "5991 | 3M SJ3550 Dual Lock Fastener | 9 | $367 | $367 | $3303",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "amount": {
+          "value": "3303",
+          "original_value": "$3303",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "5991 | 3M SJ3550 Dual Lock Fastener | 9 | $367 | $367 | $3303",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "tax_code": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "5991 | 3M SJ3550 Dual Lock Fastener | 9 | $367 | $367 | $3303",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "5991 | 3M SJ3550 Dual Lock Fastener | 9 | $367 | $367 | $3303",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "5991 | 3M SJ3550 Dual Lock Fastener | 9 | $367 | $367 | $3303",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      },
+      {
+        "description": {
+          "value": "3M 369 Trans Polypro",
+          "original_value": "3M 369 Trans Polypro",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "6015 | 3M 369 Trans Polypro | 9 | $1 | $1 | $9",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "9",
+          "original_value": "9",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "6015 | 3M 369 Trans Polypro | 9 | $1 | $1 | $9",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_of_measure": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "1",
+          "original_value": "$1",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "6015 | 3M 369 Trans Polypro | 9 | $1 | $1 | $9",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "amount": {
+          "value": "9",
+          "original_value": "$9",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "6015 | 3M 369 Trans Polypro | 9 | $1 | $1 | $9",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "tax_code": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "6015 | 3M 369 Trans Polypro | 9 | $1 | $1 | $9",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "6015 | 3M 369 Trans Polypro | 9 | $1 | $1 | $9",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "6015 | 3M 369 Trans Polypro | 9 | $1 | $1 | $9",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      },
+      {
+        "description": {
+          "value": "3M 4949 VHB Acryl. Foam Tape",
+          "original_value": "3M 4949 VHB Acryl. Foam Tape",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "6157 | 3M 4949 VHB Acryl. Foam Tape | 1 | $110 | $110 | $110",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "1",
+          "original_value": "1",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "6157 | 3M 4949 VHB Acryl. Foam Tape | 1 | $110 | $110 | $110",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_of_measure": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "110",
+          "original_value": "$110",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "6157 | 3M 4949 VHB Acryl. Foam Tape | 1 | $110 | $110 | $110",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "amount": {
+          "value": "110",
+          "original_value": "$110",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "6157 | 3M 4949 VHB Acryl. Foam Tape | 1 | $110 | $110 | $110",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "tax_code": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "6157 | 3M 4949 VHB Acryl. Foam Tape | 1 | $110 | $110 | $110",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "6157 | 3M 4949 VHB Acryl. Foam Tape | 1 | $110 | $110 | $110",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "6157 | 3M 4949 VHB Acryl. Foam Tape | 1 | $110 | $110 | $110",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      },
+      {
+        "description": {
+          "value": "3M 2242 Electrical Rubber",
+          "original_value": "3M 2242 Electrical Rubber",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "5810 | 3M 2242 Electrical Rubber | 6 | $4 | $4 | $24",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "6",
+          "original_value": "6",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "5810 | 3M 2242 Electrical Rubber | 6 | $4 | $4 | $24",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_of_measure": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "4",
+          "original_value": "$4",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "5810 | 3M 2242 Electrical Rubber | 6 | $4 | $4 | $24",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "amount": {
+          "value": "24",
+          "original_value": "$24",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "5810 | 3M 2242 Electrical Rubber | 6 | $4 | $4 | $24",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "tax_code": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "5810 | 3M 2242 Electrical Rubber | 6 | $4 | $4 | $24",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "5810 | 3M 2242 Electrical Rubber | 6 | $4 | $4 | $24",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "5810 | 3M 2242 Electrical Rubber | 6 | $4 | $4 | $24",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      },
+      {
+        "description": {
+          "value": "3M 256 Printable Flatback WH",
+          "original_value": "3M 256 Printable Flatback WH",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "5862 | 3M 256 Printable Flatback WH | 2 | $17 | $17 | $34",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "2",
+          "original_value": "2",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "5862 | 3M 256 Printable Flatback WH | 2 | $17 | $17 | $34",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_of_measure": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "17",
+          "original_value": "$17",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "5862 | 3M 256 Printable Flatback WH | 2 | $17 | $17 | $34",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "amount": {
+          "value": "34",
+          "original_value": "$34",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "5862 | 3M 256 Printable Flatback WH | 2 | $17 | $17 | $34",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "tax_code": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "5862 | 3M 256 Printable Flatback WH | 2 | $17 | $17 | $34",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "5862 | 3M 256 Printable Flatback WH | 2 | $17 | $17 | $34",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "5862 | 3M 256 Printable Flatback WH | 2 | $17 | $17 | $34",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      }
+    ],
+    "additional_tables": [],
+    "additional_fields": [
+      {
+        "label": "Ticket Completed",
+        "value": {
+          "value": "Oct. 13, 2023",
+          "original_value": "Oct. 13, 2023",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "Oct. 13, 2023",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Notes",
+        "value": {
+          "value": "Unclogged the disposal and repaired the stove knob. Both working as they should.",
+          "original_value": "Unclogged the disposal and repaired the stove knob. Both working as they should.",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "Unclogged the disposal and repaired the stove knob. Both working as they should.",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      }
+    ],
+    "tax_inclusive": null,
+    "subtotal_confirmed_pretax": false
+  },
+  "validation": {
+    "checks": [
+      {
+        "name": "line_total_check_1",
+        "formula": "quantity × unit_price",
+        "operands": {
+          "quantity": "9",
+          "unit_price": "367",
+          "amount": "3303"
+        },
+        "calculated_value": "3303",
+        "reported_value": "3303",
+        "variance": "0",
+        "tolerance": "3.303",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "line_total_check_2",
+        "formula": "quantity × unit_price",
+        "operands": {
+          "quantity": "9",
+          "unit_price": "1",
+          "amount": "9"
+        },
+        "calculated_value": "9",
+        "reported_value": "9",
+        "variance": "0",
+        "tolerance": "0.01",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "line_total_check_3",
+        "formula": "quantity × unit_price",
+        "operands": {
+          "quantity": "1",
+          "unit_price": "110",
+          "amount": "110"
+        },
+        "calculated_value": "110",
+        "reported_value": "110",
+        "variance": "0",
+        "tolerance": "0.110",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "line_total_check_4",
+        "formula": "quantity × unit_price",
+        "operands": {
+          "quantity": "6",
+          "unit_price": "4",
+          "amount": "24"
+        },
+        "calculated_value": "24",
+        "reported_value": "24",
+        "variance": "0",
+        "tolerance": "0.024",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "line_total_check_5",
+        "formula": "quantity × unit_price",
+        "operands": {
+          "quantity": "2",
+          "unit_price": "17",
+          "amount": "34"
+        },
+        "calculated_value": "34",
+        "reported_value": "34",
+        "variance": "0",
+        "tolerance": "0.034",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "sum_lines_vs_subtotal",
+        "formula": "",
+        "operands": {},
+        "calculated_value": null,
+        "reported_value": null,
+        "variance": null,
+        "tolerance": null,
+        "status": "NOT_APPLICABLE",
+        "reason": "Missing operand(s)"
+      },
+      {
+        "name": "sum_lines_vs_total",
+        "formula": "sum(line_amounts)",
+        "operands": {
+          "line_amounts": "3303, 9, 110, 24, 34",
+          "line_count": "5",
+          "total_amount": "5257"
+        },
+        "calculated_value": "3480",
+        "reported_value": "5257",
+        "variance": "1777",
+        "tolerance": "5.257",
+        "status": "FAIL",
+        "reason": ""
+      },
+      {
+        "name": "subtotal_plus_tax_vs_total",
+        "formula": "",
+        "operands": {},
+        "calculated_value": null,
+        "reported_value": null,
+        "variance": null,
+        "tolerance": null,
+        "status": "NOT_APPLICABLE",
+        "reason": "Missing operand(s)"
+      },
+      {
+        "name": "rate_times_base_vs_tax",
+        "formula": "",
+        "operands": {},
+        "calculated_value": null,
+        "reported_value": null,
+        "variance": null,
+        "tolerance": null,
+        "status": "NOT_APPLICABLE",
+        "reason": "Missing operand(s)"
+      },
+      {
+        "name": "cash_change_check",
+        "formula": "",
+        "operands": {},
+        "calculated_value": null,
+        "reported_value": null,
+        "variance": null,
+        "tolerance": null,
+        "status": "NOT_APPLICABLE",
+        "reason": "Missing operand(s)"
+      }
+    ],
+    "overall_status": "FAIL",
+    "summary": {
+      "pass": 5,
+      "fail": 1,
+      "not_applicable": 4
+    }
+  },
+  "processing_metadata": {
+    "text_extraction_method": "ocr",
+    "ocr_provider": "mistral",
+    "llm_provider": "groq",
+    "processed_at": "2026-09-11T13:13:07.825386+00:00",
+    "processing_time_ms": 15244
+  },
+  "error": null
+}

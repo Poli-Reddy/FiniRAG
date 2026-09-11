@@ -1,0 +1,643 @@
+{
+  "document_name": "X51008142038.jpg",
+  "document_type": "invoice",
+  "processing_status": "PASS",
+  "file_validation": {
+    "file_type": "image/jpeg",
+    "is_supported": true,
+    "is_readable": true,
+    "page_count": 1,
+    "status": "PASS",
+    "error": null
+  },
+  "extracted_data": {
+    "invoice_number": {
+      "value": "18291/102/T0163",
+      "original_value": "18291/102/T0163",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "INVOICE NO : 18291/102/T0163",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "invoice_date": {
+      "value": "28-01-18",
+      "original_value": "28-01-18",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "28-01-18",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "due_date": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_name": {
+      "value": "99 SPEED MART S/B",
+      "original_value": "99 SPEED MART S/B",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "99 SPEED MART S/B",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_address": {
+      "value": "LOT P.T. 2811, JALAN ANGSA,\nTAMAN BERKELEY\n41150 KLANG, SELANGOR",
+      "original_value": "LOT P.T. 2811, JALAN ANGSA,\nTAMAN BERKELEY\n41150 KLANG, SELANGOR",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "LOT P.T. 2811, JALAN ANGSA,\n\nTAMAN BERKELEY\n\n41150 KLANG, SELANGOR",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_tax_id": {
+      "value": "000181747712",
+      "original_value": "000181747712",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "000181747712",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_name": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_address": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_tax_id": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "currency": {
+      "value": "RM",
+      "original_value": "RM",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "RM",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "subtotal": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "tax_amount": {
+      "value": "1.57",
+      "original_value": "1.57",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "1.57",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "tax_rate": {
+      "value": "6",
+      "original_value": "6",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "6%",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "PERCENT"
+    },
+    "discount": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "total_amount": {
+      "value": "27.90",
+      "original_value": "27.90",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "RM 27.90",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "amount_paid": {
+      "value": "28.00",
+      "original_value": "28.00",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "RM 28.00",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "amount_due": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "cash_paid": {
+      "value": "28.00",
+      "original_value": "28.00",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "RM 28.00",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "change_given": {
+      "value": "0.10",
+      "original_value": ".10",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "RM .10",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "rounding_adjustment": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "payment_method": {
+      "value": "cash",
+      "original_value": "cash",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "cash",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "line_items": [
+      {
+        "description": {
+          "value": "973 COKE LIGHT 500ML",
+          "original_value": "973 COKE LIGHT 500ML",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "973 COKE LIGHT 500ML RM4.40 s\n@2 X RM 2.20",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "2",
+          "original_value": "2",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "973 COKE LIGHT 500ML RM4.40 s\n@2 X RM 2.20",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_of_measure": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "2.20",
+          "original_value": "2.20",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "973 COKE LIGHT 500ML RM4.40 s\n@2 X RM 2.20",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "amount": {
+          "value": "4.40",
+          "original_value": "4.40",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "973 COKE LIGHT 500ML RM4.40 s\n@2 X RM 2.20",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "tax_code": {
+          "value": "s",
+          "original_value": "s",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "s",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "973 COKE LIGHT 500ML RM4.40 s\n@2 X RM 2.20",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "973 COKE LIGHT 500ML RM4.40 s\n@2 X RM 2.20",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "973 COKE LIGHT 500ML RM4.40 s\n@2 X RM 2.20",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      },
+      {
+        "description": {
+          "value": "5581 SPRITZER MINERAL WATER",
+          "original_value": "5581 SPRITZER MINERAL WATER",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "5581 SPRITZER MINERAL WATER RM23.50 s",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "5581 SPRITZER MINERAL WATER RM23.50 s",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_of_measure": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "5581 SPRITZER MINERAL WATER RM23.50 s",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "amount": {
+          "value": "23.50",
+          "original_value": "23.50",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "5581 SPRITZER MINERAL WATER RM23.50 s",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "tax_code": {
+          "value": "s",
+          "original_value": "s",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "s",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "5581 SPRITZER MINERAL WATER RM23.50 s",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "5581 SPRITZER MINERAL WATER RM23.50 s",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "5581 SPRITZER MINERAL WATER RM23.50 s",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      }
+    ],
+    "additional_tables": [
+      {
+        "table_name": "GST Summary",
+        "headers": [
+          "GST Summary",
+          "Amount(RM)",
+          "Tax(RM)"
+        ],
+        "rows": [
+          {
+            "GST Summary": "s = 6%",
+            "Amount(RM)": "26.33",
+            "Tax(RM)": "1.57"
+          }
+        ],
+        "page_number": 1
+      }
+    ],
+    "additional_fields": [
+      {
+        "label": "Company Registration No.",
+        "value": {
+          "value": "519537-X",
+          "original_value": "519537-X",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "519537-X",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Branch Code / Name",
+        "value": {
+          "value": "1225-DENGKIL",
+          "original_value": "1225-DENGKIL",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "1225-DENGKIL",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Time",
+        "value": {
+          "value": "11:59AM",
+          "original_value": "11:59AM",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "11:59AM",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Ref No.",
+        "value": {
+          "value": "567640",
+          "original_value": "567640",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "567640",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      }
+    ],
+    "tax_inclusive": true,
+    "subtotal_confirmed_pretax": false
+  },
+  "validation": {
+    "checks": [
+      {
+        "name": "line_total_check_1",
+        "formula": "quantity × unit_price",
+        "operands": {
+          "quantity": "2",
+          "unit_price": "2.20",
+          "amount": "4.40"
+        },
+        "calculated_value": "4.40",
+        "reported_value": "4.40",
+        "variance": "0.00",
+        "tolerance": "0.01",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "line_total_check_2",
+        "formula": "",
+        "operands": {},
+        "calculated_value": null,
+        "reported_value": null,
+        "variance": null,
+        "tolerance": null,
+        "status": "NOT_APPLICABLE",
+        "reason": "Missing operand(s)"
+      },
+      {
+        "name": "sum_lines_vs_subtotal",
+        "formula": "",
+        "operands": {},
+        "calculated_value": null,
+        "reported_value": null,
+        "variance": null,
+        "tolerance": null,
+        "status": "NOT_APPLICABLE",
+        "reason": "Missing operand(s)"
+      },
+      {
+        "name": "sum_lines_vs_total",
+        "formula": "sum(line_amounts) (tax already included)",
+        "operands": {
+          "line_amounts": "4.40, 23.50",
+          "line_count": "2",
+          "total_amount": "27.90",
+          "tax_amount": "1.57",
+          "tax_inclusive": "True"
+        },
+        "calculated_value": "27.90",
+        "reported_value": "27.90",
+        "variance": "0.00",
+        "tolerance": "0.02790",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "subtotal_plus_tax_vs_total",
+        "formula": "",
+        "operands": {},
+        "calculated_value": null,
+        "reported_value": null,
+        "variance": null,
+        "tolerance": null,
+        "status": "NOT_APPLICABLE",
+        "reason": "Missing operand(s)"
+      },
+      {
+        "name": "rate_times_base_vs_tax",
+        "formula": "",
+        "operands": {},
+        "calculated_value": null,
+        "reported_value": null,
+        "variance": null,
+        "tolerance": null,
+        "status": "NOT_APPLICABLE",
+        "reason": "Cannot establish independent taxable base"
+      },
+      {
+        "name": "cash_change_check",
+        "formula": "cash_paid − total",
+        "operands": {
+          "cash_paid": "28.00",
+          "total_amount": "27.90",
+          "change_given": "0.10"
+        },
+        "calculated_value": "0.10",
+        "reported_value": "0.10",
+        "variance": "0.00",
+        "tolerance": "0.01",
+        "status": "PASS",
+        "reason": ""
+      }
+    ],
+    "overall_status": "PASS",
+    "summary": {
+      "pass": 3,
+      "fail": 0,
+      "not_applicable": 4
+    }
+  },
+  "processing_metadata": {
+    "text_extraction_method": "ocr",
+    "ocr_provider": "mistral",
+    "llm_provider": "gemini",
+    "processed_at": "2026-09-11T12:55:12.058657+00:00",
+    "processing_time_ms": 20081
+  },
+  "error": null,
+  "_harness": {
+    "source": "dataset",
+    "file_size_bytes": 257835,
+    "wall_time_ms": 20084,
+    "crashed": false
+  }
+}

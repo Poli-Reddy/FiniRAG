@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FiniRAG Document Intelligence Platform — Extract and validate financial documents with AI">
+    <title>FiniRAG — Document Intelligence Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <!-- ─── Header ─── -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-icon">◈</span>
+                <h1>FiniRAG</h1>
+                <span class="badge">Document Intelligence</span>
+            </div>
+            <div class="header-status" id="healthStatus">
+                <span class="status-dot"></span>
+                <span class="status-text">Checking...</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <!-- ─── Upload Section ─── -->
+        <section class="upload-section" id="uploadSection">
+            <div class="upload-card">
+                <h2>Upload Financial Document</h2>
+                <p class="upload-subtitle">PDF, JPG, or PNG • Max 10MB • Max 3 pages</p>
+
+                <form id="uploadForm" class="upload-form">
+                    <div class="file-drop-zone" id="dropZone">
+                        <div class="drop-content">
+                            <div class="drop-icon">📄</div>
+                            <p class="drop-text">Drag & drop your document here</p>
+                            <p class="drop-subtext">or click to browse</p>
+                        </div>
+                        <input type="file" id="fileInput" accept=".pdf,.jpg,.jpeg,.png" hidden>
+                    </div>
+
+                    <div class="file-preview" id="filePreview" style="display:none;">
+                        <span class="file-name" id="fileName"></span>
+                        <button type="button" class="btn-clear" id="clearFile">✕</button>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="documentType">Document Type</label>
+                        <select id="documentType" required>
+                            <option value="">Select type...</option>
+                            <option value="invoice">Invoice / Receipt</option>
+                            <option value="balance_sheet">Balance Sheet</option>
+                            <option value="profit_and_loss">Profit & Loss Statement</option>
+                            <option value="cash_flow_statement">Cash Flow Statement</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn-primary" id="submitBtn" disabled>
+                        <span class="btn-text">Process Document</span>
+                        <span class="btn-loader" style="display:none;">Processing...</span>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- ─── Processing Indicator ─── -->
+        <section class="processing-section" id="processingSection" style="display:none;">
+            <div class="processing-card">
+                <div class="spinner"></div>
+                <h3>Processing Document</h3>
+                <div class="processing-steps">
+                    <div class="step" id="stepValidation">File Validation</div>
+                    <div class="step" id="stepExtraction">Text Extraction</div>
+                    <div class="step" id="stepLLM">AI Extraction</div>
+                    <div class="step" id="stepValidate">Financial Validation</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ─── Result Section ─── -->
+        <section class="result-section" id="resultSection" style="display:none;">
+            <div class="result-header">
+                <h2>Processing Result</h2>
+                <button class="btn-secondary" id="newUploadBtn">New Upload</button>
+            </div>
+
+            <!-- Status Banner -->
+            <div class="status-banner" id="statusBanner">
+                <div class="status-info">
+                    <span class="status-icon" id="statusIcon"></span>
+                    <div>
+                        <span class="status-label" id="statusLabel"></span>
+                        <span class="status-detail" id="statusDetail"></span>
+                    </div>
+                </div>
+                <div class="status-meta" id="statusMeta"></div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="tabs">
+                <button class="tab active" data-tab="extracted">Extracted Data</button>
+                <button class="tab" data-tab="validation">Validation</button>
+                <button class="tab" data-tab="metadata">Metadata</button>
+                <button class="tab" data-tab="raw">Raw JSON</button>
+            </div>
+
+            <!-- Tab Content: Extracted Data -->
+            <div class="tab-content active" id="tab-extracted">
+                <div class="data-grid" id="extractedGrid"></div>
+            </div>
+
+            <!-- Tab Content: Validation -->
+            <div class="tab-content" id="tab-validation">
+                <div class="validation-summary" id="validationSummary"></div>
+                <div class="validation-checks" id="validationChecks"></div>
+            </div>
+
+            <!-- Tab Content: Metadata -->
+            <div class="tab-content" id="tab-metadata">
+                <div class="metadata-grid" id="metadataGrid"></div>
+            </div>
+
+            <!-- Tab Content: Raw JSON -->
+            <div class="tab-content" id="tab-raw">
+                <pre class="json-view" id="rawJson"></pre>
+            </div>
+        </section>
+
+        <!-- ─── History Section ─── -->
+        <section class="history-section" id="historySection">
+            <h2>Processing History</h2>
+            <div class="history-filters" aria-label="History filters">
+                <label>
+                    Search
+                    <input type="search" id="historySearch" placeholder="Search document name...">
+                </label>
+                <label>
+                    Type
+                    <select id="historyTypeFilter">
+                        <option value="">All types</option>
+                        <option value="balance_sheet">Balance Sheet</option>
+                        <option value="profit_and_loss">Profit &amp; Loss</option>
+                        <option value="cash_flow_statement">Cash Flow Statement</option>
+                        <option value="invoice">Invoice</option>
+                    </select>
+                </label>
+                <label>
+                    Validation
+                    <select id="historyValidationFilter">
+                        <option value="">All validation statuses</option>
+                        <option value="PASS">PASS</option>
+                        <option value="FAIL">FAIL</option>
+                        <option value="NOT_RUN">NOT RUN</option>
+                    </select>
+                </label>
+                <button type="button" class="btn-secondary" id="clearHistoryFilters">Clear</button>
+            </div>
+            <div class="history-table-wrapper">
+                <table class="history-table" id="historyTable">
+                    <thead>
+                        <tr>
+                            <th>Document</th>
+                            <th>Type</th>
+                            <th>Processing</th>
+                            <th>Validation</th>
+                            <th>Method</th>
+                            <th>Time</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyBody">
+                        <tr><td colspan="7" class="empty-state">No documents processed yet</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="history-pagination" id="historyPagination"></div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>FiniRAG Document Intelligence Platform • AI Engineer Case Study</p>
+    </footer>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

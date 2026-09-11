@@ -1,0 +1,897 @@
+{
+  "document_name": "X51008145450.jpg",
+  "document_type": "invoice",
+  "processing_status": "PASS",
+  "file_validation": {
+    "file_type": "image/jpeg",
+    "is_supported": true,
+    "is_readable": true,
+    "page_count": 1,
+    "status": "PASS",
+    "error": null
+  },
+  "extracted_data": {
+    "invoice_number": {
+      "value": "216_01/21047",
+      "original_value": "216_01/21047",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "216_01/21047",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "invoice_date": {
+      "value": "20/06/2018 12:53 PM",
+      "original_value": "20/06/2018 12:53 PM",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "20/06/2018 #1 12:53 PM",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "due_date": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_name": {
+      "value": "GH DISTRIBUTOR & MARKETING SDN BHD",
+      "original_value": "GH DISTRIBUTOR & MARKETING SDN BHD",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "GH DISTRIBUTOR & MARKETING SDN BHD",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_address": {
+      "value": "216, Macalister Road, 10400 Penang.",
+      "original_value": "216, Macalister Road, 10400 Penang.",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "216, Macalister Road, 10400 Penang.",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_tax_id": {
+      "value": "001315377152",
+      "original_value": "001315377152",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "001315377152",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_name": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_address": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_tax_id": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "currency": {
+      "value": "RM",
+      "original_value": "RM",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "RM",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "subtotal": {
+      "value": "85.20",
+      "original_value": "85.20",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "85.20",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "tax_amount": {
+      "value": "0",
+      "original_value": "0.00",
+      "status": "EXPLICIT_ZERO",
+      "evidence": {
+        "source_text": "0.00",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "tax_rate": {
+      "value": "0",
+      "original_value": "0",
+      "status": "EXPLICIT_ZERO",
+      "evidence": {
+        "source_text": "0%",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "PERCENT"
+    },
+    "discount": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "total_amount": {
+      "value": "85.20",
+      "original_value": "85.20",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "85.20",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "amount_paid": {
+      "value": "100.20",
+      "original_value": "100.20",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "100.20",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "amount_due": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "cash_paid": {
+      "value": "100.20",
+      "original_value": "100.20",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "100.20",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "change_given": {
+      "value": "15.00",
+      "original_value": "15.00",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "15.00",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "rounding_adjustment": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "payment_method": {
+      "value": "Cash",
+      "original_value": "Cash",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "Cash",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "line_items": [
+      {
+        "description": {
+          "value": "TAU SAR PNEAH (S) 16PCS",
+          "original_value": "TAU SAR PNEAH (S) 16PCS",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "4 TAU SAR PNEAH (S) 16PCS @9.00 36.00 SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "4",
+          "original_value": "4",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "4 TAU SAR PNEAH (S) 16PCS @9.00 36.00 SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_of_measure": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "9.00",
+          "original_value": "9.00",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "4 TAU SAR PNEAH (S) 16PCS @9.00 36.00 SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "amount": {
+          "value": "36.00",
+          "original_value": "36.00",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "4 TAU SAR PNEAH (S) 16PCS @9.00 36.00 SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "tax_code": {
+          "value": "SR",
+          "original_value": "SR",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "4 TAU SAR PNEAH (S) 16PCS @9.00 36.00 SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "4 TAU SAR PNEAH (S) 16PCS @9.00 36.00 SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "4 TAU SAR PNEAH (S) 16PCS @9.00 36.00 SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      },
+      {
+        "description": {
+          "value": "DB TAU SAR PNEAH (S) 12PCS",
+          "original_value": "DB TAU SAR PNEAH (S) 12PCS",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "2 DB TAU SAR PNEAH (S) 12PCS @7.60 15.20 SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "2",
+          "original_value": "2",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "2 DB TAU SAR PNEAH (S) 12PCS @7.60 15.20 SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_of_measure": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "7.60",
+          "original_value": "7.60",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "2 DB TAU SAR PNEAH (S) 12PCS @7.60 15.20 SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "amount": {
+          "value": "15.20",
+          "original_value": "15.20",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "2 DB TAU SAR PNEAH (S) 12PCS @7.60 15.20 SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "tax_code": {
+          "value": "SR",
+          "original_value": "SR",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "2 DB TAU SAR PNEAH (S) 12PCS @7.60 15.20 SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "2 DB TAU SAR PNEAH (S) 12PCS @7.60 15.20 SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "2 DB TAU SAR PNEAH (S) 12PCS @7.60 15.20 SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      },
+      {
+        "description": {
+          "value": "BEH TEH SAW 8PCS",
+          "original_value": "BEH TEH SAW 8PCS",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "2 BEH TEH SAW 8PCS @8.00 16.00 SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "2",
+          "original_value": "2",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "2 BEH TEH SAW 8PCS @8.00 16.00 SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_of_measure": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "8.00",
+          "original_value": "8.00",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "2 BEH TEH SAW 8PCS @8.00 16.00 SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "amount": {
+          "value": "16.00",
+          "original_value": "16.00",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "2 BEH TEH SAW 8PCS @8.00 16.00 SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "tax_code": {
+          "value": "SR",
+          "original_value": "SR",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "2 BEH TEH SAW 8PCS @8.00 16.00 SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "2 BEH TEH SAW 8PCS @8.00 16.00 SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "2 BEH TEH SAW 8PCS @8.00 16.00 SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      },
+      {
+        "description": {
+          "value": "PHONG PNEAH 6PCS",
+          "original_value": "PHONG PNEAH 6PCS",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "2 PHONG PNEAH 6PCS @9.00 18.00 SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "2",
+          "original_value": "2",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "2 PHONG PNEAH 6PCS @9.00 18.00 SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_of_measure": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "9.00",
+          "original_value": "9.00",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "2 PHONG PNEAH 6PCS @9.00 18.00 SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "amount": {
+          "value": "18.00",
+          "original_value": "18.00",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "2 PHONG PNEAH 6PCS @9.00 18.00 SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "tax_code": {
+          "value": "SR",
+          "original_value": "SR",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "2 PHONG PNEAH 6PCS @9.00 18.00 SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "2 PHONG PNEAH 6PCS @9.00 18.00 SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "2 PHONG PNEAH 6PCS @9.00 18.00 SR",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      }
+    ],
+    "additional_tables": [
+      {
+        "table_name": "Tax Summary",
+        "headers": [
+          "Tax Code",
+          "Amount",
+          "Tax"
+        ],
+        "rows": [
+          {
+            "Tax Code": "SR:GST @0%",
+            "Amount": "85.20",
+            "Tax": "0.00"
+          }
+        ],
+        "page_number": 1
+      }
+    ],
+    "additional_fields": [
+      {
+        "label": "Company Registration No",
+        "value": {
+          "value": "1097826-H",
+          "original_value": "1097826-H",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "1097826-H",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Store Name",
+        "value": {
+          "value": "GHEE HIANG",
+          "original_value": "GHEE HIANG",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "GHEE HIANG",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Cashier",
+        "value": {
+          "value": "PART TIMERS 05",
+          "original_value": "PART TIMERS 05",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "PART TIMERS 05",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "PRN ON",
+        "value": {
+          "value": "20/06/2018 12:56 PM",
+          "original_value": "20/06/2018 12:56 PM",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "20/06/2018 12:56 PM",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Total Quantity",
+        "value": {
+          "value": "10",
+          "original_value": "10",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "10",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      }
+    ],
+    "tax_inclusive": null,
+    "subtotal_confirmed_pretax": false
+  },
+  "validation": {
+    "checks": [
+      {
+        "name": "line_total_check_1",
+        "formula": "quantity × unit_price",
+        "operands": {
+          "quantity": "4",
+          "unit_price": "9.00",
+          "amount": "36.00"
+        },
+        "calculated_value": "36.00",
+        "reported_value": "36.00",
+        "variance": "0.00",
+        "tolerance": "0.03600",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "line_total_check_2",
+        "formula": "quantity × unit_price",
+        "operands": {
+          "quantity": "2",
+          "unit_price": "7.60",
+          "amount": "15.20"
+        },
+        "calculated_value": "15.20",
+        "reported_value": "15.20",
+        "variance": "0.00",
+        "tolerance": "0.01520",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "line_total_check_3",
+        "formula": "quantity × unit_price",
+        "operands": {
+          "quantity": "2",
+          "unit_price": "8.00",
+          "amount": "16.00"
+        },
+        "calculated_value": "16.00",
+        "reported_value": "16.00",
+        "variance": "0.00",
+        "tolerance": "0.01600",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "line_total_check_4",
+        "formula": "quantity × unit_price",
+        "operands": {
+          "quantity": "2",
+          "unit_price": "9.00",
+          "amount": "18.00"
+        },
+        "calculated_value": "18.00",
+        "reported_value": "18.00",
+        "variance": "0.00",
+        "tolerance": "0.01800",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "sum_lines_vs_subtotal",
+        "formula": "sum(line_amounts)",
+        "operands": {
+          "line_amounts": "36.00, 15.20, 16.00, 18.00",
+          "line_count": "4",
+          "subtotal": "85.20",
+          "tax_amount": "0"
+        },
+        "calculated_value": "85.20",
+        "reported_value": "85.20",
+        "variance": "0.00",
+        "tolerance": "0.08520",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "sum_lines_vs_total",
+        "formula": "",
+        "operands": {},
+        "calculated_value": null,
+        "reported_value": null,
+        "variance": null,
+        "tolerance": null,
+        "status": "NOT_APPLICABLE",
+        "reason": "Missing operand(s)"
+      },
+      {
+        "name": "subtotal_plus_tax_vs_total",
+        "formula": "subtotal + tax_amount",
+        "operands": {
+          "subtotal": "85.20",
+          "tax_amount": "0",
+          "total_amount": "85.20",
+          "tax_inclusive": "not stated"
+        },
+        "calculated_value": "85.20",
+        "reported_value": "85.20",
+        "variance": "0.00",
+        "tolerance": "0.08520",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "rate_times_base_vs_tax",
+        "formula": "",
+        "operands": {},
+        "calculated_value": null,
+        "reported_value": null,
+        "variance": null,
+        "tolerance": null,
+        "status": "NOT_APPLICABLE",
+        "reason": "Cannot establish independent taxable base"
+      },
+      {
+        "name": "cash_change_check",
+        "formula": "cash_paid − total",
+        "operands": {
+          "cash_paid": "100.20",
+          "total_amount": "85.20",
+          "change_given": "15.00"
+        },
+        "calculated_value": "15.00",
+        "reported_value": "15.00",
+        "variance": "0.00",
+        "tolerance": "0.01500",
+        "status": "PASS",
+        "reason": ""
+      }
+    ],
+    "overall_status": "PASS",
+    "summary": {
+      "pass": 7,
+      "fail": 0,
+      "not_applicable": 2
+    }
+  },
+  "processing_metadata": {
+    "text_extraction_method": "ocr",
+    "ocr_provider": "mistral",
+    "llm_provider": "gemini",
+    "processed_at": "2026-09-11T12:55:45.443709+00:00",
+    "processing_time_ms": 33367
+  },
+  "error": null,
+  "_harness": {
+    "source": "dataset",
+    "file_size_bytes": 279566,
+    "wall_time_ms": 33368,
+    "crashed": false
+  }
+}

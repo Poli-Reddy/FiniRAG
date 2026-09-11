@@ -1,0 +1,32 @@
+{
+  "document_name": "edge_corrupted.pdf",
+  "document_type": "balance_sheet",
+  "processing_status": "FAILED",
+  "file_validation": {
+    "file_type": "application/pdf",
+    "is_supported": true,
+    "is_readable": false,
+    "page_count": 0,
+    "status": "FAIL",
+    "error": "CORRUPTED_FILE"
+  },
+  "extracted_data": null,
+  "validation": null,
+  "processing_metadata": {
+    "text_extraction_method": "",
+    "ocr_provider": null,
+    "llm_provider": "",
+    "processed_at": "2026-09-11T12:55:45.507192+00:00",
+    "processing_time_ms": 22
+  },
+  "error": {
+    "code": "CORRUPTED_FILE",
+    "message": "CORRUPTED_FILE"
+  },
+  "_harness": {
+    "source": "edge_case",
+    "file_size_bytes": 251,
+    "wall_time_ms": 23,
+    "crashed": false
+  }
+}

@@ -1,0 +1,835 @@
+{
+  "document_name": "batch2-0999.jpg",
+  "document_type": "invoice",
+  "processing_status": "PASS",
+  "file_validation": {
+    "file_type": "image/jpeg",
+    "is_supported": true,
+    "is_readable": true,
+    "page_count": 1,
+    "status": "PASS",
+    "error": null
+  },
+  "extracted_data": {
+    "invoice_number": {
+      "value": "118",
+      "original_value": "118",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "118",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "invoice_date": {
+      "value": "March 9, 2022",
+      "original_value": "March 9, 2022",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "March 9, 2022",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "due_date": {
+      "value": "April 9, 2022",
+      "original_value": "April 9, 2022",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "April 9, 2022",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_name": {
+      "value": "BLUE STREAK ELECTRONICS",
+      "original_value": "BLUE STREAK ELECTRONICS",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "BLUE STREAK ELECTRONICS",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_address": {
+      "value": "30 Moyal Court\nCONCORD, Ontario, Canada",
+      "original_value": "30 Moyal Court\nCONCORD, Ontario, Canada",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "30 Moyal Court\nCONCORD, Ontario, Canada",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_tax_id": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_name": {
+      "value": "GEONICS LTD",
+      "original_value": "GEONICS LTD",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "GEONICS LTD",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_address": {
+      "value": "1745 Meyerside Drive\nMISSISSAUGA, Ontario, Canada",
+      "original_value": "1745 Meyerside Drive\nMISSISSAUGA, Ontario, Canada",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "1745 Meyerside Drive\nMISSISSAUGA, Ontario, Canada",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_tax_id": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "currency": {
+      "value": "$",
+      "original_value": "$",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "$",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "subtotal": {
+      "value": "804",
+      "original_value": "804",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "804",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "$"
+    },
+    "tax_amount": {
+      "value": "63.47",
+      "original_value": "63.47",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "63.47",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "$"
+    },
+    "tax_rate": {
+      "value": "8",
+      "original_value": "8",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "8%",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "PERCENT"
+    },
+    "discount": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "$"
+    },
+    "total_amount": {
+      "value": "916.47",
+      "original_value": "916.47",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "916.47",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "$"
+    },
+    "amount_paid": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "$"
+    },
+    "amount_due": {
+      "value": "916.47",
+      "original_value": "916.47",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "916.47",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "$"
+    },
+    "cash_paid": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "$"
+    },
+    "change_given": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "$"
+    },
+    "rounding_adjustment": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "$"
+    },
+    "payment_method": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "line_items": [
+      {
+        "description": {
+          "value": "3M Scotchcast Electrical Resin #8 - 16 lbs/kit 16 lbs/case",
+          "original_value": "3M Scotchcast Electrical Resin #8 - 16 lbs/kit 16 lbs/case",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "01 | 3M Scotchcast Electrical Resin #8 - 16 lbs/kit 16 lbs/case | 2 | 346.00 | 346.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "2",
+          "original_value": "2",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "01 | 3M Scotchcast Electrical Resin #8 - 16 lbs/kit 16 lbs/case | 2 | 346.00 | 346.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_of_measure": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "346.00",
+          "original_value": "346.00",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "01 | 3M Scotchcast Electrical Resin #8 - 16 lbs/kit 16 lbs/case | 2 | 346.00 | 346.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "amount": {
+          "value": "346.00",
+          "original_value": "346.00",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "01 | 3M Scotchcast Electrical Resin #8 - 16 lbs/kit 16 lbs/case | 2 | 346.00 | 346.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "tax_code": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "01 | 3M Scotchcast Electrical Resin #8 - 16 lbs/kit 16 lbs/case | 2 | 346.00 | 346.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "01 | 3M Scotchcast Electrical Resin #8 - 16 lbs/kit 16 lbs/case | 2 | 346.00 | 346.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "01 | 3M Scotchcast Electrical Resin #8 - 16 lbs/kit 16 lbs/case | 2 | 346.00 | 346.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      },
+      {
+        "description": {
+          "value": "3M DP460 EG Epoxy Adhesive - 50ml 2:1 12 kits/case",
+          "original_value": "3M DP460 EG Epoxy Adhesive - 50ml 2:1 12 kits/case",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "02 | 3M DP460 EG Epoxy Adhesive - 50ml 2:1 12 kits/case | 4 | 226.00 | 226.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "4",
+          "original_value": "4",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "02 | 3M DP460 EG Epoxy Adhesive - 50ml 2:1 12 kits/case | 4 | 226.00 | 226.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_of_measure": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "226.00",
+          "original_value": "226.00",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "02 | 3M DP460 EG Epoxy Adhesive - 50ml 2:1 12 kits/case | 4 | 226.00 | 226.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "amount": {
+          "value": "226.00",
+          "original_value": "226.00",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "02 | 3M DP460 EG Epoxy Adhesive - 50ml 2:1 12 kits/case | 4 | 226.00 | 226.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "tax_code": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "02 | 3M DP460 EG Epoxy Adhesive - 50ml 2:1 12 kits/case | 4 | 226.00 | 226.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "02 | 3M DP460 EG Epoxy Adhesive - 50ml 2:1 12 kits/case | 4 | 226.00 | 226.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "02 | 3M DP460 EG Epoxy Adhesive - 50ml 2:1 12 kits/case | 4 | 226.00 | 226.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      },
+      {
+        "description": {
+          "value": "Freight AE Blake Montreal to Aerospace Metal",
+          "original_value": "Freight AE Blake Montreal to Aerospace Metal",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "03 | Freight AE Blake Montreal to Aerospace Metal | 6 | 136.00 | 136.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "6",
+          "original_value": "6",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "03 | Freight AE Blake Montreal to Aerospace Metal | 6 | 136.00 | 136.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_of_measure": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "136.00",
+          "original_value": "136.00",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "03 | Freight AE Blake Montreal to Aerospace Metal | 6 | 136.00 | 136.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "amount": {
+          "value": "136.00",
+          "original_value": "136.00",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "03 | Freight AE Blake Montreal to Aerospace Metal | 6 | 136.00 | 136.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "tax_code": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "03 | Freight AE Blake Montreal to Aerospace Metal | 6 | 136.00 | 136.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "03 | Freight AE Blake Montreal to Aerospace Metal | 6 | 136.00 | 136.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "03 | Freight AE Blake Montreal to Aerospace Metal | 6 | 136.00 | 136.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      },
+      {
+        "description": {
+          "value": "Lead-time is a mere estimate. Actual delivery may differ without notice",
+          "original_value": "Lead-time is a mere estimate. Actual delivery may differ without notice",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "04 | Lead-time is a mere estimate. Actual delivery may differ without notice | 8 | 96.00 | 96.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "8",
+          "original_value": "8",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "04 | Lead-time is a mere estimate. Actual delivery may differ without notice | 8 | 96.00 | 96.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_of_measure": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "96.00",
+          "original_value": "96.00",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "04 | Lead-time is a mere estimate. Actual delivery may differ without notice | 8 | 96.00 | 96.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "amount": {
+          "value": "96.00",
+          "original_value": "96.00",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "04 | Lead-time is a mere estimate. Actual delivery may differ without notice | 8 | 96.00 | 96.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "tax_code": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "04 | Lead-time is a mere estimate. Actual delivery may differ without notice | 8 | 96.00 | 96.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "04 | Lead-time is a mere estimate. Actual delivery may differ without notice | 8 | 96.00 | 96.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "$"
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "04 | Lead-time is a mere estimate. Actual delivery may differ without notice | 8 | 96.00 | 96.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      }
+    ],
+    "additional_tables": [],
+    "additional_fields": [
+      {
+        "label": "Invoices Email",
+        "value": {
+          "value": "SSarker@bsecorp.com",
+          "original_value": "SSarker@bsecorp.com",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "SSarker@bsecorp.com",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "S&H",
+        "value": {
+          "value": "50",
+          "original_value": "50",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "50",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      }
+    ],
+    "tax_inclusive": null,
+    "subtotal_confirmed_pretax": false
+  },
+  "validation": {
+    "checks": [
+      {
+        "name": "line_total_check_1",
+        "formula": "quantity × unit_price",
+        "operands": {
+          "quantity": "2",
+          "unit_price": "346.00",
+          "amount": "346.00"
+        },
+        "calculated_value": "692.00",
+        "reported_value": "346.00",
+        "variance": "346.00",
+        "tolerance": "0.34600",
+        "status": "FAIL",
+        "reason": ""
+      },
+      {
+        "name": "line_total_check_2",
+        "formula": "quantity × unit_price",
+        "operands": {
+          "quantity": "4",
+          "unit_price": "226.00",
+          "amount": "226.00"
+        },
+        "calculated_value": "904.00",
+        "reported_value": "226.00",
+        "variance": "678.00",
+        "tolerance": "0.22600",
+        "status": "FAIL",
+        "reason": ""
+      },
+      {
+        "name": "line_total_check_3",
+        "formula": "quantity × unit_price",
+        "operands": {
+          "quantity": "6",
+          "unit_price": "136.00",
+          "amount": "136.00"
+        },
+        "calculated_value": "816.00",
+        "reported_value": "136.00",
+        "variance": "680.00",
+        "tolerance": "0.13600",
+        "status": "FAIL",
+        "reason": ""
+      },
+      {
+        "name": "line_total_check_4",
+        "formula": "quantity × unit_price",
+        "operands": {
+          "quantity": "8",
+          "unit_price": "96.00",
+          "amount": "96.00"
+        },
+        "calculated_value": "768.00",
+        "reported_value": "96.00",
+        "variance": "672.00",
+        "tolerance": "0.09600",
+        "status": "FAIL",
+        "reason": ""
+      },
+      {
+        "name": "sum_lines_vs_subtotal",
+        "formula": "sum(line_amounts)",
+        "operands": {
+          "line_amounts": "346.00, 226.00, 136.00, 96.00",
+          "line_count": "4",
+          "subtotal": "804",
+          "tax_amount": "63.47"
+        },
+        "calculated_value": "804.00",
+        "reported_value": "804",
+        "variance": "0.00",
+        "tolerance": "0.804",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "sum_lines_vs_total",
+        "formula": "",
+        "operands": {},
+        "calculated_value": null,
+        "reported_value": null,
+        "variance": null,
+        "tolerance": null,
+        "status": "NOT_APPLICABLE",
+        "reason": "Missing operand(s)"
+      },
+      {
+        "name": "subtotal_plus_tax_vs_total",
+        "formula": "subtotal + tax_amount",
+        "operands": {
+          "subtotal": "804",
+          "tax_amount": "63.47",
+          "total_amount": "916.47",
+          "tax_inclusive": "not stated"
+        },
+        "calculated_value": "867.47",
+        "reported_value": "916.47",
+        "variance": "49.00",
+        "tolerance": "0.91647",
+        "status": "FAIL",
+        "reason": ""
+      },
+      {
+        "name": "rate_times_base_vs_tax",
+        "formula": "taxable_base × 0.08",
+        "operands": {
+          "taxable_base": "804",
+          "base_source": "subtotal",
+          "tax_rate": "8",
+          "rate_reading": "percent (magnitude >= 1)",
+          "rate_as_multiplier": "0.08",
+          "tax_amount": "63.47"
+        },
+        "calculated_value": "64.32",
+        "reported_value": "63.47",
+        "variance": "0.85",
+        "tolerance": "0.06347",
+        "status": "FAIL",
+        "reason": ""
+      },
+      {
+        "name": "cash_change_check",
+        "formula": "",
+        "operands": {},
+        "calculated_value": null,
+        "reported_value": null,
+        "variance": null,
+        "tolerance": null,
+        "status": "NOT_APPLICABLE",
+        "reason": "Missing operand(s)"
+      }
+    ],
+    "overall_status": "FAIL",
+    "summary": {
+      "pass": 1,
+      "fail": 6,
+      "not_applicable": 2
+    }
+  },
+  "processing_metadata": {
+    "text_extraction_method": "ocr",
+    "ocr_provider": "mistral",
+    "llm_provider": "gemini",
+    "processed_at": "2026-09-11T12:44:38.742913+00:00",
+    "processing_time_ms": 98297
+  },
+  "error": null
+}

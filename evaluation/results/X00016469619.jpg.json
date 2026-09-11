@@ -1,0 +1,699 @@
+{
+  "document_name": "X00016469619.jpg",
+  "document_type": "invoice",
+  "processing_status": "PASS",
+  "file_validation": {
+    "file_type": "image/jpeg",
+    "is_supported": true,
+    "is_readable": true,
+    "page_count": 1,
+    "status": "PASS",
+    "error": null
+  },
+  "extracted_data": {
+    "invoice_number": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "invoice_date": {
+      "value": "19/10/2018 20:49:59",
+      "original_value": "19/10/2018 20:49:59",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "19/10/2018 20:49:59",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "due_date": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_name": {
+      "value": "INDAH GIFT & HOME DECO",
+      "original_value": "INDAH GIFT & HOME DECO",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "INDAH GIFT & HOME DECO",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_address": {
+      "value": "27,JALAN DEDAP 13,\n\nTAMAN JOHOR JAYA,\n\n81100 JOHOR BAHRU, JOHOR.",
+      "original_value": "27,JALAN DEDAP 13,\n\nTAMAN JOHOR JAYA,\n\n81100 JOHOR BAHRU, JOHOR.",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "27,JALAN DEDAP 13,\n\nTAMAN JOHOR JAYA,\n\n81100 JOHOR BAHRU, JOHOR.",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_tax_id": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_name": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_address": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_tax_id": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "currency": {
+      "value": "RM",
+      "original_value": "RM",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "RM",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "subtotal": {
+      "value": "60.31",
+      "original_value": "60.31",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "TOTAL AMT... RM 60.31",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "tax_amount": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "tax_rate": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "PERCENT"
+    },
+    "discount": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "total_amount": {
+      "value": "60.30",
+      "original_value": "60.30",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "RM 60.30",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "amount_paid": {
+      "value": "70.30",
+      "original_value": "70.30",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "CASH... RM 70.30",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "amount_due": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "cash_paid": {
+      "value": "70.30",
+      "original_value": "70.30",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "CASH... RM 70.30",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "change_given": {
+      "value": "10.00",
+      "original_value": "10.00",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "CHANGE... RM 10.00",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "rounding_adjustment": {
+      "value": "-0.01",
+      "original_value": "-0.01",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "ROUNDING ADJ... -0.01",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "payment_method": {
+      "value": "cash",
+      "original_value": "cash",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "CASH...",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "line_items": [
+      {
+        "description": {
+          "value": "ST-PRIVILEGE CARD/GD INDAH 88888",
+          "original_value": "ST-PRIVILEGE CARD/GD INDAH 88888",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "ST-PRIVILEGE CARD/GD INDAH\n\n88888 1 10.00 10.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "1",
+          "original_value": "1",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "ST-PRIVILEGE CARD/GD INDAH\n\n88888 1 10.00 10.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_of_measure": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "10.00",
+          "original_value": "10.00",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "ST-PRIVILEGE CARD/GD INDAH\n\n88888 1 10.00 10.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "amount": {
+          "value": "10.00",
+          "original_value": "10.00",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "ST-PRIVILEGE CARD/GD INDAH\n\n88888 1 10.00 10.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "tax_code": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "ST-PRIVILEGE CARD/GD INDAH\n\n88888 1 10.00 10.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "ST-PRIVILEGE CARD/GD INDAH\n\n88888 1 10.00 10.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "ST-PRIVILEGE CARD/GD INDAH\n\n88888 1 10.00 10.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      },
+      {
+        "description": {
+          "value": "GF-TABLE LAMP/STITCH <i> 62483",
+          "original_value": "GF-TABLE LAMP/STITCH <i> 62483",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "GF-TABLE LAMP/STITCH <i>\n\n62483 1 55.90 55.90\n\n@DISC 10.00% -5.59",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "1",
+          "original_value": "1",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "GF-TABLE LAMP/STITCH <i>\n\n62483 1 55.90 55.90\n\n@DISC 10.00% -5.59",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_of_measure": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "55.90",
+          "original_value": "55.90",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "GF-TABLE LAMP/STITCH <i>\n\n62483 1 55.90 55.90\n\n@DISC 10.00% -5.59",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "amount": {
+          "value": "50.31",
+          "original_value": "50.31",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "GF-TABLE LAMP/STITCH <i>\n\n62483 1 55.90 55.90\n\n@DISC 10.00% -5.59",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "tax_code": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "GF-TABLE LAMP/STITCH <i>\n\n62483 1 55.90 55.90\n\n@DISC 10.00% -5.59",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": "-5.59",
+          "original_value": "-5.59",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "GF-TABLE LAMP/STITCH <i>\n\n62483 1 55.90 55.90\n\n@DISC 10.00% -5.59",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "discount_rate": {
+          "value": "10.00",
+          "original_value": "10.00%",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "GF-TABLE LAMP/STITCH <i>\n\n62483 1 55.90 55.90\n\n@DISC 10.00% -5.59",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      }
+    ],
+    "additional_tables": [],
+    "additional_fields": [
+      {
+        "label": "Header Name",
+        "value": {
+          "value": "tan woon yann",
+          "original_value": "tan woon yann",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "tan woon yann",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Tel",
+        "value": {
+          "value": "07-3507405",
+          "original_value": "07-3507405",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "07-3507405",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Fax",
+        "value": {
+          "value": "07-3558160",
+          "original_value": "07-3558160",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "07-3558160",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Receipt Seq",
+        "value": {
+          "value": "#01",
+          "original_value": "#01",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "#01",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Cashier",
+        "value": {
+          "value": "CN",
+          "original_value": "CN",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "CN",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Location/SP",
+        "value": {
+          "value": "05 /0531",
+          "original_value": "05 /0531",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "05 /0531",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "MB",
+        "value": {
+          "value": "M026588",
+          "original_value": "M026588",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "M026588",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Room No",
+        "value": {
+          "value": "01 050100035279",
+          "original_value": "01 050100035279",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "01 050100035279",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Total Qty",
+        "value": {
+          "value": "2",
+          "original_value": "2",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "2",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      }
+    ],
+    "tax_inclusive": null,
+    "subtotal_confirmed_pretax": false
+  },
+  "validation": {
+    "checks": [
+      {
+        "name": "line_total_check_1",
+        "formula": "quantity × unit_price",
+        "operands": {
+          "quantity": "1",
+          "unit_price": "10.00",
+          "amount": "10.00"
+        },
+        "calculated_value": "10.00",
+        "reported_value": "10.00",
+        "variance": "0.00",
+        "tolerance": "0.01",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "line_total_check_2",
+        "formula": "quantity × unit_price − |discount_amount|",
+        "operands": {
+          "quantity": "1",
+          "unit_price": "55.90",
+          "discount_amount": "-5.59",
+          "amount": "50.31"
+        },
+        "calculated_value": "50.31",
+        "reported_value": "50.31",
+        "variance": "0.00",
+        "tolerance": "0.05031",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "sum_lines_vs_subtotal",
+        "formula": "sum(line_amounts)",
+        "operands": {
+          "line_amounts": "10.00, 50.31",
+          "line_count": "2",
+          "subtotal": "60.31"
+        },
+        "calculated_value": "60.31",
+        "reported_value": "60.31",
+        "variance": "0.00",
+        "tolerance": "0.06031",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "sum_lines_vs_total",
+        "formula": "",
+        "operands": {},
+        "calculated_value": null,
+        "reported_value": null,
+        "variance": null,
+        "tolerance": null,
+        "status": "NOT_APPLICABLE",
+        "reason": "Missing operand(s)"
+      },
+      {
+        "name": "subtotal_plus_tax_vs_total",
+        "formula": "",
+        "operands": {},
+        "calculated_value": null,
+        "reported_value": null,
+        "variance": null,
+        "tolerance": null,
+        "status": "NOT_APPLICABLE",
+        "reason": "Missing operand(s)"
+      },
+      {
+        "name": "rate_times_base_vs_tax",
+        "formula": "",
+        "operands": {},
+        "calculated_value": null,
+        "reported_value": null,
+        "variance": null,
+        "tolerance": null,
+        "status": "NOT_APPLICABLE",
+        "reason": "Missing operand(s)"
+      },
+      {
+        "name": "cash_change_check",
+        "formula": "cash_paid − total",
+        "operands": {
+          "cash_paid": "70.30",
+          "total_amount": "60.30",
+          "change_given": "10.00"
+        },
+        "calculated_value": "10.00",
+        "reported_value": "10.00",
+        "variance": "0.00",
+        "tolerance": "0.01",
+        "status": "PASS",
+        "reason": ""
+      }
+    ],
+    "overall_status": "PASS",
+    "summary": {
+      "pass": 4,
+      "fail": 0,
+      "not_applicable": 3
+    }
+  },
+  "processing_metadata": {
+    "text_extraction_method": "ocr",
+    "ocr_provider": "mistral",
+    "llm_provider": "gemini",
+    "processed_at": "2026-09-11T12:50:19.399067+00:00",
+    "processing_time_ms": 60945
+  },
+  "error": null,
+  "_harness": {
+    "source": "dataset",
+    "file_size_bytes": 85804,
+    "wall_time_ms": 60945,
+    "crashed": false
+  }
+}

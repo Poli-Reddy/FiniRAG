@@ -1,0 +1,597 @@
+{
+  "document_name": "Consolidated Balance Sheet 2022.pdf",
+  "document_type": "balance_sheet",
+  "processing_status": "PASS",
+  "file_validation": {
+    "file_type": "application/pdf",
+    "is_supported": true,
+    "is_readable": true,
+    "page_count": 1,
+    "status": "PASS",
+    "error": null
+  },
+  "extracted_data": {
+    "company_name": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "statement_type": {
+      "value": "Balance Sheet",
+      "original_value": "Balance Sheet",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "Balance Sheet",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "unit_descriptor": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "unit_code": "",
+    "periods": {
+      "2022": {
+        "year": "2022",
+        "capital_and_liabilities": {
+          "Capital": {
+            "value": "554.55",
+            "original_value": "554.55",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "|  Capital | 1 | 554.55 | 551.28  |",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          },
+          "Reserves and surplus": {
+            "value": "246771.62",
+            "original_value": "246,771.62",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "|  Reserves and surplus | 2 | 246,771.62 | 209,258.90  |",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          },
+          "Minority interest": {
+            "value": "720.41",
+            "original_value": "720.41",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "|  Minority interest | 2A | 720.41 | 632.76  |",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          },
+          "Deposits": {
+            "value": "1558003.03",
+            "original_value": "1,558,003.03",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "|  Deposits | 3 | 1,558,003.03 | 1,333,720.87  |",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          },
+          "Borrowings": {
+            "value": "226966.50",
+            "original_value": "226,966.50",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "|  Borrowings | 4 | 226,966.50 | 177,696.75  |",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          },
+          "Other liabilities and provisions": {
+            "value": "89918.19",
+            "original_value": "89,918.19",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "|  Other liabilities and provisions | 5 | 89,918.19 | 77,646.07  |",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          }
+        },
+        "total_capital_and_liabilities": {
+          "value": "2122934.30",
+          "original_value": "2,122,934.30",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "|  **Total** |  | **2,122,934.30** | **1,799,506.63**  |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "assets": {
+          "Cash and balances with Reserve Bank of India": {
+            "value": "130030.71",
+            "original_value": "130,030.71",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "|  Cash and balances with Reserve Bank of India | 6 | 130,030.71 | 97,370.35  |",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          },
+          "Balances with banks and money at call and short notice": {
+            "value": "25355.02",
+            "original_value": "25,355.02",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "|  Balances with banks and money at call and short notice | 7 | 25,355.02 | 23,902.16  |",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          },
+          "Investments": {
+            "value": "449263.86",
+            "original_value": "449,263.86",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "|  Investments | 8 | 449,263.86 | 438,823.11  |",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          },
+          "Advances": {
+            "value": "1420942.28",
+            "original_value": "1,420,942.28",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "|  Advances | 9 | 1,420,942.28 | 1,185,283.52  |",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          },
+          "Fixed assets": {
+            "value": "6283.28",
+            "original_value": "6,283.28",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "|  Fixed assets | 10 | 6,283.28 | 5,099.56  |",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          },
+          "Other assets": {
+            "value": "90910.36",
+            "original_value": "90,910.36",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "|  Other assets | 11 | 90,910.36 | 48,879.14  |",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          },
+          "Goodwill on Consolidation": {
+            "value": "148.79",
+            "original_value": "148.79",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "|  Goodwill on Consolidation |  | 148.79 | 148.79  |",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          }
+        },
+        "total_assets": {
+          "value": "2122934.30",
+          "original_value": "2,122,934.30",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "|  **Total** |  | **2,122,934.30** | **1,799,506.63**  |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "contingent_liabilities": {
+          "value": "1400197.64",
+          "original_value": "1,400,197.64",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "1,400,197.64",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "bills_for_collection": {
+          "value": "56968.05",
+          "original_value": "56,968.05",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "56,968.05",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "schedule_refs": {
+          "Capital": "1",
+          "Reserves and surplus": "2",
+          "Minority interest": "2A",
+          "Deposits": "3",
+          "Borrowings": "4",
+          "Other liabilities and provisions": "5",
+          "Cash and balances with Reserve Bank of India": "6",
+          "Balances with banks and money at call and short notice": "7",
+          "Investments": "8",
+          "Advances": "9",
+          "Fixed assets": "10",
+          "Other assets": "11",
+          "Contingent liabilities": "12"
+        },
+        "additional_fields": []
+      },
+      "2021": {
+        "year": "2021",
+        "capital_and_liabilities": {
+          "Capital": {
+            "value": "551.28",
+            "original_value": "551.28",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "|  Capital | 1 | 554.55 | 551.28  |",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          },
+          "Reserves and surplus": {
+            "value": "209258.90",
+            "original_value": "209,258.90",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "|  Reserves and surplus | 2 | 246,771.62 | 209,258.90  |",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          },
+          "Minority interest": {
+            "value": "632.76",
+            "original_value": "632.76",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "|  Minority interest | 2A | 720.41 | 632.76  |",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          },
+          "Deposits": {
+            "value": "1333720.87",
+            "original_value": "1,333,720.87",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "|  Deposits | 3 | 1,558,003.03 | 1,333,720.87  |",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          },
+          "Borrowings": {
+            "value": "177696.75",
+            "original_value": "177,696.75",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "|  Borrowings | 4 | 226,966.50 | 177,696.75  |",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          },
+          "Other liabilities and provisions": {
+            "value": "77646.07",
+            "original_value": "77,646.07",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "|  Other liabilities and provisions | 5 | 89,918.19 | 77,646.07  |",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          }
+        },
+        "total_capital_and_liabilities": {
+          "value": "1799506.63",
+          "original_value": "1,799,506.63",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "|  **Total** |  | **2,122,934.30** | **1,799,506.63**  |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "assets": {
+          "Cash and balances with Reserve Bank of India": {
+            "value": "97370.35",
+            "original_value": "97,370.35",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "|  Cash and balances with Reserve Bank of India | 6 | 130,030.71 | 97,370.35  |",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          },
+          "Balances with banks and money at call and short notice": {
+            "value": "23902.16",
+            "original_value": "23,902.16",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "|  Balances with banks and money at call and short notice | 7 | 25,355.02 | 23,902.16  |",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          },
+          "Investments": {
+            "value": "438823.11",
+            "original_value": "438,823.11",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "|  Investments | 8 | 449,263.86 | 438,823.11  |",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          },
+          "Advances": {
+            "value": "1185283.52",
+            "original_value": "1,185,283.52",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "|  Advances | 9 | 1,420,942.28 | 1,185,283.52  |",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          },
+          "Fixed assets": {
+            "value": "5099.56",
+            "original_value": "5,099.56",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "|  Fixed assets | 10 | 6,283.28 | 5,099.56  |",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          },
+          "Other assets": {
+            "value": "48879.14",
+            "original_value": "48,879.14",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "|  Other assets | 11 | 90,910.36 | 48,879.14  |",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          },
+          "Goodwill on Consolidation": {
+            "value": "148.79",
+            "original_value": "148.79",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "|  Goodwill on Consolidation |  | 148.79 | 148.79  |",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          }
+        },
+        "total_assets": {
+          "value": "1799506.63",
+          "original_value": "1,799,506.63",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "|  **Total** |  | **2,122,934.30** | **1,799,506.63**  |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "contingent_liabilities": {
+          "value": "975280.66",
+          "original_value": "975,280.66",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "975,280.66",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "bills_for_collection": {
+          "value": "44748.14",
+          "original_value": "44,748.14",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "44,748.14",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "schedule_refs": {
+          "Capital": "1",
+          "Reserves and surplus": "2",
+          "Minority interest": "2A",
+          "Deposits": "3",
+          "Borrowings": "4",
+          "Other liabilities and provisions": "5",
+          "Cash and balances with Reserve Bank of India": "6",
+          "Balances with banks and money at call and short notice": "7",
+          "Investments": "8",
+          "Advances": "9",
+          "Fixed assets": "10",
+          "Other assets": "11",
+          "Contingent liabilities": "12"
+        },
+        "additional_fields": []
+      }
+    }
+  },
+  "validation": {
+    "checks": [
+      {
+        "name": "2022_assets_vs_liabilities",
+        "formula": "total_assets \u2248 total_capital_and_liabilities",
+        "operands": {
+          "total_assets": "2122934.30",
+          "total_capital_and_liabilities": "2122934.30"
+        },
+        "calculated_value": "2122934.30",
+        "reported_value": "2122934.30",
+        "variance": "0.00",
+        "tolerance": "2122.93430",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "2022_sum_assets",
+        "formula": "sum(asset_components)",
+        "operands": {
+          "Cash and balances with Reserve Bank of India": "130030.71",
+          "Balances with banks and money at call and short notice": "25355.02",
+          "Investments": "449263.86",
+          "Advances": "1420942.28",
+          "Fixed assets": "6283.28",
+          "Other assets": "90910.36",
+          "Goodwill on Consolidation": "148.79"
+        },
+        "calculated_value": "2122934.30",
+        "reported_value": "2122934.30",
+        "variance": "0.00",
+        "tolerance": "2122.93430",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "2022_sum_liabilities",
+        "formula": "sum(capital_and_liabilities_components)",
+        "operands": {
+          "Capital": "554.55",
+          "Reserves and surplus": "246771.62",
+          "Minority interest": "720.41",
+          "Deposits": "1558003.03",
+          "Borrowings": "226966.50",
+          "Other liabilities and provisions": "89918.19"
+        },
+        "calculated_value": "2122934.30",
+        "reported_value": "2122934.30",
+        "variance": "0.00",
+        "tolerance": "2122.93430",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "2021_assets_vs_liabilities",
+        "formula": "total_assets \u2248 total_capital_and_liabilities",
+        "operands": {
+          "total_assets": "1799506.63",
+          "total_capital_and_liabilities": "1799506.63"
+        },
+        "calculated_value": "1799506.63",
+        "reported_value": "1799506.63",
+        "variance": "0.00",
+        "tolerance": "1799.50663",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "2021_sum_assets",
+        "formula": "sum(asset_components)",
+        "operands": {
+          "Cash and balances with Reserve Bank of India": "97370.35",
+          "Balances with banks and money at call and short notice": "23902.16",
+          "Investments": "438823.11",
+          "Advances": "1185283.52",
+          "Fixed assets": "5099.56",
+          "Other assets": "48879.14",
+          "Goodwill on Consolidation": "148.79"
+        },
+        "calculated_value": "1799506.63",
+        "reported_value": "1799506.63",
+        "variance": "0.00",
+        "tolerance": "1799.50663",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "2021_sum_liabilities",
+        "formula": "sum(capital_and_liabilities_components)",
+        "operands": {
+          "Capital": "551.28",
+          "Reserves and surplus": "209258.90",
+          "Minority interest": "632.76",
+          "Deposits": "1333720.87",
+          "Borrowings": "177696.75",
+          "Other liabilities and provisions": "77646.07"
+        },
+        "calculated_value": "1799506.63",
+        "reported_value": "1799506.63",
+        "variance": "0.00",
+        "tolerance": "1799.50663",
+        "status": "PASS",
+        "reason": ""
+      }
+    ],
+    "overall_status": "PASS",
+    "summary": {
+      "pass": 6,
+      "fail": 0,
+      "not_applicable": 0
+    }
+  },
+  "processing_metadata": {
+    "text_extraction_method": "ocr",
+    "ocr_provider": "mistral",
+    "llm_provider": "gemini",
+    "processed_at": "2026-09-11T12:17:08.010985+00:00",
+    "processing_time_ms": 42874
+  },
+  "error": null,
+  "_harness": {
+    "source": "dataset",
+    "file_size_bytes": 245619,
+    "wall_time_ms": 42874,
+    "crashed": false
+  }
+}

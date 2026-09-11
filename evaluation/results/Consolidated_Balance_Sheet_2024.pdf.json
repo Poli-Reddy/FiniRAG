@@ -1,0 +1,647 @@
+{
+  "document_name": "Consolidated Balance Sheet 2024.pdf",
+  "document_type": "balance_sheet",
+  "processing_status": "PASS",
+  "file_validation": {
+    "file_type": "application/pdf",
+    "is_supported": true,
+    "is_readable": true,
+    "page_count": 1,
+    "status": "PASS",
+    "error": null
+  },
+  "extracted_data": {
+    "company_name": {
+      "value": "HDFC Bank Limited",
+      "original_value": "HDFC Bank Limited",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "416 HDFC Bank Limited",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "statement_type": {
+      "value": "Balance Sheet",
+      "original_value": "Balance Sheet",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "Balance Sheet",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "unit_descriptor": {
+      "value": "\u20b9 in crore",
+      "original_value": "\u20b9 in crore",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "\u20b9 in crore",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "unit_code": "INR_CRORE",
+    "periods": {
+      "2024": {
+        "year": "2024",
+        "capital_and_liabilities": {
+          "Capital": {
+            "value": "759.69",
+            "original_value": "759.69",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "759.69",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          },
+          "Employees stock options outstanding": {
+            "value": "2652.72",
+            "original_value": "2,652.72",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "2,652.72",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          },
+          "Reserves and surplus": {
+            "value": "452982.84",
+            "original_value": "452,982.84",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "452,982.84",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          },
+          "Minority interest": {
+            "value": "13383.40",
+            "original_value": "13,383.40",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "13,383.40",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          },
+          "Deposits": {
+            "value": "2376887.28",
+            "original_value": "2,376,887.28",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "2,376,887.28",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          },
+          "Borrowings": {
+            "value": "730615.46",
+            "original_value": "730,615.46",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "730,615.46",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          },
+          "Other liabilities and provisions": {
+            "value": "174832.07",
+            "original_value": "174,832.07",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "174,832.07",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          },
+          "Policyholders' funds": {
+            "value": "278080.80",
+            "original_value": "278,080.80",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "278,080.80",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          }
+        },
+        "total_capital_and_liabilities": {
+          "value": "4030194.26",
+          "original_value": "4,030,194.26",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "| **Total** | | **4,030,194.26** | **2,530,432.44** |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_CRORE"
+        },
+        "assets": {
+          "Cash and balances with Reserve Bank of India": {
+            "value": "178718.67",
+            "original_value": "178,718.67",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "178,718.67",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          },
+          "Balances with banks and money at call and short notice": {
+            "value": "50115.84",
+            "original_value": "50,115.84",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "50,115.84",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          },
+          "Investments": {
+            "value": "1005681.63",
+            "original_value": "1,005,681.63",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "1,005,681.63",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          },
+          "Advances": {
+            "value": "2565891.41",
+            "original_value": "2,565,891.41",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "2,565,891.41",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          },
+          "Fixed assets": {
+            "value": "12603.76",
+            "original_value": "12,603.76",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "12,603.76",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          },
+          "Other assets": {
+            "value": "217182.95",
+            "original_value": "217,182.95",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "217,182.95",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          },
+          "Goodwill on Consolidation": {
+            "value": "0",
+            "original_value": "-",
+            "status": "EXPLICIT_ZERO",
+            "evidence": {
+              "source_text": "-",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          }
+        },
+        "total_assets": {
+          "value": "4030194.26",
+          "original_value": "4,030,194.26",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "| **Total** | | **4,030,194.26** | **2,530,432.44** |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_CRORE"
+        },
+        "contingent_liabilities": {
+          "value": "2344487.73",
+          "original_value": "2,344,487.73",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "2,344,487.73",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_CRORE"
+        },
+        "bills_for_collection": {
+          "value": "65332.87",
+          "original_value": "65,332.87",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "65,332.87",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_CRORE"
+        },
+        "schedule_refs": {
+          "Capital": "1",
+          "Employees stock options outstanding": "18 (4)",
+          "Reserves and surplus": "2",
+          "Minority interest": "2A",
+          "Deposits": "3",
+          "Borrowings": "4",
+          "Other liabilities and provisions": "5",
+          "Cash and balances with Reserve Bank of India": "6",
+          "Balances with banks and money at call and short notice": "7",
+          "Investments": "8",
+          "Advances": "9",
+          "Fixed assets": "10",
+          "Other assets": "11",
+          "Contingent liabilities": "12"
+        },
+        "additional_fields": []
+      },
+      "2023": {
+        "year": "2023",
+        "capital_and_liabilities": {
+          "Capital": {
+            "value": "557.97",
+            "original_value": "557.97",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "557.97",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          },
+          "Employees stock options outstanding": {
+            "value": "1117.20",
+            "original_value": "1,117.20",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "1,117.20",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          },
+          "Reserves and surplus": {
+            "value": "287762.33",
+            "original_value": "287,762.33",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "287,762.33",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          },
+          "Minority interest": {
+            "value": "860.26",
+            "original_value": "860.26",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "860.26",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          },
+          "Deposits": {
+            "value": "1882663.25",
+            "original_value": "1,882,663.25",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "1,882,663.25",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          },
+          "Borrowings": {
+            "value": "256548.66",
+            "original_value": "256,548.66",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "256,548.66",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          },
+          "Other liabilities and provisions": {
+            "value": "100922.77",
+            "original_value": "100,922.77",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "100,922.77",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          },
+          "Policyholders' funds": {
+            "value": "0",
+            "original_value": "-",
+            "status": "EXPLICIT_ZERO",
+            "evidence": {
+              "source_text": "-",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          }
+        },
+        "total_capital_and_liabilities": {
+          "value": "2530432.44",
+          "original_value": "2,530,432.44",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "| **Total** | | **4,030,194.26** | **2,530,432.44** |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_CRORE"
+        },
+        "assets": {
+          "Cash and balances with Reserve Bank of India": {
+            "value": "117189.28",
+            "original_value": "117,189.28",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "117,189.28",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          },
+          "Balances with banks and money at call and short notice": {
+            "value": "79958.53",
+            "original_value": "79,958.53",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "79,958.53",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          },
+          "Investments": {
+            "value": "511581.71",
+            "original_value": "511,581.71",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "511,581.71",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          },
+          "Advances": {
+            "value": "1661949.29",
+            "original_value": "1,661,949.29",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "1,661,949.29",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          },
+          "Fixed assets": {
+            "value": "8282.56",
+            "original_value": "8,282.56",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "8,282.56",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          },
+          "Other assets": {
+            "value": "151322.28",
+            "original_value": "151,322.28",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "151,322.28",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          },
+          "Goodwill on Consolidation": {
+            "value": "148.79",
+            "original_value": "148.79",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "148.79",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": "INR_CRORE"
+          }
+        },
+        "total_assets": {
+          "value": "2530432.44",
+          "original_value": "2,530,432.44",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "| **Total** | | **4,030,194.26** | **2,530,432.44** |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_CRORE"
+        },
+        "contingent_liabilities": {
+          "value": "1750953.81",
+          "original_value": "1,750,953.81",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "1,750,953.81",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_CRORE"
+        },
+        "bills_for_collection": {
+          "value": "71439.54",
+          "original_value": "71,439.54",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "71,439.54",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_CRORE"
+        },
+        "schedule_refs": {
+          "Capital": "1",
+          "Employees stock options outstanding": "18 (4)",
+          "Reserves and surplus": "2",
+          "Minority interest": "2A",
+          "Deposits": "3",
+          "Borrowings": "4",
+          "Other liabilities and provisions": "5",
+          "Cash and balances with Reserve Bank of India": "6",
+          "Balances with banks and money at call and short notice": "7",
+          "Investments": "8",
+          "Advances": "9",
+          "Fixed assets": "10",
+          "Other assets": "11",
+          "Contingent liabilities": "12"
+        },
+        "additional_fields": []
+      }
+    }
+  },
+  "validation": {
+    "checks": [
+      {
+        "name": "2024_assets_vs_liabilities",
+        "formula": "total_assets \u2248 total_capital_and_liabilities",
+        "operands": {
+          "total_assets": "4030194.26",
+          "total_capital_and_liabilities": "4030194.26"
+        },
+        "calculated_value": "4030194.26",
+        "reported_value": "4030194.26",
+        "variance": "0.00",
+        "tolerance": "4030.19426",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "2024_sum_assets",
+        "formula": "sum(asset_components)",
+        "operands": {
+          "Cash and balances with Reserve Bank of India": "178718.67",
+          "Balances with banks and money at call and short notice": "50115.84",
+          "Investments": "1005681.63",
+          "Advances": "2565891.41",
+          "Fixed assets": "12603.76",
+          "Other assets": "217182.95",
+          "Goodwill on Consolidation": "0"
+        },
+        "calculated_value": "4030194.26",
+        "reported_value": "4030194.26",
+        "variance": "0.00",
+        "tolerance": "4030.19426",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "2024_sum_liabilities",
+        "formula": "sum(capital_and_liabilities_components)",
+        "operands": {
+          "Capital": "759.69",
+          "Employees stock options outstanding": "2652.72",
+          "Reserves and surplus": "452982.84",
+          "Minority interest": "13383.40",
+          "Deposits": "2376887.28",
+          "Borrowings": "730615.46",
+          "Other liabilities and provisions": "174832.07",
+          "Policyholders' funds": "278080.80"
+        },
+        "calculated_value": "4030194.26",
+        "reported_value": "4030194.26",
+        "variance": "0.00",
+        "tolerance": "4030.19426",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "2023_assets_vs_liabilities",
+        "formula": "total_assets \u2248 total_capital_and_liabilities",
+        "operands": {
+          "total_assets": "2530432.44",
+          "total_capital_and_liabilities": "2530432.44"
+        },
+        "calculated_value": "2530432.44",
+        "reported_value": "2530432.44",
+        "variance": "0.00",
+        "tolerance": "2530.43244",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "2023_sum_assets",
+        "formula": "sum(asset_components)",
+        "operands": {
+          "Cash and balances with Reserve Bank of India": "117189.28",
+          "Balances with banks and money at call and short notice": "79958.53",
+          "Investments": "511581.71",
+          "Advances": "1661949.29",
+          "Fixed assets": "8282.56",
+          "Other assets": "151322.28",
+          "Goodwill on Consolidation": "148.79"
+        },
+        "calculated_value": "2530432.44",
+        "reported_value": "2530432.44",
+        "variance": "0.00",
+        "tolerance": "2530.43244",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "2023_sum_liabilities",
+        "formula": "sum(capital_and_liabilities_components)",
+        "operands": {
+          "Capital": "557.97",
+          "Employees stock options outstanding": "1117.20",
+          "Reserves and surplus": "287762.33",
+          "Minority interest": "860.26",
+          "Deposits": "1882663.25",
+          "Borrowings": "256548.66",
+          "Other liabilities and provisions": "100922.77",
+          "Policyholders' funds": "0"
+        },
+        "calculated_value": "2530432.44",
+        "reported_value": "2530432.44",
+        "variance": "0.00",
+        "tolerance": "2530.43244",
+        "status": "PASS",
+        "reason": ""
+      }
+    ],
+    "overall_status": "PASS",
+    "summary": {
+      "pass": 6,
+      "fail": 0,
+      "not_applicable": 0
+    }
+  },
+  "processing_metadata": {
+    "text_extraction_method": "ocr",
+    "ocr_provider": "mistral",
+    "llm_provider": "gemini",
+    "processed_at": "2026-09-11T12:18:20.020800+00:00",
+    "processing_time_ms": 32524
+  },
+  "error": null,
+  "_harness": {
+    "source": "dataset",
+    "file_size_bytes": 128166,
+    "wall_time_ms": 32524,
+    "crashed": false
+  }
+}

@@ -1,0 +1,55 @@
+# FiniRAG - Document Intelligence Platform
+
+## Dependencies
+
+# Web Framework
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+
+# Database
+sqlalchemy[asyncio]==2.0.35
+asyncpg==0.29.0
+psycopg2-binary==2.9.9
+
+# Template Rendering
+jinja2==3.1.4
+
+# PDF Processing
+PyMuPDF==1.24.10
+
+# Image Processing
+Pillow==10.4.0
+
+# OCR
+google-cloud-vision==3.7.4
+mistralai==2.10.0
+
+# LLM
+google-generativeai==0.8.2
+# Fallback backend, used when Gemini refuses a call (quota, transport, or a
+# reply that will not parse). Optional at runtime: an unset GROQ_API_KEY
+# disables the chain and the pipeline runs on Gemini alone.
+groq==1.7.0
+
+# File Type Detection
+# None needed: the three formats in scope (PDF/JPEG/PNG) are identified by
+# their leading byte signatures in document_validation_service.sniff_mime.
+# python-magic was dropped because it requires the system libmagic1 library,
+# which render.yaml's pip-only buildCommand never installed — on a clean
+# deploy the import failed and every upload reported CORRUPTED_FILE.
+
+# Data Validation
+pydantic==2.11.2
+pydantic-settings==2.5.2
+
+# HTTP
+httpx==0.28.1
+aiofiles==24.1.0
+
+# Utilities
+python-multipart==0.0.9
+python-dotenv==1.0.1
+
+# Testing
+pytest==8.3.3
+pytest-asyncio==0.24.0

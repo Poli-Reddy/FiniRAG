@@ -1,0 +1,1274 @@
+{
+  "document_name": "20251118_000612.jpg",
+  "document_type": "invoice",
+  "processing_status": "PASS",
+  "file_validation": {
+    "file_type": "image/jpeg",
+    "is_supported": true,
+    "is_readable": true,
+    "page_count": 1,
+    "status": "PASS",
+    "error": null
+  },
+  "extracted_data": {
+    "invoice_number": {
+      "value": "SCI/25-26/3331",
+      "original_value": "SCI/25-26/3331",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "SCI/25-26/3331",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "invoice_date": {
+      "value": "16-Jul-25",
+      "original_value": "16-Jul-25",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "16-Jul-25",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "due_date": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_name": {
+      "value": "Shankar Enterprises-(2023-24)",
+      "original_value": "Shankar Enterprises-(2023-24)",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "Shankar Enterprises-(2023-24)",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_address": {
+      "value": "12B, SHIB DEY LANE KOLKATA-700087 (W.B)",
+      "original_value": "12B, SHIB DEY LANE KOLKATA-700087 (W.B)",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "12B, SHIB DEY LANE KOLKATA-700087 (W.B)",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_tax_id": {
+      "value": "19BFJPK5651N1ZS",
+      "original_value": "19BFJPK5651N1ZS",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "19BFJPK5651N1ZS",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_name": {
+      "value": "Laxmi Narayan Bhandar 2",
+      "original_value": "Laxmi Narayan Bhandar 2",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "Laxmi Narayan Bhandar 2",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_address": {
+      "value": "7/8f Abhinesh Choudhry Lane",
+      "original_value": "7/8f Abhinesh Choudhry Lane",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "7/8f Abhinesh Choudhry Lane",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_tax_id": {
+      "value": "19CPQPS9464F1ZX",
+      "original_value": "19CPQPS9464F1ZX",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "19CPQPS9464F1ZX",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "currency": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "subtotal": {
+      "value": "5815.17",
+      "original_value": "5,815.17",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "5,815.17",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "tax_amount": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "tax_rate": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "PERCENT"
+    },
+    "discount": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "total_amount": {
+      "value": "6862.00",
+      "original_value": "6,862.00",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "6,862.00",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "amount_paid": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "amount_due": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "cash_paid": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "change_given": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "rounding_adjustment": {
+      "value": "0.11",
+      "original_value": "0.11",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "0.11",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "payment_method": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "line_items": [
+      {
+        "description": {
+          "value": "SAFED 800GM (24PKT) 68/-",
+          "original_value": "SAFED 800GM (24PKT) 68/-",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "1 | SAFED 800GM (24PKT) 68/- | 34029011 | 48 PCS | 61.45 | 52.08 | PCS |  | 2,499.84",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "48",
+          "original_value": "48",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "1 | SAFED 800GM (24PKT) 68/- | 34029011 | 48 PCS | 61.45 | 52.08 | PCS |  | 2,499.84",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PCS"
+        },
+        "unit_of_measure": {
+          "value": "PCS",
+          "original_value": "PCS",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "PCS",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "52.08",
+          "original_value": "52.08",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "1 | SAFED 800GM (24PKT) 68/- | 34029011 | 48 PCS | 61.45 | 52.08 | PCS |  | 2,499.84",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "amount": {
+          "value": "2499.84",
+          "original_value": "2,499.84",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "1 | SAFED 800GM (24PKT) 68/- | 34029011 | 48 PCS | 61.45 | 52.08 | PCS |  | 2,499.84",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_code": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "1 | SAFED 800GM (24PKT) 68/- | 34029011 | 48 PCS | 61.45 | 52.08 | PCS |  | 2,499.84",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "1 | SAFED 800GM (24PKT) 68/- | 34029011 | 48 PCS | 61.45 | 52.08 | PCS |  | 2,499.84",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "1 | SAFED 800GM (24PKT) 68/- | 34029011 | 48 PCS | 61.45 | 52.08 | PCS |  | 2,499.84",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      },
+      {
+        "description": {
+          "value": "SAFED WHITE DP 140GM 60PCS Twin Pack 10/-",
+          "original_value": "SAFED WHITE DP 140GM 60PCS Twin Pack 10/-",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "SAFED WHITE DP 140GM 60PCS Twin Pack 10/-",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "6",
+          "original_value": "6",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "6",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PCS"
+        },
+        "unit_of_measure": {
+          "value": "PCS",
+          "original_value": "PCS",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "PCS",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "7.44",
+          "original_value": "7.44",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "7.44",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "amount": {
+          "value": "0.45",
+          "original_value": "0.45",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "0.45",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_code": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "discount_rate": {
+          "value": "99",
+          "original_value": "99",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "99",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      },
+      {
+        "description": {
+          "value": "SAFED 2 KG (12 PKT) PRINTED BUCKET+LID 230/-",
+          "original_value": "SAFED 2 KG (12 PKT) PRINTED BUCKET+LID 230/-",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "3 | SAFED 2 KG (12 PKT) PRINTED BUCKET+LID 230/- | 34029011 | 12 PCS | 203.02 | 172.05 | PCS |  | 2,064.60",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "12",
+          "original_value": "12",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "3 | SAFED 2 KG (12 PKT) PRINTED BUCKET+LID 230/- | 34029011 | 12 PCS | 203.02 | 172.05 | PCS |  | 2,064.60",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PCS"
+        },
+        "unit_of_measure": {
+          "value": "PCS",
+          "original_value": "PCS",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "PCS",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "172.05",
+          "original_value": "172.05",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "3 | SAFED 2 KG (12 PKT) PRINTED BUCKET+LID 230/- | 34029011 | 12 PCS | 203.02 | 172.05 | PCS |  | 2,064.60",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "amount": {
+          "value": "2064.60",
+          "original_value": "2,064.60",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "3 | SAFED 2 KG (12 PKT) PRINTED BUCKET+LID 230/- | 34029011 | 12 PCS | 203.02 | 172.05 | PCS |  | 2,064.60",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_code": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "3 | SAFED 2 KG (12 PKT) PRINTED BUCKET+LID 230/- | 34029011 | 12 PCS | 203.02 | 172.05 | PCS |  | 2,064.60",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "3 | SAFED 2 KG (12 PKT) PRINTED BUCKET+LID 230/- | 34029011 | 12 PCS | 203.02 | 172.05 | PCS |  | 2,064.60",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "3 | SAFED 2 KG (12 PKT) PRINTED BUCKET+LID 230/- | 34029011 | 12 PCS | 203.02 | 172.05 | PCS |  | 2,064.60",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      },
+      {
+        "description": {
+          "value": "SAFED WHITE DP 140GM 60PCS Twin Pack 10/-",
+          "original_value": "SAFED WHITE DP 140GM 60PCS Twin Pack 10/-",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "SAFED WHITE DP 140GM 60PCS Twin Pack 10/-",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "120",
+          "original_value": "120",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "120",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PCS"
+        },
+        "unit_of_measure": {
+          "value": "PCS",
+          "original_value": "PCS",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "PCS",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "7.44",
+          "original_value": "7.44",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "7.44",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "amount": {
+          "value": "892.80",
+          "original_value": "892.80",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "892.80",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_code": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      },
+      {
+        "description": {
+          "value": "SAFED WHITE DP 140GM 60PCS Twin Pack 10/-",
+          "original_value": "SAFED WHITE DP 140GM 60PCS Twin Pack 10/-",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "SAFED WHITE DP 140GM 60PCS Twin Pack 10/-",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "8",
+          "original_value": "8",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "8",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PCS"
+        },
+        "unit_of_measure": {
+          "value": "PCS",
+          "original_value": "PCS",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "PCS",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "7.44",
+          "original_value": "7.44",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "7.44",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "amount": {
+          "value": "0.60",
+          "original_value": "0.60",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "0.60",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_code": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "discount_rate": {
+          "value": "99",
+          "original_value": "99",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "99",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      },
+      {
+        "description": {
+          "value": "SPARKLE 200.GM BATI 48PCS (9.6 KG) WITH SCRUB PAD 20/-",
+          "original_value": "SPARKLE 200.GM BATI 48PCS (9.6 KG) WITH SCRUB PAD 20/-",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "6 | SPARKLE 200.GM BATI 48PCS (9.6 KG) WITH SCRUB PAD 20/- | 34054000 | 24 PCS | 17.55 | 14.87 | PCS |  | 356.88",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "24",
+          "original_value": "24",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "6 | SPARKLE 200.GM BATI 48PCS (9.6 KG) WITH SCRUB PAD 20/- | 34054000 | 24 PCS | 17.55 | 14.87 | PCS |  | 356.88",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PCS"
+        },
+        "unit_of_measure": {
+          "value": "PCS",
+          "original_value": "PCS",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "PCS",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "14.87",
+          "original_value": "14.87",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "6 | SPARKLE 200.GM BATI 48PCS (9.6 KG) WITH SCRUB PAD 20/- | 34054000 | 24 PCS | 17.55 | 14.87 | PCS |  | 356.88",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "amount": {
+          "value": "356.88",
+          "original_value": "356.88",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "6 | SPARKLE 200.GM BATI 48PCS (9.6 KG) WITH SCRUB PAD 20/- | 34054000 | 24 PCS | 17.55 | 14.87 | PCS |  | 356.88",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_code": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "6 | SPARKLE 200.GM BATI 48PCS (9.6 KG) WITH SCRUB PAD 20/- | 34054000 | 24 PCS | 17.55 | 14.87 | PCS |  | 356.88",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "6 | SPARKLE 200.GM BATI 48PCS (9.6 KG) WITH SCRUB PAD 20/- | 34054000 | 24 PCS | 17.55 | 14.87 | PCS |  | 356.88",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "6 | SPARKLE 200.GM BATI 48PCS (9.6 KG) WITH SCRUB PAD 20/- | 34054000 | 24 PCS | 17.55 | 14.87 | PCS |  | 356.88",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      }
+    ],
+    "additional_tables": [],
+    "additional_fields": [
+      {
+        "label": "Printed on",
+        "value": {
+          "value": "16-Jul-25 at 18:39",
+          "original_value": "16-Jul-25 at 18:39",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "16-Jul-25 at 18:39",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "D.L.No.",
+        "value": {
+          "value": "WB/KOL/NBO/W/687641",
+          "original_value": "WB/KOL/NBO/W/687641",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "WB/KOL/NBO/W/687641",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Vendor State Name",
+        "value": {
+          "value": "West Bengal",
+          "original_value": "West Bengal",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "West Bengal",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Vendor State Code",
+        "value": {
+          "value": "19",
+          "original_value": "19",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "19",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Vendor Contact",
+        "value": {
+          "value": "7003424253,9231883650",
+          "original_value": "7003424253,9231883650",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "7003424253,9231883650",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Vendor E-Mail",
+        "value": {
+          "value": "shankarenterprises9231@gmail.com",
+          "original_value": "shankarenterprises9231@gmail.com",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "shankarenterprises9231@gmail.com",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Sales Man",
+        "value": {
+          "value": "SUJIT(9007785327)",
+          "original_value": "SUJIT(9007785327)",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "SUJIT(9007785327)",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Market Area",
+        "value": {
+          "value": "LOHAPOOL",
+          "original_value": "LOHAPOOL",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "LOHAPOOL",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Consignee Name",
+        "value": {
+          "value": "Laxmi Narayan Bhandar 2",
+          "original_value": "Laxmi Narayan Bhandar 2",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "Laxmi Narayan Bhandar 2",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Consignee Address",
+        "value": {
+          "value": "7/8f Abhinesh Choudhry Lane",
+          "original_value": "7/8f Abhinesh Choudhry Lane",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "7/8f Abhinesh Choudhry Lane",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Consignee GSTIN/UIN",
+        "value": {
+          "value": "19CPQPS9464F1ZX",
+          "original_value": "19CPQPS9464F1ZX",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "19CPQPS9464F1ZX",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Consignee State Name",
+        "value": {
+          "value": "West Bengal",
+          "original_value": "West Bengal",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "West Bengal",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Consignee State Code",
+        "value": {
+          "value": "19",
+          "original_value": "19",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "19",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Consignee Contact",
+        "value": {
+          "value": "9831715156",
+          "original_value": "9831715156",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "9831715156",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Customer State Name",
+        "value": {
+          "value": "West Bengal",
+          "original_value": "West Bengal",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "West Bengal",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Customer State Code",
+        "value": {
+          "value": "19",
+          "original_value": "19",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "19",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Customer Contact",
+        "value": {
+          "value": "9831715156",
+          "original_value": "9831715156",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "9831715156",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      }
+    ],
+    "tax_inclusive": false,
+    "subtotal_confirmed_pretax": false
+  },
+  "validation": {
+    "checks": [
+      {
+        "name": "line_total_check_1",
+        "formula": "quantity × unit_price",
+        "operands": {
+          "quantity": "48",
+          "unit_price": "52.08",
+          "amount": "2499.84"
+        },
+        "calculated_value": "2499.84",
+        "reported_value": "2499.84",
+        "variance": "0.00",
+        "tolerance": "2.49984",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "line_total_check_2",
+        "formula": "quantity × unit_price × (1 − discount_rate)",
+        "operands": {
+          "quantity": "6",
+          "unit_price": "7.44",
+          "discount_rate": "99",
+          "rate_reading": "percent (magnitude >= 1)",
+          "amount": "0.45"
+        },
+        "calculated_value": "0.4464",
+        "reported_value": "0.45",
+        "variance": "0.0036",
+        "tolerance": "0.01",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "line_total_check_3",
+        "formula": "quantity × unit_price",
+        "operands": {
+          "quantity": "12",
+          "unit_price": "172.05",
+          "amount": "2064.60"
+        },
+        "calculated_value": "2064.60",
+        "reported_value": "2064.60",
+        "variance": "0.00",
+        "tolerance": "2.06460",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "line_total_check_4",
+        "formula": "quantity × unit_price",
+        "operands": {
+          "quantity": "120",
+          "unit_price": "7.44",
+          "amount": "892.80"
+        },
+        "calculated_value": "892.80",
+        "reported_value": "892.80",
+        "variance": "0.00",
+        "tolerance": "0.89280",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "line_total_check_5",
+        "formula": "quantity × unit_price × (1 − discount_rate)",
+        "operands": {
+          "quantity": "8",
+          "unit_price": "7.44",
+          "discount_rate": "99",
+          "rate_reading": "percent (magnitude >= 1)",
+          "amount": "0.60"
+        },
+        "calculated_value": "0.5952",
+        "reported_value": "0.60",
+        "variance": "0.0048",
+        "tolerance": "0.01",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "line_total_check_6",
+        "formula": "quantity × unit_price",
+        "operands": {
+          "quantity": "24",
+          "unit_price": "14.87",
+          "amount": "356.88"
+        },
+        "calculated_value": "356.88",
+        "reported_value": "356.88",
+        "variance": "0.00",
+        "tolerance": "0.35688",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "sum_lines_vs_subtotal",
+        "formula": "sum(line_amounts)",
+        "operands": {
+          "line_amounts": "2499.84, 0.45, 2064.60, 892.80, 0.60, 356.88",
+          "line_count": "6",
+          "subtotal": "5815.17"
+        },
+        "calculated_value": "5815.17",
+        "reported_value": "5815.17",
+        "variance": "0.00",
+        "tolerance": "5.81517",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "sum_lines_vs_total",
+        "formula": "",
+        "operands": {},
+        "calculated_value": null,
+        "reported_value": null,
+        "variance": null,
+        "tolerance": null,
+        "status": "NOT_APPLICABLE",
+        "reason": "Missing operand(s)"
+      },
+      {
+        "name": "subtotal_plus_tax_vs_total",
+        "formula": "",
+        "operands": {},
+        "calculated_value": null,
+        "reported_value": null,
+        "variance": null,
+        "tolerance": null,
+        "status": "NOT_APPLICABLE",
+        "reason": "Missing operand(s)"
+      },
+      {
+        "name": "rate_times_base_vs_tax",
+        "formula": "",
+        "operands": {},
+        "calculated_value": null,
+        "reported_value": null,
+        "variance": null,
+        "tolerance": null,
+        "status": "NOT_APPLICABLE",
+        "reason": "Missing operand(s)"
+      },
+      {
+        "name": "cash_change_check",
+        "formula": "",
+        "operands": {},
+        "calculated_value": null,
+        "reported_value": null,
+        "variance": null,
+        "tolerance": null,
+        "status": "NOT_APPLICABLE",
+        "reason": "Missing operand(s)"
+      }
+    ],
+    "overall_status": "PASS",
+    "summary": {
+      "pass": 7,
+      "fail": 0,
+      "not_applicable": 4
+    }
+  },
+  "processing_metadata": {
+    "text_extraction_method": "ocr",
+    "ocr_provider": "mistral",
+    "llm_provider": "gemini",
+    "processed_at": "2026-09-11T12:41:38.445724+00:00",
+    "processing_time_ms": 67072
+  },
+  "error": null,
+  "_harness": {
+    "source": "dataset",
+    "file_size_bytes": 4404194,
+    "wall_time_ms": 67072,
+    "crashed": false
+  }
+}

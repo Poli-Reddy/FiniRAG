@@ -1,0 +1,785 @@
+{
+  "document_name": "batch3-1354.jpg",
+  "document_type": "invoice",
+  "processing_status": "PASS",
+  "file_validation": {
+    "file_type": "image/jpeg",
+    "is_supported": true,
+    "is_readable": true,
+    "page_count": 1,
+    "status": "PASS",
+    "error": null
+  },
+  "extracted_data": {
+    "invoice_number": {
+      "value": "138236",
+      "original_value": "138236",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "NO: 138236",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "invoice_date": {
+      "value": "Jan 06 2022",
+      "original_value": "Jan 06 2022",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "DATE: Jan 06 2022",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "due_date": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_name": {
+      "value": "A.E. Blake Sales Ltd.",
+      "original_value": "A.E. Blake Sales Ltd.",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "A.E. Blake Sales Ltd.",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_address": {
+      "value": "100 Consilium Place, Suite 200, Scarborough, ON M1H 3E3",
+      "original_value": "100 Consilium Place, Suite 200, Scarborough, ON M1H 3E3",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "100 Consilium Place\nSuite 200\nScarborough, ON\nM1H 3E3",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_tax_id": {
+      "value": "R100064716",
+      "original_value": "R100064716",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "R100064716",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_name": {
+      "value": "Oz Optics Ltd.",
+      "original_value": "Oz Optics Ltd.",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "Oz Optics Ltd.",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_address": {
+      "value": "219 Westbrook Road, CARP, Ontario, Canada K0A 1L0",
+      "original_value": "219 Westbrook Road, CARP, Ontario, Canada K0A 1L0",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "219 Westbrook Road\n\nAP@ozoptics.com\n\nCARP, Ontario, Canada\n\nK0A 1L0",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_tax_id": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "currency": {
+      "value": "CAD",
+      "original_value": "CAD",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "CAD",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "subtotal": {
+      "value": "1128.00",
+      "original_value": "1,128.00",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "1,128.00",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "CAD"
+    },
+    "tax_amount": {
+      "value": "146.64",
+      "original_value": "146.64",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "146.64",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "CAD"
+    },
+    "tax_rate": {
+      "value": "13",
+      "original_value": "13",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "13%",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "PERCENT"
+    },
+    "discount": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "CAD"
+    },
+    "total_amount": {
+      "value": "1274.64",
+      "original_value": "1,274.64",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "1,274.64",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "CAD"
+    },
+    "amount_paid": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "CAD"
+    },
+    "amount_due": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "CAD"
+    },
+    "cash_paid": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "CAD"
+    },
+    "change_given": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "CAD"
+    },
+    "rounding_adjustment": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "CAD"
+    },
+    "payment_method": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "line_items": [
+      {
+        "description": {
+          "value": "BC 27767 Araldite 2014 HT Epoxy Paste GRAY 50ml 2:1 6 cartridges/box 120 cartridges/case BC/REF# BC 27767 D.O.E on products",
+          "original_value": "BC 27767 Araldite 2014 HT Epoxy Paste GRAY 50ml 2:1 6 cartridges/box 120 cartridges/case BC/REF# BC 27767 D.O.E on products",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "| 30 | 100237 | **BC 27767** Araldite 2014 HT Epoxy Paste GRAY 50ml 2:1 6 cartridges/box | 120 cartridges/case BC/REF# BC 27767 D.O.E on products | 24 | $23.50 | KIT | $564.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "24",
+          "original_value": "24",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "| 30 | 100237 | **BC 27767** Araldite 2014 HT Epoxy Paste GRAY 50ml 2:1 6 cartridges/box | 120 cartridges/case BC/REF# BC 27767 D.O.E on products | 24 | $23.50 | KIT | $564.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "KIT"
+        },
+        "unit_of_measure": {
+          "value": "KIT",
+          "original_value": "KIT",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "KIT",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "23.50",
+          "original_value": "23.50",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "| 30 | 100237 | **BC 27767** Araldite 2014 HT Epoxy Paste GRAY 50ml 2:1 6 cartridges/box | 120 cartridges/case BC/REF# BC 27767 D.O.E on products | 24 | $23.50 | KIT | $564.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "CAD"
+        },
+        "amount": {
+          "value": "564.00",
+          "original_value": "564.00",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "| 30 | 100237 | **BC 27767** Araldite 2014 HT Epoxy Paste GRAY 50ml 2:1 6 cartridges/box | 120 cartridges/case BC/REF# BC 27767 D.O.E on products | 24 | $23.50 | KIT | $564.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "CAD"
+        },
+        "tax_code": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "| 30 | 100237 | **BC 27767** Araldite 2014 HT Epoxy Paste GRAY 50ml 2:1 6 cartridges/box | 120 cartridges/case BC/REF# BC 27767 D.O.E on products | 24 | $23.50 | KIT | $564.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "| 30 | 100237 | **BC 27767** Araldite 2014 HT Epoxy Paste GRAY 50ml 2:1 6 cartridges/box | 120 cartridges/case BC/REF# BC 27767 D.O.E on products | 24 | $23.50 | KIT | $564.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "CAD"
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "| 30 | 100237 | **BC 27767** Araldite 2014 HT Epoxy Paste GRAY 50ml 2:1 6 cartridges/box | 120 cartridges/case BC/REF# BC 27767 D.O.E on products | 24 | $23.50 | KIT | $564.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      },
+      {
+        "description": {
+          "value": "BC 27767 Araldite 2014 HT Epoxy Paste GRAY 50ml 2:1 6 cartridges/box 120 cartridges/case BC/REF# BC 27767 D.O.E on products",
+          "original_value": "BC 27767 Araldite 2014 HT Epoxy Paste GRAY 50ml 2:1 6 cartridges/box 120 cartridges/case BC/REF# BC 27767 D.O.E on products",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "| 30 | 100237 | **BC 27767** Araldite 2014 HT Epoxy Paste GRAY 50ml 2:1 6 cartridges/box | 120 cartridges/case BC/REF# BC 27767 D.O.E on products | 24 | $23.50 | KIT | $564.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "24",
+          "original_value": "24",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "| 30 | 100237 | **BC 27767** Araldite 2014 HT Epoxy Paste GRAY 50ml 2:1 6 cartridges/box | 120 cartridges/case BC/REF# BC 27767 D.O.E on products | 24 | $23.50 | KIT | $564.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "KIT"
+        },
+        "unit_of_measure": {
+          "value": "KIT",
+          "original_value": "KIT",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "KIT",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "23.50",
+          "original_value": "23.50",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "| 30 | 100237 | **BC 27767** Araldite 2014 HT Epoxy Paste GRAY 50ml 2:1 6 cartridges/box | 120 cartridges/case BC/REF# BC 27767 D.O.E on products | 24 | $23.50 | KIT | $564.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "CAD"
+        },
+        "amount": {
+          "value": "564.00",
+          "original_value": "564.00",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "| 30 | 100237 | **BC 27767** Araldite 2014 HT Epoxy Paste GRAY 50ml 2:1 6 cartridges/box | 120 cartridges/case BC/REF# BC 27767 D.O.E on products | 24 | $23.50 | KIT | $564.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "CAD"
+        },
+        "tax_code": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "| 30 | 100237 | **BC 27767** Araldite 2014 HT Epoxy Paste GRAY 50ml 2:1 6 cartridges/box | 120 cartridges/case BC/REF# BC 27767 D.O.E on products | 24 | $23.50 | KIT | $564.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "| 30 | 100237 | **BC 27767** Araldite 2014 HT Epoxy Paste GRAY 50ml 2:1 6 cartridges/box | 120 cartridges/case BC/REF# BC 27767 D.O.E on products | 24 | $23.50 | KIT | $564.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "CAD"
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "| 30 | 100237 | **BC 27767** Araldite 2014 HT Epoxy Paste GRAY 50ml 2:1 6 cartridges/box | 120 cartridges/case BC/REF# BC 27767 D.O.E on products | 24 | $23.50 | KIT | $564.00 |",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      }
+    ],
+    "additional_tables": [],
+    "additional_fields": [
+      {
+        "label": "COMPTE CLIENT/ CUSTOMER ACCOUNT",
+        "value": {
+          "value": "10102028",
+          "original_value": "10102028",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "10102028",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "BON D'ACHAT CLIENT/ CUSTOMER PO",
+        "value": {
+          "value": "292539",
+          "original_value": "292539",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "292539",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "DATE COMMANDÉ/ ORDER DATE",
+        "value": {
+          "value": "Jun 24 2021",
+          "original_value": "Jun 24 2021",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "Jun 24 2021",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "COMMANDE AEB/ AEB ORDER",
+        "value": {
+          "value": "50001506",
+          "original_value": "50001506",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "50001506",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "TERMES/ TERMS",
+        "value": {
+          "value": "Net 30 Days",
+          "original_value": "Net 30 Days",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "Net 30 Days",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "REPRÉSENTANT/ REPRESENTATIVE",
+        "value": {
+          "value": "Perry Chan OR Jeff Kang",
+          "original_value": "Perry Chan OR Jeff Kang",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "Perry Chan OR Jeff Kang",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "CONDITIONS D'EXPÉDITION/ SHIPPING TERMS",
+        "value": {
+          "value": "Origin",
+          "original_value": "Origin",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "Origin",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "LIVRÉ PAR/ SHIP VIA",
+        "value": {
+          "value": "UPS 3rd Party 139 2X5 Expedited",
+          "original_value": "UPS 3rd Party 139 2X5 Expedited",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "UPS 3rd Party 139 2X5 Expedited",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Courrier / Carrier",
+        "value": {
+          "value": "UPS CANADA",
+          "original_value": "UPS CANADA",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "UPS CANADA",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Waybill",
+        "value": {
+          "value": "1Z6419X22090745749",
+          "original_value": "1Z6419X22090745749",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "1Z6419X22090745749",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Bon d'emballage / Packing Slip",
+        "value": {
+          "value": "50001506-9905",
+          "original_value": "50001506-9905",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "50001506-9905",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Date D'expédition / Shipping Date",
+        "value": {
+          "value": "Jan 06 2022",
+          "original_value": "Jan 06 2022",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "Jan 06 2022",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "AEB Reference Quote#",
+        "value": {
+          "value": "50001502-6980 EXPEDITED",
+          "original_value": "50001502-6980 EXPEDITED",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "50001502-6980 EXPEDITED",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Votre contact - Your contact",
+        "value": {
+          "value": "DRAKE",
+          "original_value": "DRAKE",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "DRAKE",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "No. T.V.Q. - Q.S.T. No.",
+        "value": {
+          "value": "M1000098741TQ0001JT",
+          "original_value": "M1000098741TQ0001JT",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "M1000098741TQ0001JT",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      }
+    ],
+    "tax_inclusive": false,
+    "subtotal_confirmed_pretax": true
+  },
+  "validation": {
+    "checks": [
+      {
+        "name": "line_total_check_1",
+        "formula": "quantity × unit_price",
+        "operands": {
+          "quantity": "24",
+          "unit_price": "23.50",
+          "amount": "564.00"
+        },
+        "calculated_value": "564.00",
+        "reported_value": "564.00",
+        "variance": "0.00",
+        "tolerance": "0.56400",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "line_total_check_2",
+        "formula": "quantity × unit_price",
+        "operands": {
+          "quantity": "24",
+          "unit_price": "23.50",
+          "amount": "564.00"
+        },
+        "calculated_value": "564.00",
+        "reported_value": "564.00",
+        "variance": "0.00",
+        "tolerance": "0.56400",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "sum_lines_vs_subtotal",
+        "formula": "sum(line_amounts)",
+        "operands": {
+          "line_amounts": "564.00, 564.00",
+          "line_count": "2",
+          "subtotal": "1128.00",
+          "tax_amount": "146.64"
+        },
+        "calculated_value": "1128.00",
+        "reported_value": "1128.00",
+        "variance": "0.00",
+        "tolerance": "1.12800",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "sum_lines_vs_total",
+        "formula": "",
+        "operands": {},
+        "calculated_value": null,
+        "reported_value": null,
+        "variance": null,
+        "tolerance": null,
+        "status": "NOT_APPLICABLE",
+        "reason": "Missing operand(s)"
+      },
+      {
+        "name": "subtotal_plus_tax_vs_total",
+        "formula": "subtotal + tax_amount",
+        "operands": {
+          "subtotal": "1128.00",
+          "tax_amount": "146.64",
+          "total_amount": "1274.64",
+          "tax_inclusive": "False"
+        },
+        "calculated_value": "1274.64",
+        "reported_value": "1274.64",
+        "variance": "0.00",
+        "tolerance": "1.27464",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "rate_times_base_vs_tax",
+        "formula": "taxable_base × 0.13",
+        "operands": {
+          "taxable_base": "1128.00",
+          "base_source": "subtotal",
+          "tax_rate": "13",
+          "rate_reading": "percent (magnitude >= 1)",
+          "rate_as_multiplier": "0.13",
+          "tax_amount": "146.64"
+        },
+        "calculated_value": "146.6400",
+        "reported_value": "146.64",
+        "variance": "0.0000",
+        "tolerance": "0.14664",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "cash_change_check",
+        "formula": "",
+        "operands": {},
+        "calculated_value": null,
+        "reported_value": null,
+        "variance": null,
+        "tolerance": null,
+        "status": "NOT_APPLICABLE",
+        "reason": "Missing operand(s)"
+      }
+    ],
+    "overall_status": "PASS",
+    "summary": {
+      "pass": 5,
+      "fail": 0,
+      "not_applicable": 2
+    }
+  },
+  "processing_metadata": {
+    "text_extraction_method": "ocr",
+    "ocr_provider": "mistral",
+    "llm_provider": "gemini",
+    "processed_at": "2026-09-11T12:45:41.573523+00:00",
+    "processing_time_ms": 62830
+  },
+  "error": null
+}

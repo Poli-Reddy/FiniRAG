@@ -1,0 +1,802 @@
+{
+  "document_name": "X51005757342.jpg",
+  "document_type": "invoice",
+  "processing_status": "PASS",
+  "file_validation": {
+    "file_type": "image/jpeg",
+    "is_supported": true,
+    "is_readable": true,
+    "page_count": 1,
+    "status": "PASS",
+    "error": null
+  },
+  "extracted_data": {
+    "invoice_number": {
+      "value": "R000111721",
+      "original_value": "R000111721",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "23-03-18 16:43 SH01 ZJ86 T1 R000111721",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "invoice_date": {
+      "value": "23-03-18",
+      "original_value": "23-03-18",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "23-03-18 16:43 SH01 ZJ86 T1 R000111721",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "due_date": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_name": {
+      "value": "MR. D.I.Y. (M) SDN BHD",
+      "original_value": "MR. D.I.Y. (M) SDN BHD",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "MR. D.I.Y. (M) SDN BHD",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_address": {
+      "value": "LOT 1851-A & 1851-B, JALAN KPB 6, KAWASAN PERINDUSTRIAN BALAKONG, 43300 SERI KEMBANGAN, SELANGOR",
+      "original_value": "LOT 1851-A & 1851-B, JALAN KPB 6, KAWASAN PERINDUSTRIAN BALAKONG, 43300 SERI KEMBANGAN, SELANGOR",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "LOT 1851-A & 1851-B, JALAN KPB 6,\n\nKAWASAN PERINDUSTRIAN BALAKONG,\n\n43300 SERI KEMBANGAN, SELANGOR",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_tax_id": {
+      "value": "000306020352",
+      "original_value": "000306020352",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "(GST ID No :000306020352)",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_name": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_address": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_tax_id": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "currency": {
+      "value": "RM",
+      "original_value": "RM",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "RM",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "subtotal": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "tax_amount": {
+      "value": "0.35",
+      "original_value": "0.35",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "GST @6% included in total RM 0.35",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "tax_rate": {
+      "value": "6",
+      "original_value": "6",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "6",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "PERCENT"
+    },
+    "discount": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "total_amount": {
+      "value": "6.20",
+      "original_value": "6.20",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "Total Incl. GST@6% RM 6.20",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "amount_paid": {
+      "value": "100.00",
+      "original_value": "100.00",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "CASH RM 100.00",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "amount_due": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "cash_paid": {
+      "value": "100.00",
+      "original_value": "100.00",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "CASH RM 100.00",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "change_given": {
+      "value": "93.80",
+      "original_value": "93.80",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "CHANGE RM 93.80",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "rounding_adjustment": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "payment_method": {
+      "value": "cash",
+      "original_value": "cash",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "cash",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "line_items": [
+      {
+        "description": {
+          "value": "MESH SPONGE 4S *S",
+          "original_value": "MESH SPONGE 4S *S",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "MESH SPONGE 4S *S\n\nAN62-72 - 12/96\n\n9064234 1 X 1.80 1.80",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "1",
+          "original_value": "1",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "MESH SPONGE 4S *S\n\nAN62-72 - 12/96\n\n9064234 1 X 1.80 1.80",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_of_measure": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "1.80",
+          "original_value": "1.80",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "MESH SPONGE 4S *S\n\nAN62-72 - 12/96\n\n9064234 1 X 1.80 1.80",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "amount": {
+          "value": "1.80",
+          "original_value": "1.80",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "MESH SPONGE 4S *S\n\nAN62-72 - 12/96\n\n9064234 1 X 1.80 1.80",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "tax_code": {
+          "value": "S",
+          "original_value": "S",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "S",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": "6",
+          "original_value": "6",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "MESH SPONGE 4S *S\n\nAN62-72 - 12/96\n\n9064234 1 X 1.80 1.80",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "MESH SPONGE 4S *S\n\nAN62-72 - 12/96\n\n9064234 1 X 1.80 1.80",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "MESH SPONGE 4S *S\n\nAN62-72 - 12/96\n\n9064234 1 X 1.80 1.80",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      },
+      {
+        "description": {
+          "value": "BROWN COCO BRUSH 6' V6N *S",
+          "original_value": "BROWN COCO BRUSH 6' V6N *S",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "BROWN COCO BRUSH 6' V6N *S\n\nWA50 - 20/300\n\n9555221303658 2 X 2.10 4.20",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "2",
+          "original_value": "2",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "BROWN COCO BRUSH 6' V6N *S\n\nWA50 - 20/300\n\n9555221303658 2 X 2.10 4.20",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_of_measure": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "2.10",
+          "original_value": "2.10",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "BROWN COCO BRUSH 6' V6N *S\n\nWA50 - 20/300\n\n9555221303658 2 X 2.10 4.20",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "amount": {
+          "value": "4.20",
+          "original_value": "4.20",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "BROWN COCO BRUSH 6' V6N *S\n\nWA50 - 20/300\n\n9555221303658 2 X 2.10 4.20",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "tax_code": {
+          "value": "S",
+          "original_value": "S",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "S",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": "6",
+          "original_value": "6",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "BROWN COCO BRUSH 6' V6N *S\n\nWA50 - 20/300\n\n9555221303658 2 X 2.10 4.20",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "BROWN COCO BRUSH 6' V6N *S\n\nWA50 - 20/300\n\n9555221303658 2 X 2.10 4.20",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "BROWN COCO BRUSH 6' V6N *S\n\nWA50 - 20/300\n\n9555221303658 2 X 2.10 4.20",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      },
+      {
+        "description": {
+          "value": "PLASTIC BAGS *S",
+          "original_value": "PLASTIC BAGS *S",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "PLASTIC BAGS *S\n\n99999 1 X 0.20 0.20",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "1",
+          "original_value": "1",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "PLASTIC BAGS *S\n\n99999 1 X 0.20 0.20",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_of_measure": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "0.20",
+          "original_value": "0.20",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "PLASTIC BAGS *S\n\n99999 1 X 0.20 0.20",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "amount": {
+          "value": "0.20",
+          "original_value": "0.20",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "PLASTIC BAGS *S\n\n99999 1 X 0.20 0.20",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "tax_code": {
+          "value": "S",
+          "original_value": "S",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "S",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": "6",
+          "original_value": "6",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "PLASTIC BAGS *S\n\n99999 1 X 0.20 0.20",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "PLASTIC BAGS *S\n\n99999 1 X 0.20 0.20",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "PLASTIC BAGS *S\n\n99999 1 X 0.20 0.20",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      }
+    ],
+    "additional_tables": [],
+    "additional_fields": [
+      {
+        "label": "Header Reference",
+        "value": {
+          "value": "31803049",
+          "original_value": "31803049",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "31803049",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "CO.REG",
+        "value": {
+          "value": "860671-D",
+          "original_value": "860671-D",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "860671-D",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Branch",
+        "value": {
+          "value": "(IOI PUCHONG)",
+          "original_value": "(IOI PUCHONG)",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "(IOI PUCHONG)",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Item(s)",
+        "value": {
+          "value": "3",
+          "original_value": "3",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "3",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Qty(s)",
+        "value": {
+          "value": "4",
+          "original_value": "4",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "4",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Time",
+        "value": {
+          "value": "16:43",
+          "original_value": "16:43",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "16:43",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Terminal Info",
+        "value": {
+          "value": "SH01 ZJ86 T1",
+          "original_value": "SH01 ZJ86 T1",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "SH01 ZJ86 T1",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Cashier",
+        "value": {
+          "value": "OPERATOR TRAINEE CASHIER",
+          "original_value": "OPERATOR TRAINEE CASHIER",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "OPERATOR TRAINEE CASHIER",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      }
+    ],
+    "tax_inclusive": true,
+    "subtotal_confirmed_pretax": false
+  },
+  "validation": {
+    "checks": [
+      {
+        "name": "line_total_check_1",
+        "formula": "quantity × unit_price",
+        "operands": {
+          "quantity": "1",
+          "unit_price": "1.80",
+          "amount": "1.80"
+        },
+        "calculated_value": "1.80",
+        "reported_value": "1.80",
+        "variance": "0.00",
+        "tolerance": "0.01",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "line_total_check_2",
+        "formula": "quantity × unit_price",
+        "operands": {
+          "quantity": "2",
+          "unit_price": "2.10",
+          "amount": "4.20"
+        },
+        "calculated_value": "4.20",
+        "reported_value": "4.20",
+        "variance": "0.00",
+        "tolerance": "0.01",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "line_total_check_3",
+        "formula": "quantity × unit_price",
+        "operands": {
+          "quantity": "1",
+          "unit_price": "0.20",
+          "amount": "0.20"
+        },
+        "calculated_value": "0.20",
+        "reported_value": "0.20",
+        "variance": "0.00",
+        "tolerance": "0.01",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "sum_lines_vs_subtotal",
+        "formula": "",
+        "operands": {},
+        "calculated_value": null,
+        "reported_value": null,
+        "variance": null,
+        "tolerance": null,
+        "status": "NOT_APPLICABLE",
+        "reason": "Missing operand(s)"
+      },
+      {
+        "name": "sum_lines_vs_total",
+        "formula": "sum(line_amounts) (tax already included)",
+        "operands": {
+          "line_amounts": "1.80, 4.20, 0.20",
+          "line_count": "3",
+          "total_amount": "6.20",
+          "tax_amount": "0.35",
+          "tax_inclusive": "True"
+        },
+        "calculated_value": "6.20",
+        "reported_value": "6.20",
+        "variance": "0.00",
+        "tolerance": "0.01",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "subtotal_plus_tax_vs_total",
+        "formula": "",
+        "operands": {},
+        "calculated_value": null,
+        "reported_value": null,
+        "variance": null,
+        "tolerance": null,
+        "status": "NOT_APPLICABLE",
+        "reason": "Missing operand(s)"
+      },
+      {
+        "name": "rate_times_base_vs_tax",
+        "formula": "",
+        "operands": {},
+        "calculated_value": null,
+        "reported_value": null,
+        "variance": null,
+        "tolerance": null,
+        "status": "NOT_APPLICABLE",
+        "reason": "Cannot establish independent taxable base"
+      },
+      {
+        "name": "cash_change_check",
+        "formula": "cash_paid − total",
+        "operands": {
+          "cash_paid": "100.00",
+          "total_amount": "6.20",
+          "change_given": "93.80"
+        },
+        "calculated_value": "93.80",
+        "reported_value": "93.80",
+        "variance": "0.00",
+        "tolerance": "0.09380",
+        "status": "PASS",
+        "reason": ""
+      }
+    ],
+    "overall_status": "PASS",
+    "summary": {
+      "pass": 5,
+      "fail": 0,
+      "not_applicable": 3
+    }
+  },
+  "processing_metadata": {
+    "text_extraction_method": "ocr",
+    "ocr_provider": "mistral",
+    "llm_provider": "gemini",
+    "processed_at": "2026-09-11T12:52:15.135303+00:00",
+    "processing_time_ms": 32303
+  },
+  "error": null,
+  "_harness": {
+    "source": "dataset",
+    "file_size_bytes": 445829,
+    "wall_time_ms": 32303,
+    "crashed": false
+  }
+}

@@ -1,0 +1,859 @@
+{
+  "document_name": "Consolidated Profit & Loss 2021.pdf",
+  "document_type": "profit_and_loss",
+  "processing_status": "PASS",
+  "file_validation": {
+    "file_type": "application/pdf",
+    "is_supported": true,
+    "is_readable": true,
+    "page_count": 1,
+    "status": "PASS",
+    "error": null
+  },
+  "extracted_data": {
+    "company_name": {
+      "value": "HDFC Bank Limited",
+      "original_value": "HDFC Bank Limited",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "HDFC Bank Limited",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "statement_type": {
+      "value": "Profit and Loss Account",
+      "original_value": "Profit and Loss Account",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "Profit and Loss Account",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "unit_descriptor": {
+      "value": "₹",
+      "original_value": "₹",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "₹",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "unit_code": "",
+    "periods": {
+      "2021": {
+        "year": "2021",
+        "interest_earned": {
+          "value": "1285523933",
+          "original_value": "1,285,523,933",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "1,285,523,933",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "other_income": {
+          "value": "273328803",
+          "original_value": "273,328,803",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "273,328,803",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "total_income": {
+          "value": "1558852736",
+          "original_value": "1,558,852,736",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "1,558,852,736",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "interest_expended": {
+          "value": "592475799",
+          "original_value": "592,475,799",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "592,475,799",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "operating_expenses": {
+          "value": "350012568",
+          "original_value": "350,012,568",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "350,012,568",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "provisions_and_contingencies": {
+          "value": "297796688",
+          "original_value": "297,796,688",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "297,796,688",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "total_expenditure": {
+          "value": "1240285055",
+          "original_value": "1,240,285,055",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "1,240,285,055",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "net_profit_before_minority": {
+          "value": "318567681",
+          "original_value": "318,567,681",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "318,567,681",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "minority_interest": {
+          "value": "235590",
+          "original_value": "235,590",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "235,590",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "share_in_profits_of_associates": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "consolidated_net_profit": {
+          "value": "318332091",
+          "original_value": "318,332,091",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "318,332,091",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "addition_on_amalgamation": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "brought_forward_profit": {
+          "value": "618176878",
+          "original_value": "618,176,878",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "618,176,878",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "total_available_for_appropriation": {
+          "value": "936508969",
+          "original_value": "936,508,969",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "936,508,969",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "appropriations": {
+          "Transfer to Statutory Reserve": {
+            "value": "78796978",
+            "original_value": "78,796,978",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "Transfer to Statutory Reserve |  | 78,796,978 | 67,717,167",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          },
+          "Tax (including cess) on dividend": {
+            "value": "0",
+            "original_value": "-",
+            "status": "EXPLICIT_ZERO",
+            "evidence": {
+              "source_text": "Tax (including cess) on dividend |  | - | 902,672",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          },
+          "Dividend (including tax / cess thereon) pertaining to previous year paid during the year, net of dividend tax credits": {
+            "value": "0",
+            "original_value": "-",
+            "status": "EXPLICIT_ZERO",
+            "evidence": {
+              "source_text": "Dividend (including tax / cess thereon) pertaining to previous year paid during the year, net of dividend tax credits |  | - | 48,933,585",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          },
+          "Interim Dividend (including tax)": {
+            "value": "0",
+            "original_value": "-",
+            "status": "EXPLICIT_ZERO",
+            "evidence": {
+              "source_text": "Interim Dividend (including tax) |  | - | 16,469,504",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          },
+          "Transfer to General Reserve": {
+            "value": "31116525",
+            "original_value": "31,116,525",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "Transfer to General Reserve |  | 31,116,525 | 26,257,315",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          },
+          "Transfer to Capital Reserve": {
+            "value": "22916842",
+            "original_value": "22,916,842",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "Transfer to Capital Reserve |  | 22,916,842 | 11,238,460",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          },
+          "Transfer to / (from) Investment Reserve Account": {
+            "value": "616645",
+            "original_value": "616,645",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "Transfer to / (from) Investment Reserve Account |  | 616,645 | -",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          },
+          "Transfer to / (from) Investment Fluctuation Reserve": {
+            "value": "17120000",
+            "original_value": "17,120,000",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "Transfer to / (from) Investment Fluctuation Reserve |  | 17,120,000 | 11,340,000",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          },
+          "Balance carried over to Balance Sheet": {
+            "value": "785941979",
+            "original_value": "785,941,979",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "Balance carried over to Balance Sheet |  | 785,941,979 | 618,176,878",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          }
+        },
+        "balance_carried_forward": {
+          "value": "785941979",
+          "original_value": "785,941,979",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "785,941,979",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "basic_eps": {
+          "value": "57.88",
+          "original_value": "57.88",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "57.88",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_PER_SHARE"
+        },
+        "diluted_eps": {
+          "value": "57.61",
+          "original_value": "57.61",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "57.61",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_PER_SHARE"
+        },
+        "face_value_per_share": {
+          "value": "1",
+          "original_value": "1",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "1",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_PER_SHARE"
+        },
+        "additional_fields": [],
+        "schedule_refs": {
+          "Interest earned": "13",
+          "Other income": "14",
+          "Interest expended": "15",
+          "Operating expenses": "16"
+        }
+      },
+      "2020": {
+        "year": "2020",
+        "interest_earned": {
+          "value": "1221892915",
+          "original_value": "1,221,892,915",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "1,221,892,915",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "other_income": {
+          "value": "248789748",
+          "original_value": "248,789,748",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "248,789,748",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "total_income": {
+          "value": "1470682663",
+          "original_value": "1,470,682,663",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "1,470,682,663",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "interest_expended": {
+          "value": "621374216",
+          "original_value": "621,374,216",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "621,374,216",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "operating_expenses": {
+          "value": "330360555",
+          "original_value": "330,360,555",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "330,360,555",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "provisions_and_contingencies": {
+          "value": "245985239",
+          "original_value": "245,985,239",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "245,985,239",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "total_expenditure": {
+          "value": "1197720010",
+          "original_value": "1,197,720,010",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "1,197,720,010",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "net_profit_before_minority": {
+          "value": "272962653",
+          "original_value": "272,962,653",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "272,962,653",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "minority_interest": {
+          "value": "423147",
+          "original_value": "423,147",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "423,147",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "share_in_profits_of_associates": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "consolidated_net_profit": {
+          "value": "272539506",
+          "original_value": "272,539,506",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "272,539,506",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "addition_on_amalgamation": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "brought_forward_profit": {
+          "value": "528496075",
+          "original_value": "528,496,075",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "528,496,075",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "total_available_for_appropriation": {
+          "value": "801035581",
+          "original_value": "801,035,581",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "801,035,581",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "appropriations": {
+          "Transfer to Statutory Reserve": {
+            "value": "67717167",
+            "original_value": "67,717,167",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "Transfer to Statutory Reserve |  | 78,796,978 | 67,717,167",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          },
+          "Tax (including cess) on dividend": {
+            "value": "902672",
+            "original_value": "902,672",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "Tax (including cess) on dividend |  | - | 902,672",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          },
+          "Dividend (including tax / cess thereon) pertaining to previous year paid during the year, net of dividend tax credits": {
+            "value": "48933585",
+            "original_value": "48,933,585",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "Dividend (including tax / cess thereon) pertaining to previous year paid during the year, net of dividend tax credits |  | - | 48,933,585",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          },
+          "Interim Dividend (including tax)": {
+            "value": "16469504",
+            "original_value": "16,469,504",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "Interim Dividend (including tax) |  | - | 16,469,504",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          },
+          "Transfer to General Reserve": {
+            "value": "26257315",
+            "original_value": "26,257,315",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "Transfer to General Reserve |  | 31,116,525 | 26,257,315",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          },
+          "Transfer to Capital Reserve": {
+            "value": "11238460",
+            "original_value": "11,238,460",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "Transfer to Capital Reserve |  | 22,916,842 | 11,238,460",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          },
+          "Transfer to / (from) Investment Reserve Account": {
+            "value": "0",
+            "original_value": "-",
+            "status": "EXPLICIT_ZERO",
+            "evidence": {
+              "source_text": "Transfer to / (from) Investment Reserve Account |  | 616,645 | -",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          },
+          "Transfer to / (from) Investment Fluctuation Reserve": {
+            "value": "11340000",
+            "original_value": "11,340,000",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "Transfer to / (from) Investment Fluctuation Reserve |  | 17,120,000 | 11,340,000",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          },
+          "Balance carried over to Balance Sheet": {
+            "value": "618176878",
+            "original_value": "618,176,878",
+            "status": "EXPLICIT",
+            "evidence": {
+              "source_text": "Balance carried over to Balance Sheet |  | 785,941,979 | 618,176,878",
+              "page_number": 1,
+              "bounding_box": null
+            },
+            "unit": null
+          }
+        },
+        "balance_carried_forward": {
+          "value": "618176878",
+          "original_value": "618,176,878",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "618,176,878",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "basic_eps": {
+          "value": "49.84",
+          "original_value": "49.84",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "49.84",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_PER_SHARE"
+        },
+        "diluted_eps": {
+          "value": "49.46",
+          "original_value": "49.46",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "49.46",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_PER_SHARE"
+        },
+        "face_value_per_share": {
+          "value": "1",
+          "original_value": "1",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "1",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "INR_PER_SHARE"
+        },
+        "additional_fields": [],
+        "schedule_refs": {
+          "Interest earned": "13",
+          "Other income": "14",
+          "Interest expended": "15",
+          "Operating expenses": "16"
+        }
+      }
+    }
+  },
+  "validation": {
+    "checks": [
+      {
+        "name": "2021_income_minus_expenditure",
+        "formula": "total_income − total_expenditure [± adjustments]",
+        "operands": {
+          "total_income": "1558852736",
+          "total_expenditure": "1240285055",
+          "minority_interest": "-235590",
+          "consolidated_net_profit": "318332091"
+        },
+        "calculated_value": "318332091",
+        "reported_value": "318332091",
+        "variance": "0",
+        "tolerance": "318332.091",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "2021_net_profit_before_minority",
+        "formula": "total_income − total_expenditure",
+        "operands": {
+          "total_income": "1558852736",
+          "total_expenditure": "1240285055",
+          "net_profit_before_minority": "318567681"
+        },
+        "calculated_value": "318567681",
+        "reported_value": "318567681",
+        "variance": "0",
+        "tolerance": "318567.681",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "2021_sum_income",
+        "formula": "interest_earned + other_income",
+        "operands": {
+          "interest_earned": "1285523933",
+          "other_income": "273328803"
+        },
+        "calculated_value": "1558852736",
+        "reported_value": "1558852736",
+        "variance": "0",
+        "tolerance": "1558852.736",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "2021_sum_expenditure",
+        "formula": "interest_expended + operating_expenses + provisions",
+        "operands": {
+          "interest_expended": "592475799",
+          "operating_expenses": "350012568",
+          "provisions_and_contingencies": "297796688"
+        },
+        "calculated_value": "1240285055",
+        "reported_value": "1240285055",
+        "variance": "0",
+        "tolerance": "1240285.055",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "2021_appropriation",
+        "formula": "total_available − sum(appropriations)",
+        "operands": {
+          "Transfer to Statutory Reserve": "78796978",
+          "Tax (including cess) on dividend": "0",
+          "Dividend (including tax / cess thereon) pertaining to previous year paid during the year, net of dividend tax credits": "0",
+          "Interim Dividend (including tax)": "0",
+          "Transfer to General Reserve": "31116525",
+          "Transfer to Capital Reserve": "22916842",
+          "Transfer to / (from) Investment Reserve Account": "616645",
+          "Transfer to / (from) Investment Fluctuation Reserve": "17120000",
+          "total_available_for_appropriation": "936508969",
+          "balance_carried_forward": "785941979",
+          "excluded_from_sum": "Balance carried over to Balance Sheet"
+        },
+        "calculated_value": "785941979",
+        "reported_value": "785941979",
+        "variance": "0",
+        "tolerance": "785941.979",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "2020_income_minus_expenditure",
+        "formula": "total_income − total_expenditure [± adjustments]",
+        "operands": {
+          "total_income": "1470682663",
+          "total_expenditure": "1197720010",
+          "minority_interest": "-423147",
+          "consolidated_net_profit": "272539506"
+        },
+        "calculated_value": "272539506",
+        "reported_value": "272539506",
+        "variance": "0",
+        "tolerance": "272539.506",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "2020_net_profit_before_minority",
+        "formula": "total_income − total_expenditure",
+        "operands": {
+          "total_income": "1470682663",
+          "total_expenditure": "1197720010",
+          "net_profit_before_minority": "272962653"
+        },
+        "calculated_value": "272962653",
+        "reported_value": "272962653",
+        "variance": "0",
+        "tolerance": "272962.653",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "2020_sum_income",
+        "formula": "interest_earned + other_income",
+        "operands": {
+          "interest_earned": "1221892915",
+          "other_income": "248789748"
+        },
+        "calculated_value": "1470682663",
+        "reported_value": "1470682663",
+        "variance": "0",
+        "tolerance": "1470682.663",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "2020_sum_expenditure",
+        "formula": "interest_expended + operating_expenses + provisions",
+        "operands": {
+          "interest_expended": "621374216",
+          "operating_expenses": "330360555",
+          "provisions_and_contingencies": "245985239"
+        },
+        "calculated_value": "1197720010",
+        "reported_value": "1197720010",
+        "variance": "0",
+        "tolerance": "1197720.010",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "2020_appropriation",
+        "formula": "total_available − sum(appropriations)",
+        "operands": {
+          "Transfer to Statutory Reserve": "67717167",
+          "Tax (including cess) on dividend": "902672",
+          "Dividend (including tax / cess thereon) pertaining to previous year paid during the year, net of dividend tax credits": "48933585",
+          "Interim Dividend (including tax)": "16469504",
+          "Transfer to General Reserve": "26257315",
+          "Transfer to Capital Reserve": "11238460",
+          "Transfer to / (from) Investment Reserve Account": "0",
+          "Transfer to / (from) Investment Fluctuation Reserve": "11340000",
+          "total_available_for_appropriation": "801035581",
+          "balance_carried_forward": "618176878",
+          "excluded_from_sum": "Balance carried over to Balance Sheet"
+        },
+        "calculated_value": "618176878",
+        "reported_value": "618176878",
+        "variance": "0",
+        "tolerance": "618176.878",
+        "status": "PASS",
+        "reason": ""
+      }
+    ],
+    "overall_status": "PASS",
+    "summary": {
+      "pass": 10,
+      "fail": 0,
+      "not_applicable": 0
+    }
+  },
+  "processing_metadata": {
+    "text_extraction_method": "ocr",
+    "ocr_provider": "mistral",
+    "llm_provider": "groq",
+    "processed_at": "2026-09-11T13:09:04.740106+00:00",
+    "processing_time_ms": 17746
+  },
+  "error": null,
+  "_harness": {
+    "source": "dataset",
+    "file_size_bytes": 139425,
+    "wall_time_ms": 17750,
+    "crashed": false
+  }
+}

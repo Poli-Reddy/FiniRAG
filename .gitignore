@@ -1,0 +1,60 @@
+# Environment (all variants hold live secrets)
+.env
+.env.*
+*.env.local
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Credentials (service-account keys etc.)
+*.json
+!render.yaml
+!package.json
+# Required submission artifact: sample JSON outputs
+!sample_outputs/**/*.json
+# Evaluation results are generated, non-secret submission evidence.
+!evaluation/summary.json
+!evaluation/tolerance_sensitivity.json
+!evaluation/results/**/*.json
+
+# Temporary
+*.tmp
+*.bak
+scratch/
+
+# Evaluation backups and local reports not needed in the submission
+evaluation/results_backup_*/
+evaluation/quota_artifacts_*/
+evaluation/run*.log
+
+# Local production/testing environment variants
+.env.*
+!.env.example
+
+# Analysis artifacts (not part of the application)
+_analysis/
+_casestudy_extracted.txt
+.claude/

@@ -1,0 +1,487 @@
+{
+  "document_name": "X51005719883.jpg",
+  "document_type": "invoice",
+  "processing_status": "PASS",
+  "file_validation": {
+    "file_type": "image/jpeg",
+    "is_supported": true,
+    "is_readable": true,
+    "page_count": 1,
+    "status": "PASS",
+    "error": null
+  },
+  "extracted_data": {
+    "invoice_number": {
+      "value": "18311/102/T0395",
+      "original_value": "18311/102/T0395",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "INVOICE NO : 18311/102/T0395",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "invoice_date": {
+      "value": "17-02-18",
+      "original_value": "17-02-18",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "07:44PM 566890 17-02-18",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "due_date": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_name": {
+      "value": "99 SPEED MART S/B (519537-X)",
+      "original_value": "99 SPEED MART S/B (519537-X)",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "99 SPEED MART S/B (519537-X)",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_address": {
+      "value": "LOT P.T. 2811, JALAN ANGSA, TAMAN BERKELEY 41150 KLANG, SELANGOR 1362-JLN DEVELOPMENT",
+      "original_value": "LOT P.T. 2811, JALAN ANGSA, TAMAN BERKELEY 41150 KLANG, SELANGOR 1362-JLN DEVELOPMENT",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "LOT P.T. 2811, JALAN ANGSA, TAMAN BERKELEY 41150 KLANG, SELANGOR 1362-JLN DEVELOPMENT",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_tax_id": {
+      "value": "000181747712",
+      "original_value": "000181747712",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "GST ID. NO : 000181747712",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_name": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_address": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_tax_id": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "currency": {
+      "value": "RM",
+      "original_value": "RM",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "RM",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "subtotal": {
+      "value": "102.36",
+      "original_value": "102.36",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "GST Summary Amount(RM) 102.36",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "tax_amount": {
+      "value": "6.14",
+      "original_value": "6.14",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "GST Summary Tax(RM) 6.14",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "tax_rate": {
+      "value": "6",
+      "original_value": "6",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "s = 6%",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "PERCENT"
+    },
+    "discount": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "total_amount": {
+      "value": "108.50",
+      "original_value": "108.50",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "Total Sales (Inclusive GST) RM 108.50",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "amount_paid": {
+      "value": "150.00",
+      "original_value": "150.00",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "CASH RM 150.00",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "amount_due": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "cash_paid": {
+      "value": "150.00",
+      "original_value": "150.00",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "CASH RM 150.00",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "change_given": {
+      "value": "41.50",
+      "original_value": "41.50",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "CHANGE RM 41.50",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "rounding_adjustment": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "RM"
+    },
+    "payment_method": {
+      "value": "CASH",
+      "original_value": "CASH",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "CASH RM 150.00",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "line_items": [
+      {
+        "description": {
+          "value": "TIGER BEER CAN 4*6*320M",
+          "original_value": "TIGER BEER CAN 4*6*320M",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "489 TIGER BEER CAN 4*6*320M RM108.50 s",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "489",
+          "original_value": "489",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "489 TIGER BEER CAN 4*6*320M RM108.50 s",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_of_measure": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "489 TIGER BEER CAN 4*6*320M RM108.50 s",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "amount": {
+          "value": "108.50",
+          "original_value": "RM108.50",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "489 TIGER BEER CAN 4*6*320M RM108.50 s",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "tax_code": {
+          "value": "s",
+          "original_value": "s",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "s",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": "6",
+          "original_value": "6%",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "489 TIGER BEER CAN 4*6*320M RM108.50 s",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "489 TIGER BEER CAN 4*6*320M RM108.50 s",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "RM"
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "489 TIGER BEER CAN 4*6*320M RM108.50 s",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      }
+    ],
+    "additional_tables": [
+      {
+        "table_name": "GST Summary",
+        "headers": [
+          "Amount(RM)",
+          "Tax(RM)"
+        ],
+        "rows": [
+          {
+            "Amount(RM)": "102.36",
+            "Tax(RM)": "6.14"
+          }
+        ],
+        "page_number": 1
+      }
+    ],
+    "additional_fields": [
+      {
+        "label": "Time/Reference",
+        "value": {
+          "value": "07:44PM 566890",
+          "original_value": "07:44PM 566890",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "07:44PM 566890",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      }
+    ],
+    "tax_inclusive": true,
+    "subtotal_confirmed_pretax": false
+  },
+  "validation": {
+    "checks": [
+      {
+        "name": "line_total_check_1",
+        "formula": "",
+        "operands": {},
+        "calculated_value": null,
+        "reported_value": null,
+        "variance": null,
+        "tolerance": null,
+        "status": "NOT_APPLICABLE",
+        "reason": "Missing operand(s)"
+      },
+      {
+        "name": "sum_lines_vs_subtotal",
+        "formula": "sum(line_amounts) − tax_amount (lines are tax-inclusive)",
+        "operands": {
+          "line_amounts": "108.50",
+          "line_count": "1",
+          "subtotal": "102.36",
+          "tax_amount": "6.14"
+        },
+        "calculated_value": "102.36",
+        "reported_value": "102.36",
+        "variance": "0.00",
+        "tolerance": "0.10236",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "sum_lines_vs_total",
+        "formula": "",
+        "operands": {},
+        "calculated_value": null,
+        "reported_value": null,
+        "variance": null,
+        "tolerance": null,
+        "status": "NOT_APPLICABLE",
+        "reason": "Missing operand(s)"
+      },
+      {
+        "name": "subtotal_plus_tax_vs_total",
+        "formula": "subtotal + tax_amount",
+        "operands": {
+          "subtotal": "102.36",
+          "tax_amount": "6.14",
+          "total_amount": "108.50",
+          "tax_inclusive": "True"
+        },
+        "calculated_value": "108.50",
+        "reported_value": "108.50",
+        "variance": "0.00",
+        "tolerance": "0.10850",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "rate_times_base_vs_tax",
+        "formula": "",
+        "operands": {},
+        "calculated_value": null,
+        "reported_value": null,
+        "variance": null,
+        "tolerance": null,
+        "status": "NOT_APPLICABLE",
+        "reason": "Cannot establish independent taxable base"
+      },
+      {
+        "name": "cash_change_check",
+        "formula": "cash_paid − total",
+        "operands": {
+          "cash_paid": "150.00",
+          "total_amount": "108.50",
+          "change_given": "41.50"
+        },
+        "calculated_value": "41.50",
+        "reported_value": "41.50",
+        "variance": "0.00",
+        "tolerance": "0.04150",
+        "status": "PASS",
+        "reason": ""
+      }
+    ],
+    "overall_status": "PASS",
+    "summary": {
+      "pass": 3,
+      "fail": 0,
+      "not_applicable": 3
+    }
+  },
+  "processing_metadata": {
+    "text_extraction_method": "ocr",
+    "ocr_provider": "mistral",
+    "llm_provider": "groq",
+    "processed_at": "2026-09-11T13:05:12.426989+00:00",
+    "processing_time_ms": 10094
+  },
+  "error": null,
+  "_harness": {
+    "source": "dataset",
+    "file_size_bytes": 222282,
+    "wall_time_ms": 10103,
+    "crashed": false
+  }
+}

@@ -1,0 +1,514 @@
+{
+  "document_name": "batch3-1445.jpg",
+  "document_type": "invoice",
+  "processing_status": "PASS",
+  "file_validation": {
+    "file_type": "image/jpeg",
+    "is_supported": true,
+    "is_readable": true,
+    "page_count": 1,
+    "status": "PASS",
+    "error": null
+  },
+  "extracted_data": {
+    "invoice_number": {
+      "value": "0001131",
+      "original_value": "0001131",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "0001131",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "invoice_date": {
+      "value": "01/29/2020",
+      "original_value": "01/29/2020",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "01/29/2020",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "due_date": {
+      "value": "01/29/2020",
+      "original_value": "01/29/2020",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "01/29/2020",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_name": {
+      "value": "Roofing Renovations INC",
+      "original_value": "Roofing Renovations INC",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "Roofing Renovations INC",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_address": {
+      "value": "4917 Old Randleman Rd\nGreensboro, North Carolina\n27406\nUnited States",
+      "original_value": "4917 Old Randleman Rd\nGreensboro, North Carolina\n27406\nUnited States",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "4917 Old Randleman Rd\nGreensboro, North Carolina\n27406\nUnited States",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "vendor_tax_id": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_name": {
+      "value": "Real Property Management",
+      "original_value": "Real Property Management",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "Real Property Management",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_address": {
+      "value": "1901 Lendew St Suite 7\nGreensboro, NC\n27408",
+      "original_value": "1901 Lendew St Suite 7\nGreensboro, NC\n27408",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "1901 Lendew St Suite 7\nGreensboro, NC\n27408",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "customer_tax_id": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "currency": {
+      "value": "USD",
+      "original_value": "USD",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "USD",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "subtotal": {
+      "value": "2650.00",
+      "original_value": "2,650.00",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "2,650.00",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "USD"
+    },
+    "tax_amount": {
+      "value": "0",
+      "original_value": "0.00",
+      "status": "EXPLICIT_ZERO",
+      "evidence": {
+        "source_text": "0.00",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "USD"
+    },
+    "tax_rate": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "PERCENT"
+    },
+    "discount": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "USD"
+    },
+    "total_amount": {
+      "value": "2650.00",
+      "original_value": "2,650.00",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "2,650.00",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "USD"
+    },
+    "amount_paid": {
+      "value": "0",
+      "original_value": "0.00",
+      "status": "EXPLICIT_ZERO",
+      "evidence": {
+        "source_text": "0.00",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "USD"
+    },
+    "amount_due": {
+      "value": "2650.00",
+      "original_value": "2,650.00",
+      "status": "EXPLICIT",
+      "evidence": {
+        "source_text": "$2,650.00",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "USD"
+    },
+    "cash_paid": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "USD"
+    },
+    "change_given": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "USD"
+    },
+    "rounding_adjustment": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": "USD"
+    },
+    "payment_method": {
+      "value": null,
+      "original_value": "",
+      "status": "MISSING",
+      "evidence": {
+        "source_text": "",
+        "page_number": 1,
+        "bounding_box": null
+      },
+      "unit": null
+    },
+    "line_items": [
+      {
+        "description": {
+          "value": "Replace HVAC Unit.",
+          "original_value": "Replace HVAC Unit.",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "Replace HVAC Unit. $2,650.00 1 $2,650.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "quantity": {
+          "value": "1",
+          "original_value": "1",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "Replace HVAC Unit. $2,650.00 1 $2,650.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_of_measure": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "unit_price": {
+          "value": "2650.00",
+          "original_value": "$2,650.00",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "Replace HVAC Unit. $2,650.00 1 $2,650.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "USD"
+        },
+        "amount": {
+          "value": "2650.00",
+          "original_value": "$2,650.00",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "Replace HVAC Unit. $2,650.00 1 $2,650.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "USD"
+        },
+        "tax_code": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        },
+        "tax_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "Replace HVAC Unit. $2,650.00 1 $2,650.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        },
+        "discount_amount": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "Replace HVAC Unit. $2,650.00 1 $2,650.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "USD"
+        },
+        "discount_rate": {
+          "value": null,
+          "original_value": "",
+          "status": "MISSING",
+          "evidence": {
+            "source_text": "Replace HVAC Unit. $2,650.00 1 $2,650.00",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": "PERCENT"
+        }
+      }
+    ],
+    "additional_tables": [],
+    "additional_fields": [
+      {
+        "label": "Phone Number",
+        "value": {
+          "value": "336-862-5235",
+          "original_value": "336-862-5235",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "336-862-5235",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Reference",
+        "value": {
+          "value": "7783 Newhaven Dr",
+          "original_value": "7783 Newhaven Dr",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "7783 Newhaven Dr",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Notes",
+        "value": {
+          "value": "T8EW3A3",
+          "original_value": "T8EW3A3",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "T8EW3A3",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      },
+      {
+        "label": "Terms",
+        "value": {
+          "value": "Thank you for trusting us with all your home improvement needs.",
+          "original_value": "Thank you for trusting us with all your home improvement needs.",
+          "status": "EXPLICIT",
+          "evidence": {
+            "source_text": "Thank you for trusting us with all your home improvement needs.",
+            "page_number": 1,
+            "bounding_box": null
+          },
+          "unit": null
+        }
+      }
+    ],
+    "tax_inclusive": null,
+    "subtotal_confirmed_pretax": false
+  },
+  "validation": {
+    "checks": [
+      {
+        "name": "line_total_check_1",
+        "formula": "quantity × unit_price",
+        "operands": {
+          "quantity": "1",
+          "unit_price": "2650.00",
+          "amount": "2650.00"
+        },
+        "calculated_value": "2650.00",
+        "reported_value": "2650.00",
+        "variance": "0.00",
+        "tolerance": "2.65000",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "sum_lines_vs_subtotal",
+        "formula": "sum(line_amounts)",
+        "operands": {
+          "line_amounts": "2650.00",
+          "line_count": "1",
+          "subtotal": "2650.00",
+          "tax_amount": "0"
+        },
+        "calculated_value": "2650.00",
+        "reported_value": "2650.00",
+        "variance": "0.00",
+        "tolerance": "2.65000",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "sum_lines_vs_total",
+        "formula": "",
+        "operands": {},
+        "calculated_value": null,
+        "reported_value": null,
+        "variance": null,
+        "tolerance": null,
+        "status": "NOT_APPLICABLE",
+        "reason": "Missing operand(s)"
+      },
+      {
+        "name": "subtotal_plus_tax_vs_total",
+        "formula": "subtotal + tax_amount",
+        "operands": {
+          "subtotal": "2650.00",
+          "tax_amount": "0",
+          "total_amount": "2650.00",
+          "tax_inclusive": "not stated"
+        },
+        "calculated_value": "2650.00",
+        "reported_value": "2650.00",
+        "variance": "0.00",
+        "tolerance": "2.65000",
+        "status": "PASS",
+        "reason": ""
+      },
+      {
+        "name": "rate_times_base_vs_tax",
+        "formula": "",
+        "operands": {},
+        "calculated_value": null,
+        "reported_value": null,
+        "variance": null,
+        "tolerance": null,
+        "status": "NOT_APPLICABLE",
+        "reason": "Missing operand(s)"
+      },
+      {
+        "name": "cash_change_check",
+        "formula": "",
+        "operands": {},
+        "calculated_value": null,
+        "reported_value": null,
+        "variance": null,
+        "tolerance": null,
+        "status": "NOT_APPLICABLE",
+        "reason": "Missing operand(s)"
+      }
+    ],
+    "overall_status": "PASS",
+    "summary": {
+      "pass": 3,
+      "fail": 0,
+      "not_applicable": 3
+    }
+  },
+  "processing_metadata": {
+    "text_extraction_method": "ocr",
+    "ocr_provider": "mistral",
+    "llm_provider": "gemini",
+    "processed_at": "2026-09-11T12:48:56.910642+00:00",
+    "processing_time_ms": 195332
+  },
+  "error": null,
+  "_harness": {
+    "source": "dataset",
+    "file_size_bytes": 315339,
+    "wall_time_ms": 195332,
+    "crashed": false
+  }
+}
