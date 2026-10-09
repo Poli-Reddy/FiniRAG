@@ -81,7 +81,20 @@ async def http_exception_handler(request: Request, exc: HTTPException):
     return JSONResponse(
         status_code=exc.status_code,
         content={"error": {"code": code, "message": message}},
+        headers=getattr(exc, "headers", None),
     )
+
+
+@app.middleware("http")
+async def correlation_id_middleware(request: Request, call_next):
+    """Attach a request id for log/response correlation. Never fails the request."""
+    import uuid as _uuid
+
+    request_id = request.headers.get("x-request-id") or str(_uuid.uuid4())
+    request.state.request_id = request_id
+    response = await call_next(request)
+    response.headers["X-Request-ID"] = request_id
+    return response
 
 # Static files + templates
 FRONTEND_DIR = Path(__file__).parent.parent.parent / "frontend"

@@ -24,16 +24,16 @@
   "recall_at_k": 1.0,
   "mrr": 0.958,
   "citation_support": 1.0,
-  "answer_correctness": 0.667,
-  "faithfulness": 0.938,
+  "answer_correctness": 0.867,
+  "faithfulness": 0.946,
   "unsupported_claim_rate": 0.0,
-  "abstention_correctness": 0.667,
+  "abstention_correctness": 0.867,
   "filter_behavior": 1.0,
   "financial_query_correctness": 1.0,
   "validation_path_correctness": 1.0,
   "latency_ms": {
-    "mean": 8640.6,
-    "max": 14657.2
+    "mean": 7594.5,
+    "max": 23423.4
   },
   "limitations": [
     "Synthetic 3-doc corpus; recall/MRR measure plumbing + live semantic ranking on synthetic data only.",
@@ -59,7 +59,7 @@
       "keyword_path": "postgres-fts",
       "answer_provider": "groq",
       "status": "ANSWERED",
-      "latency_ms": 11482.5,
+      "latency_ms": 9193.5,
       "intents": [
         "DOCUMENT_LOOKUP",
         "CONCEPTUAL_QUESTION"
@@ -81,7 +81,7 @@
       "keyword_path": "postgres-fts",
       "answer_provider": "groq",
       "status": "ANSWERED",
-      "latency_ms": 14657.2,
+      "latency_ms": 6070.4,
       "intents": [
         "EXACT_FINANCIAL_VALUE",
         "CONCEPTUAL_QUESTION"
@@ -103,7 +103,7 @@
       "keyword_path": "postgres-fts",
       "answer_provider": "groq",
       "status": "ANSWERED",
-      "latency_ms": 9778.8,
+      "latency_ms": 5602.6,
       "intents": [
         "EXACT_FINANCIAL_VALUE",
         "CONCEPTUAL_QUESTION"
@@ -125,7 +125,7 @@
       "keyword_path": "postgres-fts",
       "answer_provider": "groq",
       "status": "ANSWERED",
-      "latency_ms": 7398.7,
+      "latency_ms": 5558.1,
       "intents": [
         "CONCEPTUAL_QUESTION"
       ]
@@ -146,7 +146,7 @@
       "keyword_path": "postgres-fts",
       "answer_provider": "template-fallback (RuntimeError)",
       "status": "ANSWERED",
-      "latency_ms": 8420.2,
+      "latency_ms": 6145.1,
       "intents": [
         "CONCEPTUAL_QUESTION"
       ]
@@ -167,7 +167,7 @@
       "keyword_path": "postgres-fts",
       "answer_provider": "groq",
       "status": "INSUFFICIENT_EVIDENCE",
-      "latency_ms": 8649.1,
+      "latency_ms": 5860.9,
       "intents": [
         "RECONCILIATION_STATUS",
         "DISCREPANCY_ANALYSIS"
@@ -189,7 +189,7 @@
       "keyword_path": "postgres-fts",
       "answer_provider": "groq",
       "status": "INSUFFICIENT_EVIDENCE",
-      "latency_ms": 7713.3,
+      "latency_ms": 5433.4,
       "intents": [
         "CONCEPTUAL_QUESTION"
       ]
@@ -203,14 +203,14 @@
       "val_ok": null,
       "filter_ok": null,
       "cit_support": null,
-      "ans_ok": false,
+      "ans_ok": true,
       "faith": null,
-      "abst_ok": false,
+      "abst_ok": true,
       "vector_path": "pgvector",
       "keyword_path": "postgres-fts",
       "answer_provider": "groq",
       "status": "INSUFFICIENT_EVIDENCE",
-      "latency_ms": 7216.5,
+      "latency_ms": 6909.7,
       "intents": [
         "CONCEPTUAL_QUESTION"
       ]
@@ -231,7 +231,7 @@
       "keyword_path": "postgres-fts",
       "answer_provider": "none",
       "status": "INSUFFICIENT_EVIDENCE",
-      "latency_ms": 4395.2,
+      "latency_ms": 4288.0,
       "intents": [
         "INSUFFICIENT_OR_UNSUPPORTED"
       ]
@@ -252,7 +252,7 @@
       "keyword_path": "postgres-fts",
       "answer_provider": "groq",
       "status": "INSUFFICIENT_EVIDENCE",
-      "latency_ms": 8614.7,
+      "latency_ms": 7666.5,
       "intents": [
         "DOCUMENT_LOOKUP",
         "CONCEPTUAL_QUESTION"
@@ -266,15 +266,15 @@
       "fq_ok": null,
       "val_ok": null,
       "filter_ok": null,
-      "cit_support": 1.0,
-      "ans_ok": true,
-      "faith": 1.0,
-      "abst_ok": true,
+      "cit_support": null,
+      "ans_ok": false,
+      "faith": null,
+      "abst_ok": false,
       "vector_path": "pgvector",
       "keyword_path": "postgres-fts",
       "answer_provider": "groq",
-      "status": "ANSWERED",
-      "latency_ms": 7950.8,
+      "status": "INSUFFICIENT_EVIDENCE",
+      "latency_ms": 6736.1,
       "intents": [
         "DOCUMENT_LOOKUP"
       ]
@@ -295,7 +295,7 @@
       "keyword_path": "postgres-fts",
       "answer_provider": "groq",
       "status": "INSUFFICIENT_EVIDENCE",
-      "latency_ms": 6702.2,
+      "latency_ms": 5838.0,
       "intents": [
         "EXACT_FINANCIAL_VALUE"
       ]
@@ -308,15 +308,15 @@
       "fq_ok": null,
       "val_ok": null,
       "filter_ok": null,
-      "cit_support": null,
-      "ans_ok": false,
-      "faith": null,
-      "abst_ok": false,
+      "cit_support": 1.0,
+      "ans_ok": true,
+      "faith": 1.0,
+      "abst_ok": true,
       "vector_path": "pgvector",
       "keyword_path": "postgres-fts",
       "answer_provider": "groq",
-      "status": "INSUFFICIENT_EVIDENCE",
-      "latency_ms": 7730.6,
+      "status": "ANSWERED",
+      "latency_ms": 6679.3,
       "intents": [
         "EXACT_FINANCIAL_VALUE",
         "CONCEPTUAL_QUESTION"
@@ -331,14 +331,14 @@
       "val_ok": null,
       "filter_ok": null,
       "cit_support": null,
-      "ans_ok": false,
+      "ans_ok": true,
       "faith": null,
-      "abst_ok": false,
+      "abst_ok": true,
       "vector_path": "pgvector",
       "keyword_path": "postgres-fts",
       "answer_provider": "groq",
       "status": "INSUFFICIENT_EVIDENCE",
-      "latency_ms": 7398.0,
+      "latency_ms": 8511.6,
       "intents": [
         "FINANCIAL_COMPARISON"
       ]
@@ -351,15 +351,15 @@
       "fq_ok": true,
       "val_ok": null,
       "filter_ok": true,
-      "cit_support": null,
-      "ans_ok": false,
-      "faith": null,
-      "abst_ok": false,
+      "cit_support": 1.0,
+      "ans_ok": true,
+      "faith": 1.0,
+      "abst_ok": true,
       "vector_path": "pgvector",
       "keyword_path": "postgres-fts",
       "answer_provider": "groq",
-      "status": "INSUFFICIENT_EVIDENCE",
-      "latency_ms": 11501.3,
+      "status": "ANSWERED",
+      "latency_ms": 23423.4,
       "intents": [
         "EXACT_FINANCIAL_VALUE",
         "CONCEPTUAL_QUESTION"

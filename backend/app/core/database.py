@@ -11,13 +11,26 @@ from sqlalchemy.orm import DeclarativeBase
 from backend.app.core.config import settings
 
 
-# Async engine — connection pool managed by SQLAlchemy
+# Async engine — connection pool managed by SQLAlchemy.
+#
+# pool_pre_ping drops dead connections instead of failing a request;
+# pool_recycle empties connections before a managed Postgres idle cutoff;
+# the asyncpg statement_timeout bounds any single query so a slow one cannot
+# pin a pooled connection indefinitely (ignored by non-Postgres dialects).
+_connect_args: dict = {}
+if settings.DATABASE_URL.startswith("postgresql"):
+    _connect_args = {"server_settings": {
+        "statement_timeout": str(settings.DB_STATEMENT_TIMEOUT_MS)}}
+
 engine = create_async_engine(
     settings.DATABASE_URL,
     echo=False,  # Never echo SQL in production (data protection)
     pool_size=5,
     max_overflow=10,
     pool_pre_ping=True,
+    pool_recycle=1800,
+    pool_timeout=30,
+    connect_args=_connect_args,
 )
 
 # Session factory

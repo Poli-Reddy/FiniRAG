@@ -502,38 +502,74 @@ deterministic template. The provider that actually answered is surfaced as
 `answer_provider` on `POST /api/v1/qa/ask`; a template fallback adds a
 limitation rather than pretending the model answered.
 
+### Reliability engineering
+
+- **Retry with backoff + jitter** (`core/resilience.py`) for every outbound
+  provider call: 429/5xx/timeouts are retried (honouring provider
+  `Retry-After`); other 4xx fail fast. Rate-limited API keys are retired via
+  the shared `KeyPool`, so a retry lands on a different key.
+- **Circuit breakers** per provider: after N consecutive failures the provider
+  is skipped until a cooldown half-open trial, so a dead provider cannot make
+  every request pay the full timeout. Breaker state is exposed on `/health`.
+- **Hard timeouts**: per-call `PROVIDER_TIMEOUT_S`, a 15 s Postgres
+  `statement_timeout`, and a `QA_REQUEST_TIMEOUT_S` budget over the whole
+  question-answering pipeline (504 `QA_TIMEOUT` on breach).
+- **Rate limiting** on the two expensive endpoints (per-client fixed window,
+  `Retry-After` on 429); `X-Request-ID` correlation on every response.
+- **Retrieval integrity**: `hnsw.ef_search` raised per session for recall,
+  deterministic tie-breaking on equal distances, and a bounded Python
+  fallback (`RETRIEVAL_FALLBACK_MAX_ROWS`) so the vector path can never sweep
+  an unbounded corpus in Python.
+- **Database-level guarantees** (migration `0002_rag_hardening`): HNSW rebuilt
+  with explicit `m=16, ef_construction=64`, plus a partial unique index
+  (`uq_chunks_active_hash`) so two concurrent indexing attempts cannot leave
+  duplicate active chunks.
+- **Citation repair instead of reflexive abstention**: an uncited factual
+  claim is kept only if a real evidence item supports it (id attached);
+  otherwise it is dropped. Fabricated ids are still rejected.
+- **Health readiness** (`/health`): DB, index counts, embedding configuration,
+  retrieval mode and breaker states — no secrets.
+
 ### Verified live (2026-10-09, Render PostgreSQL + real providers)
 
-- Migrations `0000_documents` -> `0001_rag` applied to the live Render
-  database; the pre-existing 54 `documents` rows were preserved;
-  `vector`/`pgcrypto` installed; `document_chunks(embedding vector(768))`,
-  `idx_chunks_fts` (GIN) and `idx_chunks_vec` (HNSW) present.
+- Migrations `0000_documents` -> `0001_rag` -> `0002_rag_hardening` applied to
+  the live Render database; the pre-existing 54 `documents` rows were
+  preserved throughout; `vector`/`pgcrypto` installed;
+  `document_chunks(embedding vector(768))`, `idx_chunks_fts` (GIN),
+  `idx_chunks_vec` (HNSW `m=16, ef_construction=64`) and
+  `uq_chunks_active_hash` present.
 - `scripts/live_embedding_smoke.py`: real API call, model `gemini-embedding-2`,
   returned dimension 768, finite values.
-- `scripts/verify_retrieval.py` on live PG: `Index Scan using idx_chunks_vec
-  ... Order By (embedding <=> ...)` and `Bitmap Index Scan on idx_chunks_fts`
-  — native vector and full-text paths, no Python fallback.
+- `scripts/verify_retrieval.py --seed 1500 --strict` (synthetic rows, ANALYZE,
+  then rolled back): `Index Scan using idx_chunks_vec` with
+  `Order By (embedding <=> ...)` and `Bitmap Index Scan on idx_chunks_fts` —
+  both native indexes selected on a representative table; strict exit 0.
 - `evaluation/rag_live_evaluation.py` (15Q, synthetic 3-doc corpus, rolled
   back): 15/15 questions used native pgvector + postgres-fts; recall@5 1.0,
-  MRR 0.958, claim_support 1.0, faithfulness 0.938, financial-query 1.0,
-  validation 1.0, filter 1.0; answers were served by Groq because the Gemini
-  free tier (20 generate requests/day/model) was exhausted earlier in the
-  session; one call fell through to the template when both providers refused.
-  Production rows were untouched (54 documents, 0 synthetic chunks after run).
+  MRR 0.958, claim_support 1.0, unsupported-claim rate 0.0, faithfulness
+  0.946, abstention 0.867, financial-query 1.0, validation 1.0, filter 1.0,
+  answer correctness 0.867. Answers were served by Groq because the Gemini
+  free tier (20 generate requests/day/model) was exhausted; one call fell to
+  the template when both providers refused. Production rows untouched
+  (54 documents, 0 synthetic chunks after every run).
+- Answer correctness and abstention vary run to run with model behaviour
+  (observed 0.667-0.867 on this small synthetic set); retrieval metrics are
+  stable across runs.
 
 Offline eval (actual, sqlite/hash, 15Q, forced offline): recall@5 1.0,
 MRR 0.892 (final fused positions), claim_support 1.0, answer 0.8,
-faithfulness 0.696, abstention 0.8, financial-query 1.0, validation 1.0,
-filter 1.0, latency 12.7 ms mean. Token overlap is a documented basic guard,
+faithfulness 0.70, abstention 0.8, financial-query 1.0, validation 1.0,
+filter 1.0, latency ~13 ms mean. Token overlap is a documented basic guard,
 not entailment proof.
 
-Honest open items: the live answer correctness is 0.667 — the model
-over-abstains on several questions that had evidence, and the Gemini
-generate quota forces Groq for answers until the key's quota resets or
-billing is enabled (rotate `GEMINI_API_KEYS` or add billing for Gemini
-answers). Full suite: 411 passed; 1 pre-existing failure
-(`test_invalid_document_type...[""]` expects 400, gets 422 on installed
-fastapi 0.136.3 vs pinned 0.115.0 — fails identically on the clean tree).
+Honest open items: the Gemini generate quota forces Groq for answers until the
+key's quota resets or billing is enabled (rotate `GEMINI_API_KEYS` or add
+billing for Gemini answers); the live eval corpus is small and synthetic, so
+it proves plumbing and index behaviour rather than production answer quality;
+`docs/architecture.png` is still the stale React/Vercel drawing. Full suite:
+436 passed; 1 pre-existing failure (`test_invalid_document_type...[""]`
+expects 400, gets 422 on installed fastapi 0.136.3 vs pinned 0.115.0 — fails
+identically on the clean tree).
 
 ## Submission Files
 

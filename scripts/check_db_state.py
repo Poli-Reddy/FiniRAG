@@ -22,10 +22,11 @@ async def main():
             n = (await db.execute(text(f"SELECT COUNT(*) FROM {t}"))).scalar()
             print(f"{t} rows:", n)
         idx = (await db.execute(
-            text("SELECT indexname FROM pg_indexes WHERE tablename IN "
+            text("SELECT indexname, indexdef FROM pg_indexes WHERE tablename IN "
                  "('document_chunks','indexing_jobs','documents') ORDER BY 1")
         )).fetchall()
-        print("indexes:", [r[0] for r in idx])
+        for name, definition in idx:
+            print(f"index {name}: {definition}")
         ver = (await db.execute(text("SELECT version_num FROM alembic_version"))).fetchall()
         print("alembic:", [r[0] for r in ver])
         emb = (await db.execute(

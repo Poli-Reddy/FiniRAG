@@ -18,19 +18,19 @@
     "questions": 0,
     "of": 15
   },
-  "recall_at_k": 1.0,
-  "mrr": 0.892,
+  "recall_at_k": 0.917,
+  "mrr": 0.831,
   "citation_support": 1.0,
   "answer_correctness": 0.8,
-  "faithfulness": 0.696,
+  "faithfulness": 0.704,
   "unsupported_claim_rate": 0.0,
   "abstention_correctness": 0.8,
   "filter_behavior": 1.0,
   "financial_query_correctness": 1.0,
   "validation_path_correctness": 1.0,
   "latency_ms": {
-    "mean": 12.7,
-    "max": 21.2
+    "mean": 11.3,
+    "max": 16.2
   },
   "limitations": [
     "Hash vectors are not semantic; recall/MRR here test plumbing + keyword overlap only.",
@@ -50,13 +50,13 @@
       "filter_ok": null,
       "cit_support": 1.0,
       "ans_ok": true,
-      "faith": 0.833,
+      "faith": 0.75,
       "abst_ok": true,
       "vector_path": "python-fallback",
       "keyword_path": "token-overlap",
       "answer_provider": "template",
       "status": "ANSWERED",
-      "latency_ms": 14.1,
+      "latency_ms": 12.2,
       "intents": [
         "DOCUMENT_LOOKUP",
         "CONCEPTUAL_QUESTION"
@@ -72,29 +72,7 @@
       "filter_ok": null,
       "cit_support": 1.0,
       "ans_ok": true,
-      "faith": 0.714,
-      "abst_ok": true,
-      "vector_path": "python-fallback",
-      "keyword_path": "token-overlap",
-      "answer_provider": "template",
-      "status": "ANSWERED",
-      "latency_ms": 14.9,
-      "intents": [
-        "EXACT_FINANCIAL_VALUE",
-        "CONCEPTUAL_QUESTION"
-      ]
-    },
-    {
-      "id": "inv-tax",
-      "rank": 1,
-      "hit_at_5": true,
-      "rr": 1.0,
-      "fq_ok": true,
-      "val_ok": null,
-      "filter_ok": null,
-      "cit_support": 1.0,
-      "ans_ok": true,
-      "faith": 0.5,
+      "faith": 0.625,
       "abst_ok": true,
       "vector_path": "python-fallback",
       "keyword_path": "token-overlap",
@@ -107,11 +85,11 @@
       ]
     },
     {
-      "id": "inv-line",
+      "id": "inv-tax",
       "rank": 2,
       "hit_at_5": true,
       "rr": 0.5,
-      "fq_ok": null,
+      "fq_ok": true,
       "val_ok": null,
       "filter_ok": null,
       "cit_support": 1.0,
@@ -122,7 +100,29 @@
       "keyword_path": "token-overlap",
       "answer_provider": "template",
       "status": "ANSWERED",
-      "latency_ms": 9.6,
+      "latency_ms": 10.6,
+      "intents": [
+        "EXACT_FINANCIAL_VALUE",
+        "CONCEPTUAL_QUESTION"
+      ]
+    },
+    {
+      "id": "inv-line",
+      "rank": 3,
+      "hit_at_5": true,
+      "rr": 0.3333333333333333,
+      "fq_ok": null,
+      "val_ok": null,
+      "filter_ok": null,
+      "cit_support": 1.0,
+      "ans_ok": true,
+      "faith": 0.833,
+      "abst_ok": true,
+      "vector_path": "python-fallback",
+      "keyword_path": "token-overlap",
+      "answer_provider": "template",
+      "status": "ANSWERED",
+      "latency_ms": 10.3,
       "intents": [
         "CONCEPTUAL_QUESTION"
       ]
@@ -137,13 +137,13 @@
       "filter_ok": null,
       "cit_support": 1.0,
       "ans_ok": true,
-      "faith": 0.625,
+      "faith": 0.714,
       "abst_ok": true,
       "vector_path": "python-fallback",
       "keyword_path": "token-overlap",
       "answer_provider": "template",
       "status": "ANSWERED",
-      "latency_ms": 11.4,
+      "latency_ms": 11.7,
       "intents": [
         "CONCEPTUAL_QUESTION"
       ]
@@ -158,13 +158,13 @@
       "filter_ok": null,
       "cit_support": 1.0,
       "ans_ok": true,
-      "faith": 0.75,
+      "faith": 0.667,
       "abst_ok": true,
       "vector_path": "python-fallback",
       "keyword_path": "token-overlap",
       "answer_provider": "template",
       "status": "ANSWERED",
-      "latency_ms": 10.9,
+      "latency_ms": 11.1,
       "intents": [
         "RECONCILIATION_STATUS",
         "DISCREPANCY_ANALYSIS"
@@ -180,7 +180,7 @@
       "filter_ok": null,
       "cit_support": 1.0,
       "ans_ok": false,
-      "faith": 0.5,
+      "faith": 0.667,
       "abst_ok": false,
       "vector_path": "python-fallback",
       "keyword_path": "token-overlap",
@@ -207,7 +207,7 @@
       "keyword_path": "token-overlap",
       "answer_provider": "template",
       "status": "ANSWERED",
-      "latency_ms": 21.2,
+      "latency_ms": 10.4,
       "intents": [
         "CONCEPTUAL_QUESTION"
       ]
@@ -228,7 +228,7 @@
       "keyword_path": "token-overlap",
       "answer_provider": "none",
       "status": "INSUFFICIENT_EVIDENCE",
-      "latency_ms": 10.5,
+      "latency_ms": 9.7,
       "intents": [
         "INSUFFICIENT_OR_UNSUPPORTED"
       ]
@@ -243,13 +243,13 @@
       "filter_ok": null,
       "cit_support": 1.0,
       "ans_ok": false,
-      "faith": 0.8,
+      "faith": 0.714,
       "abst_ok": false,
       "vector_path": "python-fallback",
       "keyword_path": "token-overlap",
       "answer_provider": "template",
       "status": "ANSWERED",
-      "latency_ms": 11.5,
+      "latency_ms": 10.9,
       "intents": [
         "DOCUMENT_LOOKUP",
         "CONCEPTUAL_QUESTION"
@@ -271,7 +271,7 @@
       "keyword_path": "token-overlap",
       "answer_provider": "template",
       "status": "ANSWERED",
-      "latency_ms": 10.4,
+      "latency_ms": 11.9,
       "intents": [
         "DOCUMENT_LOOKUP"
       ]
@@ -292,7 +292,7 @@
       "keyword_path": "token-overlap",
       "answer_provider": "template",
       "status": "ANSWERED",
-      "latency_ms": 10.9,
+      "latency_ms": 11.3,
       "intents": [
         "EXACT_FINANCIAL_VALUE"
       ]
@@ -307,13 +307,13 @@
       "filter_ok": null,
       "cit_support": 1.0,
       "ans_ok": true,
-      "faith": 0.778,
+      "faith": 0.75,
       "abst_ok": true,
       "vector_path": "python-fallback",
       "keyword_path": "token-overlap",
       "answer_provider": "template",
       "status": "ANSWERED",
-      "latency_ms": 11.0,
+      "latency_ms": 10.8,
       "intents": [
         "EXACT_FINANCIAL_VALUE",
         "CONCEPTUAL_QUESTION"
@@ -335,28 +335,28 @@
       "keyword_path": "token-overlap",
       "answer_provider": "template",
       "status": "ANSWERED",
-      "latency_ms": 14.1,
+      "latency_ms": 10.9,
       "intents": [
         "FINANCIAL_COMPARISON"
       ]
     },
     {
       "id": "filter-doc",
-      "rank": 5,
-      "hit_at_5": true,
-      "rr": 0.2,
+      "rank": 7,
+      "hit_at_5": false,
+      "rr": 0.14285714285714285,
       "fq_ok": true,
       "val_ok": null,
       "filter_ok": true,
       "cit_support": 1.0,
       "ans_ok": true,
-      "faith": 0.857,
+      "faith": 0.75,
       "abst_ok": true,
       "vector_path": "python-fallback",
       "keyword_path": "token-overlap",
       "answer_provider": "template",
       "status": "ANSWERED",
-      "latency_ms": 18.1,
+      "latency_ms": 16.2,
       "intents": [
         "EXACT_FINANCIAL_VALUE",
         "CONCEPTUAL_QUESTION"

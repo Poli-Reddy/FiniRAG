@@ -156,12 +156,17 @@ async def main(provider=None, engine=None, out=None, live: bool = False,
                 # excluded from recall/MRR; abstention is scored instead.
                 hit, rr = None, None
             # ── Document-filter behavior (separate probe, not ranking) ──
+            # When a filter is supplied, the ANSWER is computed against the
+            # filtered candidate set (exactly as the API would with
+            # document_id), while the ranking metric above stays unfiltered.
+            answer_cands = cands
             filter_ok = None
             if q.get("filter_document"):
                 target = name_to_id.get(q["filter_document"])
                 fret = await RetrievalService(db, emb).retrieve(
                     q["question"], document_id=target)
                 fcands = fret["candidates"]
+                answer_cands = fcands
                 filter_ok = bool(fcands) and all(
                     str(c.get("document_id")) == str(target) for c in fcands)
                 filter_results.append(filter_ok)
@@ -192,7 +197,7 @@ async def main(provider=None, engine=None, out=None, live: bool = False,
                 ev = {"items": []}
             else:
                 ev = EvidenceService().build(sql_results=sql_rs, validation=validation,
-                                             candidates=cands)
+                                             candidates=answer_cands)
             ans = await AnswerService().answer(question=q["question"], evidence=ev)
             # Claim-level support of the FINAL answer, measured with the same
             # production validator the pipeline enforces (not mere citation

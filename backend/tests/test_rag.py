@@ -440,6 +440,30 @@ async def test_all_unsupported_facts_abstain():
     assert fin.financial_facts == []
 
 
+@pytest.mark.asyncio
+async def test_uncited_but_supported_claim_is_repaired():
+    """A correct-but-uncited fact is repaired against evidence, not abstained."""
+    svc = AnswerService()
+    items = [{"citation_id": "CIT-1", "document_name": "inv-a.jpg",
+              "content": "total_amount = 108.00 (original: 108.00)",
+              "source_text": "108.00", "evidence_kind": "verbatim",
+              "kind": "structured_value", "field": "total_amount", "value": "108.00"}]
+    res = svc._validate_claims("The total is 108.00.", [], items)
+    assert res["factual_kept"] == 1
+    assert res["citations"][0]["citation_id"] == "CIT-1"
+
+
+@pytest.mark.asyncio
+async def test_uncited_and_unsupported_claim_still_dropped():
+    """Repair only attaches a citation when a real evidence item supports it."""
+    svc = AnswerService()
+    items = [{"citation_id": "CIT-1", "document_name": "inv-a.jpg",
+              "content": "Vendor Acme", "source_text": "Acme",
+              "evidence_kind": "verbatim", "kind": "passage"}]
+    res = svc._validate_claims("The total is 999.99.", [], items)
+    assert res["factual_kept"] == 0 and res["dropped"] == 1
+
+
 # 16. prompt injection ignored
 @pytest.mark.asyncio
 async def test_prompt_injection(db):

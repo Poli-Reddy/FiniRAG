@@ -38,10 +38,16 @@ def _no_live_llm_keys(monkeypatch):
     live in scripts/ and evaluation/rag_live_evaluation.py instead.
     """
     from backend.app.core.config import settings
+    from backend.app.core import resilience
 
     for name in ("GEMINI_API_KEY", "GEMINI_API_KEYS",
                  "GROQ_API_KEY", "GROQ_API_KEYS"):
         monkeypatch.setattr(settings, name, "", raising=False)
+    # No retries or rate limiting in the unit suite: fast and deterministic.
+    # The retry/breaker and limiter logic has its own focused tests.
+    monkeypatch.setattr(settings, "PROVIDER_MAX_RETRIES", 0)
+    monkeypatch.setattr(settings, "RATE_LIMIT_PER_MINUTE", 1_000_000)
+    resilience.reset_breakers()
 
 
 # ─────────────────────────────────────────────────────────────────────

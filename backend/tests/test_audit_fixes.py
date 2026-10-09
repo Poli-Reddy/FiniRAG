@@ -177,6 +177,9 @@ def test_migration_offline_sql():
     assert sql.index("CREATE TABLE documents") < sql.index("CREATE TABLE document_chunks")
     # Baseline matches ORM schema types.
     assert "file_validation JSONB NOT NULL" in sql
+    # Hardening migration: explicit HNSW params + active-chunk uniqueness.
+    assert "USING hnsw (embedding vector_cosine_ops) WITH (m = 16, ef_construction = 64)" in sql
+    assert "uq_chunks_active_hash" in sql and "WHERE is_active" in sql
 
 
 def test_chunk_provenance_derived_vs_verbatim():
@@ -242,6 +245,78 @@ async def test_retrieval_reports_fallback_paths(db):
     assert out["vector_path"] in ("python-fallback", "pgvector", "disabled")
     assert out["keyword_path"] in ("token-overlap", "postgres-fts")
     assert _dialect_name(db) != "postgresql"  # sqlite in tests
+
+
+@pytest.mark.asyncio
+async def test_cosine_fallback_is_deterministic_on_ties(monkeypatch):
+    """Equal-distance rows must order by chunk id, not DB insertion order."""
+    did = uuid.uuid4()
+    rows = [_pg_chunk(did, name="b.jpg"), _pg_chunk(did, name="a.jpg"),
+            _pg_chunk(did, name="c.jpg")]
+    for r in rows:
+        r.embedding = [0.5] * 768  # identical vectors => identical cosine
+
+    svc = RetrievalService(_FakePGDB(), EmbeddingService(HashEmbeddingProvider()))
+    async def fake_load(filters, limit=None):
+        return rows
+    monkeypatch.setattr(svc, "_load_eligible", fake_load)
+
+    out = await svc._cosine_fallback([0.5] * 768, [], 3)
+    ids = [c["chunk_id"] for c in out]
+    assert ids == sorted(ids)  # stable id ordering
+    # And repeated calls return the same order.
+    out2 = await svc._cosine_fallback([0.5] * 768, [], 3)
+    assert [c["chunk_id"] for c in out2] == ids
+
+
+@pytest.mark.asyncio
+async def test_fallback_rows_are_bounded():
+    """_load_eligible must cap rows so the Python path never sweeps the corpus."""
+    from sqlalchemy.dialects import postgresql
+    from backend.app.core.config import settings
+
+    captured = {}
+
+    class CapDB:
+        async def execute(self, stmt, *a, **k):
+            captured["stmt"] = stmt
+
+            class R:
+                def scalars(self):
+                    class S:
+                        def all(self):
+                            return []
+                    return S()
+            return R()
+
+    svc = RetrievalService(CapDB(), EmbeddingService(HashEmbeddingProvider()))
+    await svc._load_eligible([])
+    sql = str(captured["stmt"].compile(
+        dialect=postgresql.dialect(), compile_kwargs={"literal_binds": True}))
+    assert f"LIMIT {settings.RETRIEVAL_FALLBACK_MAX_ROWS}" in sql
+
+
+@pytest.mark.asyncio
+async def test_session_guards_set_ef_search_on_postgres(monkeypatch):
+    import backend.app.services.retrieval_service as rs
+
+    executed = []
+
+    class GuardDB:
+        async def execute(self, stmt, *a, **k):
+            executed.append(str(stmt))
+            class R:
+                def scalars(self):
+                    class S:
+                        def all(self):
+                            return []
+                    return S()
+            return R()
+
+    monkeypatch.setattr(rs, "_dialect_name", lambda db: "postgresql")
+    svc = RetrievalService(GuardDB(), EmbeddingService(HashEmbeddingProvider()))
+    await svc._apply_session_guards()
+    assert any("hnsw.ef_search" in s for s in executed)
 
 
 @pytest.mark.asyncio

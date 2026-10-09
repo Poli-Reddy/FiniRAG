@@ -168,11 +168,32 @@ class RetrievalService:
                 "insufficient": len(top) == 0,
                 "reason": None if top else ("NO_EVIDENCE" if vec_ok else "NO_EVIDENCE_SEMANTIC_DEGRADED")}
 
-    async def _load_eligible(self, filters, limit: int = 5000) -> list:
+    async def _apply_session_guards(self) -> None:
+        """Set per-session Postgres tuning before retrieval.
+
+        hnsw.ef_search controls how many candidates HNSW considers; the
+        pgvector default (40) under-serves recall, so we raise it. SET LOCAL
+        scopes the change to the current transaction, so pooled connections
+        are never left modified. Values are int-coerced — never interpolated
+        from user input.
+        """
+        if _dialect_name(self._db) != "postgresql":
+            return
+        try:
+            from sqlalchemy import text as _text
+
+            ef = int(settings.HNSW_EF_SEARCH)
+            await self._db.execute(_text(f"SET LOCAL hnsw.ef_search = {ef}"))
+        except Exception as e:  # pragma: no cover - tuning is best-effort
+            logger.warning("Could not set hnsw.ef_search", extra={
+                "error_type": type(e).__name__})
+
+    async def _load_eligible(self, filters, limit: int | None = None) -> list:
         stmt = select(DocumentChunk).where(DocumentChunk.is_active == True)  # noqa: E712
         for f in filters:
             stmt = stmt.where(f)
-        stmt = stmt.limit(limit)
+        stmt = stmt.order_by(DocumentChunk.id).limit(
+            limit or settings.RETRIEVAL_FALLBACK_MAX_ROWS)
         return list((await self._db.execute(stmt)).scalars().all())
 
     async def _semantic(self, qvec, filters, limit: int,
@@ -182,11 +203,16 @@ class RetrievalService:
         strict=True raises RetrievalError instead of falling back."""
         if _dialect_name(self._db) == "postgresql":
             try:
+                await self._apply_session_guards()
                 stmt = select(DocumentChunk).where(DocumentChunk.is_active == True)  # noqa: E712
                 for f in filters:
                     stmt = stmt.where(f)
+                # Deterministic tie-break on chunk id so equal distances return
+                # a stable order (important for reproducible evaluation).
                 stmt = stmt.order_by(
-                    embedding_cosine_distance(DocumentChunk.embedding, qvec)).limit(limit)
+                    embedding_cosine_distance(DocumentChunk.embedding, qvec),
+                    DocumentChunk.id,
+                ).limit(limit)
                 rows = list((await self._db.execute(stmt)).scalars().all())
                 if rows:
                     return ([self._to_candidate(c, "vector", i + 1) for i, c in enumerate(rows)],
@@ -202,18 +228,20 @@ class RetrievalService:
         return (await self._cosine_fallback(qvec, filters, limit), "python-fallback", None)
 
     async def _cosine_fallback(self, qvec, filters, limit: int) -> list[dict]:
+        # Bounded and deterministic: never sweep an unbounded corpus in Python,
+        # and break score ties on chunk id so ordering is reproducible.
         rows = await self._load_eligible(filters)
         scored = []
         for c in rows:
             if not c.embedding:
                 continue
             try:
-                scored.append((cosine(qvec, list(c.embedding)), c))
+                scored.append((cosine(qvec, list(c.embedding)), str(c.id), c))
             except Exception:
                 continue
-        scored.sort(key=lambda t: t[0], reverse=True)
+        scored.sort(key=lambda t: (-t[0], t[1]))
         return [self._to_candidate(c, "vector", i + 1, score=s)
-                for i, (s, c) in enumerate(scored[:limit])]
+                for i, (s, _cid, c) in enumerate(scored[:limit])]
 
     async def _keyword(self, query: str, filters, limit: int,
                        strict: bool = False) -> tuple[list[dict], str, str | None]:
@@ -255,11 +283,11 @@ class RetrievalService:
             ctokens = set(tokenize(c.content or ""))
             overlap = len(qtokens & ctokens)
             if overlap:
-                # Boost exact identifier/period matches.
-                scored.append((overlap, c))
-        scored.sort(key=lambda t: t[0], reverse=True)
+                # Boost exact identifier/period matches; stable tie-break.
+                scored.append((overlap, str(c.id), c))
+        scored.sort(key=lambda t: (-t[0], t[1]))
         return [self._to_candidate(c, "keyword", i + 1, score=float(s))
-                for i, (s, c) in enumerate(scored[:limit])]
+                for i, (s, _cid, c) in enumerate(scored[:limit])]
 
     def _to_candidate(self, c: DocumentChunk, method: str, rank: int, score=None) -> dict:
         meta = dict(c.chunk_metadata or {})

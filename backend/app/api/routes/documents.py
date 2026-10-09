@@ -16,6 +16,7 @@ from datetime import datetime, timezone
 from fastapi import APIRouter, Depends, File, Form, HTTPException, Query, UploadFile
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from backend.app.api.rate_limit import rate_limit
 from backend.app.core.config import settings
 from backend.app.core.database import get_db
 from backend.app.schemas.document import (
@@ -36,7 +37,8 @@ router = APIRouter(prefix="/api/v1", tags=["documents"])
 # POST /api/v1/documents/process
 # ─────────────────────────────────────────────────────────────────────
 
-@router.post("/documents/process", response_model=DocumentProcessResponse)
+@router.post("/documents/process", response_model=DocumentProcessResponse,
+             dependencies=[Depends(rate_limit)])
 async def process_document(
     file: UploadFile = File(...),
     document_type: str = Form(...),
@@ -153,15 +155,35 @@ async def get_document_by_name(
 
 @router.get("/health", response_model=HealthResponse)
 async def health_check(db: AsyncSession = Depends(get_db)):
-    """Health/readiness: app, DB, embedding config, retrieval mode. No secrets."""
+    """Health/readiness: app, DB, embedding config, index counts, provider
+    breaker states. Deliberately cheap (one SELECT, one COUNT) and contains
+    no secrets — safe to poll from a platform health check."""
+    db_status = "disconnected"
+    indexed_documents = 0
     try:
-        from sqlalchemy import text
+        from sqlalchemy import func, select, text
+
+        from backend.app.models.rag import DocumentChunk
+
         await db.execute(text("SELECT 1"))
         db_status = "connected"
+        total_chunks = int((await db.execute(
+            select(func.count(DocumentChunk.id)).where(
+                DocumentChunk.is_active == True))).scalar() or 0)  # noqa: E712
+        indexed_documents = int((await db.execute(
+            select(func.count(func.distinct(DocumentChunk.document_id))).where(
+                DocumentChunk.is_active == True))).scalar() or 0)  # noqa: E712
     except Exception:
         db_status = "disconnected"
+        total_chunks = 0
 
     emb_configured = bool(settings.GEMINI_API_KEY or settings.GEMINI_API_KEYS)
+    try:
+        from backend.app.core.resilience import breakers_snapshot
+
+        breakers = breakers_snapshot()
+    except Exception:
+        breakers = []
     return HealthResponse(
         status="healthy" if db_status == "connected" else "degraded",
         database=db_status,
@@ -170,6 +192,9 @@ async def health_check(db: AsyncSession = Depends(get_db)):
         embedding_configured=emb_configured,
         retrieval_mode="hybrid" if emb_configured else "keyword-only",
         index_version=settings.INDEX_VERSION,
+        indexed_chunks=total_chunks,
+        indexed_documents=indexed_documents,
+        provider_breakers=breakers,
     )
 
 

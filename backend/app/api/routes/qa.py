@@ -2,11 +2,14 @@
 FiniRAG QA routes — POST /api/v1/qa/ask.
 
 Pipeline: validate -> route -> selective SQL/retrieval/validation ->
-evidence -> answer -> citation checks. Tools invoked only per intent.
+evidence -> answer -> citation checks. Tools invoked only per intent, and the
+whole pipeline is bounded by QA_REQUEST_TIMEOUT_S so one slow provider call
+cannot pin a worker indefinitely.
 """
 
 from __future__ import annotations
 
+import asyncio
 import logging
 import re
 import uuid
@@ -14,6 +17,8 @@ import uuid
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from backend.app.api.rate_limit import rate_limit
+from backend.app.core.config import settings
 from backend.app.core.database import get_db
 from backend.app.schemas.document import VALID_DOCUMENT_TYPES
 from backend.app.schemas.qa import QAAskRequest, QAAskResponse
@@ -60,7 +65,19 @@ def _guess_periods(question: str) -> list[str]:
     return re.findall(r"\b(?:19|20)\d{2}\b", question)
 
 
-@router.post("/ask", response_model=QAAskResponse)
+def _insufficient(request_id: str, intents: list[str], meta: dict | None = None,
+                  limitations: list[str] | None = None) -> QAAskResponse:
+    return QAAskResponse(
+        answer="I don't have sufficient evidence to answer this question.",
+        status="INSUFFICIENT_EVIDENCE",
+        answer_provider="none",
+        limitations=list(limitations or []),
+        retrieval_metadata=meta or {"request_id": request_id, "intents": intents},
+        request_id=request_id, intents=intents,
+    )
+
+
+@router.post("/ask", response_model=QAAskResponse, dependencies=[Depends(rate_limit)])
 async def ask_question(body: QAAskRequest, db: AsyncSession = Depends(get_db)):
     request_id = str(uuid.uuid4())
     question = (body.question or "").strip()
@@ -81,6 +98,22 @@ async def ask_question(body: QAAskRequest, db: AsyncSession = Depends(get_db)):
             raise HTTPException(status_code=400, detail={"code": "INVALID_DOCUMENT_ID",
                                                          "message": "document_id must be UUID."})
 
+    try:
+        return await asyncio.wait_for(
+            _answer_pipeline(body, question, doc_uuid, request_id, db),
+            timeout=settings.QA_REQUEST_TIMEOUT_S,
+        )
+    except asyncio.TimeoutError:
+        logger.error("QA request timed out", extra={
+            "request_id": request_id, "timeout_s": settings.QA_REQUEST_TIMEOUT_S})
+        raise HTTPException(
+            status_code=504,
+            detail={"code": "QA_TIMEOUT",
+                    "message": "The answer took too long to produce. Please retry."})
+
+
+async def _answer_pipeline(body: QAAskRequest, question: str, doc_uuid,
+                           request_id: str, db: AsyncSession) -> QAAskResponse:
     decision = router_instance.classify(question, filters={
         "document_id": str(doc_uuid) if doc_uuid else None,
         "document_name": body.document_name,
@@ -89,15 +122,7 @@ async def ask_question(body: QAAskRequest, db: AsyncSession = Depends(get_db)):
         "company": body.company})
     # Unsupported -> explicit insufficient-evidence, no tools called.
     if decision.intents == ["INSUFFICIENT_OR_UNSUPPORTED"]:
-        result = await AnswerService().answer(
-            question=question, evidence={"items": []},
-            retrieval_metadata={"request_id": request_id, "intents": decision.intents})
-        return QAAskResponse(answer=result.answer, status="INSUFFICIENT_EVIDENCE",
-                             answer_provider=result.provider,
-                             limitations=result.limitations,
-                             retrieval_metadata={"request_id": request_id,
-                                                 "intents": decision.intents},
-                             request_id=request_id, intents=decision.intents)
+        return _insufficient(request_id, decision.intents)
 
     fq = FinancialQueryService(db)
     retrieval_meta: dict = {"request_id": request_id, "intents": decision.intents}
@@ -116,18 +141,13 @@ async def ask_question(body: QAAskRequest, db: AsyncSession = Depends(get_db)):
             retrieval_meta["comparison"] = cmp
             # Wrap comparison operands as evidence facts.
             if cmp.get("ok"):
-                sql_results.append({"ok": True, "field": f"{field}@{periods[0]}",
-                                    "value": cmp["value_a"], "original_value": cmp["value_a"],
-                                    "status": "EXPLICIT", "unit": cmp.get("unit"),
-                                    "evidence": {}, "document_id": "",
-                                    "document_name": body.document_name or "",
-                                    "document_type": body.document_type or ""})
-                sql_results.append({"ok": True, "field": f"{field}@{periods[1]}",
-                                    "value": cmp["value_b"], "original_value": cmp["value_b"],
-                                    "status": "EXPLICIT", "unit": cmp.get("unit"),
-                                    "evidence": {}, "document_id": "",
-                                    "document_name": body.document_name or "",
-                                    "document_type": body.document_type or ""})
+                for period, value in ((periods[0], cmp["value_a"]), (periods[1], cmp["value_b"])):
+                    sql_results.append({"ok": True, "field": f"{field}@{period}",
+                                        "value": value, "original_value": value,
+                                        "status": "EXPLICIT", "unit": cmp.get("unit"),
+                                        "evidence": {}, "document_id": "",
+                                        "document_name": body.document_name or "",
+                                        "document_type": body.document_type or ""})
             else:
                 sql_results.append({"ok": False, "field": field, "error": cmp.get("error")})
         elif field:
@@ -145,24 +165,17 @@ async def ask_question(body: QAAskRequest, db: AsyncSession = Depends(get_db)):
                                                 document_name=body.document_name)
 
     if decision.needs_retrieval:
-        ret = RetrievalService(db)
-        out = await ret.retrieve(question, document_id=doc_uuid,
-                                 document_type=body.document_type,
-                                 reporting_period=body.reporting_period,
-                                 company=body.company)
+        out = await RetrievalService(db).retrieve(
+            question, document_id=doc_uuid,
+            document_type=body.document_type,
+            reporting_period=body.reporting_period,
+            company=body.company)
         candidates = out.get("candidates", [])
         retrieval_meta.update({k: v for k, v in out.items() if k != "candidates"})
-        if "FINANCIAL_COMPARISON" in decision.intents and not candidates and sql_results:
-            pass  # numbers alone suffice; no forced retrieval
 
     # Explicit insufficient-evidence when nothing supports an answer.
     if not sql_results and not candidates and not (validation or {}).get("checks"):
-        result = await AnswerService().answer(question=question, evidence={"items": []},
-                                              retrieval_metadata=retrieval_meta)
-        return QAAskResponse(answer=result.answer, status="INSUFFICIENT_EVIDENCE",
-                             answer_provider=result.provider,
-                             retrieval_metadata=retrieval_meta, request_id=request_id,
-                             intents=decision.intents)
+        return _insufficient(request_id, decision.intents, meta=retrieval_meta)
 
     evidence = EvidenceService().build(sql_results=sql_results, validation=validation,
                                        candidates=candidates)

@@ -92,6 +92,11 @@ class HealthResponse(BaseModel):
     embedding_configured: bool = False
     retrieval_mode: str = "keyword-only"
     index_version: str = "v1"
+    # Operational visibility: how much is actually indexed, and whether any
+    # provider circuit breaker has tripped.
+    indexed_chunks: int = 0
+    indexed_documents: int = 0
+    provider_breakers: list[dict] = Field(default_factory=list)
 
 
 class ErrorResponse(BaseModel):

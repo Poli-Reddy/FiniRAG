@@ -84,6 +84,31 @@ class Settings(BaseSettings):
     QA_MAX_CONTEXT_CHUNKS: int = 8
     QA_REQUEST_TIMEOUT_S: float = 60.0
 
+    # pgvector HNSW search breadth. pgvector's default is 40; 100 trades a
+    # little latency for materially better recall (ANN benchmarks put HNSW at
+    # 97-99% recall around ef_search=100). Applied per query, per session.
+    HNSW_EF_SEARCH: int = 100
+    # Python-cosine fallback is only for sqlite/offline; cap the rows loaded
+    # so a large corpus can never be swept in Python in production.
+    RETRIEVAL_FALLBACK_MAX_ROWS: int = 2000
+
+    # ── Provider resilience ──
+    # Transient failures (429/5xx/timeout) are retried with exponential
+    # backoff plus jitter; a provider breaker opens after N consecutive
+    # failures and half-opens after the cooldown.
+    PROVIDER_MAX_RETRIES: int = 3
+    PROVIDER_BASE_DELAY_S: float = 1.0
+    PROVIDER_MAX_DELAY_S: float = 8.0
+    PROVIDER_TIMEOUT_S: float = 30.0
+    CIRCUIT_FAILURE_THRESHOLD: int = 5
+    CIRCUIT_COOLDOWN_S: float = 60.0
+
+    # ── API guards ──
+    # Per-client fixed-window limit for the expensive endpoints, and a hard
+    # per-statement Postgres timeout so one slow query cannot pin a worker.
+    RATE_LIMIT_PER_MINUTE: int = 60
+    DB_STATEMENT_TIMEOUT_MS: int = 15000
+
     # Second LLM backend, tried when the primary refuses a call. Empty
     # GROQ_API_KEY disables it and the pipeline runs on Gemini alone.
     #
