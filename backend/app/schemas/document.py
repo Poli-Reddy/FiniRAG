@@ -87,6 +87,11 @@ class HealthResponse(BaseModel):
     status: str = "healthy"
     database: str = "connected"
     timestamp: str = ""
+    # RAG readiness (no secrets): configured vs missing key, index version.
+    embedding_model: str = ""
+    embedding_configured: bool = False
+    retrieval_mode: str = "keyword-only"
+    index_version: str = "v1"
 
 
 class ErrorResponse(BaseModel):

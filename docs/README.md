@@ -28,7 +28,7 @@ Upload
 User
  |
  v
-FastAPI-served HTML/CSS/JavaScript frontend
+FastAPI-served HTML/CSS/JavaScript frontend (same service, no React/Vercel)
  |
  v
 POST /api/v1/documents/process
@@ -53,15 +53,21 @@ Normalization + evidence
 Decimal financial validation
  |
  v
-PostgreSQL JSONB persistence
+PostgreSQL JSONB persistence (documents)
  |
- +--> Dashboard history
+ +--> Indexing jobs -> chunks -> gemini-embedding-2 -> pgvector + FTS
+ |
+ +--> POST /api/v1/qa/ask (router -> SQL/retrieval/validation -> evidence -> answer)
+ |
+ +--> Dashboard history + Q&A
  +--> GET document result API
  +--> Swagger/OpenAPI
 ```
 
 The frontend and backend are hosted by the same Render web service. A separate
-frontend service is not required.
+frontend service is not required. NOTE: `docs/architecture.png` is stale
+(mentions React/Vite/Vercel/S3); the shipped system is FastAPI + PostgreSQL +
+pgvector on a single Render service. Regenerate the diagram from this section.
 
 Place the final visual architecture diagram in this directory as:
 
@@ -74,11 +80,13 @@ Place the final visual architecture diagram in this directory as:
 - FastAPI 0.115.0
 - Uvicorn 0.30.6
 - SQLAlchemy 2.0.35 with async PostgreSQL support
-- PostgreSQL with JSONB result storage
+- PostgreSQL with JSONB result storage + pgvector (`vector` extension) + FTS
+- Alembic (migrations `0000_documents` baseline + `0001_rag`)
 - PyMuPDF 1.24.10
 - Pillow 10.4.0
 - Mistral OCR SDK 2.10.0
-- Google Generative AI SDK 0.8.2
+- Google Generative AI SDK 0.8.2 (extraction/answers only)
+- google-genai SDK (embeddings: `gemini-embedding-2`, 768d via output_dimensionality)
 - Groq SDK 1.7.0
 - Pydantic 2.11.2
 - HTML, CSS, and browser JavaScript frontend
@@ -153,11 +161,20 @@ GROQ_API_KEY=your_groq_key
 MISTRAL_API_KEY=your_mistral_key
 OCR_PROVIDER=mistral
 LLM_PROVIDER=gemini
+GEMINI_MODEL=gemini-3.8-flash
+EMBEDDING_MODEL=gemini-embedding-2
+EMBEDDING_DIM=768
+EMBEDDING_BATCH_SIZE=8
+INDEX_VERSION=v1
 ENVIRONMENT=production
 LOG_LEVEL=INFO
 MAX_FILE_SIZE_MB=10
 MAX_PAGES=3
 ```
+
+A model or dimension change requires full re-embedding (embedding spaces are
+incompatible). Hash embeddings (`hash-768-OFFLINE`) are test-only and never
+production semantic search.
 
 Render supplies `DATABASE_URL` from the Render PostgreSQL database. Provider
 keys are entered through the Render environment settings and are not stored
@@ -230,15 +247,40 @@ returned. Older attempts remain available in the database-backed history.
 GET /api/v1/health
 ```
 
-Expected healthy response:
+Healthy response includes readiness (no secrets):
 
 ```json
 {
   "status": "healthy",
   "database": "connected",
-  "timestamp": "..."
+  "timestamp": "...",
+  "embedding_model": "gemini-embedding-2",
+  "embedding_configured": true,
+  "retrieval_mode": "hybrid",
+  "index_version": "v1"
 }
 ```
+
+Without a Gemini key, `retrieval_mode` is `keyword-only` (degraded semantic).
+
+### Q&A
+
+```bash
+curl -X POST https://YOUR-APP.onrender.com/api/v1/qa/ask \
+  -H "Content-Type: application/json" \
+  -d '{"question":"What is the total amount?","document_name":"batch3-1354.jpg"}'
+```
+
+### Indexing
+
+```text
+GET /api/v1/documents/{document_id}/index-status
+POST /api/v1/documents/{document_id}/reindex
+GET /api/v1/indexing/jobs/{job_id}
+```
+
+No auth/rate-limit is implemented; do not describe the public endpoints as
+production-secure.
 
 ### Controlled error response
 
@@ -273,8 +315,9 @@ extracts structured fields, while deterministic validation checks arithmetic.
 
 ## 12. LLM / Model Used
 
-- **Primary:** Gemini using `GEMINI_API_KEY`
-- **Fallback:** Groq using `GROQ_API_KEY`
+- **Primary:** Gemini using `GEMINI_API_KEY` (model via `GEMINI_MODEL`)
+- **Fallback:** Groq using `GROQ_API_KEY` — used for both extraction and
+  answer generation when Gemini refuses (quota/transport)
 - **OCR:** Mistral OCR using `MISTRAL_API_KEY`
 
 The LLM returns structured document-type-specific JSON. It is instructed to:
@@ -369,9 +412,14 @@ venv/Scripts/python.exe scripts/seed_evaluation_results.py
 
 ## 16. Known Limitations
 
-- Evidence guarantees source text and page number. The schema supports
-  bounding boxes, but field-to-OCR-block bounding-box matching is not reliable
-  for every extracted field yet.
+- Evidence distinguishes verbatim OCR snippets (`evidence_kind=verbatim`)
+  from generated summaries (`derived`). Bounding-box grounding is unreliable
+  and not claimed. `source_text=""` indexing passes no narrative payload, so
+  structured chunks are derived-only unless extraction evidence carries text.
+- Hash embeddings are offline-only; without `GEMINI_API_KEY`, semantic search
+  is degraded to keyword retrieval (`retrieval_mode=keyword-only`).
+- SQLite tests use Python cosine + token overlap; pgvector/HNSW + FTS/GIN are
+  exercised only on PostgreSQL (`scripts/verify_retrieval.py`).
 - Provider free-tier quotas can affect latency or availability.
 - Render free services can sleep and have cold-start latency.
 - History filters operate in the browser over the loaded dashboard result set.
@@ -399,6 +447,93 @@ drafting. The final pipeline architecture, prompts, financial formulas,
 security behavior, deployment configuration, and evaluation results were
 reviewed against the assignment and verified with automated tests and the
 50-document evaluation dataset.
+
+## 19. FiniRAG 2.0 — Hybrid RAG
+
+Ingestion (`DocumentService`) is unchanged: file gate -> native/OCR ->
+Gemini/Groq extraction -> normalization -> Decimal validation -> persist.
+After a PASS persist, an indexing job is created for the exact attempt row;
+`IndexingService` builds structure-aware chunks (invoice header/line-items,
+statement section+period+unit, narrative ~500 tokens/50 overlap),
+embeds with `gemini-embedding-2` (768d via output_dimensionality, google-genai
+SDK; hash provider is OFFLINE-ONLY), and stores vectors + FTS content in
+`document_chunks` (pgvector `vector` on Postgres, Python fallback on sqlite).
+Failed indexing never fails the document. Model/dim change => re-embed all.
+
+QA (`POST /api/v1/qa/ask`) routes deterministically
+(DOCUMENT_LOOKUP/CONCEPTUAL/EXACT/COMPARISON/RECONCILIATION/DISCREPANCY/
+MULTI/INSUFFICIENT): exact values and comparisons use whitelisted SQL over
+JSONB + Decimal (MISSING never zero, units must match, ambiguous periods
+rejected); reconciliation reads persisted validation checks; conceptual uses
+hybrid retrieval (pgvector `<=>` + FTS ts_rank, RRF k=60, limit 8/path,
+filters applied pre-retrieval, actual executed paths reported with degraded
+flags and strict verification mode) + grounded answer with claim-level
+citation enforcement (per-sentence support incl. numbers/periods/currency/
+source, unsupported claims removed, abstention when none survive) and
+INSUFFICIENT_EVIDENCE abstention. Year parsing returns full
+years (`(?:19|20)\d{2}`). Chunk `chunk_metadata` carries document identity
+(bare `metadata` kwarg is normalized at the repo boundary — DeclarativeBase
+swallows it). Document text is untrusted; embedded instructions
+are sanitized.
+
+Tables: baseline `0000_documents` adopts/creates `documents`; `0001_rag`
+enables `vector`, creates `document_chunks(vector(768), FTS GIN, HNSW)` +
+`indexing_jobs`, FK to documents. Downgrades drop RAG only, never documents.
+Worker: inline bounded indexing + startup stale recovery + SKIP LOCKED claims
++ max 5 attempts + savepoint-atomic replacement; manual
+`python scripts/run_indexing_worker.py`. `GET /documents/{id}/index-status`,
+`POST /documents/{id}/reindex`, `GET /indexing/jobs/{job_id}` expose status.
+
+Setup: `pip install -r backend/requirements.txt` (adds pgvector,
+google-genai, alembic, numpy), configure `.env` (see `.env.example`
+EMBEDDING_*), `alembic upgrade head`, `uvicorn backend.app.main:app`.
+Tests: `pytest backend/tests -q` (unit, mocked providers; an autouse
+fixture blanks LLM keys so the unit suite never makes live calls);
+`pytest -m integration` for live DB. Offline RAG eval:
+`PYTHONPATH=. python evaluation/rag_evaluation.py` (15 questions,
+sqlite+hash, forced-offline; see `evaluation/rag_report.json`). Live:
+`python evaluation/rag_live_evaluation.py` (real PostgreSQL + live
+embeddings, `evaluation/rag_live_report.json`), plus
+`scripts/live_embedding_smoke.py` and `scripts/verify_retrieval.py`.
+
+Answer generation uses the same provider chain as extraction: Gemini
+(`GEMINI_MODEL`, default `gemini-3.8-flash`) -> Groq (`GROQ_MODEL`) ->
+deterministic template. The provider that actually answered is surfaced as
+`answer_provider` on `POST /api/v1/qa/ask`; a template fallback adds a
+limitation rather than pretending the model answered.
+
+### Verified live (2026-10-09, Render PostgreSQL + real providers)
+
+- Migrations `0000_documents` -> `0001_rag` applied to the live Render
+  database; the pre-existing 54 `documents` rows were preserved;
+  `vector`/`pgcrypto` installed; `document_chunks(embedding vector(768))`,
+  `idx_chunks_fts` (GIN) and `idx_chunks_vec` (HNSW) present.
+- `scripts/live_embedding_smoke.py`: real API call, model `gemini-embedding-2`,
+  returned dimension 768, finite values.
+- `scripts/verify_retrieval.py` on live PG: `Index Scan using idx_chunks_vec
+  ... Order By (embedding <=> ...)` and `Bitmap Index Scan on idx_chunks_fts`
+  — native vector and full-text paths, no Python fallback.
+- `evaluation/rag_live_evaluation.py` (15Q, synthetic 3-doc corpus, rolled
+  back): 15/15 questions used native pgvector + postgres-fts; recall@5 1.0,
+  MRR 0.958, claim_support 1.0, faithfulness 0.938, financial-query 1.0,
+  validation 1.0, filter 1.0; answers were served by Groq because the Gemini
+  free tier (20 generate requests/day/model) was exhausted earlier in the
+  session; one call fell through to the template when both providers refused.
+  Production rows were untouched (54 documents, 0 synthetic chunks after run).
+
+Offline eval (actual, sqlite/hash, 15Q, forced offline): recall@5 1.0,
+MRR 0.892 (final fused positions), claim_support 1.0, answer 0.8,
+faithfulness 0.696, abstention 0.8, financial-query 1.0, validation 1.0,
+filter 1.0, latency 12.7 ms mean. Token overlap is a documented basic guard,
+not entailment proof.
+
+Honest open items: the live answer correctness is 0.667 — the model
+over-abstains on several questions that had evidence, and the Gemini
+generate quota forces Groq for answers until the key's quota resets or
+billing is enabled (rotate `GEMINI_API_KEYS` or add billing for Gemini
+answers). Full suite: 411 passed; 1 pre-existing failure
+(`test_invalid_document_type...[""]` expects 400, gets 422 on installed
+fastapi 0.136.3 vs pinned 0.115.0 — fails identically on the clean tree).
 
 ## Submission Files
 

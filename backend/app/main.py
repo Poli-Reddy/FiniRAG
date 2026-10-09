@@ -23,6 +23,7 @@ from backend.app.core.config import settings
 from backend.app.core.database import init_db, close_db
 from backend.app.core.logging import logger
 from backend.app.api.routes.documents import router as documents_router
+from backend.app.api.routes.qa import router as qa_router
 
 # ─────────────────────────────────────────────────────────────────────
 # App Lifecycle
@@ -30,9 +31,16 @@ from backend.app.api.routes.documents import router as documents_router
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Startup: init DB. Shutdown: close DB."""
+    """Startup: init DB + best-effort stale-job recovery. Shutdown: close DB."""
     logger.info("Starting FiniRAG Document Intelligence Platform")
     await init_db()
+    try:
+        from backend.app.workers.indexing_worker import recover_stale_jobs
+
+        await recover_stale_jobs()
+    except Exception as e:
+        logger.warning("Startup stale recovery skipped", extra={
+            "error_type": type(e).__name__})
     yield
     await close_db()
     logger.info("FiniRAG shutdown complete")
@@ -61,6 +69,7 @@ app.add_middleware(
 
 # API routes
 app.include_router(documents_router)
+app.include_router(qa_router)
 
 
 @app.exception_handler(HTTPException)

@@ -93,7 +93,8 @@ class GeminiProvider(LLMProvider):
         # same call — a retry could not succeed on a spent quota.
         self._pool = pool
         self._key_index: int | None = None
-        self._model_name = model or os.getenv("GEMINI_MODEL", "gemini-3.6-flash")
+        # Shared config knob (GEMINI_MODEL); one default for the whole app.
+        self._model_name = model or os.getenv("GEMINI_MODEL") or settings.GEMINI_MODEL
 
         if pool is None:
             # Singular key first, then first key from the plural pool so a

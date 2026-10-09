@@ -679,6 +679,61 @@ async function checkHealth() {
     }
 }
 
+// ─── Q&A ───
+const qaAskBtn = document.getElementById('qaAskBtn');
+qaAskBtn?.addEventListener('click', async () => {
+    const question = document.getElementById('qaQuestion')?.value?.trim() || '';
+    const document_name = document.getElementById('qaDocName')?.value?.trim() || undefined;
+    const reporting_period = document.getElementById('qaPeriod')?.value?.trim() || undefined;
+    const loading = document.getElementById('qaLoading');
+    const errorEl = document.getElementById('qaError');
+    const answerEl = document.getElementById('qaAnswer');
+    errorEl.style.display = 'none';
+    answerEl.style.display = 'none';
+    if (!question) {
+        errorEl.textContent = 'Enter a question.';
+        errorEl.style.display = 'block';
+        return;
+    }
+    loading.style.display = 'block';
+    qaAskBtn.disabled = true;
+    try {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 60000);
+        const response = await fetch('/api/v1/qa/ask', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ question, document_name, reporting_period }),
+            signal: controller.signal,
+        });
+        clearTimeout(timeout);
+        const data = await response.json();
+        if (!response.ok) {
+            const code = data?.detail?.code || data?.error?.code || `HTTP ${response.status}`;
+            throw new Error(String(code));
+        }
+        document.getElementById('qaAnswerText').textContent = data.answer || '';
+        document.getElementById('qaCitations').innerHTML = (data.citations || []).map(c =>
+            `<div>${escapeHtml(c.citation_id)} — ${escapeHtml(c.document_name || '')} p.${escapeHtml(c.page_number ?? '')}</div>`).join('') || '<div>None</div>';
+        document.getElementById('qaFacts').innerHTML = (data.financial_facts || []).map(f =>
+            `<div>${escapeHtml(JSON.stringify(f))}</div>`).join('') || '<div>None</div>';
+        document.getElementById('qaValidation').innerHTML = (data.validation_checks || []).map(v =>
+            `<div>${escapeHtml(v?.name || '')}: ${escapeHtml(v?.status || '')}</div>`).join('') || '<div>None</div>';
+        document.getElementById('qaMeta').textContent = JSON.stringify({ status: data.status, intents: data.intents, retrieval_metadata: data.retrieval_metadata }, null, 2);
+        if (data.status === 'INSUFFICIENT_EVIDENCE') {
+            errorEl.textContent = 'Insufficient evidence — the answer was withheld.';
+            errorEl.style.display = 'block';
+        }
+        answerEl.style.display = 'grid';
+    } catch (err) {
+        errorEl.textContent = err?.name === 'AbortError' ? 'Request timed out.' : (err.message || 'Q&A failed');
+        errorEl.style.display = 'block';
+    } finally {
+        loading.style.display = 'none';
+        qaAskBtn.disabled = false;
+    }
+});
+
 // ─── Utilities ───
 function escapeHtml(s) {
     return String(s ?? '')

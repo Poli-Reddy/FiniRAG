@@ -1,0 +1,369 @@
+{
+  "label": "LIVE/SEMANTIC \u2014 gemini-embedding-2 + PostgreSQL (synthetic corpus, rolled back)",
+  "provider": "GeminiEmbeddingProvider (gemini-embedding-2, dim 768)",
+  "embedding_model": "gemini-embedding-2",
+  "embedding_dim": 768,
+  "database": "postgresql+asyncpg (pgvector + FTS native paths asserted per question)",
+  "corpus": {
+    "documents": 3,
+    "synthetic": true,
+    "rolled_back": true,
+    "prod_rows_untouched": true
+  },
+  "test_set": 15,
+  "k": 5,
+  "answer_providers_seen": [
+    "groq",
+    "none",
+    "template-fallback (RuntimeError)"
+  ],
+  "native_paths": {
+    "questions": 15,
+    "of": 15
+  },
+  "recall_at_k": 1.0,
+  "mrr": 0.958,
+  "citation_support": 1.0,
+  "answer_correctness": 0.667,
+  "faithfulness": 0.938,
+  "unsupported_claim_rate": 0.0,
+  "abstention_correctness": 0.667,
+  "filter_behavior": 1.0,
+  "financial_query_correctness": 1.0,
+  "validation_path_correctness": 1.0,
+  "latency_ms": {
+    "mean": 8640.6,
+    "max": 14657.2
+  },
+  "limitations": [
+    "Synthetic 3-doc corpus; recall/MRR measure plumbing + live semantic ranking on synthetic data only.",
+    "Ranking retrieval unfiltered; rank is the final fused position (see final_rank).",
+    "Every ranking retrieval asserted pgvector + postgres-fts native paths (strict).",
+    "Claim support re-validates the final answer with the production validator;",
+    " token overlap remains a basic guard, not entailment proof."
+  ],
+  "results": [
+    {
+      "id": "inv-id",
+      "rank": 1,
+      "hit_at_5": true,
+      "rr": 1.0,
+      "fq_ok": true,
+      "val_ok": null,
+      "filter_ok": null,
+      "cit_support": 1.0,
+      "ans_ok": true,
+      "faith": 1.0,
+      "abst_ok": true,
+      "vector_path": "pgvector",
+      "keyword_path": "postgres-fts",
+      "answer_provider": "groq",
+      "status": "ANSWERED",
+      "latency_ms": 11482.5,
+      "intents": [
+        "DOCUMENT_LOOKUP",
+        "CONCEPTUAL_QUESTION"
+      ]
+    },
+    {
+      "id": "inv-total",
+      "rank": 1,
+      "hit_at_5": true,
+      "rr": 1.0,
+      "fq_ok": true,
+      "val_ok": null,
+      "filter_ok": null,
+      "cit_support": 1.0,
+      "ans_ok": true,
+      "faith": 1.0,
+      "abst_ok": true,
+      "vector_path": "pgvector",
+      "keyword_path": "postgres-fts",
+      "answer_provider": "groq",
+      "status": "ANSWERED",
+      "latency_ms": 14657.2,
+      "intents": [
+        "EXACT_FINANCIAL_VALUE",
+        "CONCEPTUAL_QUESTION"
+      ]
+    },
+    {
+      "id": "inv-tax",
+      "rank": 1,
+      "hit_at_5": true,
+      "rr": 1.0,
+      "fq_ok": true,
+      "val_ok": null,
+      "filter_ok": null,
+      "cit_support": 1.0,
+      "ans_ok": true,
+      "faith": 1.0,
+      "abst_ok": true,
+      "vector_path": "pgvector",
+      "keyword_path": "postgres-fts",
+      "answer_provider": "groq",
+      "status": "ANSWERED",
+      "latency_ms": 9778.8,
+      "intents": [
+        "EXACT_FINANCIAL_VALUE",
+        "CONCEPTUAL_QUESTION"
+      ]
+    },
+    {
+      "id": "inv-line",
+      "rank": 1,
+      "hit_at_5": true,
+      "rr": 1.0,
+      "fq_ok": null,
+      "val_ok": null,
+      "filter_ok": null,
+      "cit_support": 1.0,
+      "ans_ok": true,
+      "faith": 1.0,
+      "abst_ok": true,
+      "vector_path": "pgvector",
+      "keyword_path": "postgres-fts",
+      "answer_provider": "groq",
+      "status": "ANSWERED",
+      "latency_ms": 7398.7,
+      "intents": [
+        "CONCEPTUAL_QUESTION"
+      ]
+    },
+    {
+      "id": "recon",
+      "rank": 1,
+      "hit_at_5": true,
+      "rr": 1.0,
+      "fq_ok": null,
+      "val_ok": true,
+      "filter_ok": null,
+      "cit_support": 1.0,
+      "ans_ok": true,
+      "faith": 0.625,
+      "abst_ok": true,
+      "vector_path": "pgvector",
+      "keyword_path": "postgres-fts",
+      "answer_provider": "template-fallback (RuntimeError)",
+      "status": "ANSWERED",
+      "latency_ms": 8420.2,
+      "intents": [
+        "CONCEPTUAL_QUESTION"
+      ]
+    },
+    {
+      "id": "discrep",
+      "rank": 1,
+      "hit_at_5": true,
+      "rr": 1.0,
+      "fq_ok": null,
+      "val_ok": true,
+      "filter_ok": null,
+      "cit_support": null,
+      "ans_ok": false,
+      "faith": null,
+      "abst_ok": false,
+      "vector_path": "pgvector",
+      "keyword_path": "postgres-fts",
+      "answer_provider": "groq",
+      "status": "INSUFFICIENT_EVIDENCE",
+      "latency_ms": 8649.1,
+      "intents": [
+        "RECONCILIATION_STATUS",
+        "DISCREPANCY_ANALYSIS"
+      ]
+    },
+    {
+      "id": "missing",
+      "rank": 1,
+      "hit_at_5": true,
+      "rr": 1.0,
+      "fq_ok": null,
+      "val_ok": null,
+      "filter_ok": null,
+      "cit_support": null,
+      "ans_ok": true,
+      "faith": null,
+      "abst_ok": true,
+      "vector_path": "pgvector",
+      "keyword_path": "postgres-fts",
+      "answer_provider": "groq",
+      "status": "INSUFFICIENT_EVIDENCE",
+      "latency_ms": 7713.3,
+      "intents": [
+        "CONCEPTUAL_QUESTION"
+      ]
+    },
+    {
+      "id": "zero",
+      "rank": 1,
+      "hit_at_5": true,
+      "rr": 1.0,
+      "fq_ok": null,
+      "val_ok": null,
+      "filter_ok": null,
+      "cit_support": null,
+      "ans_ok": false,
+      "faith": null,
+      "abst_ok": false,
+      "vector_path": "pgvector",
+      "keyword_path": "postgres-fts",
+      "answer_provider": "groq",
+      "status": "INSUFFICIENT_EVIDENCE",
+      "latency_ms": 7216.5,
+      "intents": [
+        "CONCEPTUAL_QUESTION"
+      ]
+    },
+    {
+      "id": "unsupported",
+      "rank": null,
+      "hit_at_5": null,
+      "rr": null,
+      "fq_ok": null,
+      "val_ok": null,
+      "filter_ok": null,
+      "cit_support": null,
+      "ans_ok": true,
+      "faith": null,
+      "abst_ok": true,
+      "vector_path": "pgvector",
+      "keyword_path": "postgres-fts",
+      "answer_provider": "none",
+      "status": "INSUFFICIENT_EVIDENCE",
+      "latency_ms": 4395.2,
+      "intents": [
+        "INSUFFICIENT_OR_UNSUPPORTED"
+      ]
+    },
+    {
+      "id": "absent",
+      "rank": null,
+      "hit_at_5": null,
+      "rr": null,
+      "fq_ok": null,
+      "val_ok": null,
+      "filter_ok": null,
+      "cit_support": null,
+      "ans_ok": true,
+      "faith": null,
+      "abst_ok": true,
+      "vector_path": "pgvector",
+      "keyword_path": "postgres-fts",
+      "answer_provider": "groq",
+      "status": "INSUFFICIENT_EVIDENCE",
+      "latency_ms": 8614.7,
+      "intents": [
+        "DOCUMENT_LOOKUP",
+        "CONCEPTUAL_QUESTION"
+      ]
+    },
+    {
+      "id": "lookup",
+      "rank": 1,
+      "hit_at_5": true,
+      "rr": 1.0,
+      "fq_ok": null,
+      "val_ok": null,
+      "filter_ok": null,
+      "cit_support": 1.0,
+      "ans_ok": true,
+      "faith": 1.0,
+      "abst_ok": true,
+      "vector_path": "pgvector",
+      "keyword_path": "postgres-fts",
+      "answer_provider": "groq",
+      "status": "ANSWERED",
+      "latency_ms": 7950.8,
+      "intents": [
+        "DOCUMENT_LOOKUP"
+      ]
+    },
+    {
+      "id": "year-1999",
+      "rank": null,
+      "hit_at_5": null,
+      "rr": null,
+      "fq_ok": null,
+      "val_ok": null,
+      "filter_ok": null,
+      "cit_support": null,
+      "ans_ok": true,
+      "faith": null,
+      "abst_ok": true,
+      "vector_path": "pgvector",
+      "keyword_path": "postgres-fts",
+      "answer_provider": "groq",
+      "status": "INSUFFICIENT_EVIDENCE",
+      "latency_ms": 6702.2,
+      "intents": [
+        "EXACT_FINANCIAL_VALUE"
+      ]
+    },
+    {
+      "id": "year-2024",
+      "rank": 1,
+      "hit_at_5": true,
+      "rr": 1.0,
+      "fq_ok": null,
+      "val_ok": null,
+      "filter_ok": null,
+      "cit_support": null,
+      "ans_ok": false,
+      "faith": null,
+      "abst_ok": false,
+      "vector_path": "pgvector",
+      "keyword_path": "postgres-fts",
+      "answer_provider": "groq",
+      "status": "INSUFFICIENT_EVIDENCE",
+      "latency_ms": 7730.6,
+      "intents": [
+        "EXACT_FINANCIAL_VALUE",
+        "CONCEPTUAL_QUESTION"
+      ]
+    },
+    {
+      "id": "two-year",
+      "rank": 1,
+      "hit_at_5": true,
+      "rr": 1.0,
+      "fq_ok": null,
+      "val_ok": null,
+      "filter_ok": null,
+      "cit_support": null,
+      "ans_ok": false,
+      "faith": null,
+      "abst_ok": false,
+      "vector_path": "pgvector",
+      "keyword_path": "postgres-fts",
+      "answer_provider": "groq",
+      "status": "INSUFFICIENT_EVIDENCE",
+      "latency_ms": 7398.0,
+      "intents": [
+        "FINANCIAL_COMPARISON"
+      ]
+    },
+    {
+      "id": "filter-doc",
+      "rank": 2,
+      "hit_at_5": true,
+      "rr": 0.5,
+      "fq_ok": true,
+      "val_ok": null,
+      "filter_ok": true,
+      "cit_support": null,
+      "ans_ok": false,
+      "faith": null,
+      "abst_ok": false,
+      "vector_path": "pgvector",
+      "keyword_path": "postgres-fts",
+      "answer_provider": "groq",
+      "status": "INSUFFICIENT_EVIDENCE",
+      "latency_ms": 11501.3,
+      "intents": [
+        "EXACT_FINANCIAL_VALUE",
+        "CONCEPTUAL_QUESTION"
+      ]
+    }
+  ]
+}

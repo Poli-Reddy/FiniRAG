@@ -8,11 +8,16 @@ GET-by-name returns the latest row via ORDER BY created_at DESC LIMIT 1.
 import uuid
 from datetime import datetime, timezone
 
-from sqlalchemy import String, DateTime, Index, text
-from sqlalchemy.dialects.postgresql import UUID, JSONB
+from sqlalchemy import String, DateTime, Index, text, JSON
+from sqlalchemy import Uuid
+from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column
 
 from backend.app.core.database import Base
+
+
+# Portable JSON: JSONB on PostgreSQL, generic JSON on sqlite/tests.
+JSON_VARIANT = JSONB().with_variant(JSON(), "sqlite")
 
 
 class Document(Base):
@@ -21,21 +26,20 @@ class Document(Base):
     __tablename__ = "documents"
 
     id: Mapped[uuid.UUID] = mapped_column(
-        UUID(as_uuid=True),
+        Uuid,
         primary_key=True,
         default=uuid.uuid4,
-        server_default=text("gen_random_uuid()"),
     )
     document_name: Mapped[str] = mapped_column(String(255), nullable=False)
     document_type: Mapped[str] = mapped_column(String(50), nullable=False)
     processing_status: Mapped[str] = mapped_column(String(20), nullable=False)
 
     # JSONB columns for flexible/dynamic data
-    file_validation: Mapped[dict] = mapped_column(JSONB, nullable=False)
-    extracted_data: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
-    validation: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
-    processing_metadata: Mapped[dict] = mapped_column(JSONB, nullable=False)
-    error: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
+    file_validation: Mapped[dict] = mapped_column(JSON_VARIANT, nullable=False)
+    extracted_data: Mapped[dict | None] = mapped_column(JSON_VARIANT, nullable=True)
+    validation: Mapped[dict | None] = mapped_column(JSON_VARIANT, nullable=True)
+    processing_metadata: Mapped[dict] = mapped_column(JSON_VARIANT, nullable=False)
+    error: Mapped[dict | None] = mapped_column(JSON_VARIANT, nullable=True)
 
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),

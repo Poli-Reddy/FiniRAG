@@ -58,6 +58,32 @@ class Settings(BaseSettings):
 
     MISTRAL_OCR_MODEL: str = "mistral-ocr-latest"
 
+    # Extraction/answer LLM. gemini-3.8-flash is the currently supported model
+    # (2.5-series is closed to new users; 3.6 is quota-capped on this account).
+    # One knob governs the extraction provider, the answer service and the
+    # LLM question classifier so they cannot drift apart.
+    GEMINI_MODEL: str = "gemini-3.8-flash"
+
+    # ── Embeddings (RAG) ──
+    # gemini-embedding-2 (GA April 2026): default 3072 dims, MRL-truncated via
+    # output_dimensionality to 768/1536/3072 (auto-normalized). text-embedding-004
+    # was retired Jan 2026 and must not be used. A model/dim change requires
+    # full re-embedding (spaces are incompatible).
+    EMBEDDING_MODEL: str = "gemini-embedding-2"
+    EMBEDDING_DIM: int = 768
+    EMBEDDING_BATCH_SIZE: int = 8
+    EMBEDDING_TIMEOUT_S: float = 30.0
+    EMBEDDING_MAX_RETRIES: int = 3
+
+    # ── RAG / Retrieval ──
+    INDEX_VERSION: str = "v1"
+    CHUNK_TARGET_TOKENS: int = 500
+    CHUNK_OVERLAP_TOKENS: int = 50
+    RETRIEVAL_LIMIT_PER_PATH: int = 8
+    RETRIEVAL_RRF_K: int = 60
+    QA_MAX_CONTEXT_CHUNKS: int = 8
+    QA_REQUEST_TIMEOUT_S: float = 60.0
+
     # Second LLM backend, tried when the primary refuses a call. Empty
     # GROQ_API_KEY disables it and the pipeline runs on Gemini alone.
     #

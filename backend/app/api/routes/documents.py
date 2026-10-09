@@ -153,7 +153,7 @@ async def get_document_by_name(
 
 @router.get("/health", response_model=HealthResponse)
 async def health_check(db: AsyncSession = Depends(get_db)):
-    """Health check endpoint — verifies API and database connectivity."""
+    """Health/readiness: app, DB, embedding config, retrieval mode. No secrets."""
     try:
         from sqlalchemy import text
         await db.execute(text("SELECT 1"))
@@ -161,11 +161,95 @@ async def health_check(db: AsyncSession = Depends(get_db)):
     except Exception:
         db_status = "disconnected"
 
+    emb_configured = bool(settings.GEMINI_API_KEY or settings.GEMINI_API_KEYS)
     return HealthResponse(
         status="healthy" if db_status == "connected" else "degraded",
         database=db_status,
         timestamp=datetime.now(timezone.utc).isoformat(),
+        embedding_model=settings.EMBEDDING_MODEL,
+        embedding_configured=emb_configured,
+        retrieval_mode="hybrid" if emb_configured else "keyword-only",
+        index_version=settings.INDEX_VERSION,
     )
+
+
+# ─────────────────────────────────────────────────────────────────────
+# GET /api/v1/documents/{document_id}/index-status  + reindex + jobs
+# ─────────────────────────────────────────────────────────────────────
+
+@router.get("/documents/{document_id}/index-status")
+async def document_index_status(
+    document_id: str,
+    db: AsyncSession = Depends(get_db),
+):
+    """Indexing status for one processing-attempt record. Never rewrites processing_status."""
+    import uuid as _uuid
+
+    try:
+        did = _uuid.UUID(str(document_id))
+    except Exception:
+        raise HTTPException(status_code=400, detail={"code": "INVALID_DOCUMENT_ID",
+                                                     "message": "document_id must be UUID."})
+    from backend.app.services.indexing_service import IndexingService
+
+    status = await IndexingService(db).status_for_document(did)
+    return {"document_id": str(did), **status}
+
+
+@router.post("/documents/{document_id}/reindex")
+async def reindex_document(
+    document_id: str,
+    db: AsyncSession = Depends(get_db),
+):
+    """Idempotent reindex of one processing attempt. Does not rerun extraction."""
+    import uuid as _uuid
+
+    try:
+        did = _uuid.UUID(str(document_id))
+    except Exception:
+        raise HTTPException(status_code=400, detail={"code": "INVALID_DOCUMENT_ID",
+                                                     "message": "document_id must be UUID."})
+    from sqlalchemy import select as _select
+
+    from backend.app.models.document import Document as _Document
+    from backend.app.services.indexing_service import IndexingService
+
+    doc = (await db.execute(_select(_Document).where(_Document.id == did))).scalar_one_or_none()
+    if doc is None:
+        raise HTTPException(status_code=404, detail={"code": "DOCUMENT_NOT_FOUND",
+                                                     "message": "No such processing attempt."})
+    svc = IndexingService(db)
+    job = await svc.ensure_job(did)
+    return {"document_id": str(did), "job_id": str(job.id), "status": job.status}
+
+
+@router.get("/indexing/jobs/{job_id}")
+async def indexing_job_status(
+    job_id: str,
+    db: AsyncSession = Depends(get_db),
+):
+    import uuid as _uuid
+
+    try:
+        jid = _uuid.UUID(str(job_id))
+    except Exception:
+        raise HTTPException(status_code=400, detail={"code": "INVALID_JOB_ID",
+                                                     "message": "job_id must be UUID."})
+    from backend.app.repositories.rag_repository import IndexingJobRepository
+
+    job = await IndexingJobRepository(db).get_by_id(jid)
+    if job is None:
+        raise HTTPException(status_code=404, detail={"code": "JOB_NOT_FOUND",
+                                                     "message": "No such indexing job."})
+    return {
+        "job_id": str(job.id), "document_id": str(job.document_id),
+        "status": job.status, "attempt_count": job.attempt_count,
+        "index_version": job.index_version, "error_code": job.error_code,
+        "error_message": job.error_message,
+        "created_at": job.created_at.isoformat() if job.created_at else None,
+        "started_at": job.started_at.isoformat() if job.started_at else None,
+        "completed_at": job.completed_at.isoformat() if job.completed_at else None,
+    }
 
 
 # ─────────────────────────────────────────────────────────────────────

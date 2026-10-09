@@ -309,6 +309,23 @@ class DocumentService:
 
         document = await self._repo.create(document)
 
+        # ── Step 6: Indexing (separate pipeline, same request) ──
+        # A FAILED index must never fail the document. The job row survives
+        # restarts; a bounded worker or reindex endpoint can resume it.
+        try:
+            from backend.app.services.indexing_service import IndexingService
+
+            indexer = IndexingService(self._db)
+            job = await indexer.ensure_job(document.id)
+            try:
+                await indexer.process_job(job)
+            except Exception as e:
+                logger.error("Inline indexing failed, job retained", extra={
+                    "document_name": filename, "error_type": type(e).__name__})
+        except Exception as e:
+            logger.error("Indexing job setup failed", extra={
+                "document_name": filename, "error_type": type(e).__name__})
+
         return DocumentProcessResponse(
             document_name=filename,
             document_type=document_type,

@@ -133,9 +133,14 @@ class MistralOCRProvider(OCRProvider):
         cached client would keep using the key that was just retired.
         Construction is cheap — it configures an httpx client, nothing more.
         """
-        from mistralai.client import Mistral
+        try:
+            from mistralai import Mistral  # v3 SDK
 
-        return Mistral(api_key=api_key)
+            return Mistral(api_key=api_key)
+        except ImportError:
+            from mistralai.client import Mistral  # v2 SDK
+
+            return Mistral(api_key=api_key)
 
     async def extract_text(self, image: Image.Image, page_number: int) -> OCRResult:
         """

@@ -178,6 +178,39 @@
             </div>
             <div class="history-pagination" id="historyPagination"></div>
         </section>
+
+        <!-- ─── Q&A Section ─── -->
+        <section class="qa-section" id="qaSection">
+            <h2>Financial Document Q&amp;A</h2>
+            <p class="upload-subtitle">Answers use indexed evidence + structured values. Sources and validation are shown separately — an LLM answer alone is not verification.</p>
+            <div class="qa-card">
+                <label>Question
+                    <input type="text" id="qaQuestion" placeholder="e.g. What is the total amount on invoice batch3-1354?" maxlength="2000">
+                </label>
+                <div class="qa-filters">
+                    <label>Document name (optional)
+                        <input type="text" id="qaDocName" placeholder="exact filename">
+                    </label>
+                    <label>Reporting period (optional)
+                        <input type="text" id="qaPeriod" placeholder="e.g. 2024">
+                    </label>
+                </div>
+                <button type="button" class="btn-primary" id="qaAskBtn">Ask</button>
+                <div class="qa-loading" id="qaLoading" style="display:none;">Answering…</div>
+                <div class="qa-error" id="qaError" style="display:none;"></div>
+                <div class="qa-answer" id="qaAnswer" style="display:none;">
+                    <h3>Answer</h3>
+                    <div id="qaAnswerText"></div>
+                    <h4>Sources</h4>
+                    <div id="qaCitations"></div>
+                    <h4>Financial facts</h4>
+                    <div id="qaFacts"></div>
+                    <h4>Validation</h4>
+                    <div id="qaValidation"></div>
+                    <details><summary>Retrieval metadata</summary><pre id="qaMeta"></pre></details>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer class="footer">

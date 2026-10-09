@@ -25,6 +25,26 @@ DATASET = PROJECT_ROOT / "Dataset"
 
 
 # ─────────────────────────────────────────────────────────────────────
+# No live provider calls in the unit suite
+# ─────────────────────────────────────────────────────────────────────
+
+@pytest.fixture(autouse=True)
+def _no_live_llm_keys(monkeypatch):
+    """Blank LLM credentials for every test.
+
+    The development shell may carry real keys in .env; unit tests must be
+    deterministic and offline. Blanking forces the documented offline paths
+    (template answers, hash-style behavior where applicable). Live checks
+    live in scripts/ and evaluation/rag_live_evaluation.py instead.
+    """
+    from backend.app.core.config import settings
+
+    for name in ("GEMINI_API_KEY", "GEMINI_API_KEYS",
+                 "GROQ_API_KEY", "GROQ_API_KEYS"):
+        monkeypatch.setattr(settings, name, "", raising=False)
+
+
+# ─────────────────────────────────────────────────────────────────────
 # ExtractedValue builders
 # ─────────────────────────────────────────────────────────────────────
 
