@@ -14,6 +14,10 @@ import re
 from pydantic import BaseModel, Field
 
 from backend.app.core.config import settings
+from backend.app.core.metrics import (
+    ANSWER_FALLBACKS, ANSWER_LATENCY, ANSWER_REQUESTS, CITATIONS_EMITTED,
+    CLAIMS_DROPPED, CLAIMS_REPAIRED, LLM_TOKENS, metrics,
+)
 from backend.app.services.evidence_service import EvidenceService
 
 logger = logging.getLogger("finirag")
@@ -107,6 +111,38 @@ def _is_factual(sentence: str) -> bool:
     return bool(_NUM.search(sentence) or _STATUS_WORD.search(sentence))
 
 
+def _gemini_usage(resp) -> dict:
+    """Token counts from a Gemini response. Missing/odd shapes yield {} —
+    token metrics are best-effort, never load-bearing."""
+    try:
+        usage = getattr(resp, "usage_metadata", None)
+        prompt = getattr(usage, "prompt_token_count", None)
+        completion = getattr(usage, "candidates_token_count", None)
+        out = {}
+        if isinstance(prompt, (int, float)):
+            out["input"] = prompt
+        if isinstance(completion, (int, float)):
+            out["output"] = completion
+        return out
+    except Exception:
+        return {}
+
+
+def _groq_usage(resp) -> dict:
+    try:
+        usage = getattr(resp, "usage", None)
+        out = {}
+        prompt = getattr(usage, "prompt_tokens", None)
+        completion = getattr(usage, "completion_tokens", None)
+        if isinstance(prompt, (int, float)):
+            out["input"] = prompt
+        if isinstance(completion, (int, float)):
+            out["output"] = completion
+        return out
+    except Exception:
+        return {}
+
+
 class AnswerService:
     def _validate_claims(self, answer_text: str, citations: list,
                          items: list[dict]) -> dict:
@@ -153,6 +189,7 @@ class AnswerService:
         kept_sentences: list[str] = []
         used_cites: set[str] = set()
         dropped = 0
+        n_repaired = 0
         for s in sentences:
             if not _is_factual(s):
                 kept_sentences.append(s)
@@ -165,8 +202,10 @@ class AnswerService:
             # Repair: a model sometimes states a fact without citing it even
             # though the supplied evidence supports it. Rather than abstain
             # wholesale, search all evidence for a supporter and attach its id.
+            repaired = False
             if not candidate_ids:
                 candidate_ids = list(valid_ids)
+                repaired = True
             cited = [by_id[m] for m in candidate_ids if m in valid_ids]
             if not cited:
                 dropped += 1  # claim with no citation context at all
@@ -190,6 +229,8 @@ class AnswerService:
             if ok:
                 kept_sentences.append(s)
                 used_cites.update(candidate_ids)
+                if repaired:
+                    n_repaired += 1
             else:
                 dropped += 1
         # Final citation set = every evidence id some kept claim relied on,
@@ -198,13 +239,15 @@ class AnswerService:
         return {"text": "\n".join(kept_sentences).strip(),
                 "citations": kept_cites,
                 "factual_total": len(factual), "factual_kept": len(factual) - dropped,
-                "dropped": dropped, "fabricated": len(citations or []) - len(seen_cites)}
+                "dropped": dropped, "repaired": n_repaired,
+                "fabricated": len(citations or []) - len(seen_cites)}
 
     async def answer(self, *, question: str, evidence: dict,
                      retrieval_metadata: dict | None = None,
                      validation: dict | None = None) -> AnswerResult:
         items = (evidence or {}).get("items", [])
         if not items:
+            metrics.inc(ANSWER_REQUESTS, {"provider": "none", "outcome": "abstained"})
             return AnswerResult(
                 answer="I don't have sufficient evidence to answer this question.",
                 status="INSUFFICIENT_EVIDENCE",
@@ -225,6 +268,7 @@ class AnswerService:
             # deterministic template, not model-generated.
             logger.warning("All answer providers failed, template fallback", extra={
                 "error_type": type(e).__name__, "model": settings.GEMINI_MODEL})
+            metrics.inc(ANSWER_FALLBACKS, {"from": "all-llm", "to": "template"})
             result = self._template_answer(question, items, retrieval_metadata, validation)
             result.provider = f"template-fallback ({type(e).__name__})"
             result.limitations = list(result.limitations) + [
@@ -244,7 +288,7 @@ class AnswerService:
         errors: list[str] = []
         if settings.GEMINI_API_KEY or settings.GEMINI_API_KEYS:
             try:
-                data = await self._resilient("gemini", lambda: self._call_gemini(prompt))
+                data = await self._answer_via("gemini", lambda: self._call_gemini(prompt))
                 return self._result_from_data(data, question, items, retrieval_metadata, "gemini")
             except Exception as e:
                 errors.append(f"gemini:{type(e).__name__}")
@@ -252,13 +296,35 @@ class AnswerService:
                     "provider": "gemini", "error_type": type(e).__name__})
         if settings.GROQ_API_KEY or settings.GROQ_API_KEYS:
             try:
-                data = await self._resilient("groq", lambda: self._call_groq(prompt))
+                metrics.inc(ANSWER_FALLBACKS, {"from": "gemini", "to": "groq"})
+                data = await self._answer_via("groq", lambda: self._call_groq(prompt))
                 return self._result_from_data(data, question, items, retrieval_metadata, "groq")
             except Exception as e:
                 errors.append(f"groq:{type(e).__name__}")
                 logger.warning("Answer provider unavailable, trying next", extra={
                     "provider": "groq", "error_type": type(e).__name__})
         raise RuntimeError(";".join(errors) or "no answer provider configured")
+
+    async def _answer_via(self, name: str, fn):
+        """One provider attempt with outcome + latency + token metrics."""
+        import time as _time
+
+        _start = _time.perf_counter()
+        try:
+            data = await self._resilient(name, fn)
+        except Exception:
+            metrics.inc(ANSWER_REQUESTS, {"provider": name, "outcome": "error"})
+            raise
+        metrics.inc(ANSWER_REQUESTS, {"provider": name, "outcome": "ok"})
+        metrics.observe(ANSWER_LATENCY, _time.perf_counter() - _start,
+                        {"provider": name})
+        usage = (data or {}).pop("_usage", None) or {}
+        for direction in ("input", "output"):
+            tokens = usage.get(direction)
+            if isinstance(tokens, (int, float)) and tokens > 0:
+                metrics.inc(LLM_TOKENS, {"provider": name, "kind": "answer",
+                                         "direction": direction}, amount=float(tokens))
+        return data
 
     async def _resilient(self, name: str, fn):
         """Run fn() with a timeout, retry policy, and circuit breaker."""
@@ -337,7 +403,9 @@ class AnswerService:
             raise
         if index is not None:
             GEMINI_KEYS.report_success(index)
-        return json.loads(resp.text.strip().strip("`").replace("```json", "").replace("```", ""))
+        data = json.loads(resp.text.strip().strip("`").replace("```json", "").replace("```", ""))
+        data["_usage"] = _gemini_usage(resp)
+        return data
 
     async def _call_groq(self, prompt: str) -> dict:
         import asyncio
@@ -372,7 +440,9 @@ class AnswerService:
             if reply.startswith("```"):
                 reply = re.sub(r"^```(?:json)?\s*\n?", "", reply)
                 reply = re.sub(r"\n?```\s*$", "", reply)
-            return json.loads(reply)
+            data = json.loads(reply)
+            data["_usage"] = _groq_usage(resp)
+            return data
 
         try:
             data = await asyncio.to_thread(_run)
@@ -418,7 +488,10 @@ class AnswerService:
         limitations = list(limitations or [])
         if v["dropped"]:
             limitations.append(f"{v['dropped']} unsupported claim(s) removed")
+        metrics.inc(CLAIMS_DROPPED, {"provider": provider}, amount=float(v["dropped"]))
+        metrics.inc(CLAIMS_REPAIRED, {"provider": provider}, amount=float(v["repaired"]))
         if v["factual_total"] and not v["factual_kept"]:
+            metrics.inc(ANSWER_REQUESTS, {"provider": provider, "outcome": "abstained"})
             return AnswerResult(
                 answer="I don't have sufficient evidence to answer this question.",
                 status="INSUFFICIENT_EVIDENCE",
@@ -426,6 +499,9 @@ class AnswerService:
                 limitations=limitations + ["no supported factual claim"],
                 retrieval_metadata=retrieval_metadata or {})
         status = requested_status if requested_status in ("ANSWERED", "INSUFFICIENT_EVIDENCE") else "ANSWERED"
+        metrics.inc(ANSWER_REQUESTS, {"provider": provider, "outcome": "answered"})
+        metrics.inc(CITATIONS_EMITTED, {"provider": provider},
+                    amount=float(len(v["citations"])))
         return AnswerResult(answer=v["text"] or answer_text, status=status,
                             provider=provider,
                             citations=v["citations"], financial_facts=kept_facts,
@@ -440,6 +516,7 @@ class AnswerService:
         passages = [i for i in items if i.get("kind") == "passage"][:4]
         unavailable = [i for i in items if i.get("kind") == "unavailable"]
         if unavailable and not facts and not passages:
+            metrics.inc(ANSWER_REQUESTS, {"provider": "template", "outcome": "abstained"})
             return AnswerResult(
                 answer=("The requested value is not available in the indexed documents "
                         f"({unavailable[0].get('content')}). I cannot answer from evidence."),

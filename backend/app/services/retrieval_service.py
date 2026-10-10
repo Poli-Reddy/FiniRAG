@@ -9,6 +9,10 @@ import re
 from sqlalchemy import select, or_
 
 from backend.app.core.config import settings
+from backend.app.core.metrics import (
+    COUNT_BUCKETS, RETRIEVAL_CANDIDATES, RETRIEVAL_EMPTY, RETRIEVAL_LATENCY,
+    RETRIEVAL_REQUESTS, metrics,
+)
 from backend.app.models.rag import DocumentChunk, embedding_cosine_distance
 from backend.app.services.embedding_service import EmbeddingService
 
@@ -101,6 +105,9 @@ class RetrievalService:
         """
         from uuid import UUID as _UUID
 
+        import time as _time
+
+        _start = _time.perf_counter()
         q = normalize_query(query)
         if not q:
             return {"candidates": [], "insufficient": True, "reason": "EMPTY_QUERY"}
@@ -139,13 +146,17 @@ class RetrievalService:
         sem: list[dict] = []
         vector_path = "disabled"
         if vec_ok and qvec is not None:
+            _t0 = _time.perf_counter()
             sem, vector_path, vec_err = await self._semantic(
                 qvec, filters, limit, strict=strict)
+            self._record_stage("vector", _time.perf_counter() - _t0)
             if vec_err:
                 native_errors["vector"] = vec_err
         elif strict and _dialect_name(self._db) == "postgresql":
             raise RetrievalError("strict: query embedding unavailable")
+        _t0 = _time.perf_counter()
         kw, keyword_path, kw_err = await self._keyword(q, filters, limit, strict=strict)
+        self._record_stage("keyword", _time.perf_counter() - _t0)
         if kw_err:
             native_errors["keyword"] = kw_err
         dialect = _dialect_name(self._db)
@@ -161,12 +172,27 @@ class RetrievalService:
             seen.add(h)
             deduped.append(c)
         top = deduped[: settings.QA_MAX_CONTEXT_CHUNKS]
-        return {"candidates": top, "semantic_count": len(sem), "keyword_count": len(kw),
-                "query": q, "semantic_available": vec_ok, "dialect": dialect,
-                "vector_path": vector_path, "keyword_path": keyword_path,
-                "degraded": degraded, "native_errors": native_errors,
-                "insufficient": len(top) == 0,
-                "reason": None if top else ("NO_EVIDENCE" if vec_ok else "NO_EVIDENCE_SEMANTIC_DEGRADED")}
+        out = {"candidates": top, "semantic_count": len(sem), "keyword_count": len(kw),
+               "query": q, "semantic_available": vec_ok, "dialect": dialect,
+               "vector_path": vector_path, "keyword_path": keyword_path,
+               "degraded": degraded, "native_errors": native_errors,
+               "insufficient": len(top) == 0,
+               "reason": None if top else ("NO_EVIDENCE" if vec_ok else "NO_EVIDENCE_SEMANTIC_DEGRADED")}
+        import time as _time
+
+        self._record_stage("total", _time.perf_counter() - _start)
+        metrics.inc(RETRIEVAL_REQUESTS, {"vector_path": vector_path,
+                                         "keyword_path": keyword_path,
+                                         "degraded": str(degraded).lower()})
+        metrics.observe(RETRIEVAL_CANDIDATES, float(len(top)), {"stage": "fused"},
+                        buckets=COUNT_BUCKETS)
+        if not top:
+            metrics.inc(RETRIEVAL_EMPTY, {"reason": out["reason"] or "unknown"})
+        return out
+
+    @staticmethod
+    def _record_stage(stage: str, seconds: float) -> None:
+        metrics.observe(RETRIEVAL_LATENCY, seconds, {"stage": stage})
 
     async def _apply_session_guards(self) -> None:
         """Set per-session Postgres tuning before retrieval.

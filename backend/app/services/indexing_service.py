@@ -8,6 +8,9 @@ import logging
 from uuid import UUID
 
 from backend.app.core.config import settings
+from backend.app.core.metrics import (
+    INDEXING_CHUNKS, INDEXING_JOBS, INDEXING_LATENCY, INDEXING_PENDING, metrics,
+)
 from backend.app.models.document import Document
 from backend.app.repositories.rag_repository import ChunkRepository, IndexingJobRepository
 from backend.app.services.chunking_service import ChunkingService
@@ -38,21 +41,31 @@ class IndexingService:
         Replacement is atomic via savepoint: deactivate+insert either both
         commit or both roll back, so old active chunks are never lost on error.
         """
+        import time as _time
+
         from sqlalchemy import select
+
+        _start = _time.perf_counter()
 
         MAX_ATTEMPTS = 5
         if (job.attempt_count or 0) >= MAX_ATTEMPTS and job.status == "PENDING":
             await self._jobs.mark_failed(job, "MAX_ATTEMPTS_EXCEEDED", "retry budget spent")
+            metrics.inc(INDEXING_JOBS, {"status": "failed", "error": "MAX_ATTEMPTS_EXCEEDED"})
+            metrics.observe(INDEXING_LATENCY, _time.perf_counter() - _start)
             return {"status": "FAILED", "error": "MAX_ATTEMPTS_EXCEEDED"}
         stmt = select(Document).where(Document.id == job.document_id)
         doc = (await self._db.execute(stmt)).scalar_one_or_none()
         if doc is None:
             await self._jobs.mark_failed(job, "DOCUMENT_NOT_FOUND", "document row missing")
+            metrics.inc(INDEXING_JOBS, {"status": "failed", "error": "DOCUMENT_NOT_FOUND"})
+            metrics.observe(INDEXING_LATENCY, _time.perf_counter() - _start)
             return {"status": "FAILED", "error": "DOCUMENT_NOT_FOUND"}
         if doc.processing_status != "PASS" or not doc.extracted_data:
             # Index only genuinely available content; label clearly.
             if not doc.extracted_data:
                 await self._jobs.mark_failed(job, "NO_EXTRACTED_CONTENT", "nothing indexable")
+                metrics.inc(INDEXING_JOBS, {"status": "failed", "error": "NO_EXTRACTED_CONTENT"})
+                metrics.observe(INDEXING_LATENCY, _time.perf_counter() - _start)
                 return {"status": "FAILED", "error": "NO_EXTRACTED_CONTENT"}
 
         # Reuse existing vectors ONLY for same model+dim+hash (spaces incompatible).
@@ -68,6 +81,8 @@ class IndexingService:
             document_name=doc.document_name)
         if not drafts:
             await self._jobs.mark_failed(job, "NO_INDEXABLE_CONTENT", "no chunks built")
+            metrics.inc(INDEXING_JOBS, {"status": "failed", "error": "NO_INDEXABLE_CONTENT"})
+            metrics.observe(INDEXING_LATENCY, _time.perf_counter() - _start)
             return {"status": "FAILED", "error": "NO_INDEXABLE_CONTENT"}
         # Model/dim drift forces full re-embed (old vectors incompatible).
         for d in drafts:
@@ -79,6 +94,8 @@ class IndexingService:
         except Exception as e:
             code = getattr(e, "code", "EMBEDDING_FAILED")
             await self._jobs.mark_failed(job, code, type(e).__name__)
+            metrics.inc(INDEXING_JOBS, {"status": "failed", "error": code})
+            metrics.observe(INDEXING_LATENCY, _time.perf_counter() - _start)
             return {"status": "FAILED", "error": code}
 
         for d in drafts:
@@ -98,10 +115,32 @@ class IndexingService:
                 await self._jobs.mark_failed(job, "INDEX_WRITE_FAILED", type(e).__name__)
             except Exception:
                 pass
+            metrics.inc(INDEXING_JOBS, {"status": "failed", "error": "INDEX_WRITE_FAILED"})
+            metrics.observe(INDEXING_LATENCY, _time.perf_counter() - _start)
             return {"status": "FAILED", "error": "INDEX_WRITE_FAILED"}
+        metrics.inc(INDEXING_JOBS, {"status": "completed"})
+        metrics.inc(INDEXING_CHUNKS, {"document_type": doc.document_type},
+                    amount=float(inserted))
+        metrics.observe(INDEXING_LATENCY, _time.perf_counter() - _start)
+        await self._refresh_pending_gauge()
         logger.info("Indexing completed", extra={
             "document_id": str(job.document_id), "chunks": inserted})
         return {"status": "COMPLETED", "chunks": inserted}
+
+    async def _refresh_pending_gauge(self) -> None:
+        """Best-effort backlog gauge; failure must never fail the job."""
+        try:
+            from sqlalchemy import func, select
+
+            from backend.app.models.rag import IndexingJob
+
+            pending = (await self._db.execute(
+                select(func.count(IndexingJob.id)).where(
+                    IndexingJob.status.in_(["PENDING", "PROCESSING"]))
+            )).scalar_one()
+            metrics.set_gauge(INDEXING_PENDING, float(pending))
+        except Exception:
+            pass
 
     async def index_document(self, document_id) -> dict:
         job = await self.ensure_job(document_id)

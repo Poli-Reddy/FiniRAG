@@ -257,11 +257,47 @@ Healthy response includes readiness (no secrets):
   "embedding_model": "gemini-embedding-2",
   "embedding_configured": true,
   "retrieval_mode": "hybrid",
-  "index_version": "v1"
+  "index_version": "v1",
+  "indexed_chunks": 128,
+  "indexed_documents": 12,
+  "provider_breakers": [{"provider": "gemini", "state": "closed", "failures": 0}]
 }
 ```
 
 Without a Gemini key, `retrieval_mode` is `keyword-only` (degraded semantic).
+
+### Operational metrics
+
+`GET /metrics` exposes a dependency-free Prometheus endpoint (also
+`?format=json`). Series, all with low-cardinality labels and no document
+content, amounts, or secrets:
+
+| Area | Series | What to watch |
+|---|---|---|
+| HTTP | `finirag_http_requests_total{method,route,status}`, `finirag_http_request_duration_seconds` | error rate and p95 latency per route template |
+| Retrieval | `finirag_retrieval_requests_total{vector_path,keyword_path,degraded}`, `finirag_retrieval_duration_seconds{stage}`, `finirag_retrieval_candidates{stage}`, `finirag_retrieval_empty_total{reason}` | degraded share, empty-result rate, stage latency |
+| Embeddings | `finirag_embedding_requests_total{kind,model,outcome}`, `finirag_embedding_duration_seconds`, `finirag_embedding_batch_size` | error rate by kind, batch sizes |
+| Answers | `finirag_answer_requests_total{provider,outcome}`, `finirag_answer_duration_seconds{provider}`, `finirag_answer_fallbacks_total{from,to}`, `finirag_llm_tokens_total{provider,kind,direction}` | provider mix, fallback rate, token spend and latency |
+| Grounding | `finirag_claims_dropped_total`, `finirag_claims_repaired_total`, `finirag_citations_emitted_total` | unsupported-claim pressure, abstention drivers |
+| Indexing | `finirag_indexing_jobs_total{status,error?}`, `finirag_indexing_chunks_total{document_type}`, `finirag_indexing_duration_seconds`, `finirag_indexing_pending_jobs` (gauge) | failure rate by error code, backlog growth |
+| Documents | `finirag_documents_processed_total{document_type,processing_status,...}`, `finirag_document_processing_duration_seconds` | pass/fail mix, processing latency |
+
+Alert runbook (starting thresholds, tune from a week of data):
+
+- `finirag_retrieval_requests_total{degraded="true"}` share > 5% over 15m →
+  a native path is failing; check `native_errors` in QA responses and the
+  provider breakers on `/health`.
+- `finirag_indexing_pending_jobs` growing monotonically → worker/jobs stuck;
+  check `indexing_jobs` error codes via `GET /api/v1/indexing/jobs/{id}`.
+- `finirag_answer_fallbacks_total` spike or a breaker `state="open"` →
+  provider outage or quota; Groq serves answers until Gemini recovers.
+- `finirag_llm_tokens_total` sudden jump → prompt/evidence bloat; check
+  `QA_MAX_CONTEXT_CHUNKS` and chunk sizes.
+- `finirag_claims_dropped_total` rising with stable retrieval → evidence
+  quality or prompt drift; sample answers against `rag_live_evaluation.py`.
+
+Annotate every change to models, prompts, chunking, or retrieval limits with
+a timestamped marker so a metric shift can be attributed to a deploy.
 
 ### Q&A
 
@@ -279,7 +315,9 @@ POST /api/v1/documents/{document_id}/reindex
 GET /api/v1/indexing/jobs/{job_id}
 ```
 
-No auth/rate-limit is implemented; do not describe the public endpoints as
+No auth is implemented; the expensive endpoints carry a per-client rate
+limit (429 `RATE_LIMITED` with `Retry-After`) and every response carries
+`X-Request-ID` for log correlation. Do not describe the public endpoints as
 production-secure.
 
 ### Controlled error response
@@ -423,19 +461,20 @@ venv/Scripts/python.exe scripts/seed_evaluation_results.py
 - Provider free-tier quotas can affect latency or availability.
 - Render free services can sleep and have cold-start latency.
 - History filters operate in the browser over the loaded dashboard result set.
-- Authentication, authorization, rate limiting, migrations, background queues,
-  and distributed quota state are not included in this case-study prototype.
+- Authentication, authorization, background queues, and distributed quota
+  state are not included in this case-study prototype (rate limiting, retry,
+  breakers and timeouts are in-process; see §10 "Operational metrics" and
+  §17).
 - Confidence is intentionally omitted because arbitrary LLM confidence values
   are not a defensible measurement.
 
 ## 17. Production Improvements
 
-- Add authentication, authorization, upload rate limiting, and audit logging.
-- Add Alembic migrations instead of startup `create_all`.
+- Add authentication and authorization (upload/QA endpoints currently rely on
+  rate limiting only; see §20 for the current guard rails).
 - Store OCR block references and implement verified field-to-block matching.
 - Add a background job queue for long-running multi-page processing.
-- Add provider circuit breakers and distributed key/quota state.
-- Add request timeouts and per-provider observability dashboards.
+- Add distributed key/quota state (key pools and breakers are in-process).
 - Add staging deployment and end-to-end tests against deployed services.
 - Use managed secret rotation and separate production/staging databases.
 
@@ -567,7 +606,7 @@ key's quota resets or billing is enabled (rotate `GEMINI_API_KEYS` or add
 billing for Gemini answers); the live eval corpus is small and synthetic, so
 it proves plumbing and index behaviour rather than production answer quality;
 `docs/architecture.png` is still the stale React/Vercel drawing. Full suite:
-436 passed; 1 pre-existing failure (`test_invalid_document_type...[""]`
+444 passed; 1 pre-existing failure (`test_invalid_document_type...[""]`
 expects 400, gets 422 on installed fastapi 0.136.3 vs pinned 0.115.0 — fails
 identically on the clean tree).
 

@@ -326,6 +326,17 @@ class DocumentService:
             logger.error("Indexing job setup failed", extra={
                 "document_name": filename, "error_type": type(e).__name__})
 
+        from backend.app.core.metrics import (
+            DOCUMENT_LATENCY, DOCUMENTS_PROCESSED, metrics,
+        )
+
+        metrics.inc(DOCUMENTS_PROCESSED, {"document_type": document_type,
+                                          "processing_status": "PASS",
+                                          "validation_status": validation_dict.get(
+                                              "overall_status", "NOT_APPLICABLE")})
+        metrics.observe(DOCUMENT_LATENCY, elapsed_ms / 1000.0,
+                        {"document_type": document_type})
+
         return DocumentProcessResponse(
             document_name=filename,
             document_type=document_type,
@@ -413,6 +424,16 @@ class DocumentService:
         )
 
         await self._repo.create(document)
+
+        from backend.app.core.metrics import (
+            DOCUMENT_LATENCY, DOCUMENTS_PROCESSED, metrics,
+        )
+
+        metrics.inc(DOCUMENTS_PROCESSED, {"document_type": document_type,
+                                          "processing_status": "FAILED",
+                                          "error_code": error_code})
+        metrics.observe(DOCUMENT_LATENCY, elapsed_ms / 1000.0,
+                        {"document_type": document_type})
 
         return DocumentProcessResponse(
             document_name=filename,

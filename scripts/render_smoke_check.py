@@ -23,6 +23,7 @@ from backend.app.main import app
 
 EXPECTED_ROUTES = {
     "/",
+    "/metrics",
     "/docs",
     "/api/v1/documents/process",
     "/api/v1/documents",
@@ -56,6 +57,8 @@ def main() -> None:
         "alembic/versions/0002_rag_hardening.py",
         "backend/app/core/resilience.py",
         "backend/app/core/ratelimit.py",
+        "backend/app/core/metrics.py",
+        "backend/app/api/rate_limit.py",
         "scripts/run_indexing_worker.py",
         "scripts/live_embedding_smoke.py",
         "scripts/verify_retrieval.py",

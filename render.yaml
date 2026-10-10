@@ -52,6 +52,23 @@ services:
         value: v1
       - key: RETRIEVAL_LIMIT_PER_PATH
         value: "8"
+      # Retrieval recall dial for the HNSW index (pgvector default is 40).
+      - key: HNSW_EF_SEARCH
+        value: "100"
+      # Bounded retries, breaker threshold/cooldown, per-call timeout.
+      - key: PROVIDER_MAX_RETRIES
+        value: "3"
+      - key: CIRCUIT_FAILURE_THRESHOLD
+        value: "5"
+      - key: CIRCUIT_COOLDOWN_S
+        value: "60"
+      - key: PROVIDER_TIMEOUT_S
+        value: "30"
+      # Request budget for the expensive endpoints; server-side statement cap.
+      - key: RATE_LIMIT_PER_MINUTE
+        value: "60"
+      - key: DB_STATEMENT_TIMEOUT_MS
+        value: "15000"
       # Keep Render on the Python version used for the tested dependency set.
       - key: PYTHON_VERSION
         value: 3.12.10

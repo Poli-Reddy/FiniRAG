@@ -96,6 +96,43 @@ async def correlation_id_middleware(request: Request, call_next):
     response.headers["X-Request-ID"] = request_id
     return response
 
+
+@app.middleware("http")
+async def metrics_middleware(request: Request, call_next):
+    """RED metrics per route: rate, errors, duration. Never fails the request."""
+    import time
+
+    from backend.app.core.metrics import (
+        HTTP_LATENCY, HTTP_REQUESTS, metrics,
+    )
+
+    start = time.perf_counter()
+    try:
+        response = await call_next(request)
+        status = response.status_code
+    except Exception:
+        # Record the failure, then let the global handler produce the response.
+        route = _route_template(request)
+        metrics.inc(HTTP_REQUESTS, {"method": request.method, "route": route,
+                                    "status": "500"})
+        metrics.observe(HTTP_LATENCY, time.perf_counter() - start,
+                        {"method": request.method, "route": route})
+        raise
+    route = _route_template(request)
+    metrics.inc(HTTP_REQUESTS, {"method": request.method, "route": route,
+                                "status": str(status)})
+    metrics.observe(HTTP_LATENCY, time.perf_counter() - start,
+                    {"method": request.method, "route": route})
+    return response
+
+
+def _route_template(request: Request) -> str:
+    """The route *template* (e.g. /api/v1/documents/{document_name}), never the
+    raw path — keeps label cardinality bounded."""
+    route = request.scope.get("route")
+    path = getattr(route, "path", None)
+    return path or "unmatched"
+
 # Static files + templates
 FRONTEND_DIR = Path(__file__).parent.parent.parent / "frontend"
 STATIC_DIR = FRONTEND_DIR / "static"
@@ -142,3 +179,19 @@ async def home(request: Request):
     if templates:
         return templates.TemplateResponse(request, "index.html")
     return HTMLResponse("<h1>FiniRAG — Document Intelligence Platform</h1>")
+
+
+@app.get("/metrics")
+async def metrics_endpoint(format: str = "prometheus"):
+    """Operational metrics. Prometheus text by default (`?format=json` for JSON).
+
+    Contains no secrets, document text or financial values — only counts,
+    latencies and enumerated labels."""
+    from fastapi.responses import PlainTextResponse
+
+    from backend.app.core.metrics import metrics
+
+    if format == "json":
+        return JSONResponse(metrics.snapshot())
+    return PlainTextResponse(metrics.render_prometheus(),
+                             media_type="text/plain; version=0.0.4")
