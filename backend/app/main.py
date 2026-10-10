@@ -13,15 +13,17 @@ import logging
 from contextlib import asynccontextmanager
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
+from backend.app.api.auth import require_api_key
 from backend.app.core.config import settings
 from backend.app.core.database import init_db, close_db
 from backend.app.core.logging import logger
+from backend.app.api.routes.documents import public_router as health_router
 from backend.app.api.routes.documents import router as documents_router
 from backend.app.api.routes.qa import router as qa_router
 
@@ -57,17 +59,21 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-# CORS — wildcard origin cannot be combined with credentials; same-origin
-# frontend needs no CORS, so keep credentials off.
+# CORS — same-origin only by default: the shipped dashboard is served by
+# this same app and needs no cross-origin access at all. Set ALLOWED_ORIGINS
+# (comma-separated) only for a separately hosted UI. Credentials stay off so
+# a wildcard can never combine with cookies/auth.
+_allowed = [o.strip() for o in settings.ALLOWED_ORIGINS.split(",") if o.strip()]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=_allowed,
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 # API routes
+app.include_router(health_router)
 app.include_router(documents_router)
 app.include_router(qa_router)
 
@@ -182,11 +188,13 @@ async def home(request: Request):
 
 
 @app.get("/metrics")
-async def metrics_endpoint(format: str = "prometheus"):
+async def metrics_endpoint(format: str = "prometheus",
+                           _auth: None = Depends(require_api_key)):
     """Operational metrics. Prometheus text by default (`?format=json` for JSON).
 
     Contains no secrets, document text or financial values — only counts,
-    latencies and enumerated labels."""
+    latencies and enumerated labels. Gated like the rest of the API when
+    API_KEYS is configured."""
     from fastapi.responses import PlainTextResponse
 
     from backend.app.core.metrics import metrics

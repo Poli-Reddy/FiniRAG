@@ -43,6 +43,10 @@ class EmbeddingProvider(ABC):
         titles are omitted, "none" is used — never invented metadata."""
         ...
 
+    async def validate(self) -> None:
+        """Validate provider configuration and connectivity."""
+        await self.embed_texts(["ping"])
+
     @property
     def model(self) -> str:
         return getattr(self, "_model", "")

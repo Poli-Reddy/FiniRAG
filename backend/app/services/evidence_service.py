@@ -112,4 +112,13 @@ class EvidenceService:
         nums = {t for t in claim if any(ch.isdigit() for ch in t)}
         if nums and not nums.issubset(pool):
             return False
+        # Negation guard: explicit negations in the claim but absent from the
+        # evidence means the polarity cannot be established from this source
+        # — overlap alone must not pass it (finding #11). Deliberately narrow:
+        # "no"/"none"/"nor" are excluded because "No." (invoice numbers) and
+        # "None" (rendered nulls) are not negations.
+        negations = {"not", "never", "without",
+                     "n't", "cannot", "cant", "wont", "dont", "isnt", "arent"}
+        if (claim & negations) and not (pool & negations):
+            return False
         return len(claim & pool) >= min(2, len(claim))

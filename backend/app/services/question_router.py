@@ -72,38 +72,3 @@ class QuestionRouter:
         return RouteDecision(intents=intents, needs_sql=needs_sql,
                              needs_retrieval=needs_ret, needs_validation=needs_val,
                              filters=filters, reason="rules-first")
-
-    async def classify_with_llm(self, question: str, filters: dict | None = None) -> RouteDecision:
-        """Structured LLM classifier fallback; rules win on obvious cases."""
-        base = self.classify(question, filters)
-        # Only invoke the LLM when rules were inconclusive (single conceptual default).
-        if base.intents != ["CONCEPTUAL_QUESTION"]:
-            return base
-        try:
-            from backend.app.core.config import settings, GEMINI_KEYS
-
-            if not (settings.GEMINI_API_KEY or settings.GEMINI_API_KEYS):
-                return base
-            import google.generativeai as genai
-
-            genai.configure(api_key=settings.GEMINI_API_KEY or (GEMINI_KEYS.keys[0] if len(GEMINI_KEYS) else ""))
-            model = genai.GenerativeModel(settings.GEMINI_MODEL)
-            import asyncio, json
-
-            prompt = ("Classify the financial question into intents "
-                      f"{list(INTENTS)}. Reply ONLY JSON "
-                      '{"intents": [...]}. Question: ' + question)
-            resp = await asyncio.to_thread(
-                model.generate_content, prompt,
-                generation_config=genai.types.GenerationConfig(
-                    response_mime_type="application/json", temperature=0.0))
-            data = json.loads(resp.text.strip().strip("`"))
-            intents = [i for i in (data.get("intents") or []) if i in INTENTS] or base.intents
-            base.intents = intents
-            base.llm_used = True
-            base.needs_sql = any(i in ("EXACT_FINANCIAL_VALUE", "FINANCIAL_COMPARISON",
-                                       "RECONCILIATION_STATUS", "DISCREPANCY_ANALYSIS") for i in intents)
-            base.needs_validation = any(i in ("RECONCILIATION_STATUS", "DISCREPANCY_ANALYSIS") for i in intents)
-        except Exception as e:
-            logger.warning("LLM classifier fallback failed", extra={"error_type": type(e).__name__})
-        return base

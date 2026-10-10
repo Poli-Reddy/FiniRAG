@@ -1,8 +1,9 @@
 """
 FiniRAG Gemini LLM Provider.
 
-Uses Google Generative AI (Gemini) for structured document extraction.
-Supports TWO modes:
+Uses the unified Google GenAI SDK (`google.genai`) for structured document
+extraction — the legacy `google.generativeai` package is end-of-support and
+is no longer used anywhere in this codebase. Supports TWO modes:
   1. Text-based: send OCR/native text to Gemini
   2. Vision-based: send rendered images directly to Gemini (for when OCR fails)
 
@@ -17,7 +18,6 @@ import json
 import logging
 import re
 
-import google.generativeai as genai
 from PIL import Image
 
 from backend.app.core.config import GEMINI_KEYS, settings
@@ -28,6 +28,7 @@ from backend.app.core.key_pool import (
     is_daily_quota,
 )
 from backend.app.providers.errors import LLMOutputTruncatedError, LLMRateLimitError
+from backend.app.providers.genai_text import GenerationConfig, build_text_model
 from backend.app.providers.llm_provider import LLMProvider
 
 logger = logging.getLogger("finirag")
@@ -37,38 +38,63 @@ def _retry_after(exc: Exception) -> float | None:
     """
     The delay the provider asked us to wait, in seconds, if it gave one.
 
-    google-api-core attaches a `RetryInfo` proto to quota rejections, but only
-    for the limits where waiting actually helps. A per-day quota generally
-    arrives without one. The attribute is read defensively because it is not
-    part of any stable contract.
+    Read defensively from several shapes (legacy RetryInfo protos, new-SDK
+    error details, Retry-After headers) because none of them is a stable
+    contract. Returns None when the error carries no usable hint.
     """
     delay = getattr(exc, "retry_delay", None)
     seconds = getattr(delay, "seconds", None)
-    return float(seconds) if seconds else None
+    if seconds:
+        return float(seconds)
+    for attr in ("retry_after", "retry_after_seconds"):
+        value = getattr(exc, attr, None)
+        if isinstance(value, (int, float)) and value > 0:
+            return float(value)
+    details = getattr(exc, "details", None)
+    if isinstance(details, (list, tuple)):
+        for entry in details:
+            secs = getattr(entry, "seconds", None) or (
+                entry.get("retryDelay", "") if isinstance(entry, dict) else None)
+            try:
+                if secs:
+                    return float(str(secs).rstrip("s"))
+            except (TypeError, ValueError):
+                continue
+    return None
 
 
 def _is_rate_limit(exc: Exception) -> bool:
     """
     True for a quota or rate-limit rejection.
 
-    Matched on the class name rather than an isinstance check against
-    `google.api_core.exceptions.ResourceExhausted` so the provider keeps
-    working if the SDK reorganises its exception hierarchy, and so this stays
-    testable without constructing a real gRPC error.
+    Matched on class names and structured status codes rather than an
+    isinstance check against one SDK's hierarchy, so the provider keeps
+    working across SDK generations and stays testable without constructing
+    a real API error. Never matches validation/auth errors: those must fail
+    fast, not retry.
     """
-    if type(exc).__name__ in ("ResourceExhausted", "TooManyRequests"):
+    if type(exc).__name__ in ("ResourceExhausted", "TooManyRequests",
+                              "RateLimitError", "RateLimited"):
         return True
-    return getattr(exc, "code", None) == 429 or getattr(
+    if getattr(exc, "code", None) == 429 or getattr(
         getattr(exc, "response", None), "status_code", None
-    ) == 429
+    ) == 429:
+        return True
+    # Structured signals only. Message wording alone (including "429" or
+    # "quota" in free text) does NOT count: retiring a key is destructive,
+    # and unstructured text stays a transport error (pinned by
+    # test_a_transport_error_is_not_retried). The new SDK surfaces real
+    # quota rejections with an int `code`, so nothing real is lost.
+    return False
 
 
 def _is_truncated(response) -> bool:
-    """True when Gemini stopped at its output limit (finish_reason MAX_TOKENS=2)."""
+    """True when Gemini stopped at its output limit (finish_reason MAX_TOKENS)."""
     try:
         for cand in (getattr(response, "candidates", None) or []):
             reason = getattr(cand, "finish_reason", None)
-            # SDK may return int enum (2 = MAX_TOKENS) or string.
+            # Legacy SDK: int enum (2 = MAX_TOKENS) or string. New SDK:
+            # FinishReason enum (has .name). Accept all three shapes.
             if reason in (2, "MAX_TOKENS", "LENGTH", "length"):
                 return True
             name = getattr(reason, "name", "")
@@ -99,16 +125,23 @@ class GeminiProvider(LLMProvider):
         if pool is None:
             # Singular key first, then first key from the plural pool so a
             # plural-only deployment does not silently run unauthenticated.
-            api_key = settings.GEMINI_API_KEY or (GEMINI_KEYS.keys[0] if len(GEMINI_KEYS) else "")
-            if api_key:
-                genai.configure(api_key=api_key)
-            elif os.getenv("PYTEST_CURRENT_TEST") is None and os.getenv("CI") is None:
+            # Bound lazily on first call so construction never needs a live
+            # key or a network round trip (the unit fixture asserts this).
+            self._single_key = settings.GEMINI_API_KEY or (
+                GEMINI_KEYS.keys[0] if len(GEMINI_KEYS) else "")
+            if not self._single_key and os.getenv("PYTEST_CURRENT_TEST") is None \
+                    and os.getenv("CI") is None:
                 logger.warning("Gemini API key not configured")
-            self._model = genai.GenerativeModel(self._model_name)
+            self._model = None
         else:
+            self._single_key = ""
             # Model is bound lazily per call from whichever pooled key is
             # borrowed, so key deaths never strand the provider.
             self._model = None
+
+    def _bind(self, api_key: str) -> None:
+        """(Re)bind the model client to one explicit key. No SDK globals."""
+        self._model = build_text_model(api_key, self._model_name)
 
     def _ensure_model(self) -> None:
         """
@@ -127,9 +160,23 @@ class GeminiProvider(LLMProvider):
         except AllKeysExhausted as e:
             raise LLMRateLimitError() from e
         if index != self._key_index or self._model is None:
-            genai.configure(api_key=api_key)
-            self._model = genai.GenerativeModel(self._model_name)
+            self._bind(api_key)
             self._key_index = index
+
+    def _get_model(self):
+        """The test double wins when one was injected; otherwise bind lazily.
+
+        Unit tests swap `provider._model` with scripted fakes — that seam is
+        preserved exactly (same `generate_content(content,
+        generation_config=None)` call shape).
+        """
+        if self._model is not None:
+            return self._model
+        if self._pool is not None:
+            self._ensure_model()
+            return self._model
+        self._bind(self._single_key)
+        return self._model
 
     async def extract_structured(
         self,
@@ -178,15 +225,14 @@ class GeminiProvider(LLMProvider):
         """
         import asyncio
 
-        if self._pool is not None:
-            self._ensure_model()
+        model = self._get_model()
 
         for attempt in range(2):
             try:
                 response = await asyncio.to_thread(
-                    self._model.generate_content,
+                    model.generate_content,
                     content,
-                    generation_config=genai.types.GenerationConfig(
+                    generation_config=GenerationConfig(
                         response_mime_type="application/json",
                         temperature=0.1,
                     ),

@@ -8,7 +8,7 @@ GET-by-name returns the latest row via ORDER BY created_at DESC LIMIT 1.
 import uuid
 from datetime import datetime, timezone
 
-from sqlalchemy import String, DateTime, Index, text, JSON
+from sqlalchemy import String, DateTime, Index, Text, text, JSON
 from sqlalchemy import Uuid
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column
@@ -40,6 +40,12 @@ class Document(Base):
     validation: Mapped[dict | None] = mapped_column(JSON_VARIANT, nullable=True)
     processing_metadata: Mapped[dict] = mapped_column(JSON_VARIANT, nullable=False)
     error: Mapped[dict | None] = mapped_column(JSON_VARIANT, nullable=True)
+
+    # Retained source text for verifiable indexing (finding #9): the
+    # OCR/native text the extraction was built from, bounded at write time.
+    # NULL for vision-fallback and failed extractions (nothing to retain).
+    # Lives and dies with the row; no separate retention needed.
+    source_text: Mapped[str | None] = mapped_column(Text, nullable=True)
 
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),

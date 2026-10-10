@@ -331,6 +331,70 @@ def test_lookup_of_unknown_document_is_404_with_a_code(client):
 
 
 # ─────────────────────────────────────────────────────────────────────
+# Bounded uploads + access control (audit findings #4, P0-2, #21)
+# ─────────────────────────────────────────────────────────────────────
+
+def test_oversized_upload_rejected_before_processing(client, monkeypatch):
+    """Finding #4: the size gate fires on a bounded read, not after buffering."""
+    from backend.app.core.config import settings
+
+    monkeypatch.setattr(settings, "MAX_FILE_SIZE_MB", 0)
+    # MAX_FILE_SIZE_MB=0 -> max_bytes=0, so any content exceeds the cap.
+    r = client.post(
+        "/api/v1/documents/process",
+        files={"file": ("big.pdf", io.BytesIO(b"%PDF-1.4 " + b"x" * 100), "application/pdf")},
+        data={"document_type": "balance_sheet"},
+    )
+    assert r.status_code == 413
+    assert r.json()["error"]["code"] == "FILE_TOO_LARGE"
+    assert StubService.calls == []  # pipeline never ran
+
+
+def test_upload_at_limit_passes_size_gate(client, monkeypatch):
+    from backend.app.core.config import settings
+
+    monkeypatch.setattr(settings, "MAX_FILE_SIZE_MB", 1)
+    body = b"%PDF-1.4 " + b"x" * 100
+    assert len(body) <= 1 * 1024 * 1024
+    up = {
+        "files": {"file": ("bs.pdf", io.BytesIO(body), "application/pdf")},
+        "data": {"document_type": "balance_sheet"},
+    }
+    r = client.post("/api/v1/documents/process", files=up["files"], data=up["data"])
+    assert r.status_code == 200
+    assert len(StubService.calls) == 1
+
+
+def test_read_endpoints_require_key_when_configured(client, monkeypatch):
+    from backend.app.core.config import settings
+
+    monkeypatch.setattr(settings, "API_KEYS", "secret-1")
+    assert client.get("/api/v1/documents").status_code == 401
+    assert client.get("/api/v1/documents/whatever.pdf").status_code == 401
+    assert client.get(
+        "/api/v1/documents/11111111-2222-3333-4444-555555555555/index-status"
+    ).status_code == 401
+    assert client.get(
+        "/api/v1/indexing/jobs/11111111-2222-3333-4444-555555555555"
+    ).status_code == 401
+    authed = {"Authorization": "Bearer secret-1"}
+    assert client.get("/api/v1/documents", headers=authed).status_code == 200
+
+
+def test_rate_limit_applies_to_reads(client, monkeypatch):
+    from backend.app.api import rate_limit as rl_module
+    from backend.app.core.config import settings
+
+    monkeypatch.setattr(settings, "RATE_LIMIT_PER_MINUTE", 1)
+    rl_module._limiter._hits.clear()
+    assert client.get("/api/v1/documents").status_code == 200
+    r = client.get("/api/v1/documents")
+    assert r.status_code == 429
+    assert r.json()["error"]["code"] == "RATE_LIMITED"
+    rl_module._limiter._hits.clear()
+
+
+# ─────────────────────────────────────────────────────────────────────
 # Error handling (Trap P14, Correction #10)
 # ─────────────────────────────────────────────────────────────────────
 

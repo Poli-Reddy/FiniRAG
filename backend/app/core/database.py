@@ -58,16 +58,38 @@ async def get_db() -> AsyncSession:
 
 
 async def init_db():
-    """Create all tables on startup. Idempotent."""
-    async with engine.begin() as conn:
-        # gen_random_uuid() server default needs pgcrypto on fresh DBs.
-        try:
-            from sqlalchemy import text as _text
+    """Prepare the database on startup.
 
-            await conn.execute(_text('CREATE EXTENSION IF NOT EXISTS "pgcrypto"'))
-        except Exception:
-            pass  # non-Postgres backends (tests) have no extensions
+    PostgreSQL (production): run Alembic migrations — the single explicit
+    schema path. create_all() is NOT used here: mixing it with Alembic
+    causes migration-state/schema drift.
+    Anything else (sqlite dev/tests): create_all(), since migrations target
+    PostgreSQL-only constructs (extensions, pgvector, partial indexes).
+    """
+    if settings.DATABASE_URL.startswith("postgresql"):
+        await _run_alembic_upgrade()
+        return
+    async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
+
+
+async def _run_alembic_upgrade() -> None:
+    """Apply pending migrations before serving traffic. Loud on failure:
+    booting with a half-migrated schema is worse than not booting."""
+    import asyncio
+
+    from alembic import command
+    from alembic.config import Config
+
+    def _upgrade():
+        # database.py lives at backend/app/core/ — project root (alembic.ini)
+        # is three levels up, same as the .env resolution in config.py.
+        here = Path(__file__).resolve().parent.parent.parent.parent
+        cfg = Config(str(here / "alembic.ini"))
+        cfg.set_main_option("script_location", str(here / "alembic"))
+        command.upgrade(cfg, "head")
+
+    await asyncio.to_thread(_upgrade)
 
 
 async def close_db():

@@ -199,6 +199,14 @@ def test_build_text_value_is_not_numeric(n):
 
 
 def test_evidence_holds_raw_text_not_normalized(n):
-    """Evidence must quote the document, not our cleaned-up number."""
-    out = n.build_extracted_value("(2,500.00)")
+    """A supplied snippet is kept verbatim-flagged-off; absence stays empty."""
+    out = n.build_extracted_value("(2,500.00)", source_text="(2,500.00)")
     assert out.evidence.source_text == "(2,500.00)"
+    assert out.evidence.verified is False
+
+
+def test_evidence_absent_snippet_is_empty_not_echo(n):
+    """Without a snippet there is no quotation — never echo the raw value."""
+    out = n.build_extracted_value("(2,500.00)")
+    assert out.evidence.source_text == ""
+    assert out.evidence.verified is False

@@ -192,12 +192,17 @@ class NormalizationService:
         page_number: int = 1,
         bounding_box: list[float] | None = None,
         unit: str | None = None,
+        source_verified: bool = False,
     ) -> ExtractedValue:
         """
         Build a complete ExtractedValue from a raw string.
 
         Preserves both the original value and the normalized value.
-        Evidence carries the OCR text, NOT the normalized version.
+        Evidence carries a transcribed snippet, NOT a verified quotation:
+        an absent snippet stays empty (it is never echoed from the raw
+        value — the raw value is itself model-transcribed, so echoing it
+        would manufacture verbatim provenance). Callers that checked the
+        snippet against retained source text pass source_verified=True.
         `unit` records the scale the figure is stated in (INR_THOUSANDS,
         INR_CRORE) so a value can never be read without its scale.
         """
@@ -221,9 +226,10 @@ class NormalizationService:
             original_value=str(raw_value),
             status=status,
             evidence=Evidence(
-                source_text=source_text or str(raw_value),
+                source_text=source_text,
                 page_number=page_number,
                 bounding_box=bounding_box,
+                verified=source_verified and bool(source_text.strip()),
             ),
             unit=unit,
         )
@@ -234,6 +240,7 @@ class NormalizationService:
         source_text: str = "",
         page_number: int = 1,
         unit: str | None = None,
+        source_verified: bool = False,
     ) -> ExtractedValue:
         """Build an ExtractedValue for non-numeric text fields."""
         if raw_value is None or (isinstance(raw_value, str) and not raw_value.strip()):
@@ -250,8 +257,9 @@ class NormalizationService:
             original_value=str(raw_value),
             status=FieldStatus.EXPLICIT,
             evidence=Evidence(
-                source_text=source_text or str(raw_value),
+                source_text=source_text,
                 page_number=page_number,
+                verified=source_verified and bool(source_text.strip()),
             ),
             unit=unit,
         )

@@ -18,14 +18,18 @@ _limiter = RateLimiter(settings.RATE_LIMIT_PER_MINUTE)
 
 
 def client_key(request: Request) -> str:
-    """Best-effort client identity: first X-Forwarded-For hop, else peer IP.
+    """Best-effort client identity for rate limiting.
 
-    Render sits behind a proxy, so the peer IP is the proxy; the forwarded
-    header carries the real client.
+    Uses the first X-Forwarded-For hop only when TRUST_X_FORWARDED_FOR is on
+    (the Render deployment, where the platform proxy appends the real client
+    address). Otherwise the direct peer IP is used: a client-supplied first
+    hop is spoofable whenever the proxy chain is unknown, and trusting it
+    would let an attacker rotate identities past the limiter.
     """
-    forwarded = request.headers.get("x-forwarded-for")
-    if forwarded:
-        return forwarded.split(",")[0].strip()
+    if settings.TRUST_X_FORWARDED_FOR:
+        forwarded = request.headers.get("x-forwarded-for")
+        if forwarded:
+            return forwarded.split(",")[0].strip()
     return request.client.host if request.client else "unknown"
 
 

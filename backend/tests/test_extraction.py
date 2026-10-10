@@ -314,8 +314,22 @@ def test_evidence_quotes_the_document_not_our_normalized_number(svc):
     """Trap P9: evidence must be auditable against the source."""
     out = svc._parse_invoice({"total_amount": "(2,500.00)"}, "")
     assert out.total_amount.original_value == "(2,500.00)"
-    assert out.total_amount.evidence.source_text == "(2,500.00)"
+    # No snippet was supplied, so nothing is presented as a quotation —
+    # the raw value is model-transcribed, not verbatim OCR text.
+    assert out.total_amount.evidence.source_text == ""
+    assert out.total_amount.evidence.verified is False
     assert out.total_amount.value == Decimal("-2500.00")
+
+
+def test_evidence_snippet_kept_but_unverified(svc):
+    """A supplied snippet is preserved as transcribed context, flagged."""
+    out = svc._parse_invoice(
+        {"total_amount": "(2,500.00)",
+         "evidence_map": {"total_amount": {"source_text": "(2,500.00)", "page": 1}}},
+        "",
+    )
+    assert out.total_amount.evidence.source_text == "(2,500.00)"
+    assert out.total_amount.evidence.verified is False
 
 
 @pytest.mark.asyncio

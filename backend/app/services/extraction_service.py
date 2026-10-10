@@ -309,9 +309,10 @@ def _evidence_lookup(raw: dict) -> dict[str, tuple[str, int]]:
     Normalize the LLM's evidence_map into {lowercased key: (source_text, page)}.
 
     Defensive by design: the map is advisory, so anything malformed is
-    skipped rather than raised. Absent entries fall back to the parser's
-    echo-of-value default in build_extracted_value, which is what the
-    existing parse tests pin down.
+    skipped rather than raised. Absent entries leave the evidence snippet
+    empty — the parser never echoes the transcribed value as a quotation,
+    and only the chunking verification pass against retained source text
+    may promote a snippet to verbatim.
     """
     lookup: dict[str, tuple[str, int]] = {}
     ev = raw.get("evidence_map")

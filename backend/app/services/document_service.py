@@ -38,6 +38,23 @@ logger = logging.getLogger("finirag")
 PAGE_SEPARATOR = "\n\n--- PAGE BREAK ---\n\n"
 
 
+def _retain_source_text(text: str | None) -> str | None:
+    """
+    Bounded source text for the document row (finding #9).
+
+    Returns None when there is nothing worth retaining (vision-fallback and
+    failed extractions have no text) so NULL honestly means "no source".
+    Otherwise caps at MAX_SOURCE_TEXT_CHARS — one pathological document must
+    not bloat its row; page breaks survive because truncation cuts the tail.
+    """
+    from backend.app.core.config import settings
+
+    if not text or not text.strip():
+        return None
+    cap = settings.MAX_SOURCE_TEXT_CHARS
+    return text if len(text) <= cap else text[:cap]
+
+
 def _join_pages(page_texts: list[str]) -> str:
     """
     Join per-page text, or return "" when no page produced any.
@@ -305,6 +322,9 @@ class DocumentService:
             extracted_data=extracted_data,
             validation=validation_dict,
             processing_metadata=metadata.model_dump(),
+            # Retain the source the extraction was built from (bounded).
+            # Vision-fallback successes have no text — NULL, honestly.
+            source_text=_retain_source_text(text),
         )
 
         document = await self._repo.create(document)

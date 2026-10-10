@@ -159,6 +159,7 @@ DATABASE_URL=postgresql+asyncpg://user:password@host:5432/database
 GEMINI_API_KEY=your_gemini_key
 GROQ_API_KEY=your_groq_key
 MISTRAL_API_KEY=your_mistral_key
+API_KEYS=your_dashboard_and_client_shared_secret
 OCR_PROVIDER=mistral
 LLM_PROVIDER=gemini
 GEMINI_MODEL=gemini-3.8-flash
@@ -170,6 +171,14 @@ ENVIRONMENT=production
 LOG_LEVEL=INFO
 MAX_FILE_SIZE_MB=10
 MAX_PAGES=3
+MAX_IMAGE_PIXELS=50000000
+MAX_RENDER_PIXELS_PER_PAGE=50000000
+MAX_SOURCE_TEXT_CHARS=200000
+INDEX_HISTORY_RETENTION_DAYS=30
+RATE_LIMIT_PER_MINUTE=60
+DB_STATEMENT_TIMEOUT_MS=15000
+TRUST_X_FORWARDED_FOR=true
+ALLOWED_ORIGINS=
 ```
 
 A model or dimension change requires full re-embedding (embedding spaces are
@@ -179,6 +188,23 @@ production semantic search.
 Render supplies `DATABASE_URL` from the Render PostgreSQL database. Provider
 keys are entered through the Render environment settings and are not stored
 in GitHub.
+
+## 6b. Access control and secret handling
+
+- Set `API_KEYS` before **any** public exposure. Every `/api/v1` route and
+  `/metrics` then requires `Authorization: Bearer <key>` or `X-API-Key:
+  <key>` (constant-time compared, 401 otherwise). `/health` stays public so
+  platform probes keep working — it carries no document data.
+- Scope honesty: this gates *who may call*, not per-user document ownership.
+  Every authorized caller can read every document. Do not present it as
+  multi-tenant isolation.
+- CORS defaults to same-origin only (`ALLOWED_ORIGINS` empty); configure
+  explicit origins solely for a separately hosted UI.
+- If credentials ever leak (including inside a ZIP or archive): **rotate all
+  provider keys and the database password first**, update Render and local
+  envs, then cut a new release with `python scripts/build_release_zip.py`,
+  which refuses archives containing secret-shaped content. An archive cannot
+  un-share old secrets.
 
 ## 7. Frontend URL
 
@@ -452,10 +478,27 @@ table. JSONB columns hold:
 - Processing metadata
 - Error information
 
+`documents.source_text` holds the bounded OCR/native text the extraction was
+built from (NULL for vision-fallback and failed extractions). It exists so
+evidence snippets can be verified against the real source and narrative
+chunks can be indexed from the original; it is never returned by the
+document APIs except inside verified verbatim evidence, and it lives and
+dies with its row.
+
 The database also stores document name, type, processing status, UUID, and
 timestamp. The dashboard loads persisted records through
 `GET /api/v1/documents`, and clicking a history row loads the latest complete
 result by name.
+
+Schema changes ship as Alembic migrations (`alembic/versions/`), applied
+with `alembic upgrade head`. On PostgreSQL the app runs pending migrations
+at startup; on other backends it uses `create_all()` for development only.
+Inactive chunk versions accumulate on reindexing; prune them explicitly:
+
+```powershell
+python scripts/prune_chunks.py --days 30          # report + delete
+python scripts/prune_chunks.py --days 30 --dry-run # report only
+```
 
 The evaluation harness intentionally bypasses persistence to measure the
 pipeline without polluting dashboard history. The measured results can be
@@ -478,22 +521,24 @@ venv/Scripts/python.exe scripts/seed_evaluation_results.py
 - Provider free-tier quotas can affect latency or availability.
 - Render free services can sleep and have cold-start latency.
 - History filters operate in the browser over the loaded dashboard result set.
-- Authentication, authorization, background queues, and distributed quota
-  state are not included in this case-study prototype (rate limiting, retry,
-  breakers and timeouts are in-process; see §10 "Operational metrics" and
-  §17).
+- Authentication beyond a shared API key, per-user document ownership,
+  background queues, and distributed quota state are not included in this
+  case-study prototype (rate limiting, retry, breakers and timeouts are
+  in-process; see §10 "Operational metrics" and §17). Set `API_KEYS` before
+  any public exposure.
 - Confidence is intentionally omitted because arbitrary LLM confidence values
   are not a defensible measurement.
 
 ## 17. Production Improvements
 
-- Add authentication and authorization (upload/QA endpoints currently rely on
-  rate limiting only; see §20 for the current guard rails).
+- Add per-user document ownership (the API gate is a shared secret today).
 - Store OCR block references and implement verified field-to-block matching.
 - Add a background job queue for long-running multi-page processing.
 - Add distributed key/quota state (key pools and breakers are in-process).
 - Add staging deployment and end-to-end tests against deployed services.
 - Use managed secret rotation and separate production/staging databases.
+- Redraw `docs/architecture.png` (stale React/Vercel drawing); until then
+  `docs/ARCHITECTURE.md` is authoritative.
 
 ## 18. AI Tools Used
 

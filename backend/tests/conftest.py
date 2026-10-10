@@ -37,17 +37,49 @@ def _no_live_llm_keys(monkeypatch):
     (template answers, hash-style behavior where applicable). Live checks
     live in scripts/ and evaluation/rag_live_evaluation.py instead.
     """
+    from backend.app.core import config as _config
     from backend.app.core.config import settings
     from backend.app.core import resilience
 
     for name in ("GEMINI_API_KEY", "GEMINI_API_KEYS",
-                 "GROQ_API_KEY", "GROQ_API_KEYS"):
+                 "GROQ_API_KEY", "GROQ_API_KEYS",
+                 "MISTRAL_API_KEY", "MISTRAL_API_KEYS"):
         monkeypatch.setattr(settings, name, "", raising=False)
+    # The key pools are module singletons initialized at import from the
+    # values above — blanking settings alone leaves live keys inside them.
+    # Drain every pool so no test can borrow a real credential (finding #17).
+    for pool in (_config.GEMINI_KEYS, _config.GROQ_KEYS, _config.MISTRAL_KEYS):
+        monkeypatch.setattr(pool, "keys", [])
+        monkeypatch.setattr(pool, "_state", [])
     # No retries or rate limiting in the unit suite: fast and deterministic.
     # The retry/breaker and limiter logic has its own focused tests.
     monkeypatch.setattr(settings, "PROVIDER_MAX_RETRIES", 0)
     monkeypatch.setattr(settings, "RATE_LIMIT_PER_MINUTE", 1_000_000)
     resilience.reset_breakers()
+    # Belt and suspenders: any socket connection attempt fails loudly.
+    # Tests that need the network must opt out explicitly (none do today —
+    # live coverage lives behind the `integration` marker with real env).
+    _block_network(monkeypatch)
+
+
+def _block_network(monkeypatch):
+    """Fail any outbound TCP connection (finding #17).
+
+    Provider SDKs all funnel through socket.create_connection eventually;
+    blocking it turns an accidental live call into a loud test failure
+    instead of quota spend or flakiness.
+    """
+    import socket as _socket
+
+    real_create_connection = _socket.create_connection
+
+    def _forbidden(*args, **kwargs):
+        raise AssertionError(
+            "unit tests must not open network connections "
+            "(use fakes or mark the test `integration`)")
+
+    monkeypatch.setattr(_socket, "create_connection", _forbidden)
+    _ = real_create_connection  # documented as intentionally unused
 
 
 # ─────────────────────────────────────────────────────────────────────

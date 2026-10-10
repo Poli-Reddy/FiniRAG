@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import uuid
 from datetime import datetime, timezone
+from decimal import Decimal
 
 import pytest
 import pytest_asyncio
@@ -13,6 +14,7 @@ from backend.app.core.database import Base
 from backend.app.models.document import Document
 from backend.app.models.rag import DocumentChunk, IndexingJob
 import backend.app.models.rag  # noqa: ensure registered
+from backend.app.schemas.extraction import ExtractedValue, FieldStatus, safe_value
 from backend.app.providers.embedding_provider import HashEmbeddingProvider, validate_vectors
 from backend.app.services.chunking_service import ChunkingService, split_narrative
 from backend.app.services.embedding_service import EmbeddingService
@@ -322,6 +324,66 @@ async def test_two_year_comparison_complete_years(db):
                                                   document_type="balance_sheet")
     assert cmp["ok"] and cmp["difference"] == "30"
     assert cmp["period_a"] == "2024" and cmp["period_b"] == "2025"
+
+
+def _unit_doc(name, unit_a, unit_b, dtype="balance_sheet"):
+    def ev(v, u):
+        return {"value": v, "original_value": v, "status": "EXPLICIT",
+                "evidence": {"source_text": v, "page_number": 1}, "unit": u}
+    return _doc(document_name=name, document_type=dtype,
+                extracted_data={"periods": {"2024": {"total_assets": ev("100", unit_a)},
+                                            "2025": {"total_assets": ev("120", unit_b)}}},
+                validation={"overall_status": "PASS"})
+
+
+@pytest.mark.asyncio
+async def test_compare_cross_scale_thousands_vs_crores_rejected(db):
+    """Finding #28: 100 (thousands) vs 120 (crores) must not equate."""
+    db.add(_unit_doc("scale.pdf", "INR_THOUSANDS", "INR_CRORE"))
+    await db.flush()
+    cmp = await FinancialQueryService(db).compare(
+        field="total_assets", period_a="2024", period_b="2025",
+        document_name="scale.pdf", document_type="balance_sheet")
+    assert not cmp["ok"] and cmp["error"] == "INCOMPATIBLE_UNITS"
+
+
+@pytest.mark.asyncio
+async def test_compare_alias_units_accepted(db):
+    """'RS' and 'INR' are the same scale — aliases must not false-reject."""
+    db.add(_unit_doc("alias.pdf", "RS", "INR"))
+    await db.flush()
+    cmp = await FinancialQueryService(db).compare(
+        field="total_assets", period_a="2024", period_b="2025",
+        document_name="alias.pdf", document_type="balance_sheet")
+    assert cmp["ok"] and cmp["difference"] == "20"
+
+
+@pytest.mark.asyncio
+async def test_compare_unknown_scale_rejected(db):
+    """One side scaled, the other bare: reject, never assume (finding #28)."""
+    db.add(_unit_doc("mix.pdf", "INR_CRORE", None))
+    await db.flush()
+    cmp = await FinancialQueryService(db).compare(
+        field="total_assets", period_a="2024", period_b="2025",
+        document_name="mix.pdf", document_type="balance_sheet")
+    assert not cmp["ok"] and cmp["error"] == "INCOMPATIBLE_UNITS"
+
+
+@pytest.mark.asyncio
+async def test_compare_same_doc_no_scales_allowed(db):
+    """Same document, same statement scale, no explicit units: sound."""
+    def ev(v):
+        return {"value": v, "original_value": v, "status": "EXPLICIT",
+                "evidence": {"source_text": v, "page_number": 1}}
+    db.add(_doc(document_name="bare.pdf", document_type="balance_sheet",
+                extracted_data={"periods": {"2024": {"total_assets": ev("100")},
+                                            "2025": {"total_assets": ev("130")}}},
+                validation={"overall_status": "PASS"}))
+    await db.flush()
+    cmp = await FinancialQueryService(db).compare(
+        field="total_assets", period_a="2024", period_b="2025",
+        document_name="bare.pdf", document_type="balance_sheet")
+    assert cmp["ok"] and cmp["difference"] == "30"
 
 
 # 14. unsupported question -> insufficient evidence
@@ -634,6 +696,14 @@ def test_final_rank_none_when_absent():
 
     assert final_rank([_cand("d1.jpg")], {"missing.jpg"}) is None
     assert final_rank([], {"inv-a.jpg"}) is None
+
+
+def test_explicit_none_is_corrupt_not_zero():
+    """EXPLICIT + None must raise, not silently become zero (finding #15)."""
+    with pytest.raises(ValueError):
+        safe_value(ExtractedValue(value=None, status=FieldStatus.EXPLICIT))
+    # EXPLICIT_ZERO + None is the only null that may read as zero.
+    assert safe_value(ExtractedValue(value=None, status=FieldStatus.EXPLICIT_ZERO)) == Decimal("0")
 
 
 def test_embedding_validation():

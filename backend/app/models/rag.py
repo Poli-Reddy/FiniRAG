@@ -102,6 +102,11 @@ class DocumentChunk(Base):
     section_name: Mapped[str | None] = mapped_column(String(255), nullable=True)
     document_type: Mapped[str] = mapped_column(String(50), nullable=False)
     reporting_period: Mapped[str | None] = mapped_column(String(50), nullable=True)
+    # Canonical company for exact-match filtering (finding #19): normalized
+    # company_name (statements) or vendor_name (invoices), else None. Filters
+    # match this column exactly; substring matching is only a legacy fallback
+    # for chunks indexed before it existed.
+    company_norm: Mapped[str | None] = mapped_column(String(255), nullable=True)
     source_evidence: Mapped[dict] = mapped_column(JSON_VARIANT, nullable=False, default=dict)
     chunk_metadata: Mapped[dict] = mapped_column("metadata", JSON_VARIANT, nullable=False, default=dict)
     embedding: Mapped[list | None] = mapped_column(EmbeddingVector(768), nullable=True)
@@ -118,6 +123,7 @@ class DocumentChunk(Base):
         Index("idx_chunks_period", "reporting_period"),
         Index("idx_chunks_type", "chunk_type"),
         Index("idx_chunks_active_doc", "document_id", "is_active"),
+        Index("idx_chunks_company", "company_norm"),
     )
 
 
@@ -144,4 +150,11 @@ class IndexingJob(Base):
     __table_args__ = (
         Index("idx_jobs_document", "document_id"),
         Index("idx_jobs_status", "status"),
+        # One active job per document, enforced by the database (finding #8).
+        # Declared here — not only in migration 0003 — so create_all-based
+        # environments (tests, dev) carry the same guarantee as migrated
+        # production. Partial indexes exist on both PostgreSQL and SQLite.
+        Index("uq_active_job_per_document", "document_id", unique=True,
+              sqlite_where=text("status IN ('PENDING', 'PROCESSING')"),
+              postgresql_where=text("status IN ('PENDING', 'PROCESSING')")),
     )

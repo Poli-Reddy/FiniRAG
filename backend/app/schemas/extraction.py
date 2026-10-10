@@ -39,6 +39,10 @@ class Evidence(BaseModel):
     source_text: str = ""             # Exact OCR text, NOT corrected/normalized
     page_number: int = 1              # 1-indexed
     bounding_box: list[float] | None = None  # [x1, y1, x2, y2] — never fabricated
+    # True ONLY when the snippet was checked against retained source text
+    # (chunking verification). Model-transcribed snippets — including the
+    # LLM evidence_map and any echo of the raw value — are NEVER verified.
+    verified: bool = False
 
 
 class ExtractedValue(BaseModel):
@@ -103,7 +107,14 @@ def safe_value(ev: ExtractedValue) -> Decimal:
     if not is_usable(ev):
         raise ValueError(f"Cannot use value with status {ev.status}")
     if ev.value is None:
-        return Decimal("0")
+        # EXPLICIT_ZERO with a null value is possible (dash-nil normalizes to
+        # Decimal 0 upstream, but a hand-built or drifted record may carry
+        # None). Only that status may read as zero — an EXPLICIT null is
+        # corrupt data, and treating it as zero is exactly the confusion the
+        # status model exists to prevent.
+        if ev.status is FieldStatus.EXPLICIT_ZERO:
+            return Decimal("0")
+        raise ValueError(f"EXPLICIT value is None (status {ev.status})")
     if isinstance(ev.value, Decimal):
         return ev.value
     return Decimal(str(ev.value))

@@ -75,6 +75,31 @@ def _numbers(text: str) -> set[str]:
     return set(re.findall(r"\d+(?:\.\d+)?", text or ""))
 
 
+def _independent_check(q: dict, ans) -> bool | None:
+    """Ground-truth score independent of production validators.
+
+    Checks the FINAL answer text only: the expected value/snippet must appear
+    AND (when a document is expected) at least one emitted citation must name
+    it. No token-overlap helper, no claim validator — so a passing score here
+    cannot be circular self-agreement with the pipeline's own checker.
+    Returns None when the question has no checkable expectation.
+    """
+    if q.get("requires_abstention"):
+        return ans.status == "INSUFFICIENT_EVIDENCE"
+    expected = q.get("expected_value") or q.get("expected_citation_contains") \
+        or q.get("expected_validation")
+    if not expected:
+        return None
+    if expected not in (ans.answer or ""):
+        return False
+    doc = q.get("expected_document")
+    if not doc:
+        return True
+    cited_docs = {(c.get("document_name") or "") for c in (ans.citations or [])
+                  if isinstance(c, dict)}
+    return doc in cited_docs
+
+
 def final_rank(candidates: list[dict], relevant: set[str]) -> int | None:
     """1-based position of the first relevant candidate in the FINAL fused
     ordering (the candidates list order after RRF + dedup + truncation).
@@ -156,23 +181,25 @@ async def main(provider=None, engine=None, out=None, live: bool = False,
                 # excluded from recall/MRR; abstention is scored instead.
                 hit, rr = None, None
             # ── Document-filter behavior (separate probe, not ranking) ──
-            # When a filter is supplied, the ANSWER is computed against the
-            # filtered candidate set (exactly as the API would with
-            # document_id), while the ranking metric above stays unfiltered.
-            answer_cands = cands
+            # Filtered retrieval must return only the target document's chunks.
             filter_ok = None
+            pipe_doc_id = None
             if q.get("filter_document"):
                 target = name_to_id.get(q["filter_document"])
                 fret = await RetrievalService(db, emb).retrieve(
                     q["question"], document_id=target)
                 fcands = fret["candidates"]
-                answer_cands = fcands
                 filter_ok = bool(fcands) and all(
                     str(c.get("document_id")) == str(target) for c in fcands)
                 filter_results.append(filter_ok)
-            # Structured / validation paths — mirror the real QA route:
-            # fetch SQL whenever a field applies (including MISSING markers),
-            # fetch validation whenever the question is about it.
+                # The dedicated filter question is answered exactly as the API
+                # would answer it: with the document_id filter applied.
+                from uuid import UUID as _UUID
+
+                pipe_doc_id = target if isinstance(target, _UUID) else (
+                    _UUID(str(target)) if target else None)
+            # Structured / validation component checks (the SQL layer itself;
+            # the answer below comes from the real pipeline, not these).
             sql_rs = []
             if q.get("field"):
                 res = await FinancialQueryService(db).get_value(
@@ -192,28 +219,39 @@ async def main(provider=None, engine=None, out=None, live: bool = False,
                 val_ok = (validation.get("ok")
                           and validation.get("overall_status") == q["expected_validation"]
                           ) if q.get("expected_validation") else None
-            # Evidence + answer (respect router abstention).
-            if decision.intents == ["INSUFFICIENT_OR_UNSUPPORTED"]:
-                ev = {"items": []}
-            else:
-                ev = EvidenceService().build(sql_results=sql_rs, validation=validation,
-                                             candidates=answer_cands)
-            ans = await AnswerService().answer(question=q["question"], evidence=ev)
-            # Claim-level support of the FINAL answer, measured with the same
-            # production validator the pipeline enforces (not mere citation
-            # existence, not overlap with a preselected snippet).
+            # ── Answer through the REAL route pipeline (finding #12) ──
+            # No hand-assembled evidence: the same classify → SQL/retrieval →
+            # evidence → answer path POST /api/v1/qa/ask executes, so routing
+            # decisions (or failures) are measured, not bypassed.
+            from backend.app.api.routes.qa import _answer_pipeline
+            from backend.app.schemas.qa import QAAskRequest
+
+            pipe_body = QAAskRequest(question=q["question"],
+                                     document_id=str(pipe_doc_id) if pipe_doc_id else None)
+            ans = await _answer_pipeline(pipe_body, q["question"], pipe_doc_id,
+                                         f"eval-{q['id']}", db)
+            # Independent ground-truth score: does the final answer state the
+            # expected value AND cite the expected document? Uses no production
+            # validator internals — guards against circular self-agreement.
+            independent_ok = _independent_check(q, ans)
+            # Claim-level support of the FINAL pipeline answer. The evidence
+            # below is rebuilt ONLY as measurement context (the answer itself
+            # already came from the real pipeline above); the independent
+            # score afterwards uses no validator internals at all.
             abstained = ans.status == "INSUFFICIENT_EVIDENCE"
             if abstained:
                 # Abstention carries no claims; it must not earn support or
                 # faithfulness credit — abstention correctness is scored below.
                 cit_score, faith = None, None
             else:
+                measure_ev = EvidenceService().build(
+                    sql_results=sql_rs, validation=validation, candidates=cands)
                 check = AnswerService()._validate_claims(
-                    ans.answer, ans.citations, ev.get("items", []))
+                    ans.answer, ans.citations, measure_ev.get("items", []))
                 tot = check["factual_total"]
                 cit_score = (check["factual_kept"] / tot) if tot else 1.0
                 pool = " ".join(f"{i.get('content','')} {i.get('source_text','')}"
-                                for i in ev.get("items", []))
+                                for i in measure_ev.get("items", []))
                 pool_nums = _numbers(pool)
                 ans_nums = _numbers(ans.answer)
                 faith = 1.0 if not ans_nums else len(ans_nums & pool_nums) / len(ans_nums)
@@ -229,17 +267,18 @@ async def main(provider=None, engine=None, out=None, live: bool = False,
             else:
                 ans_ok = ans.status == "ANSWERED" and bool(ans.citations)
             abst_ok = (ans.status == "INSUFFICIENT_EVIDENCE") == bool(q.get("requires_abstention"))
+            independent_ok = _independent_check(q, ans)
             lat = (time.time() - t0) * 1000
             latencies.append(lat)
             results.append({"id": q["id"], "rank": rank, "hit_at_5": hit, "rr": rr,
                             "fq_ok": fq_ok, "val_ok": val_ok, "filter_ok": filter_ok,
                             "cit_support": round(cit_score, 3) if cit_score is not None else None,
-                            "ans_ok": ans_ok,
+                            "ans_ok": ans_ok, "independent_ok": independent_ok,
                             "faith": round(faith, 3) if faith is not None else None,
                             "abst_ok": abst_ok,
                             "vector_path": ret.get("vector_path"),
                             "keyword_path": ret.get("keyword_path"),
-                            "answer_provider": ans.provider,
+                            "answer_provider": ans.answer_provider,
                             "status": ans.status, "latency_ms": round(lat, 1),
                             "intents": decision.intents})
         if live:
@@ -265,6 +304,9 @@ async def main(provider=None, engine=None, out=None, live: bool = False,
             "Every ranking retrieval asserted pgvector + postgres-fts native paths (strict).",
             "Claim support re-validates the final answer with the production validator;",
             " token overlap remains a basic guard, not entailment proof.",
+            "independent_ground_truth checks answer text + cited document only,",
+            " sharing no code with the pipeline's own checker.",
+            "Answers come from the real QA pipeline (_answer_pipeline), not hand-built evidence.",
         ]
     else:
         label = "OFFLINE/HASH — NOT production semantic quality"
@@ -276,6 +318,9 @@ async def main(provider=None, engine=None, out=None, live: bool = False,
             "Ranking retrieval is unfiltered; rank is the final fused position (see final_rank).",
             "Claim support re-validates the final answer with the production validator;",
             " token overlap remains a basic guard, not entailment proof.",
+            "independent_ground_truth checks answer text + cited document only,",
+            " sharing no code with the pipeline's own checker.",
+            "Answers come from the real QA pipeline (_answer_pipeline), not hand-built evidence.",
             "Live semantic quality requires evaluation/rag_live_evaluation.py with GEMINI_API_KEY + PostgreSQL.",
         ]
     report = {
@@ -293,6 +338,9 @@ async def main(provider=None, engine=None, out=None, live: bool = False,
         "mrr": round(mean([r["rr"] for r in results if r["rr"] is not None]), 3),
         "citation_support": round(mean([r["cit_support"] for r in results if r["cit_support"] is not None]), 3),
         "answer_correctness": round(mean([1.0 if r["ans_ok"] else 0.0 for r in results]), 3),
+        "independent_ground_truth": round(mean(
+            [1.0 if r["independent_ok"] else 0.0 for r in results
+             if r["independent_ok"] is not None]), 3),
         "faithfulness": round(mean([r["faith"] for r in results if r["faith"] is not None]), 3),
         "unsupported_claim_rate": round(mean(
             [1.0 - r["cit_support"] for r in results if r["cit_support"] is not None]), 3),

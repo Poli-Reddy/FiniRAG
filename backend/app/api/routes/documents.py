@@ -13,10 +13,11 @@ from __future__ import annotations
 import logging
 from datetime import datetime, timezone
 
-from fastapi import APIRouter, Depends, File, Form, HTTPException, Query, UploadFile
+from fastapi import APIRouter, Depends, File, Form, HTTPException, Query, Request, UploadFile
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from backend.app.api.rate_limit import rate_limit
+from backend.app.api.auth import require_api_key
 from backend.app.core.config import settings
 from backend.app.core.database import get_db
 from backend.app.schemas.document import (
@@ -30,7 +31,18 @@ from backend.app.services.document_service import DocumentService
 
 logger = logging.getLogger("finirag")
 
-router = APIRouter(prefix="/api/v1", tags=["documents"])
+router = APIRouter(prefix="/api/v1", tags=["documents"],
+                     dependencies=[Depends(require_api_key)])
+
+# Multipart framing overhead slack for the Content-Length pre-check: the raw
+# body is always larger than the file itself, so the header gate allows a
+# small margin and the bounded read below enforces the exact file limit.
+_MULTIPART_OVERHEAD_BYTES = 1024 * 1024
+
+# Health stays OUTSIDE the auth gate: platform probes (Render
+# healthCheckPath) and uptime monitors must reach it without credentials.
+# It carries no document data — only status counts and config labels.
+public_router = APIRouter(prefix="/api/v1", tags=["health"])
 
 
 # ─────────────────────────────────────────────────────────────────────
@@ -40,6 +52,7 @@ router = APIRouter(prefix="/api/v1", tags=["documents"])
 @router.post("/documents/process", response_model=DocumentProcessResponse,
              dependencies=[Depends(rate_limit)])
 async def process_document(
+    request: Request,
     file: UploadFile = File(...),
     document_type: str = Form(...),
     db: AsyncSession = Depends(get_db),
@@ -61,8 +74,29 @@ async def process_document(
             },
         )
 
-    # Read file bytes
-    file_bytes = await file.read()
+    # Bounded read: the size gate must trigger BEFORE the whole body is
+    # buffered, or a huge upload is a memory-exhaustion vector regardless of
+    # the configured limit. Reject early on Content-Length, then read at most
+    # limit+1 bytes so an oversized body is cut off mid-stream.
+    max_bytes = settings.max_file_size_bytes
+    declared = request.headers.get("content-length")
+    if declared is not None:
+        try:
+            if int(declared) > max_bytes + _MULTIPART_OVERHEAD_BYTES:
+                raise HTTPException(
+                    status_code=413,
+                    detail={"code": "FILE_TOO_LARGE",
+                            "message": f"Uploads are limited to {settings.MAX_FILE_SIZE_MB} MB."},
+                )
+        except ValueError:
+            pass  # malformed header: fall through to the bounded read
+    file_bytes = await file.read(size=max_bytes + 1)
+    if len(file_bytes) > max_bytes:
+        raise HTTPException(
+            status_code=413,
+            detail={"code": "FILE_TOO_LARGE",
+                    "message": f"Uploads are limited to {settings.MAX_FILE_SIZE_MB} MB."},
+        )
 
     # Sanitize filename (path traversal prevention)
     filename = _sanitize_filename(file.filename or "unnamed")
@@ -83,7 +117,8 @@ async def process_document(
 # GET /api/v1/documents
 # ─────────────────────────────────────────────────────────────────────
 
-@router.get("/documents", response_model=DocumentListResponse)
+@router.get("/documents", response_model=DocumentListResponse,
+             dependencies=[Depends(rate_limit)])
 async def list_documents(
     limit: int = Query(default=100, ge=1, le=1000),
     offset: int = Query(default=0, ge=0),
@@ -113,7 +148,7 @@ async def list_documents(
 # GET /api/v1/documents/{document_name}
 # ─────────────────────────────────────────────────────────────────────
 
-@router.get("/documents/{document_name}")
+@router.get("/documents/{document_name}", dependencies=[Depends(rate_limit)])
 async def get_document_by_name(
     document_name: str,
     db: AsyncSession = Depends(get_db),
@@ -153,13 +188,34 @@ async def get_document_by_name(
 # GET /api/v1/health
 # ─────────────────────────────────────────────────────────────────────
 
-@router.get("/health", response_model=HealthResponse)
+@public_router.get("/health", response_model=HealthResponse)
 async def health_check(db: AsyncSession = Depends(get_db)):
-    """Health/readiness: app, DB, embedding config, index counts, provider
-    breaker states. Deliberately cheap (one SELECT, one COUNT) and contains
-    no secrets — safe to poll from a platform health check."""
+    """Liveness + cheap readiness. Deliberately cheap (indexed metadata
+    queries only) and secret-free — safe to poll from a platform check.
+
+    Readiness is reported per subsystem, never as one blended verdict:
+      database:            SELECT 1 probe (datastore liveness)
+      vector_ready:        pgvector extension present AND HNSW index exists
+      fts_ready:           GIN full-text index exists
+      native_paths_ready:  both of the above (what strict retrieval needs)
+      retrieval_mode:      CONFIGURED semantic search ("hybrid" = key present,
+                           NOT proof of live quota or semantics)
+    No embedding or LLM calls are made here; use scripts/verify_retrieval.py
+    and scripts/live_embedding_smoke.py for live provider proof.
+    """
+    from backend.app.core import database as _database
+
+    async def _scalar_one(query, default=0):
+        try:
+            return int((await db.execute(query)).scalar() or default)
+        except Exception:
+            return default
+
     db_status = "disconnected"
     indexed_documents = 0
+    total_chunks = 0
+    vector_ready = False
+    fts_ready = False
     try:
         from sqlalchemy import func, select, text
 
@@ -167,15 +223,29 @@ async def health_check(db: AsyncSession = Depends(get_db)):
 
         await db.execute(text("SELECT 1"))
         db_status = "connected"
-        total_chunks = int((await db.execute(
+        total_chunks = await _scalar_one(
             select(func.count(DocumentChunk.id)).where(
-                DocumentChunk.is_active == True))).scalar() or 0)  # noqa: E712
-        indexed_documents = int((await db.execute(
+                DocumentChunk.is_active == True))  # noqa: E712
+        indexed_documents = await _scalar_one(
             select(func.count(func.distinct(DocumentChunk.document_id))).where(
-                DocumentChunk.is_active == True))).scalar() or 0)  # noqa: E712
+                DocumentChunk.is_active == True))  # noqa: E712
     except Exception:
         db_status = "disconnected"
-        total_chunks = 0
+    # Index-existence probe is independent: a missing pg_indexes view (or a
+    # stubbed session in tests) must not flip the datastore verdict above.
+    try:
+        if db_status == "connected" and _database.engine.dialect.name == "postgresql":
+            from sqlalchemy import text as _text
+
+            idx = (await db.execute(_text(
+                "SELECT indexname FROM pg_indexes "
+                "WHERE tablename = 'document_chunks'"))).fetchall()
+            names = {r[0] for r in idx}
+            vector_ready = "idx_chunks_vec" in names
+            fts_ready = "idx_chunks_fts" in names
+    except Exception:
+        vector_ready = False
+        fts_ready = False
 
     emb_configured = bool(settings.GEMINI_API_KEY or settings.GEMINI_API_KEYS)
     try:
@@ -191,6 +261,9 @@ async def health_check(db: AsyncSession = Depends(get_db)):
         embedding_model=settings.EMBEDDING_MODEL,
         embedding_configured=emb_configured,
         retrieval_mode="hybrid" if emb_configured else "keyword-only",
+        native_paths_ready=vector_ready and fts_ready,
+        vector_ready=vector_ready,
+        fts_ready=fts_ready,
         index_version=settings.INDEX_VERSION,
         indexed_chunks=total_chunks,
         indexed_documents=indexed_documents,
@@ -202,7 +275,8 @@ async def health_check(db: AsyncSession = Depends(get_db)):
 # GET /api/v1/documents/{document_id}/index-status  + reindex + jobs
 # ─────────────────────────────────────────────────────────────────────
 
-@router.get("/documents/{document_id}/index-status")
+@router.get("/documents/{document_id}/index-status",
+             dependencies=[Depends(rate_limit)])
 async def document_index_status(
     document_id: str,
     db: AsyncSession = Depends(get_db),
@@ -221,12 +295,20 @@ async def document_index_status(
     return {"document_id": str(did), **status}
 
 
-@router.post("/documents/{document_id}/reindex")
+@router.post("/documents/{document_id}/reindex",
+              dependencies=[Depends(rate_limit)])
 async def reindex_document(
     document_id: str,
     db: AsyncSession = Depends(get_db),
 ):
-    """Idempotent reindex of one processing attempt. Does not rerun extraction."""
+    """Idempotent reindex of one processing attempt. Does not rerun extraction.
+
+    Queue semantics: this endpoint only *queues* work (creates or reuses a
+    PENDING job) and returns immediately. A worker drains the queue —
+    inline at upload time, or via `python scripts/run_indexing_worker.py`.
+    Poll `GET /indexing/jobs/{job_id}` until COMPLETED/FAILED. `queued` is
+    True when work remains; False when the active job is already COMPLETED.
+    """
     import uuid as _uuid
 
     try:
@@ -245,10 +327,15 @@ async def reindex_document(
                                                      "message": "No such processing attempt."})
     svc = IndexingService(db)
     job = await svc.ensure_job(did)
-    return {"document_id": str(did), "job_id": str(job.id), "status": job.status}
+    queued = job.status in ("PENDING", "PROCESSING")
+    return {"document_id": str(did), "job_id": str(job.id), "status": job.status,
+            "queued": queued,
+            "message": ("Job queued — drain with scripts/run_indexing_worker.py "
+                        "and poll GET /indexing/jobs/{job_id}.")
+                       if queued else "Already indexed — no work queued."}
 
 
-@router.get("/indexing/jobs/{job_id}")
+@router.get("/indexing/jobs/{job_id}", dependencies=[Depends(rate_limit)])
 async def indexing_job_status(
     job_id: str,
     db: AsyncSession = Depends(get_db),

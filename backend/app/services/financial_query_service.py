@@ -9,6 +9,7 @@ Decimal arithmetic throughout; incompatible units/currencies are rejected.
 from __future__ import annotations
 
 import logging
+import re
 from decimal import Decimal
 from uuid import UUID
 
@@ -53,6 +54,44 @@ def _dec(value) -> Decimal | None:
         return Decimal(str(value))
     except Exception:
         return None
+
+
+# Canonical scale factors: every comparison happens in base currency units.
+# Unknown or unparseable scales are rejected, never silently equated.
+_UNIT_SCALE = {
+    "INR": Decimal("1"),
+    "USD": Decimal("1"),
+    "EUR": Decimal("1"),
+    "GBP": Decimal("1"),
+    "INR_THOUSANDS": Decimal("1000"),
+    "INR_CRORE": Decimal("10000000"),
+    "THOUSANDS": Decimal("1000"),
+    "CRORE": Decimal("10000000"),
+    "LAKH": Decimal("100000"),
+    "MILLION": Decimal("1000000"),
+    "PERCENT": None,  # never comparable with money
+    "INR_PER_SHARE": None,  # per-share figures are not statement totals
+}
+
+
+def _normalize_unit(unit: str | None) -> str | None:
+    """Canonicalize a unit label for comparison ("inr thousands" -> INR_THOUSANDS)."""
+    if not unit:
+        return None
+    key = re.sub(r"[^A-Z0-9]+", "_", str(unit).upper()).strip("_")
+    aliases = {"RS": "INR", "RUPEES": "INR", "RUPEE": "INR", "DOLLARS": "USD",
+               "DOLLAR": "USD", "IN_CRORE": "INR_CRORE", "IN_THOUSANDS": "INR_THOUSANDS",
+               "CRORES": "CRORE", "'000": "THOUSANDS"}
+    return aliases.get(key, key)
+
+
+def _to_base(value: Decimal, unit: str | None) -> Decimal | None:
+    """Amount in base currency units, or None when the scale is unknown."""
+    norm = _normalize_unit(unit)
+    scale = _UNIT_SCALE.get(norm) if norm else None
+    if scale is None:
+        return None
+    return value * scale
 
 
 class FinancialQueryService:
@@ -164,18 +203,43 @@ class FinancialQueryService:
                                   document_type=document_type, period=period_b)
         if not ra.get("ok") or not rb.get("ok"):
             return {"ok": False, "error": "COMPARISON_UNAVAILABLE", "a": ra, "b": rb}
-        # Unit/currency guard: never silently compare incompatible scales.
-        ua, ub = ra.get("unit"), rb.get("unit")
-        if ua and ub and ua != ub:
-            return {"ok": False, "error": "INCOMPATIBLE_UNITS",
-                    "detail": f"{ua} vs {ub}", "a": ra, "b": rb}
+        # Unit resolution (finding #28): each side's own unit wins, falling
+        # back to its statement-level scale. Scales normalize to base
+        # currency units before any comparison, so "thousands vs crores" can
+        # never silently equate. A side with no resolvable scale is comparable
+        # only within the same document under the same statement scale —
+        # anything else is rejected, never assumed.
+        ua = ra.get("unit") or ra.get("unit_code") or None
+        ub = rb.get("unit") or rb.get("unit_code") or None
         da, db = _dec(ra["value"]), _dec(rb["value"])
         if da is None or db is None:
             return {"ok": False, "error": "NON_NUMERIC_VALUE", "a": ra, "b": rb}
-        diff = db - da
+        sa, sb = _to_base(Decimal("1"), ua), _to_base(Decimal("1"), ub)
+        if sa is not None and sb is not None:
+            if sa != sb:
+                return {"ok": False, "error": "INCOMPATIBLE_UNITS",
+                        "detail": f"{ua} vs {ub}", "a": ra, "b": rb}
+            # Difference expressed back in the shared scale (e.g. 20, not
+            # 20000000, for 100 vs 120 crore): the unit label must describe
+            # the number it accompanies.
+            scale = sa or Decimal("1")
+            diff = ((_to_base(db, ub) or db) - (_to_base(da, ua) or da)) / scale
+            unit = ua or ub
+        elif sa is None and sb is None and ra.get("document_id") == rb.get("document_id") \
+                and (ra.get("unit_code") or "") == (rb.get("unit_code") or ""):
+            # Same document, same statement scale, no explicit units anywhere:
+            # the scale is shared by construction, so raw comparison is sound.
+            diff = db - da
+            unit = ua or ub
+        else:
+            return {"ok": False, "error": "INCOMPATIBLE_UNITS",
+                    "detail": f"unresolvable scale: {ua!r} vs {ub!r} "
+                              "(values carry no comparable currency/scale)",
+                    "a": ra, "b": rb}
         return {"ok": True, "field": field, "period_a": period_a, "period_b": period_b,
                 "value_a": str(da), "value_b": str(db), "difference": str(diff),
-                "unit": ua or ub, "a": ra, "b": rb}
+                "unit": unit, "unit_a": ua, "unit_b": ub,
+                "a": ra, "b": rb}
 
     async def validation_status(self, *, document_id=None, document_name: str | None = None,
                                 check_name: str | None = None) -> dict:

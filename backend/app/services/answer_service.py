@@ -352,8 +352,10 @@ class AnswerService:
     def _build_prompt(self, question: str, items: list[dict]) -> str:
         ev_lines = []
         for it in items[:20]:
+            _pg = it.get('page_number')
+            _loc = f"p.{_pg}" if isinstance(_pg, int) else "page unverified"
             ev_lines.append(f"[{it['citation_id']}] ({it.get('document_name')} "
-                            f"p.{it.get('page_number')}) {_sanitize(it.get('content', '')[:1500])}")
+                            f"{_loc}) {_sanitize(it.get('content', '')[:1500])}")
         return (SYSTEM_RULES + f"\n\nQuestion: {_sanitize(question)}\n\nEvidence:\n"
                 + "\n".join(ev_lines))
 
@@ -379,11 +381,12 @@ class AnswerService:
             AllKeysCooling, AllKeysExhausted, is_daily_quota,
         )
         from backend.app.core.resilience import is_rate_limit
-        import google.generativeai as genai
+        from backend.app.providers.genai_text import (
+            GenerationConfig, build_text_model,
+        )
 
-        # Borrow the lowest-live key from the shared pool (same pool the
-        # extraction pipeline uses). A rate-limited key is retired so the next
-        # retry attempt lands on a different key instead of the spent one.
+        # Same pooled-key discipline as extraction: borrow the lowest-live
+        # key, retire it on rate limit so retries land on a fresh key.
         index = None
         api_key = settings.GEMINI_API_KEY
         if len(GEMINI_KEYS):
@@ -392,13 +395,15 @@ class AnswerService:
             except (AllKeysCooling, AllKeysExhausted) as e:
                 raise RuntimeError(f"gemini keys unavailable: {type(e).__name__}") from e
 
-        genai.configure(api_key=api_key or (GEMINI_KEYS.keys[0] if len(GEMINI_KEYS) else ""))
-        model = genai.GenerativeModel(settings.GEMINI_MODEL)
-        try:
-            resp = await asyncio.to_thread(
-                model.generate_content, prompt,
-                generation_config=genai.types.GenerationConfig(
+        def _run():
+            model = build_text_model(api_key, settings.GEMINI_MODEL)
+            return model.generate_content(
+                prompt,
+                generation_config=GenerationConfig(
                     response_mime_type="application/json", temperature=0.1))
+
+        try:
+            resp = await asyncio.to_thread(_run)
         except Exception as e:
             if index is not None and is_rate_limit(e):
                 GEMINI_KEYS.retire(index, permanent=is_daily_quota(str(e)))
@@ -540,7 +545,9 @@ class AnswerService:
                           "document_name": c.get("document_name")})
         for p in passages:
             snippet = (p.get("content") or "")[:400].replace("\n", " ")
-            parts.append(f"Source ({p.get('document_name')} p.{p.get('page_number')}): "
+            _pg = p.get("page_number")
+            _loc = f" p.{_pg}" if isinstance(_pg, int) else " (page unverified)"
+            parts.append(f"Source ({p.get('document_name')}{_loc}): "
                          f"{_sanitize(snippet)} [{p['citation_id']}]")
             cites.append({"citation_id": p["citation_id"],
                           "document_name": p.get("document_name"),
@@ -549,7 +556,12 @@ class AnswerService:
         return self._finalize(
             question=question, answer_text=answer, citations=cites,
             facts=[{"citation_id": f["citation_id"], "field": f.get("field"),
-                    "value": str(f.get("value")), "unit": f.get("unit")} for f in facts],
+                    "value": str(f.get("value")), "unit": f.get("unit"),
+                    "document_id": f.get("document_id", ""),
+                    "document_name": f.get("document_name", ""),
+                    "document_type": f.get("document_type", ""),
+                    "period": f.get("period"),
+                    "status": f.get("status")} for f in facts],
             calculations=[], checks=[c.get("check") for c in checks],
             limitations=[], items=items, retrieval_metadata=retrieval_metadata,
             requested_status="ANSWERED", provider="template")

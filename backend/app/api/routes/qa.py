@@ -18,6 +18,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from backend.app.api.rate_limit import rate_limit
+from backend.app.api.auth import require_api_key
 from backend.app.core.config import settings
 from backend.app.core.database import get_db
 from backend.app.schemas.document import VALID_DOCUMENT_TYPES
@@ -35,34 +36,97 @@ router = APIRouter(prefix="/api/v1/qa", tags=["qa"])
 router_instance = QuestionRouter()
 
 # Heuristic field vocabulary for exact-value extraction from free text.
+# Maps to whitelisted FinancialQueryService field ids only — never to dynamic
+# section labels, which vary per document and are resolved at query time.
+# Order matters: specific phrases first so "total amount" wins over "amount".
 _FIELD_ALIASES = {
-    "total_amount": ["total amount", "invoice total", "grand total"],
+    "total_amount": ["total amount", "invoice total", "grand total",
+                     "total payable"],
+    "amount_due": ["amount due", "balance due"],
     "subtotal": ["subtotal", "sub total"],
-    "tax_amount": ["tax amount", "gst", "tax"],
+    "tax_amount": ["tax amount", "gst", "sales tax"],
+    "invoice_number": ["invoice number", "invoice id", "invoice #", "invoice no"],
+    "invoice_date": ["invoice date", "date of invoice", "billed on"],
+    "due_date": ["due date", "payment due", "pay by"],
+    "vendor_name": ["vendor name", "vendor", "seller", "billed by", "supplier"],
+    "customer_name": ["customer name", "customer", "buyer", "bill to", "billed to"],
+    "amount_paid": ["amount paid", "paid amount", "payment received"],
+    "cash_paid": ["cash paid", "cash tendered"],
+    "change_given": ["change given", "change due"],
+    "discount": ["discount"],
+    "payment_method": ["payment method", "payment mode", "paid by", "paid via"],
+    "currency": ["currency"],
     "total_assets": ["total assets"],
-    "total_capital_and_liabilities": ["total capital", "total liabilities"],
-    "consolidated_net_profit": ["net profit", "consolidated profit"],
-    "total_income": ["total income"],
-    "total_expenditure": ["total expenditure"],
-    "net_increase_in_cash": ["net increase in cash", "net increase"],
-    "closing_cash": ["closing cash"],
-    "opening_cash": ["opening cash"],
-    "invoice_number": ["invoice number", "invoice id", "invoice #"],
-    "invoice_date": ["invoice date"],
+    "total_capital_and_liabilities": ["total capital and liabilities",
+                                      "total liabilities", "total equity",
+                                      "balance sheet total"],
+    "company_name": ["company name", "company"],
+    "total_income": ["total income", "revenue", "gross income"],
+    "total_expenditure": ["total expenditure", "total expenses", "expenses"],
+    "interest_earned": ["interest earned"],
+    "interest_expended": ["interest expended", "interest paid"],
+    "other_income": ["other income"],
+    "operating_expenses": ["operating expenses"],
+    "consolidated_net_profit": ["consolidated net profit", "net profit", "net income",
+                                "bottom line"],
+    "basic_eps": ["basic eps", "earnings per share", "eps"],
+    "net_cash_from_operating": ["net cash from operating", "operating cash flow",
+                                "cash from operations"],
+    "net_cash_from_investing": ["net cash from investing", "investing cash flow"],
+    "net_cash_from_financing": ["net cash from financing", "financing cash flow"],
+    "net_increase_in_cash": ["net increase in cash", "net increase in cash and"],
+    "closing_cash": ["closing cash", "closing balance", "cash at end"],
+    "opening_cash": ["opening cash", "opening balance", "cash at beginning"],
+    "minority_interest": ["minority interest"],
+    "tax_rate": ["tax rate", "gst rate", "vat rate"],
 }
 
 
 def _guess_field(question: str) -> str | None:
     q = question.lower()
     for field, aliases in _FIELD_ALIASES.items():
-        if any(a in q for a in aliases):
-            return field
+        for alias in aliases:
+            # Short aliases ("eps", "gst") must match whole words — otherwise
+            # "steps" would resolve to earnings-per-share. Longer phrases are
+            # distinctive enough for substring matching.
+            if len(alias) <= 4:
+                if re.search(r"\b" + re.escape(alias) + r"\b", q):
+                    return field
+            elif alias in q:
+                return field
     return None
 
 
 def _guess_periods(question: str) -> list[str]:
     # Non-capturing prefix: return full four-digit years, not "19"/"20".
     return re.findall(r"\b(?:19|20)\d{2}\b", question)
+
+
+async def _resolve_document_from_question(db, question: str,
+                                          document_type: str | None = None) -> str | None:
+    """Match a document filename embedded in free text (finding #13).
+
+    Exact-value questions name their document in the question far more often
+    than in a separate filter field ("total on invoice X?"). Resolution is a
+    bounded distinct-name lookup with longest case-insensitive substring
+    match — no LLM, no guessing, and the chosen name is reported so the
+    caller can see what was assumed.
+    """
+    from sqlalchemy import select
+
+    from backend.app.models.document import Document
+
+    q = (question or "").lower()
+    stmt = select(Document.document_name).distinct()
+    if document_type:
+        stmt = stmt.where(Document.document_type == document_type)
+    names = (await db.execute(stmt.limit(2000))).scalars().all()
+    best: str | None = None
+    for name in names:
+        if name and name.lower() in q:
+            if best is None or len(name) > len(best):
+                best = name
+    return best
 
 
 def _insufficient(request_id: str, intents: list[str], meta: dict | None = None,
@@ -77,7 +141,8 @@ def _insufficient(request_id: str, intents: list[str], meta: dict | None = None,
     )
 
 
-@router.post("/ask", response_model=QAAskResponse, dependencies=[Depends(rate_limit)])
+@router.post("/ask", response_model=QAAskResponse,
+             dependencies=[Depends(require_api_key), Depends(rate_limit)])
 async def ask_question(body: QAAskRequest, db: AsyncSession = Depends(get_db)):
     request_id = str(uuid.uuid4())
     question = (body.question or "").strip()
@@ -120,44 +185,83 @@ async def _answer_pipeline(body: QAAskRequest, question: str, doc_uuid,
         "document_type": body.document_type,
         "reporting_period": body.reporting_period,
         "company": body.company})
-    # Unsupported -> explicit insufficient-evidence, no tools called.
+    # Unsupported topics abstain outright — unless the caller scoped the
+    # question to a specific document, in which case a retrieval-grounded
+    # answer from that document is legitimate ("what does the forecast
+    # section of X say?" is a lookup, not advice). The answer path still
+    # carries limitations and never invents values.
     if decision.intents == ["INSUFFICIENT_OR_UNSUPPORTED"]:
-        return _insufficient(request_id, decision.intents)
+        if doc_uuid is not None or body.document_name:
+            logger.info("Unsupported topic with document scope; answering grounded", extra={
+                "request_id": request_id})
+            decision.intents = ["CONCEPTUAL_QUESTION"]
+            decision.needs_retrieval = True
+            decision.reason = "unsupported-topic-with-scope"
+        else:
+            return _insufficient(request_id, decision.intents)
 
     fq = FinancialQueryService(db)
-    retrieval_meta: dict = {"request_id": request_id, "intents": decision.intents}
+    retrieval_meta: dict = {"request_id": request_id, "intents": decision.intents,
+                            "route_reason": decision.reason}
     sql_results: list[dict] = []
     validation: dict | None = None
     candidates: list[dict] = []
 
     # Selective tool invocation per intent.
+    # If the caller named no document but the question embeds a known
+    # filename, resolve it — otherwise exact-value questions fail whenever
+    # the scope lives only in free text (finding #13).
+    resolved_name = body.document_name
+    if decision.needs_sql and doc_uuid is None and not body.document_name:
+        resolved_name = await _resolve_document_from_question(
+            db, question, body.document_type)
+        if resolved_name:
+            retrieval_meta["document_resolved_from_question"] = resolved_name
     if decision.needs_sql:
         field = _guess_field(question)
         periods = _guess_periods(question)
         if "FINANCIAL_COMPARISON" in decision.intents and field and len(periods) >= 2:
             cmp = await fq.compare(field=field, period_a=periods[0], period_b=periods[1],
-                                   document_id=doc_uuid, document_name=body.document_name,
+                                   document_id=doc_uuid, document_name=resolved_name,
                                    document_type=body.document_type)
             retrieval_meta["comparison"] = cmp
-            # Wrap comparison operands as evidence facts.
+            # Wrap comparison operands as evidence facts, carrying each
+            # operand's own source provenance (finding #14): real document
+            # ids, names, periods, units, statuses and evidence — never
+            # empty placeholders a citation cannot resolve.
             if cmp.get("ok"):
-                for period, value in ((periods[0], cmp["value_a"]), (periods[1], cmp["value_b"])):
-                    sql_results.append({"ok": True, "field": f"{field}@{period}",
-                                        "value": value, "original_value": value,
-                                        "status": "EXPLICIT", "unit": cmp.get("unit"),
-                                        "evidence": {}, "document_id": "",
-                                        "document_name": body.document_name or "",
-                                        "document_type": body.document_type or ""})
+                for side, period in (("a", periods[0]), ("b", periods[1])):
+                    operand = cmp[side]
+                    sql_results.append({
+                        "ok": True, "field": f"{field}@{period}",
+                        "value": operand.get("value"),
+                        "original_value": operand.get("original_value", ""),
+                        "status": operand.get("status", "EXPLICIT"),
+                        "unit": operand.get("unit") or cmp.get("unit"),
+                        "evidence": operand.get("evidence") or {},
+                        "document_id": operand.get("document_id", ""),
+                        "document_name": operand.get("document_name", ""),
+                        "document_type": operand.get("document_type", ""),
+                        "period": period,
+                    })
             else:
                 sql_results.append({"ok": False, "field": field, "error": cmp.get("error")})
         elif field:
             period = body.reporting_period or (periods[0] if periods else None)
             res = await fq.get_value(field=field, document_id=doc_uuid,
-                                     document_name=body.document_name,
+                                     document_name=resolved_name,
                                      document_type=body.document_type, period=period)
             sql_results.append(res)
         else:
             retrieval_meta["sql_skipped"] = "no whitelisted field matched"
+        # Retrieval fallback: when SQL produced nothing usable (unknown
+        # wording, missing scope, missing value), try passages instead of
+        # stopping silently (findings #13/#18). Recorded unconditionally so
+        # the reason is visible even when another intent already planned
+        # a retrieval pass.
+        if field is None or any(not r.get("ok") for r in sql_results):
+            retrieval_meta["retrieval_fallback"] = "sql yielded nothing usable"
+            decision.needs_retrieval = True
 
     if decision.needs_validation or "RECONCILIATION_STATUS" in decision.intents \
             or "DISCREPANCY_ANALYSIS" in decision.intents:

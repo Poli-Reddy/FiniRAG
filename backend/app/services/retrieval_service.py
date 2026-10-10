@@ -6,7 +6,7 @@ import logging
 import math
 import re
 
-from sqlalchemy import select, or_
+from sqlalchemy import and_, or_, select
 
 from backend.app.core.config import settings
 from backend.app.core.metrics import (
@@ -75,7 +75,9 @@ def rrf_fuse(rank_lists: list[list[dict]], k: int = 60) -> list[dict]:
             scores[cid] = scores.get(cid, 0.0) + 1.0 / (k + rank)
             by_id[cid] = item
             ranks.setdefault(cid, {})[f"path_{li}"] = rank
-    ordered = sorted(scores.items(), key=lambda kv: kv[1], reverse=True)
+    # Deterministic secondary key (finding #20): equal fused scores must
+    # order identically across runs, or metrics and regression tests wobble.
+    ordered = sorted(scores.items(), key=lambda kv: (-kv[1], kv[0]))
     out = []
     for cid, score in ordered:
         item = dict(by_id[cid])
@@ -134,14 +136,29 @@ class RetrievalService:
         if document_type:
             filters.append(DocumentChunk.document_type == document_type)
         if reporting_period:
-            # Match period stored on chunk or inside content.
+            # Exact period first; the text fallback applies only to chunks
+            # with no period metadata (invoices), so a passing "2024" in a
+            # 2023 chunk's prose can never match it (finding #19).
             filters.append(or_(DocumentChunk.reporting_period == reporting_period,
-                               DocumentChunk.content.contains(reporting_period)))
+                               and_(DocumentChunk.reporting_period.is_(None),
+                                    DocumentChunk.content.contains(reporting_period))))
         if company:
-            # Pre-filter (not only post-filter): never silently mix companies.
-            # Company must appear in content; otherwise the query is
-            # insufficient rather than cross-contaminated.
-            filters.append(DocumentChunk.content.contains(company))
+            # Canonical exact match first (finding #19): normalized against
+            # the same normalize_company() used at index time, so "HDFC Bank
+            # Ltd" and "hdfc bank" resolve identically. The substring fallback
+            # applies only to legacy chunks that predate company_norm —
+            # never silently mixing in a chunk whose canonical company is
+            # known and different.
+            from backend.app.services.chunking_service import normalize_company
+
+            norm = normalize_company(company)
+            if norm:
+                filters.append(or_(
+                    DocumentChunk.company_norm == norm,
+                    and_(DocumentChunk.company_norm.is_(None),
+                         DocumentChunk.content.contains(company))))
+            else:
+                filters.append(DocumentChunk.content.contains(company))
 
         sem: list[dict] = []
         vector_path = "disabled"
@@ -214,13 +231,20 @@ class RetrievalService:
             logger.warning("Could not set hnsw.ef_search", extra={
                 "error_type": type(e).__name__})
 
-    async def _load_eligible(self, filters, limit: int | None = None) -> list:
+    async def _load_eligible(self, filters, limit: int | None = None) -> tuple[list, bool]:
+        """Eligible rows plus a truncation flag (finding #19).
+
+        Fetches one row past the cap: when the fallback hits its bound, the
+        caller reports degraded/incomplete instead of silently returning a
+        partial corpus sweep.
+        """
+        cap = limit or settings.RETRIEVAL_FALLBACK_MAX_ROWS
         stmt = select(DocumentChunk).where(DocumentChunk.is_active == True)  # noqa: E712
         for f in filters:
             stmt = stmt.where(f)
-        stmt = stmt.order_by(DocumentChunk.id).limit(
-            limit or settings.RETRIEVAL_FALLBACK_MAX_ROWS)
-        return list((await self._db.execute(stmt)).scalars().all())
+        stmt = stmt.order_by(DocumentChunk.id).limit(cap + 1)
+        rows = list((await self._db.execute(stmt)).scalars().all())
+        return rows[:cap], len(rows) > cap
 
     async def _semantic(self, qvec, filters, limit: int,
                         strict: bool = False) -> tuple[list[dict], str, str | None]:
@@ -249,14 +273,20 @@ class RetrievalService:
                     "error_type": type(e).__name__})
                 if strict:
                     raise RetrievalError(f"strict: pgvector failed: {type(e).__name__}") from e
-                fallback = await self._cosine_fallback(qvec, filters, limit)
+                fallback, truncated = await self._cosine_fallback(qvec, filters, limit)
+                if truncated:
+                    return (fallback, "python-fallback",
+                            f"{type(e).__name__};fallback-truncated")
                 return (fallback, "python-fallback", type(e).__name__)
-        return (await self._cosine_fallback(qvec, filters, limit), "python-fallback", None)
+        fallback, truncated = await self._cosine_fallback(qvec, filters, limit)
+        if truncated:
+            return (fallback, "python-fallback", "fallback-truncated")
+        return (fallback, "python-fallback", None)
 
-    async def _cosine_fallback(self, qvec, filters, limit: int) -> list[dict]:
+    async def _cosine_fallback(self, qvec, filters, limit: int) -> tuple[list[dict], bool]:
         # Bounded and deterministic: never sweep an unbounded corpus in Python,
         # and break score ties on chunk id so ordering is reproducible.
-        rows = await self._load_eligible(filters)
+        rows, truncated = await self._load_eligible(filters)
         scored = []
         for c in rows:
             if not c.embedding:
@@ -266,8 +296,9 @@ class RetrievalService:
             except Exception:
                 continue
         scored.sort(key=lambda t: (-t[0], t[1]))
-        return [self._to_candidate(c, "vector", i + 1, score=s)
-                for i, (s, _cid, c) in enumerate(scored[:limit])]
+        return ([self._to_candidate(c, "vector", i + 1, score=s)
+                 for i, (s, _cid, c) in enumerate(scored[:limit])],
+                truncated)
 
     async def _keyword(self, query: str, filters, limit: int,
                        strict: bool = False) -> tuple[list[dict], str, str | None]:
@@ -297,12 +328,16 @@ class RetrievalService:
                     "error_type": type(e).__name__})
                 if strict:
                     raise RetrievalError(f"strict: FTS failed: {type(e).__name__}") from e
-                return (await self._overlap_fallback(query, filters, limit),
-                        "token-overlap", type(e).__name__)
-        return (await self._overlap_fallback(query, filters, limit), "token-overlap", None)
+                fallback, truncated = await self._overlap_fallback(query, filters, limit)
+                err = type(e).__name__ + (";fallback-truncated" if truncated else "")
+                return (fallback, "token-overlap", err)
+        fallback, truncated = await self._overlap_fallback(query, filters, limit)
+        if truncated:
+            return (fallback, "token-overlap", "fallback-truncated")
+        return (fallback, "token-overlap", None)
 
-    async def _overlap_fallback(self, query: str, filters, limit: int) -> list[dict]:
-        rows = await self._load_eligible(filters)
+    async def _overlap_fallback(self, query: str, filters, limit: int) -> tuple[list[dict], bool]:
+        rows, truncated = await self._load_eligible(filters)
         qtokens = set(tokenize(query))
         scored = []
         for c in rows:
@@ -312,8 +347,9 @@ class RetrievalService:
                 # Boost exact identifier/period matches; stable tie-break.
                 scored.append((overlap, str(c.id), c))
         scored.sort(key=lambda t: (-t[0], t[1]))
-        return [self._to_candidate(c, "keyword", i + 1, score=float(s))
-                for i, (s, _cid, c) in enumerate(scored[:limit])]
+        return ([self._to_candidate(c, "keyword", i + 1, score=float(s))
+                 for i, (s, _cid, c) in enumerate(scored[:limit])],
+                truncated)
 
     def _to_candidate(self, c: DocumentChunk, method: str, rank: int, score=None) -> dict:
         meta = dict(c.chunk_metadata or {})

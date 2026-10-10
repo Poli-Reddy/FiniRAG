@@ -15,15 +15,23 @@ from __future__ import annotations
 
 import io
 import logging
+import threading
 
 import fitz  # PyMuPDF
 from PIL import Image, ImageFile, ImageOps
+
+from backend.app.core.config import settings
 
 logger = logging.getLogger("finirag")
 
 # EXIF tag 0x0112. Values 2-8 all describe a rotation and/or a mirror;
 # 1 (and an absent tag) mean the pixels are already the right way up.
 _EXIF_ORIENTATION = 0x0112
+
+# Serializes the LOAD_TRUNCATED_IMAGES toggle below. The flag is
+# process-global; without the lock, two concurrent decodes could observe
+# each other's setting. The critical section is short and synchronous.
+_TRUNCATED_FLAG_LOCK = threading.Lock()
 
 
 class ImagePreprocessor:
@@ -41,6 +49,10 @@ class ImagePreprocessor:
         4. Return list of PIL Images (always 1 for images)
         """
         img = self._open(file_bytes)
+
+        # Decoded-size gate: compressed bytes say nothing about pixel cost.
+        # Reject before EXIF/transpose work allocates anything further.
+        self._check_pixels(img.width, img.height, "upload")
 
         # Read the tag before transposing: exif_transpose strips it from
         # the image it returns, so afterwards there is nothing left to
@@ -64,6 +76,16 @@ class ImagePreprocessor:
         })
 
         return [img]
+
+    @staticmethod
+    def _check_pixels(width: int, height: int, what: str) -> None:
+        """Reject absurd decoded dimensions before they cost memory/CPU."""
+        pixels = width * height
+        if pixels > settings.MAX_IMAGE_PIXELS:
+            raise ValueError(
+                f"{what} decodes to {width}x{height} "
+                f"({pixels} px), over the {settings.MAX_IMAGE_PIXELS} px cap"
+            )
 
     @staticmethod
     def _open(file_bytes: bytes) -> Image.Image:
@@ -91,9 +113,13 @@ class ImagePreprocessor:
         previous = ImageFile.LOAD_TRUNCATED_IMAGES
         ImageFile.LOAD_TRUNCATED_IMAGES = True
         try:
-            img = Image.open(io.BytesIO(file_bytes))
-            img.load()
-            return img
+            # Locked: the flag is process-global, and without serialization a
+            # concurrent decode could observe the other request's setting. The
+            # section is synchronous (no awaits), so the hold time is bounded.
+            with _TRUNCATED_FLAG_LOCK:
+                img = Image.open(io.BytesIO(file_bytes))
+                img.load()
+                return img
         finally:
             ImageFile.LOAD_TRUNCATED_IMAGES = previous
 
@@ -113,6 +139,15 @@ class ImagePreprocessor:
 
         for page_num in range(len(doc)):
             page = doc[page_num]
+            # Rendered-pixel gate first: a huge page rect at 300 DPI can
+            # decode to gigapixels from a small compressed file.
+            rect = page.rect
+            if rect.width * zoom * rect.height * zoom > settings.MAX_RENDER_PIXELS_PER_PAGE:
+                doc.close()
+                raise ValueError(
+                    f"page {page_num + 1} would render beyond the "
+                    f"{settings.MAX_RENDER_PIXELS_PER_PAGE} px cap"
+                )
             pix = page.get_pixmap(matrix=matrix, alpha=False)
 
             # Convert PyMuPDF pixmap to PIL Image

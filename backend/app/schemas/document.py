@@ -97,6 +97,12 @@ class HealthResponse(BaseModel):
     indexed_chunks: int = 0
     indexed_documents: int = 0
     provider_breakers: list[dict] = Field(default_factory=list)
+    # Per-subsystem native-path readiness (finding #24). retrieval_mode says
+    # what is CONFIGURED; these say what was VERIFIED cheaply (index
+    # presence, no provider calls). False on sqlite by design.
+    native_paths_ready: bool = False
+    vector_ready: bool = False
+    fts_ready: bool = False
 
 
 class ErrorResponse(BaseModel):

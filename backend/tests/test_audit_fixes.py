@@ -7,6 +7,7 @@ from datetime import datetime, timezone, timedelta
 
 import pytest
 import pytest_asyncio
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
 
 from backend.app.api.routes.qa import _guess_periods
@@ -19,8 +20,91 @@ from backend.app.services.embedding_service import EmbeddingService
 from backend.app.services.evidence_service import EvidenceService
 from backend.app.services.indexing_service import IndexingService
 from backend.app.services.retrieval_service import (
-    RetrievalService, RetrievalError, _dialect_name,
+    RetrievalService, RetrievalError, _dialect_name, rrf_fuse,
 )
+
+
+def test_rrf_tiebreak_is_deterministic():
+    """Finding #20: equal fused scores order by chunk id, not run order."""
+    a = [{"chunk_id": "b", "content": "x", "content_hash": "h1"}]
+    b = [{"chunk_id": "a", "content": "y", "content_hash": "h2"}]
+    first = [c["chunk_id"] for c in rrf_fuse([a, b], k=60)]
+    second = [c["chunk_id"] for c in rrf_fuse([b, a], k=60)]
+    assert first == second == ["a", "b"]
+
+
+def test_company_normalization():
+    from backend.app.services.chunking_service import normalize_company
+
+    assert normalize_company("HDFC Bank Ltd.") == "hdfc bank"
+    assert normalize_company("hdfc bank") == "hdfc bank"
+    assert normalize_company("  ") is None
+    assert normalize_company(None) is None
+    # Meaningful words are never stripped.
+    assert normalize_company("Tata Steel") == "tata steel"
+
+
+@pytest.mark.asyncio
+async def test_company_filter_matches_canonical_name(db):
+    """Finding #19: 'HDFC Bank Ltd' finds chunks indexed as 'hdfc bank'."""
+    from backend.app.services.chunking_service import ChunkingService
+
+    def _statement(company):
+        return {"company_name": {"value": company, "original_value": company,
+                                 "status": "EXPLICIT",
+                                 "evidence": {"source_text": company, "page_number": 1}},
+                "periods": {"2024": {
+                    "total_assets": {"value": "100", "original_value": "100",
+                                     "status": "EXPLICIT",
+                                     "evidence": {"source_text": "100", "page_number": 1},
+                                     "unit": "INR_CRORE"}}}}
+
+    for name, company in (("hdfc.pdf", "HDFC Bank Ltd."),
+                          ("tata.pdf", "Tata Steel Limited")):
+        db.add(Document(document_name=name, document_type="balance_sheet",
+                       processing_status="PASS", file_validation={"status": "PASS"},
+                       extracted_data=_statement(company),
+                       validation={"overall_status": "PASS", "checks": [], "summary": {}},
+                       processing_metadata={}, created_at=datetime.now(timezone.utc)))
+    await db.flush()
+    docs = (await db.execute(select(Document))).scalars().all()
+    emb = EmbeddingService(HashEmbeddingProvider())
+    for d in docs:
+        await IndexingService(db, embeddings=emb).index_document(d.id)
+    await db.commit()
+    out = await RetrievalService(db, emb).retrieve("total assets", company="hdfc bank")
+    names = {c["document_name"] for c in out["candidates"]}
+    assert names == {"hdfc.pdf"}
+
+
+@pytest.mark.asyncio
+async def test_company_filter_never_mixes_known_companies(db):
+    """A chunk with a different canonical company must not match."""
+    from backend.app.services.chunking_service import ChunkingService
+
+    def _statement(company):
+        return {"company_name": {"value": company, "original_value": company,
+                                 "status": "EXPLICIT",
+                                 "evidence": {"source_text": company, "page_number": 1}},
+                "periods": {"2024": {
+                    "total_assets": {"value": "100", "original_value": "100",
+                                     "status": "EXPLICIT",
+                                     "evidence": {"source_text": "100", "page_number": 1},
+                                     "unit": "INR_CRORE"}}}}
+
+    db.add(Document(document_name="tata.pdf", document_type="balance_sheet",
+                   processing_status="PASS", file_validation={"status": "PASS"},
+                   extracted_data=_statement("Tata Steel Limited"),
+                   validation={"overall_status": "PASS", "checks": [], "summary": {}},
+                   processing_metadata={}, created_at=datetime.now(timezone.utc)))
+    await db.flush()
+    docs = (await db.execute(select(Document))).scalars().all()
+    emb = EmbeddingService(HashEmbeddingProvider())
+    for d in docs:
+        await IndexingService(db, embeddings=emb).index_document(d.id)
+    await db.commit()
+    out = await RetrievalService(db, emb).retrieve("total assets", company="HDFC Bank")
+    assert out["candidates"] == []
 
 
 class _FakeScalars:
@@ -180,6 +264,11 @@ def test_migration_offline_sql():
     # Hardening migration: explicit HNSW params + active-chunk uniqueness.
     assert "USING hnsw (embedding vector_cosine_ops) WITH (m = 16, ef_construction = 64)" in sql
     assert "uq_chunks_active_hash" in sql and "WHERE is_active" in sql
+    # Correctness migration: retained source text + atomic job claims.
+    assert "ADD COLUMN source_text" in sql
+    assert "uq_active_job_per_document" in sql
+    assert "WHERE status IN ('PENDING', 'PROCESSING')" in sql
+    assert "idx_chunks_company" in sql
 
 
 def test_chunk_provenance_derived_vs_verbatim():
@@ -200,6 +289,87 @@ def test_chunk_provenance_derived_vs_verbatim():
     assert "evidence_kind" in header["source_evidence"]
     # Section chunks are derived.
     assert all("evidence_kind" in c["source_evidence"] for c in chunks)
+    # Nothing is verifiable without retained source text.
+    assert all(c["source_evidence"].get("evidence_kind") == "derived" for c in chunks)
+    assert all(c["source_evidence"].get("page_number") is None for c in chunks)
+
+
+def _invoice_evidence_data():
+    return {
+        "invoice_number": {"value": "INV-9", "original_value": "INV-9", "status": "EXPLICIT",
+                           "evidence": {"source_text": "Invoice No. INV-9", "page_number": 1}},
+        "total_amount": {"value": "108.00", "original_value": "108.00", "status": "EXPLICIT",
+                         "evidence": {"source_text": "Total: 108.00", "page_number": 2}},
+        "line_items": [],
+    }
+
+
+def test_snippet_verified_against_retained_source():
+    """A snippet found on the claimed page becomes verbatim with that page."""
+    svc = ChunkingService()
+    source = ("Invoice No. INV-9\n--- PAGE BREAK ---\n"
+              "Line items\nTotal: 108.00\nThank you")
+    chunks = svc.chunk_document(document_id=str(uuid.uuid4()), document_type="invoice",
+                                extracted_data=_invoice_evidence_data(),
+                                source_text=source, page_count=2,
+                                document_name="inv-9.jpg")
+    by_section = {c["section_name"]: c for c in chunks}
+    total = by_section["total_amount"]
+    assert total["source_evidence"]["evidence_kind"] == "verbatim"
+    assert total["source_evidence"]["page_number"] == 2
+    assert total["page_number"] == 2
+
+
+def test_snippet_absent_from_source_stays_derived():
+    """A snippet that cannot be found is kept as context, never quoted."""
+    svc = ChunkingService()
+    chunks = svc.chunk_document(document_id=str(uuid.uuid4()), document_type="invoice",
+                                extracted_data=_invoice_evidence_data(),
+                                source_text="Totally unrelated OCR text here",
+                                page_count=1, document_name="inv-9.jpg")
+    for c in chunks:
+        if c["chunk_type"] == "narrative":
+            continue
+        assert c["source_evidence"]["evidence_kind"] == "derived"
+        assert c["source_evidence"]["page_number"] is None
+        assert c["page_number"] is None
+
+
+def test_wrong_claimed_page_is_corrected():
+    """A snippet found on a different page than claimed is corrected."""
+    svc = ChunkingService()
+    source = "Page one has nothing\n--- PAGE BREAK ---\nTotal: 108.00 here"
+    chunks = svc.chunk_document(document_id=str(uuid.uuid4()), document_type="invoice",
+                                extracted_data={
+                                    "total_amount": {
+                                        "value": "108.00", "original_value": "108.00",
+                                        "status": "EXPLICIT",
+                                        "evidence": {"source_text": "Total: 108.00",
+                                                     "page_number": 1}}},
+                                source_text=source, page_count=2,
+                                document_name="inv-9.jpg")
+    total = next(c for c in chunks if c["section_name"] == "total_amount")
+    assert total["source_evidence"]["evidence_kind"] == "verbatim"
+    assert total["source_evidence"]["page_number"] == 2
+
+
+def test_out_of_range_page_is_dropped():
+    """An unlocatable snippet with an out-of-range page keeps no page."""
+    svc = ChunkingService()
+    chunks = svc.chunk_document(document_id=str(uuid.uuid4()), document_type="invoice",
+                                extracted_data={
+                                    "total_amount": {
+                                        "value": "108.00", "original_value": "108.00",
+                                        "status": "EXPLICIT",
+                                        "evidence": {"source_text": "Total: 999.99",
+                                                     "page_number": 5}}},
+                                source_text="Invoice No. INV-9 Total: 108.00",
+                                page_count=1, document_name="inv-9.jpg")
+    total = next(c for c in chunks if c["section_name"] == "total_amount")
+    # "Total: 999.99" is nowhere in the source and page 5 exceeds page_count=1.
+    assert total["source_evidence"]["evidence_kind"] == "derived"
+    assert total["source_evidence"]["page_number"] is None
+    assert total["page_number"] is None
 
 
 def test_evidence_supports_claim_level():
@@ -209,6 +379,11 @@ def test_evidence_supports_claim_level():
     assert EvidenceService.supports(verb, "total is 999.99") is False
     assert EvidenceService.supports({"citation_id": "x", "content": "abc",
                                      "source_text": ""}, "unrelated 12345") is False
+    # Negation polarity cannot be established from a source that lacks it.
+    assert EvidenceService.supports(verb, "total is not 108.00") is False
+    assert EvidenceService.supports(
+        {"citation_id": "y", "content": "Total was never reported",
+         "source_text": "never reported"}, "total was never reported") is True
 
 
 @pytest_asyncio.fixture
@@ -258,20 +433,21 @@ async def test_cosine_fallback_is_deterministic_on_ties(monkeypatch):
 
     svc = RetrievalService(_FakePGDB(), EmbeddingService(HashEmbeddingProvider()))
     async def fake_load(filters, limit=None):
-        return rows
+        return rows, False
     monkeypatch.setattr(svc, "_load_eligible", fake_load)
 
-    out = await svc._cosine_fallback([0.5] * 768, [], 3)
+    out, truncated = await svc._cosine_fallback([0.5] * 768, [], 3)
+    assert truncated is False
     ids = [c["chunk_id"] for c in out]
     assert ids == sorted(ids)  # stable id ordering
     # And repeated calls return the same order.
-    out2 = await svc._cosine_fallback([0.5] * 768, [], 3)
+    out2, _ = await svc._cosine_fallback([0.5] * 768, [], 3)
     assert [c["chunk_id"] for c in out2] == ids
 
 
 @pytest.mark.asyncio
 async def test_fallback_rows_are_bounded():
-    """_load_eligible must cap rows so the Python path never sweeps the corpus."""
+    """_load_eligible fetches one past the cap so truncation is detectable."""
     from sqlalchemy.dialects import postgresql
     from backend.app.core.config import settings
 
@@ -290,10 +466,31 @@ async def test_fallback_rows_are_bounded():
             return R()
 
     svc = RetrievalService(CapDB(), EmbeddingService(HashEmbeddingProvider()))
-    await svc._load_eligible([])
+    rows, truncated = await svc._load_eligible([])
+    assert rows == [] and truncated is False
     sql = str(captured["stmt"].compile(
         dialect=postgresql.dialect(), compile_kwargs={"literal_binds": True}))
-    assert f"LIMIT {settings.RETRIEVAL_FALLBACK_MAX_ROWS}" in sql
+    assert f"LIMIT {settings.RETRIEVAL_FALLBACK_MAX_ROWS + 1}" in sql
+
+
+@pytest.mark.asyncio
+async def test_fallback_truncation_is_reported(monkeypatch):
+    """A capped fallback sweep must surface as degraded, not silent."""
+    from backend.app.core.config import settings
+
+    did = uuid.uuid4()
+    rows = [_pg_chunk(did, content=f"some query text here row {i}") for i in range(3)]
+    svc = RetrievalService(_FakePGDB(), EmbeddingService(HashEmbeddingProvider()))
+
+    async def fake_load(filters, limit=None):
+        cap = limit or settings.RETRIEVAL_FALLBACK_MAX_ROWS
+        assert len(rows) <= cap  # fixture sanity: truncation comes from the flag
+        return rows, True  # truncated sweep of a larger corpus
+
+    monkeypatch.setattr(svc, "_load_eligible", fake_load)
+    out = await svc.retrieve("some query text here")
+    assert out["degraded"] is True
+    assert "fallback-truncated" in str(out["native_errors"])
 
 
 @pytest.mark.asyncio
@@ -350,7 +547,51 @@ async def test_stale_recovery_and_retry_bound(db):
 
 
 @pytest.mark.asyncio
-async def test_concurrent_ensure_idempotent(db):
+async def test_chunk_write_failure_preserves_document_and_job(db):
+    """Finding #6: a chunk-write failure must not roll back the document.
+
+    The document row and the retryable job row are created in the caller's
+    transaction BEFORE chunk replacement; only the savepoint may roll back.
+    """
+    from sqlalchemy import select
+
+    from backend.app.models.document import Document
+    from backend.app.models.rag import IndexingJob
+    from backend.app.repositories.rag_repository import ChunkRepository
+
+    doc = _doc(name="survivor.jpg", data={
+        "invoice_number": {"value": "INV-9", "original_value": "INV-9", "status": "EXPLICIT",
+                           "evidence": {"source_text": "INV-9", "page_number": 1}},
+        "line_items": []})
+    db.add(doc)
+    await db.flush()
+
+    svc = IndexingService(db, embeddings=EmbeddingService(HashEmbeddingProvider()))
+    job = await svc.ensure_job(doc.id)
+
+    async def _boom(*args, **kwargs):
+        raise RuntimeError("disk on fire")
+
+    monkeypatch = pytest.MonkeyPatch()
+    monkeypatch.setattr(ChunkRepository, "upsert_chunks", _boom)
+    try:
+        res = await svc.process_job(job)
+    finally:
+        monkeypatch.undo()
+    assert res["status"] == "FAILED" and res["error"] == "INDEX_WRITE_FAILED"
+
+    # Fresh reads (not the possibly-detached in-memory objects).
+    db.expunge_all()
+    assert (await db.execute(select(Document).where(Document.id == doc.id))
+            ).scalar_one_or_none() is not None
+    fresh_job = (await db.execute(select(IndexingJob).where(IndexingJob.id == job.id))
+                 ).scalar_one_or_none()
+    assert fresh_job is not None
+    assert fresh_job.status == "FAILED" and fresh_job.error_code == "INDEX_WRITE_FAILED"
+
+
+@pytest.mark.asyncio
+async def test_ensure_job_is_idempotent(db):
     doc = _doc(data={"invoice_number": {"value": "x", "original_value": "x",
                                         "status": "EXPLICIT",
                                         "evidence": {"source_text": "x", "page_number": 1}},
@@ -361,6 +602,50 @@ async def test_concurrent_ensure_idempotent(db):
     j1 = await svc.ensure_job(doc.id)
     j2 = await svc.ensure_job(doc.id)
     assert str(j1.id) == str(j2.id)
+
+
+@pytest.mark.asyncio
+async def test_ensure_job_lost_race_returns_winner(db, monkeypatch):
+    """Finding #8: a unique-conflict loser re-reads instead of duplicating.
+
+    The first read is forced to miss (as if a concurrent request inserted
+    between our read and our write); the partial unique index then rejects
+    the duplicate insert and ensure_job must return the existing winner.
+    """
+    from sqlalchemy import func, select
+    from sqlalchemy.exc import IntegrityError
+
+    from backend.app.models.rag import IndexingJob
+    from backend.app.repositories.rag_repository import IndexingJobRepository
+
+    doc = _doc(name="racy.jpg", data={
+        "invoice_number": {"value": "INV-9", "original_value": "INV-9", "status": "EXPLICIT",
+                           "evidence": {"source_text": "INV-9", "page_number": 1}},
+        "line_items": []})
+    db.add(doc)
+    await db.flush()
+
+    svc = IndexingService(db, embeddings=EmbeddingService(HashEmbeddingProvider()))
+    first = await svc.ensure_job(doc.id)
+
+    orig_get = IndexingJobRepository.get_active_for_document
+    calls = {"n": 0}
+
+    async def _flaky_get(self, document_id):
+        calls["n"] += 1
+        if calls["n"] == 1:
+            return None  # emulate the stale read of a concurrent loser
+        return await orig_get(self, document_id)
+
+    monkeypatch.setattr(IndexingJobRepository, "get_active_for_document", _flaky_get)
+    recovered = await svc.ensure_job(doc.id)
+    assert str(recovered.id) == str(first.id)
+    # Still exactly one active job — no duplicate was created.
+    n_active = (await db.execute(
+        select(func.count(IndexingJob.id)).where(
+            IndexingJob.document_id == doc.id,
+            IndexingJob.status.in_(["PENDING", "PROCESSING"])))).scalar_one()
+    assert n_active == 1
 
 
 def _invoice_data(status="EXPLICIT", value="108.00", unit="USD"):
@@ -454,3 +739,152 @@ async def test_failed_validation_stays_visible_in_evidence(db):
     kinds = [i["kind"] for i in ev["items"]]
     assert "validation_check" in kinds
     assert any("FAIL" in i["content"] for i in ev["items"] if i["kind"] == "validation_check")
+
+
+def test_oversized_image_rejected_before_ocr(monkeypatch):
+    """Finding #22: decoded pixels are capped, not just compressed bytes."""
+    from PIL import Image
+
+    from backend.app.core.config import settings
+    from backend.app.services.image_preprocessor import ImagePreprocessor
+
+    monkeypatch.setattr(settings, "MAX_IMAGE_PIXELS", 100)
+    img = Image.new("RGB", (10, 10), "white")  # 100 px: at the cap, passes
+    ImagePreprocessor._check_pixels(img.width, img.height, "test")
+    with pytest.raises(ValueError, match="over the .* px cap"):
+        ImagePreprocessor._check_pixels(11, 10, "test")
+
+
+def test_truncated_flag_restored_and_locked():
+    """Finding #22: the process-global Pillow flag is restored and guarded."""
+    import threading
+
+    from PIL import ImageFile
+
+    from backend.app.services import image_preprocessor as ip_mod
+    from backend.app.services.image_preprocessor import ImagePreprocessor
+
+    assert isinstance(ip_mod._TRUNCATED_FLAG_LOCK, type(threading.Lock()))
+    before = ImageFile.LOAD_TRUNCATED_IMAGES
+    try:
+        ImagePreprocessor._open(b"definitely not an image at all!!!!")
+    except Exception:
+        pass
+    assert ImageFile.LOAD_TRUNCATED_IMAGES is before
+
+
+def test_render_page_cap(monkeypatch, sample_pdf):
+    """Finding #22: absurd page dimensions fail before rendering."""
+    from backend.app.core.config import settings
+    from backend.app.services.image_preprocessor import ImagePreprocessor
+
+    monkeypatch.setattr(settings, "MAX_RENDER_PIXELS_PER_PAGE", 1)
+    with pytest.raises(ValueError, match="render beyond"):
+        ImagePreprocessor().render_pdf_pages(sample_pdf)
+
+
+@pytest.mark.asyncio
+async def test_prune_keeps_active_and_recent(db):
+    """Finding #23: only old INACTIVE chunks are prunable."""
+    import sys
+    from datetime import timedelta
+
+    sys.path.insert(0, ".")
+    from scripts.prune_chunks import prune
+
+    from backend.app.models.rag import DocumentChunk
+
+    doc = _doc(name="prune.jpg", data=_invoice_data())
+    db.add(doc)
+    await db.flush()
+    old = datetime.now(timezone.utc) - timedelta(days=60)
+    rows = [
+        # Old inactive: prunable.
+        DocumentChunk(document_id=doc.id, chunk_index=0, chunk_type="section",
+                      content="old", page_number=1, document_type="invoice",
+                      source_evidence={}, chunk_metadata={}, embedding=None,
+                      embedding_model="", index_version="v1", content_hash="h-old",
+                      is_active=False, created_at=old, updated_at=old),
+        # Recent inactive: retained (recovery window).
+        DocumentChunk(document_id=doc.id, chunk_index=1, chunk_type="section",
+                      content="recent", page_number=1, document_type="invoice",
+                      source_evidence={}, chunk_metadata={}, embedding=None,
+                      embedding_model="", index_version="v1", content_hash="h-new",
+                      is_active=False),
+        # Old but ACTIVE: never touched.
+        DocumentChunk(document_id=doc.id, chunk_index=2, chunk_type="section",
+                      content="live", page_number=1, document_type="invoice",
+                      source_evidence={}, chunk_metadata={}, embedding=None,
+                      embedding_model="", index_version="v1", content_hash="h-live",
+                      is_active=True, created_at=old, updated_at=old),
+    ]
+    db.add_all(rows)
+    await db.flush()
+
+    # NB: factory itself is sync (returns the context manager); only the
+    # protocol methods are async.
+    class _Ctx:
+        async def __aenter__(self):
+            return db
+
+        async def __aexit__(self, *args):
+            return False
+
+    def _sync_factory():
+        return _Ctx()
+
+    result = await prune(30, dry_run=False, session_factory=_sync_factory)
+    assert result == {"eligible": 1, "deleted": 1, "dry_run": False,
+                      "older_than_days": 30}
+    remaining = (await db.execute(select(DocumentChunk))).scalars().all()
+    assert sorted(c.content_hash for c in remaining) == ["h-live", "h-new"]
+
+
+def test_offline_guard_blocks_sockets():
+    """Finding #17: the unit suite cannot open TCP connections."""
+    import socket
+
+    with pytest.raises(AssertionError, match="must not open network connections"):
+        socket.create_connection(("example.com", 80))
+
+
+def test_key_pools_drained_by_fixture():
+    """Finding #17: module-singleton pools hold no live keys under tests."""
+    from backend.app.core import config as _config
+
+    assert _config.GEMINI_KEYS.keys == []
+    assert _config.GROQ_KEYS.keys == []
+    assert _config.MISTRAL_KEYS.keys == []
+    from backend.app.core.config import settings
+
+    assert settings.MISTRAL_API_KEY == ""
+
+
+def test_migration_0003_offline_sql():
+    """Finding #8/#9: source_text column + active-job uniqueness in DDL."""
+    import subprocess
+
+    proc = subprocess.run(
+        ["python", "-m", "alembic", "upgrade", "head", "--sql"],
+        capture_output=True, text=True, cwd=".")
+    assert proc.returncode == 0, proc.stderr[-2000:]
+    sql = proc.stdout
+    assert "ADD COLUMN source_text" in sql
+    assert "uq_active_job_per_document" in sql
+    assert "WHERE status IN ('PENDING', 'PROCESSING')" in sql
+    assert "idx_chunks_company" in sql
+
+
+def test_baseline_required_columns_match_orm():
+    """Finding #27: adoption validation covers the deployed schema."""
+    import importlib.util
+
+    from backend.app.models.document import Document
+
+    spec = importlib.util.spec_from_file_location(
+        "m0000", "alembic/versions/0000_documents.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    orm_columns = {c.name for c in Document.__table__.columns}
+    # source_text arrives via 0003; the baseline must require everything else.
+    assert module.REQUIRED_DOCUMENT_COLUMNS == orm_columns - {"source_text"}

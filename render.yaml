@@ -28,6 +28,10 @@ services:
         sync: false
       - key: MISTRAL_API_KEY
         sync: false
+      # Shared-secret API gate. sync:false like the provider keys — set in
+      # the dashboard before public exposure; health stays public either way.
+      - key: API_KEYS
+        sync: false
       - key: OCR_PROVIDER
         value: mistral
       - key: LLM_PROVIDER

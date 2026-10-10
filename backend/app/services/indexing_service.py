@@ -29,11 +29,28 @@ class IndexingService:
         self._embeddings = embeddings or EmbeddingService()
 
     async def ensure_job(self, document_id) -> object:
-        """Idempotent: reuse active job, else create PENDING."""
+        """Idempotent: reuse active job, else create PENDING.
+
+        The read-then-insert above races under concurrency, so creation runs
+        in a savepoint: the loser gets IntegrityError from
+        uq_active_job_per_document, rolls back ONLY the savepoint (the
+        caller's document insert is untouched), and re-reads the winner.
+        """
+        from sqlalchemy.exc import IntegrityError
+
         active = await self._jobs.get_active_for_document(document_id)
         if active is not None:
             return active
-        return await self._jobs.create_pending(document_id, settings.INDEX_VERSION)
+        try:
+            async with self._db.begin_nested():
+                return await self._jobs.create_pending(document_id, settings.INDEX_VERSION)
+        except IntegrityError:
+            # Lost the race — another request inserted first.
+            pass
+        winner = await self._jobs.get_active_for_document(document_id)
+        if winner is None:  # pragma: no cover - defensive; index guarantees a row
+            raise RuntimeError("indexing job vanished after unique conflict")
+        return winner
 
     async def process_job(self, job) -> dict:
         """Run one job: chunks -> embeddings -> persist. Never touches OCR.
@@ -77,7 +94,12 @@ class IndexingService:
 
         drafts = self._chunking.chunk_document(
             document_id=str(doc.id), document_type=doc.document_type,
-            extracted_data=doc.extracted_data, source_text="",
+            extracted_data=doc.extracted_data,
+            # Retained OCR/native text when available; older rows and
+            # vision-fallback successes carry NULL and index derived
+            # content only — honestly, not silently.
+            source_text=doc.source_text or "",
+            page_count=(doc.file_validation or {}).get("page_count"),
             document_name=doc.document_name)
         if not drafts:
             await self._jobs.mark_failed(job, "NO_INDEXABLE_CONTENT", "no chunks built")
@@ -106,15 +128,21 @@ class IndexingService:
                 inserted = await self._chunks.upsert_chunks(drafts)
                 await self._jobs.mark_completed(job)
         except Exception as e:
-            try:
-                await self._db.rollback()
-            except Exception:
-                pass
-            # Re-read job state after rollback; mark failed in a fresh write.
-            try:
-                await self._jobs.mark_failed(job, "INDEX_WRITE_FAILED", type(e).__name__)
-            except Exception:
-                pass
+            # The savepoint above already rolled back ONLY the chunk
+            # replacement on context exit. Never call session.rollback() here:
+            # it would also undo the caller's uncommitted document insert and
+            # job row, contradicting the guarantee that indexing failure never
+            # invalidates a processed document. Instead detach the stale
+            # in-memory chunk objects (deactivated flags, unflushed inserts)
+            # so they cannot leak into a later flush, re-fetch the still-
+            # persisted job row, and record the failure on it.
+            self._db.expunge_all()
+            fresh = await self._jobs.get_by_id(job.id)
+            if fresh is not None:
+                try:
+                    await self._jobs.mark_failed(fresh, "INDEX_WRITE_FAILED", type(e).__name__)
+                except Exception:
+                    pass
             metrics.inc(INDEXING_JOBS, {"status": "failed", "error": "INDEX_WRITE_FAILED"})
             metrics.observe(INDEXING_LATENCY, _time.perf_counter() - _start)
             return {"status": "FAILED", "error": "INDEX_WRITE_FAILED"}

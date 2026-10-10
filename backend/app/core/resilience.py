@@ -80,10 +80,9 @@ def is_rate_limit(exc: Exception) -> bool:
     name = type(exc).__name__
     if name in ("ResourceExhausted", "TooManyRequests", "RateLimitError", "RateLimited"):
         return True
-    if _status_code(exc) == 429:
-        return True
-    text = str(exc).lower()
-    return any(m in text for m in ("rate limit", "quota", "429", "too many requests"))
+    # Structured status only — same contract as the extraction provider:
+    # retiring a key is destructive, so message wording alone never counts.
+    return _status_code(exc) == 429
 
 
 def retry_after_seconds(exc: Exception) -> float | None:
