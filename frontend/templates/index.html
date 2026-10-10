@@ -104,6 +104,7 @@
                 <button class="tab active" data-tab="extracted">Extracted Data</button>
                 <button class="tab" data-tab="validation">Validation</button>
                 <button class="tab" data-tab="metadata">Metadata</button>
+                <button class="tab" data-tab="indexing">Indexing</button>
                 <button class="tab" data-tab="raw">Raw JSON</button>
             </div>
 
@@ -121,6 +122,11 @@
             <!-- Tab Content: Metadata -->
             <div class="tab-content" id="tab-metadata">
                 <div class="metadata-grid" id="metadataGrid"></div>
+            </div>
+
+            <!-- Tab Content: Indexing -->
+            <div class="tab-content" id="tab-indexing">
+                <div id="indexPanel"><p class="empty-state">Loading index status…</p></div>
             </div>
 
             <!-- Tab Content: Raw JSON -->
@@ -194,21 +200,60 @@
                     <label>Reporting period (optional)
                         <input type="text" id="qaPeriod" placeholder="e.g. 2024">
                     </label>
+                    <label>Document type (optional)
+                        <select id="qaDocType">
+                            <option value="">All types</option>
+                            <option value="invoice">Invoice / Receipt</option>
+                            <option value="balance_sheet">Balance Sheet</option>
+                            <option value="profit_and_loss">Profit &amp; Loss</option>
+                            <option value="cash_flow_statement">Cash Flow Statement</option>
+                        </select>
+                    </label>
+                    <label>Company (optional)
+                        <input type="text" id="qaCompany" placeholder="e.g. HDFC Bank">
+                    </label>
+                    <label>Document ID (optional)
+                        <input type="text" id="qaDocId" placeholder="UUID of a processing attempt">
+                    </label>
                 </div>
                 <button type="button" class="btn-primary" id="qaAskBtn">Ask</button>
                 <div class="qa-loading" id="qaLoading" style="display:none;">Answering…</div>
                 <div class="qa-error" id="qaError" style="display:none;"></div>
                 <div class="qa-answer" id="qaAnswer" style="display:none;">
                     <h3>Answer</h3>
+                    <div class="qa-provider-line" id="qaProvider"></div>
+                    <div class="qa-degraded" id="qaDegraded" style="display:none;"></div>
                     <div id="qaAnswerText"></div>
                     <h4>Sources</h4>
                     <div id="qaCitations"></div>
                     <h4>Financial facts</h4>
                     <div id="qaFacts"></div>
+                    <h4>Calculations</h4>
+                    <div id="qaCalcs"></div>
                     <h4>Validation</h4>
                     <div id="qaValidation"></div>
+                    <h4>Limitations</h4>
+                    <div id="qaLimits"></div>
                     <details><summary>Retrieval metadata</summary><pre id="qaMeta"></pre></details>
                 </div>
+            </div>
+        </section>
+        <!-- ─── Operations Section ─── -->
+        <section class="ops-section" id="opsSection">
+            <h2>Operations</h2>
+            <p class="upload-subtitle">Live readiness and RAG metrics. No document content or secrets are exposed here.</p>
+            <h3>System health</h3>
+            <div class="metadata-grid" id="opsHealth"><p class="empty-state">Loading health…</p></div>
+            <h3>Metrics <button type="button" class="btn-secondary" id="opsRefreshBtn">Refresh</button></h3>
+            <div class="metadata-grid" id="opsMetrics"><p class="empty-state">Loading metrics…</p></div>
+            <h3>Indexing job lookup</h3>
+            <div class="qa-card">
+                <label>Job ID (UUID)
+                    <input type="text" id="jobIdInput" placeholder="e.g. 11111111-2222-3333-4444-555555555555">
+                </label>
+                <button type="button" class="btn-primary" id="jobLookupBtn">Look up job</button>
+                <div class="qa-error" id="jobError" style="display:none;"></div>
+                <div id="jobResult"></div>
             </div>
         </section>
     </main>

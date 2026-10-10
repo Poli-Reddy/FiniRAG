@@ -2,7 +2,8 @@
  * FiniRAG — Frontend Application Logic
  *
  * Handles: file upload, API calls, result rendering, tab switching,
- * history loading, health check, and drag & drop.
+ * history loading, health check, Q&A with retrieval provenance,
+ * per-document indexing status + reindex, operations metrics, and drag & drop.
  */
 
 // ─── State ───
@@ -170,6 +171,7 @@ function showResult(result) {
     renderValidation(result.validation);
     renderMetadata(result);
     document.getElementById('rawJson').textContent = JSON.stringify(result, null, 2);
+    loadResultIndex(result.document_name);
 
     // Reset tab to first
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -386,7 +388,10 @@ function validationMarkup(validation) {
         if (check.variance !== null && check.variance !== undefined) {
             detail += ` | Variance: ${check.variance}`;
         }
-        if (check.reason) detail = check.reason;
+        if (check.tolerance !== null && check.tolerance !== undefined) {
+            detail += ` | Tolerance: ${check.tolerance}`;
+        }
+        if (check.reason) detail += ` | Reason: ${check.reason}`;
 
         checksHtml += `
             <div class="check-item">
@@ -451,6 +456,98 @@ function metadataMarkup(result) {
 
 function renderMetadata(result) {
     document.getElementById('metadataGrid').innerHTML = metadataMarkup(result);
+}
+
+// ─── Indexing (per-document status + reindex) ───
+function indexStatusBadge(status) {
+    const cls = status === 'COMPLETED' ? 'status-pass'
+        : (status === 'FAILED' ? 'status-fail' : 'status-na');
+    return `<span class="${cls}">${escapeHtml(status || 'UNKNOWN')}</span>`;
+}
+
+function indexPanelMarkup(st) {
+    if (!st || st.error) {
+        return `<p class="empty-state">${escapeHtml(st?.error || 'Index status unavailable')}</p>`;
+    }
+    let html = `<div class="data-group"><div class="data-group-title">Index status</div>`;
+    html += `<div class="data-row"><span class="data-label">Status</span><span class="data-value">${indexStatusBadge(st.status)}</span></div>`;
+    if (st.chunk_count !== undefined) html += `<div class="data-row"><span class="data-label">Active chunks</span><span class="data-value">${escapeHtml(st.chunk_count)}</span></div>`;
+    if (st.index_version) html += `<div class="data-row"><span class="data-label">Index version</span><span class="data-value">${escapeHtml(st.index_version)}</span></div>`;
+    if (st.attempt_count !== undefined) html += `<div class="data-row"><span class="data-label">Attempts</span><span class="data-value">${escapeHtml(st.attempt_count)}</span></div>`;
+    if (st.job_id) html += `<div class="data-row"><span class="data-label">Job ID</span><span class="data-value"><code>${escapeHtml(st.job_id)}</code></span></div>`;
+    if (st.error_code) html += `<div class="data-row"><span class="data-label">Error</span><span class="data-value">${escapeHtml(st.error_code)}${st.error_message ? ` — ${escapeHtml(st.error_message)}` : ''}</span></div>`;
+    html += `</div>`;
+    if (st.document_id) {
+        html += `<button type="button" class="btn-secondary" data-reindex="${escapeHtml(st.document_id)}">Reindex document</button>
+                 <div class="index-job-note"></div>`;
+    }
+    if (st.status === 'PENDING' || st.status === 'PROCESSING') {
+        html += `<p class="empty-state">Jobs are processed by the indexing worker (<code>python scripts/run_indexing_worker.py</code>); status updates when it runs.</p>`;
+    }
+    return html;
+}
+
+async function fetchIndexStatus(documentId) {
+    const response = await fetch(`/api/v1/documents/${encodeURIComponent(documentId)}/index-status`);
+    const data = await response.json();
+    if (!response.ok) {
+        const code = data?.detail?.code || `HTTP ${response.status}`;
+        return { error: String(code) };
+    }
+    return data;
+}
+
+async function loadResultIndex(documentName) {
+    const panel = document.getElementById('indexPanel');
+    if (!panel) return;
+    panel.innerHTML = '<p class="empty-state">Loading index status…</p>';
+    try {
+        // The process response carries no attempt id; resolve it by name.
+        const rec = await fetch(`/api/v1/documents/${encodeURIComponent(documentName)}`);
+        const recData = await rec.json();
+        if (!rec.ok || !recData.id) {
+            panel.innerHTML = '<p class="empty-state">Index status unavailable for this result.</p>';
+            return;
+        }
+        const st = await fetchIndexStatus(recData.id);
+        panel.innerHTML = indexPanelMarkup(st);
+        wireReindexButtons(panel, () => loadResultIndex(documentName));
+    } catch (err) {
+        panel.innerHTML = `<p class="empty-state">${escapeHtml(err.message || 'Index status unavailable')}</p>`;
+    }
+}
+
+function wireReindexButtons(root, rerender) {
+    root.querySelectorAll('[data-reindex]').forEach(btn => {
+        btn.addEventListener('click', async () => {
+            const note = root.querySelector('.index-job-note');
+            const docId = btn.getAttribute('data-reindex');
+            btn.disabled = true;
+            try {
+                const response = await fetch(`/api/v1/documents/${encodeURIComponent(docId)}/reindex`, { method: 'POST' });
+                const data = await response.json();
+                if (!response.ok) {
+                    const code = data?.detail?.code || `HTTP ${response.status}`;
+                    throw new Error(String(code));
+                }
+                if (note) note.textContent = `Reindex job ${data.job_id} (${data.status}). Refreshing status…`;
+                // Poll the job a few times; indexing is bounded server-side.
+                for (let i = 0; i < 4; i++) {
+                    await new Promise(r => setTimeout(r, 2000));
+                    try {
+                        const js = await fetch(`/api/v1/indexing/jobs/${encodeURIComponent(data.job_id)}`);
+                        const jd = await js.json();
+                        if (js.ok && (jd.status === 'COMPLETED' || jd.status === 'FAILED')) break;
+                    } catch (_) { /* keep polling */ }
+                }
+                await rerender();
+            } catch (err) {
+                if (note) note.textContent = `Reindex failed: ${err.message || err}`;
+            } finally {
+                btn.disabled = false;
+            }
+        });
+    });
 }
 
 // ─── Tab Switching ───
@@ -626,8 +723,21 @@ async function toggleHistoryResult(row, documentName) {
             return;
         }
         detailRow.querySelector('td').innerHTML = renderInlineHistoryResult(result);
+        loadHistoryIndex(detailRow, result.id);
     } catch (err) {
         detailRow.querySelector('td').innerHTML = `<div class="history-detail-error">${escapeHtml(err.message || 'Failed to load stored result')}</div>`;
+    }
+}
+
+async function loadHistoryIndex(detailRow, documentId) {
+    const slot = detailRow.querySelector('[data-index-slot]');
+    if (!slot || !documentId) return;
+    try {
+        const st = await fetchIndexStatus(documentId);
+        slot.innerHTML = indexPanelMarkup(st);
+        wireReindexButtons(slot, () => loadHistoryIndex(detailRow, documentId));
+    } catch (err) {
+        slot.innerHTML = `<p class="empty-state">${escapeHtml(err.message || 'Index status unavailable')}</p>`;
     }
 }
 
@@ -650,6 +760,7 @@ function renderInlineHistoryResult(result) {
                 <section><h4>Extracted Data</h4><div class="data-grid">${extractedDataMarkup(result.extracted_data, result.document_type)}</div></section>
                 <section><h4>Validation</h4><div class="validation-summary">${renderedValidation.summary}</div><div class="validation-checks">${renderedValidation.checks}</div></section>
                 <section><h4>Metadata</h4><div class="metadata-grid">${metadataMarkup(result)}</div></section>
+                <section><h4>Indexing</h4><div data-index-slot><p class="empty-state">Loading index status…</p></div></section>
                 <section><h4>Raw JSON</h4><pre class="json-view">${escapeHtml(JSON.stringify(result, null, 2))}</pre></section>
             </div>
         </div>
@@ -673,18 +784,151 @@ async function checkHealth() {
             dot.className = 'status-dot disconnected';
             text.textContent = 'DB Disconnected';
         }
+        statusEl.title = healthTooltip(data);
     } catch (err) {
         dot.className = 'status-dot disconnected';
         text.textContent = 'Offline';
+        statusEl.title = 'Health endpoint unreachable';
     }
 }
+
+function healthTooltip(data) {
+    if (!data || typeof data !== 'object') return 'Health unavailable';
+    const parts = [
+        `status: ${data.status || '?'}`,
+        `database: ${data.database || '?'}`,
+        `retrieval: ${data.retrieval_mode || '?'}`,
+        `embedding: ${data.embedding_model || '?'}${data.embedding_configured ? '' : ' (not configured)'}`,
+        `indexed: ${data.indexed_documents ?? '?'} documents / ${data.indexed_chunks ?? '?'} chunks`,
+    ];
+    const open = (data.provider_breakers || []).filter(b => b.state && b.state !== 'closed');
+    if (open.length) parts.push(`breakers open: ${open.map(b => b.provider || '?').join(', ')}`);
+    return parts.join(' • ');
+}
+
+// ─── Operations ───
+function metricCard(label, value) {
+    return `<div class="metadata-card"><div class="metadata-label">${escapeHtml(label)}</div>` +
+        `<div class="metadata-value">${escapeHtml(value)}</div></div>`;
+}
+
+async function loadOps() {
+    const healthGrid = document.getElementById('opsHealth');
+    const metricsGrid = document.getElementById('opsMetrics');
+    try {
+        const [healthRes, metricsRes] = await Promise.all([
+            fetch('/api/v1/health'),
+            fetch('/metrics?format=json'),
+        ]);
+        const health = await healthRes.json();
+        const snap = await metricsRes.json();
+        if (!healthRes.ok) throw new Error(`health HTTP ${healthRes.status}`);
+        if (!metricsRes.ok) throw new Error(`metrics HTTP ${metricsRes.status}`);
+
+        const breakers = (health.provider_breakers || []).map(b =>
+            `${b.provider || '?'}: ${b.state || '?'}`).join(', ') || 'none tripped';
+        healthGrid.innerHTML =
+            metricCard('Status', health.status || '?') +
+            metricCard('Database', health.database || '?') +
+            metricCard('Retrieval mode', health.retrieval_mode || '?') +
+            metricCard('Embedding model', `${health.embedding_model || '?'}${health.embedding_configured ? '' : ' (not configured)'}`) +
+            metricCard('Indexed documents', health.indexed_documents ?? '?') +
+            metricCard('Active chunks', health.indexed_chunks ?? '?') +
+            metricCard('Index version', health.index_version || '?') +
+            metricCard('Provider breakers', breakers);
+
+        metricsGrid.innerHTML = opsMetricsMarkup(snap);
+    } catch (err) {
+        const msg = `<p class="empty-state">${escapeHtml(err.message || 'Operations data unavailable')}</p>`;
+        if (healthGrid) healthGrid.innerHTML = msg;
+        if (metricsGrid) metricsGrid.innerHTML = msg;
+    }
+}
+
+function opsMetricsMarkup(snap) {
+    if (!snap || typeof snap !== 'object') return '<p class="empty-state">No metrics</p>';
+    const counters = snap.counters || {};
+    const gauges = snap.gauges || {};
+    const sumCounter = (name) => Object.values(counters[name] || {}).reduce((a, b) => a + Number(b || 0), 0);
+    const sumWhere = (name, substr) => Object.entries(counters[name] || {})
+        .filter(([k]) => k.includes(substr)).reduce((a, [, b]) => a + Number(b || 0), 0);
+    const gaugeVal = (name) => {
+        const vals = Object.values(gauges[name] || {});
+        return vals.length ? vals.reduce((a, b) => a + Number(b || 0), 0) : '—';
+    };
+    const answersBy = (outcome) => sumWhere('finirag_answer_requests_total', `'outcome', '${outcome}'`);
+    const httpErr = Object.entries(counters.finirag_http_requests_total || {})
+        .filter(([k]) => /'status', '([45]\d\d)'/.test(k))
+        .reduce((a, [, b]) => a + Number(b || 0), 0);
+    return (
+        metricCard('HTTP requests', sumCounter('finirag_http_requests_total')) +
+        metricCard('HTTP errors (4xx/5xx)', httpErr) +
+        metricCard('Answers: answered', answersBy('answered')) +
+        metricCard('Answers: abstained', answersBy('abstained')) +
+        metricCard('Answer fallbacks', sumCounter('finirag_answer_fallbacks_total')) +
+        metricCard('Claims dropped', sumCounter('finirag_claims_dropped_total')) +
+        metricCard('Retrieval degraded', sumWhere('finirag_retrieval_requests_total', "'degraded', 'true'")) +
+        metricCard('Retrieval empty', sumCounter('finirag_retrieval_empty_total')) +
+        metricCard('Index jobs completed', sumWhere('finirag_indexing_jobs_total', "'status', 'completed'")) +
+        metricCard('Index jobs failed', sumWhere('finirag_indexing_jobs_total', "'status', 'failed'")) +
+        metricCard('Pending index jobs', gaugeVal('finirag_indexing_pending_jobs')) +
+        metricCard('Documents processed', sumCounter('finirag_documents_processed_total'))
+    );
+}
+
+document.getElementById('opsRefreshBtn')?.addEventListener('click', loadOps);
+
+// ─── Job lookup ───
+document.getElementById('jobLookupBtn')?.addEventListener('click', async () => {
+    const input = document.getElementById('jobIdInput');
+    const errorEl = document.getElementById('jobError');
+    const resultEl = document.getElementById('jobResult');
+    errorEl.style.display = 'none';
+    resultEl.innerHTML = '';
+    const jobId = input?.value?.trim() || '';
+    if (!jobId) {
+        errorEl.textContent = 'Enter a job ID.';
+        errorEl.style.display = 'block';
+        return;
+    }
+    try {
+        const response = await fetch(`/api/v1/indexing/jobs/${encodeURIComponent(jobId)}`);
+        const data = await response.json();
+        if (!response.ok) {
+            const code = data?.detail?.code || `HTTP ${response.status}`;
+            throw new Error(String(code));
+        }
+        let html = '<div class="data-group"><div class="data-group-title">Indexing job</div>';
+        const rows = [
+            ['Job ID', data.job_id], ['Document ID', data.document_id],
+            ['Status', data.status], ['Attempts', data.attempt_count],
+            ['Index version', data.index_version],
+        ];
+        for (const [label, value] of rows) {
+            html += `<div class="data-row"><span class="data-label">${escapeHtml(label)}</span><span class="data-value">${escapeHtml(value ?? '—')}</span></div>`;
+        }
+        if (data.error_code) {
+            html += `<div class="data-row"><span class="data-label">Error</span><span class="data-value">${escapeHtml(data.error_code)}${data.error_message ? ` — ${escapeHtml(data.error_message)}` : ''}</span></div>`;
+        }
+        for (const [label, key] of [['Created', 'created_at'], ['Started', 'started_at'], ['Completed', 'completed_at']]) {
+            if (data[key]) html += `<div class="data-row"><span class="data-label">${escapeHtml(label)}</span><span class="data-value">${escapeHtml(new Date(data[key]).toLocaleString())}</span></div>`;
+        }
+        resultEl.innerHTML = html + '</div>';
+    } catch (err) {
+        errorEl.textContent = err.message || 'Job lookup failed';
+        errorEl.style.display = 'block';
+    }
+});
 
 // ─── Q&A ───
 const qaAskBtn = document.getElementById('qaAskBtn');
 qaAskBtn?.addEventListener('click', async () => {
     const question = document.getElementById('qaQuestion')?.value?.trim() || '';
+    const document_id = document.getElementById('qaDocId')?.value?.trim() || undefined;
     const document_name = document.getElementById('qaDocName')?.value?.trim() || undefined;
+    const document_type = document.getElementById('qaDocType')?.value || undefined;
     const reporting_period = document.getElementById('qaPeriod')?.value?.trim() || undefined;
+    const company = document.getElementById('qaCompany')?.value?.trim() || undefined;
     const loading = document.getElementById('qaLoading');
     const errorEl = document.getElementById('qaError');
     const answerEl = document.getElementById('qaAnswer');
@@ -703,27 +947,15 @@ qaAskBtn?.addEventListener('click', async () => {
         const response = await fetch('/api/v1/qa/ask', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ question, document_name, reporting_period }),
+            body: JSON.stringify({ question, document_id, document_name, document_type, reporting_period, company }),
             signal: controller.signal,
         });
         clearTimeout(timeout);
         const data = await response.json();
         if (!response.ok) {
-            const code = data?.detail?.code || data?.error?.code || `HTTP ${response.status}`;
-            throw new Error(String(code));
+            throw new Error(qaErrorMessage(response, data));
         }
-        document.getElementById('qaAnswerText').textContent = data.answer || '';
-        document.getElementById('qaCitations').innerHTML = (data.citations || []).map(c =>
-            `<div>${escapeHtml(c.citation_id)} — ${escapeHtml(c.document_name || '')} p.${escapeHtml(c.page_number ?? '')}</div>`).join('') || '<div>None</div>';
-        document.getElementById('qaFacts').innerHTML = (data.financial_facts || []).map(f =>
-            `<div>${escapeHtml(JSON.stringify(f))}</div>`).join('') || '<div>None</div>';
-        document.getElementById('qaValidation').innerHTML = (data.validation_checks || []).map(v =>
-            `<div>${escapeHtml(v?.name || '')}: ${escapeHtml(v?.status || '')}</div>`).join('') || '<div>None</div>';
-        document.getElementById('qaMeta').textContent = JSON.stringify({ status: data.status, intents: data.intents, retrieval_metadata: data.retrieval_metadata }, null, 2);
-        if (data.status === 'INSUFFICIENT_EVIDENCE') {
-            errorEl.textContent = 'Insufficient evidence — the answer was withheld.';
-            errorEl.style.display = 'block';
-        }
+        renderQaAnswer(data);
         answerEl.style.display = 'grid';
     } catch (err) {
         errorEl.textContent = err?.name === 'AbortError' ? 'Request timed out.' : (err.message || 'Q&A failed');
@@ -733,6 +965,88 @@ qaAskBtn?.addEventListener('click', async () => {
         qaAskBtn.disabled = false;
     }
 });
+
+function qaErrorMessage(response, data) {
+    const code = data?.detail?.code || data?.error?.code || `HTTP ${response.status}`;
+    const msg = data?.detail?.message || data?.error?.message || '';
+    // Surface server guidance for throttling and pipeline timeouts.
+    if (response.status === 429) {
+        const retryAfter = response.headers?.get?.('Retry-After');
+        const hint = retryAfter ? ` Retry after ${retryAfter}s.` : ' Please slow down and retry.';
+        return `${code}: ${(msg || 'Too many requests.') + hint}`;
+    }
+    if (code === 'QA_TIMEOUT') {
+        return `${code}: ${msg || 'The answer took too long to produce. Please retry.'}`;
+    }
+    return msg ? `${code}: ${msg}` : String(code);
+}
+
+function renderQaAnswer(data) {
+    const errorEl = document.getElementById('qaError');
+    const meta = data.retrieval_metadata || {};
+    // The API contract is a list, but normalize defensively so one shaped
+    // response can never blank the whole answer panel.
+    const asArray = (v) => Array.isArray(v) ? v : (v ? [v] : []);
+    const provider = data.answer_provider || 'unknown';
+    document.getElementById('qaProvider').innerHTML =
+        `Answered by <strong>${escapeHtml(provider)}</strong>` +
+        (asArray(data.intents).length ? ` · intents: ${escapeHtml(asArray(data.intents).join(', '))}` : '') +
+        (data.request_id ? ` · request <code>${escapeHtml(data.request_id)}</code>` : '');
+
+    // Retrieval health: never bury a degraded path in raw JSON.
+    const degradedBox = document.getElementById('qaDegraded');
+    const problems = [];
+    if (meta.degraded) problems.push('retrieval was degraded');
+    if (meta.semantic_available === false) problems.push('semantic search unavailable — keyword retrieval only');
+    const nativeErrs = meta.native_errors && typeof meta.native_errors === 'object'
+        ? Object.entries(meta.native_errors).map(([k, v]) => `${k}: ${v}`).join(', ') : '';
+    if (nativeErrs) problems.push(`native retrieval errors (${nativeErrs})`);
+    if (problems.length) {
+        degradedBox.textContent = `Warning: ${problems.join('; ')}. Treat the answer with extra caution.`;
+        degradedBox.style.display = 'block';
+    } else {
+        degradedBox.style.display = 'none';
+        const paths = [meta.vector_path, meta.keyword_path].filter(Boolean).join(' + ');
+        if (paths) {
+            degradedBox.textContent = `Retrieval: ${paths}.`;
+            degradedBox.className = 'qa-degraded qa-degraded-ok';
+            degradedBox.style.display = 'block';
+        } else {
+            degradedBox.className = 'qa-degraded';
+        }
+    }
+
+    document.getElementById('qaAnswerText').textContent = data.answer || '';
+    document.getElementById('qaCitations').innerHTML = (asArray(data.citations).map(c => {
+        const kind = c.evidence_kind === 'verbatim' ? 'verbatim' : 'derived';
+        const badge = `<span class="prov-badge ${kind}">${kind === 'verbatim' ? 'verbatim quote' : 'derived summary'}</span>`;
+        return `<div class="cite-row"><span>${escapeHtml(c.citation_id)} — ${escapeHtml(c.document_name || '')} p.${escapeHtml(c.page_number ?? '')}</span>${badge}</div>`;
+    }).join('')) || '<div>None</div>';
+    document.getElementById('qaFacts').innerHTML = (asArray(data.financial_facts).map(f => {
+        if (typeof f === 'string') return `<div>${escapeHtml(f)}</div>`;
+        return `<div class="data-row"><span class="data-label">${escapeHtml(f.field || 'fact')}</span>` +
+            `<span class="data-value">${escapeHtml(f.value ?? '—')}${f.unit ? ` (${escapeHtml(f.unit)})` : ''}${f.status ? ` [${escapeHtml(f.status)}]` : ''}</span></div>`;
+    }).join('')) || '<div>None</div>';
+    document.getElementById('qaCalcs').innerHTML = (asArray(data.calculations).map(c => {
+        const periods = Array.isArray(c.periods) ? c.periods.join(' → ') : '';
+        return `<div class="data-row"><span class="data-label">${escapeHtml(c.field || 'calculation')}${periods ? ` (${escapeHtml(periods)})` : ''}</span>` +
+            `<span class="data-value">Δ ${escapeHtml(c.difference ?? '—')}${c.unit ? ` (${escapeHtml(c.unit)})` : ''}</span></div>`;
+    }).join('')) || '<div>None</div>';
+    document.getElementById('qaValidation').innerHTML = (asArray(data.validation_checks).map(v =>
+        `<div class="check-item"><span class="check-badge ${(v?.status === 'PASS' ? 'pass' : v?.status === 'FAIL' ? 'fail' : 'na')}">${escapeHtml(v?.status || 'N/A')}</span>` +
+        `<div><div class="check-name">${escapeHtml(v?.name || '')}</div>` +
+        (v?.formula ? `<div class="check-detail">${escapeHtml(v.formula)}</div>` : '') + `</div></div>`
+    ).join('')) || '<div>None</div>';
+    document.getElementById('qaLimits').innerHTML = (asArray(data.limitations).map(l =>
+        `<div>• ${escapeHtml(typeof l === 'string' ? l : JSON.stringify(l))}</div>`).join('')) || '<div>None</div>';
+    document.getElementById('qaMeta').textContent = JSON.stringify({
+        status: data.status, intents: data.intents, retrieval_metadata: data.retrieval_metadata,
+    }, null, 2);
+    if (data.status === 'INSUFFICIENT_EVIDENCE') {
+        errorEl.textContent = 'Insufficient evidence — the answer was withheld.';
+        errorEl.style.display = 'block';
+    }
+}
 
 // ─── Utilities ───
 function escapeHtml(s) {
@@ -755,3 +1069,4 @@ function formatBytes(bytes) {
 // ─── Init ───
 checkHealth();
 loadHistory();
+loadOps();

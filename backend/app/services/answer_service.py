@@ -169,7 +169,9 @@ class AnswerService:
         def _cite_dict(cid: str) -> dict:
             it = by_id[cid]
             return {"citation_id": cid, "document_name": it.get("document_name"),
-                    "page_number": it.get("page_number")}
+                    "page_number": it.get("page_number"),
+                    "evidence_kind": it.get("evidence_kind", "derived"),
+                    "verbatim_available": bool(it.get("verbatim_available", False))}
 
         # Pass 1: drop fabricated citations, keep the rest for repair below.
         for c in citations or []:

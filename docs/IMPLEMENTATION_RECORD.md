@@ -158,6 +158,42 @@ amounts, or secrets. Alert starting points are in `README.md` §10.
 
 ---
 
+## 5b. Phase 5 — Frontend parity with the backend
+
+Gap analysis found the Q&A UI exposed 2 of 5 request filters and almost none
+of the answer contract, and indexing/operations had no UI at all. Fixed
+without new dependencies (vanilla HTML/CSS/JS, existing design tokens):
+
+- **Q&A filters**: added document type, company, and document ID alongside
+  name/period — all five `QAAskRequest` filters are now usable.
+- **Q&A answers**: renders `answer_provider`, `intents`, `request_id`,
+  `limitations`, and `calculations`; citations carry **verbatim-quote vs
+  derived-summary badges** (backend `_cite_dict` was extended with
+  `evidence_kind`/`verbatim_available` — additive, tests unaffected);
+  financial facts render as field/value/unit/status rows instead of JSON
+  blobs; retrieval health (`vector_path`/`keyword_path`/`degraded`/
+  `semantic_available`/`native_errors`) shows as a banner, not buried JSON.
+- **Q&A errors**: 429 surfaces the message plus `Retry-After`; 504 surfaces
+  the server's `QA_TIMEOUT` guidance; response shapes are normalized
+  defensively so one odd payload can't blank the panel (found live:
+  `financial_facts` can arrive as a single object).
+- **Indexing UI**: new result-tab panel and history-detail section show
+  status/chunks/version/attempts/error with a reindex button (polls the job,
+  then refreshes); queued jobs name the draining worker command; a
+  job-lookup form exposes `GET /indexing/jobs/{id}`.
+- **Operations section**: health grid (status, database, retrieval mode,
+  embedding model, indexed documents/chunks, breaker states) + live metrics
+  summary from `/metrics?format=json` with refresh; header dot keeps its
+  behavior and gains a tooltip with the same detail.
+- **Validation tab**: tolerance shown; reason appended instead of overwriting
+  the formula detail.
+- Verified live against the running backend: new element IDs served,
+  metrics JSON shape matches the ops parser, index-status/reindex/job
+  endpoints round-trip, and a scoped QA call returned the full answer shape
+  the renderer consumes.
+
+---
+
 ## 6. Decisions log (why, not just what)
 
 - **pgvector in the existing Postgres, not a vector DB.** One datastore to

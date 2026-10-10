@@ -189,7 +189,24 @@ https://YOUR-APP.onrender.com/
 ```
 
 The frontend is served directly by FastAPI from `frontend/templates` and
-`frontend/static`.
+`frontend/static`. It covers every backend capability:
+
+- **Upload + result tabs**: process a document, then inspect extracted data,
+  validation (formula, calculated/reported/variance/tolerance, reason),
+  metadata, and raw JSON.
+- **Q&A**: all five request filters (document id/name/type, period, company);
+  answers show the responding provider, intents, request id, citations with
+  verbatim-vs-derived provenance badges, financial facts, calculations,
+  validation checks, limitations, a degraded-retrieval warning whenever the
+  vector/keyword path fell back, and raw retrieval metadata. 429/504 errors
+  surface the server's message (including `Retry-After`).
+- **Indexing**: per-document status (status, chunks, version, attempts,
+  error) with a reindex button in both the result tab and the history detail
+  view; a job-lookup form; queued jobs name the worker command that drains
+  them (`python scripts/run_indexing_worker.py`).
+- **Operations**: system-health grid (status, database, retrieval mode,
+  embedding model, indexed documents/chunks, breaker states) plus a metrics
+  summary read live from `/metrics`, with a refresh button.
 
 ## 8. Backend URL
 
