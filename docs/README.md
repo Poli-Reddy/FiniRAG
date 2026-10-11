@@ -215,24 +215,20 @@ https://YOUR-APP.onrender.com/
 ```
 
 The frontend is served directly by FastAPI from `frontend/templates` and
-`frontend/static`. It covers every backend capability:
+`frontend/static`. Customer surface only (indexing status, metrics, and
+job internals live behind the API for operators):
 
-- **Upload + result tabs**: process a document, then inspect extracted data,
-  validation (formula, calculated/reported/variance/tolerance, reason),
-  metadata, and raw JSON.
-- **Q&A**: all five request filters (document id/name/type, period, company);
-  answers show the responding provider, intents, request id, citations with
-  verbatim-vs-derived provenance badges, financial facts, calculations,
-  validation checks, limitations, a degraded-retrieval warning whenever the
-  vector/keyword path fell back, and raw retrieval metadata. 429/504 errors
+- **Upload + result**: process a document, then inspect extracted data and
+  validation (formula, calculated/reported/variance/tolerance, reason).
+- **Processing History**: every processed document (search/type/validation
+  filters, newest-first pagination); click a row for its stored result.
+- **Q&A**: one question box (document scope is resolved server-side from
+  filenames in the question) with a sample placeholder, plus a clickable
+  list of 151 grounded sample questions served by `GET /api/v1/qa/samples`
+  (answers show citations with verbatim-vs-derived provenance badges,
+  financial facts, calculations, validation checks, limitations, and a
+  degraded-retrieval warning whenever a path fell back). 429/504 errors
   surface the server's message (including `Retry-After`).
-- **Indexing**: per-document status (status, chunks, version, attempts,
-  error) with a reindex button in both the result tab and the history detail
-  view; a job-lookup form; queued jobs name the worker command that drains
-  them (`python scripts/run_indexing_worker.py`).
-- **Operations**: system-health grid (status, database, retrieval mode,
-  embedding model, indexed documents/chunks, breaker states) plus a metrics
-  summary read live from `/metrics`, with a refresh button.
 
 ## 8. Backend URL
 
@@ -347,7 +343,16 @@ a timestamped marker so a metric shift can be attributed to a deploy.
 ```bash
 curl -X POST https://YOUR-APP.onrender.com/api/v1/qa/ask \
   -H "Content-Type: application/json" \
-  -d '{"question":"What is the total amount?","document_name":"batch3-1354.jpg"}'
+  -d '{"question":"What is the total amount on invoice batch3-1354.jpg?"}'
+```
+
+Document scope lives in the question text (filenames are resolved
+server-side); the request also accepts optional `document_id`,
+`document_name`, `document_type`, `reporting_period`, and `company`
+filters for API callers. Sample questions for the dashboard:
+
+```text
+GET /api/v1/qa/samples
 ```
 
 ### Indexing
@@ -358,9 +363,13 @@ POST /api/v1/documents/{document_id}/reindex
 GET /api/v1/indexing/jobs/{job_id}
 ```
 
-No auth is implemented; the expensive endpoints carry a per-client rate
+An optional shared-secret gate (`API_KEYS`, `Authorization: Bearer` or
+`X-API-Key`; `/health` stays public) protects every data route when set,
+and production refuses to boot without it unless `ALLOW_OPEN_API=true`
+is explicitly set. The expensive endpoints carry a per-client rate
 limit (429 `RATE_LIMITED` with `Retry-After`) and every response carries
-`X-Request-ID` for log correlation. Do not describe the public endpoints as
+`X-Request-ID` for log correlation. The gate is single-tenant scoping,
+not per-user ownership — do not describe the public endpoints as
 production-secure.
 
 ### Controlled error response
@@ -376,15 +385,29 @@ production-secure.
 
 ## 11. OCR Approach
 
-The service first validates the upload and probes PDFs for usable native text.
-If native text is unavailable, PDF pages are rendered and image documents are
-preprocessed with EXIF orientation correction. Mistral OCR then extracts page
-text and layout blocks.
+PDFs go through two-stage hybrid routing, per page: a fast classifier
+(text-layer coverage vs image area, no rendering) labels each page
+`NATIVE`, `SCANNED`, or `MIXED` (uncertain defaults to `MIXED`, the safe
+side). Native pages extract PyMuPDF text (+ structured tables) with no
+OCR; scanned pages render + OCR as before; mixed pages merge native
+blocks with OCR run **only on cropped image regions**, in reading order
+with native-preferred deduplication. JPG/PNG uploads always take the OCR
+path with EXIF orientation correction. Mistral OCR extracts page text
+and layout blocks; per-block failures mark that block `UNREADABLE`
+instead of failing the page.
+
+The extraction method per document is `native_pdf` (all pages native),
+`ocr` (all pages scanned), or `hybrid`, with per-page provenance
+(classification, coverage, image/OCR block counts, native-vs-OCR
+sources) in `processing_metadata.text_pages`. Counters
+`finirag_pages_total` vs `finirag_ocr_pages_total` show how much OCR
+the classifier avoided.
 
 The OCR path supports:
 
 - Native PDFs
 - Scanned PDFs
+- Mixed-content PDFs (native text + scanned regions on one page)
 - JPEG invoices and receipts
 - PNG documents
 - Multi-page documents up to three pages

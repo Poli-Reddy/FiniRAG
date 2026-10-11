@@ -87,6 +87,9 @@ class DocumentService:
         self._ocr_service = OCRService()
         self._extraction_service = ExtractionService()
         self._financial_validator = FinancialValidationService()
+        # Per-page hybrid extraction provenance of the last processed
+        # document (reset per call — instances are reused across uploads).
+        self._last_text_pages: list[dict] = []
 
     async def process_document(
         self,
@@ -100,6 +103,8 @@ class DocumentService:
         Returns a complete DocumentProcessResponse.
         """
         start_time = time.time()
+        # Fresh provenance per document (instances are reused across uploads).
+        self._last_text_pages = []
 
         logger.info("Request received", extra={
             "document_name": filename,
@@ -312,6 +317,10 @@ class DocumentService:
             ),
             processed_at=datetime.now(timezone.utc).isoformat(),
             processing_time_ms=elapsed_ms,
+            # Hybrid Stage-1/2 provenance per page (native vs OCR blocks).
+            # [] for image uploads and pre-hybrid rows — absence honestly
+            # means "no page-level record", never fabricated provenance.
+            text_pages=list(self._last_text_pages),
         )
 
         document = Document(
@@ -374,25 +383,45 @@ class DocumentService:
     ) -> tuple[str, str, str | None]:
         """
         Extract text using the routing strategy:
-          PDF → try native text → fallback to render+OCR
+          PDF → per-page hybrid (native / scanned / mixed-content merge)
           Image → preprocess → OCR
 
-        Returns: (aggregated_text, method, ocr_provider_or_none)
+        Returns: (aggregated_text, method, ocr_provider_or_none).
+        Method is "native_pdf" when every page was native, "ocr" when every
+        page needed full OCR, "hybrid" for any mix in between. Page-level
+        provenance accumulates on self for the caller to persist.
         """
-        # Try native PDF text first (Correction #1)
-        native_result = self._text_router.should_use_native_text(
-            file_bytes, file_type
+        # Non-PDFs have no text layer: preprocess → OCR (unchanged path).
+        if file_type != "application/pdf":
+            return await self._extract_text_ocr(file_bytes, file_type)
+
+        # PDFs: two-stage hybrid routing (Stage 1 classify, Stage 2
+        # native / full-page OCR / selective block OCR + merge).
+        from backend.app.services.hybrid_text_extractor import extract_pdf_hybrid
+
+        hybrid = await extract_pdf_hybrid(
+            file_bytes, self._preprocessor, self._ocr_service)
+        self._last_text_pages = hybrid["pages"]
+        self._record_extraction_metrics(hybrid["pages"])
+        return (_join_pages(hybrid["page_texts"]), hybrid["method"],
+                hybrid["ocr_provider"])
+
+    @staticmethod
+    def _record_extraction_metrics(pages: list[dict]) -> None:
+        """ocr_pages_total vs pages_total, by Stage-1 classification."""
+        from backend.app.core.metrics import (
+            OCR_PAGES_TOTAL, PAGES_TOTAL, metrics,
         )
 
-        if native_result is not None:
-            # Native text is usable — aggregate all pages
-            return _join_pages(native_result.text_by_page), "native_pdf", None
+        for p in pages:
+            metrics.inc(PAGES_TOTAL, {"classification": p.get("classification", "?")})
+            if (p.get("ocr_blocks_processed") or 0) > 0:
+                metrics.inc(OCR_PAGES_TOTAL,
+                            {"classification": p.get("classification", "?")})
 
-        # Fall back to render + OCR
-        if file_type == "application/pdf":
-            images = self._preprocessor.render_pdf_pages(file_bytes)
-        else:
-            images = self._preprocessor.preprocess_images(file_bytes, file_type)
+    async def _extract_text_ocr(self, file_bytes: bytes, file_type: str):
+        """Preprocess → OCR path for images (and anything non-PDF)."""
+        images = self._preprocessor.preprocess_images(file_bytes, file_type)
 
         # OCR all pages
         ocr_results = await self._ocr_service.extract_text_from_images(images)

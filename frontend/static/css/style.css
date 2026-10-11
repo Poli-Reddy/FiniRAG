@@ -889,14 +889,17 @@ body::before {
 .qa-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 1.5rem; display: grid; gap: 1rem; }
 .qa-card label { display: grid; gap: 0.4rem; font-size: 0.8rem; color: var(--text-secondary); }
 .qa-card input, .qa-card select { padding: 0.7rem 0.9rem; background: var(--bg-secondary); border: 1px solid var(--border); border-radius: var(--radius-sm); color: var(--text-primary); font-size: 0.9rem; font-family: inherit; }
-.qa-filters { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
 .qa-loading { color: var(--accent); font-size: 0.85rem; }
 .qa-error { color: var(--danger); font-size: 0.85rem; }
+/* Sample-question chips (customer Q&A entry points). */
+.qa-samples { margin-top: 0.25rem; }
+.qa-samples-title { font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.4rem; }
+.qa-samples-list { display: flex; flex-wrap: wrap; gap: 0.4rem; max-height: 11rem; overflow-y: auto; }
+.qa-sample-chip { padding: 0.3rem 0.65rem; border-radius: 999px; border: 1px solid var(--border); background: rgba(255, 255, 255, 0.04); color: var(--text-primary); font-size: 0.78rem; cursor: pointer; text-align: left; font-family: inherit; }
+.qa-sample-chip:hover { border-color: var(--accent); color: var(--accent); }
 .qa-answer { display: grid; gap: 0.75rem; font-size: 0.85rem; color: var(--text-secondary); }
 .qa-answer h3, .qa-answer h4 { color: var(--text-primary); margin-top: 0.5rem; }
 .qa-answer pre { white-space: pre-wrap; font-size: 0.72rem; }
-.qa-provider-line { font-size: 0.8rem; color: var(--text-muted); }
-.qa-provider-line code { font-size: 0.75rem; }
 .qa-degraded { padding: 0.6rem 0.9rem; border-radius: var(--radius-sm); font-size: 0.8rem; background: var(--danger-bg); border: 1px solid rgba(239, 68, 68, 0.25); color: var(--danger); }
 .qa-degraded-ok { background: var(--success-bg); border-color: rgba(16, 185, 129, 0.25); color: var(--success); }
 .cite-row { display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; padding: 0.4rem 0; border-bottom: 1px solid var(--border); }
@@ -907,14 +910,7 @@ body::before {
 .status-pass { color: var(--success); font-weight: 600; }
 .status-fail { color: var(--danger); font-weight: 600; }
 .status-na { color: var(--text-muted); font-weight: 600; }
-.index-job-note { font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.5rem; }
-
-/* ─── Operations ─── */
-.ops-section { margin-top: 3rem; }
-.ops-section h2 { font-size: 1.2rem; font-weight: 600; margin-bottom: 0.25rem; }
-.ops-section h3 { font-size: 0.95rem; font-weight: 600; margin: 1.25rem 0 0.5rem; color: var(--text-primary); display: flex; align-items: center; gap: 0.75rem; }
 .header-status { cursor: default; }
-@media (max-width: 768px) { .qa-filters { grid-template-columns: 1fr; } }
 
 /* ─── Responsive ─── */
 @media (max-width: 768px) {

@@ -170,29 +170,13 @@
             <p class="upload-subtitle">Answers use indexed evidence + structured values. Sources and validation are shown separately — an LLM answer alone is not verification.</p>
             <div class="qa-card">
                 <label>Question
-                    <input type="text" id="qaQuestion" placeholder="e.g. What is the total amount on invoice batch3-1354?" maxlength="2000">
+                    <input type="text" id="qaQuestion" placeholder="e.g. What is the total amount on invoice batch3-1354.jpg?" maxlength="2000">
                 </label>
-                <div class="qa-filters">
-                    <label>Document name (optional)
-                        <input type="text" id="qaDocName" placeholder="exact filename">
-                    </label>
-                    <label>Reporting period (optional)
-                        <input type="text" id="qaPeriod" placeholder="e.g. 2024">
-                    </label>
-                    <label>Document type (optional)
-                        <select id="qaDocType">
-                            <option value="">All types</option>
-                            <option value="invoice">Invoice / Receipt</option>
-                            <option value="balance_sheet">Balance Sheet</option>
-                            <option value="profit_and_loss">Profit &amp; Loss</option>
-                            <option value="cash_flow_statement">Cash Flow Statement</option>
-                        </select>
-                    </label>
-                    <label>Company (optional)
-                        <input type="text" id="qaCompany" placeholder="e.g. HDFC Bank">
-                    </label>
-                </div>
                 <button type="button" class="btn-primary" id="qaAskBtn">Ask</button>
+                <div class="qa-samples" id="qaSamples">
+                    <div class="qa-samples-title">Try one:</div>
+                    <div class="qa-samples-list" id="qaSamplesList"><span class="empty-state">Loading sample questions…</span></div>
+                </div>
                 <div class="qa-loading" id="qaLoading" style="display:none;">Answering…</div>
                 <div class="qa-error" id="qaError" style="display:none;"></div>
                 <div class="qa-answer" id="qaAnswer" style="display:none;">

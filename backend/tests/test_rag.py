@@ -721,3 +721,52 @@ def test_router_intents():
     assert "RECONCILIATION_STATUS" in r.classify("Does the balance sheet reconcile?").intents
     assert "FINANCIAL_COMPARISON" in r.classify("Compare 2023 vs 2024 assets").intents
     assert r.classify("").intents == ["INSUFFICIENT_OR_UNSUPPORTED"]
+
+
+def test_router_exact_identity_fields():
+    """Real-corpus finding: vendor/invoice-number/amount-paid wording must
+    reach SQL, not retrieval-only."""
+    r = QuestionRouter()
+    for q in ("What is the vendor on invoice batch3-1354.jpg?",
+              "What is the invoice number on invoice batch3-1354.jpg?",
+              "What is the amount paid on invoice batch3-1354.jpg?",
+              "What were net increase in cash in 2017 on Consolidated Cash Flow Statement 2017.pdf?",
+              "What were total assets in 2024 on Consolidated Balance Sheet 2024.pdf?"):
+        d = r.classify(q)
+        assert "EXACT_FINANCIAL_VALUE" in d.intents, q
+        assert d.needs_sql is True, q
+
+
+def test_router_future_prediction_abstains():
+    r = QuestionRouter()
+    d = r.classify("What will total income be next year?")
+    assert d.intents == ["INSUFFICIENT_OR_UNSUPPORTED"]
+    assert d.needs_sql is False and d.needs_retrieval is False
+
+
+def test_comparison_difference_survives_claim_check():
+    """Pipeline-computed differences appear in no snippet; the validator
+    must trust them without trusting model text."""
+    from backend.app.services.answer_service import AnswerService
+
+    items = [
+        {"citation_id": "CIT-1", "document_id": "d1",
+         "document_name": "s.pdf", "field": "total_assets@2016",
+         "content": "total_assets@2016 = 100 (original: 100)", "value": "100",
+         "unit": "INR_CRORE"},
+        {"citation_id": "CIT-2", "document_id": "d1",
+         "document_name": "s.pdf", "field": "total_assets@2017",
+         "content": "total_assets@2017 = 130 (original: 130)", "value": "130",
+         "unit": "INR_CRORE"},
+    ]
+    meta = {"comparison": {"ok": True, "field": "total_assets",
+                           "period_a": "2016", "period_b": "2017",
+                           "value_a": "100", "value_b": "130",
+                           "difference": "30", "unit": "INR_CRORE",
+                           "a": {"document_id": "d1"},
+                           "b": {"document_id": "d1"}}}
+    ans = AnswerService()._template_answer(
+        "How did total assets change between 2016 and 2017 on s.pdf?",
+        items, meta, None)
+    assert ans.status == "ANSWERED"
+    assert "30" in ans.answer

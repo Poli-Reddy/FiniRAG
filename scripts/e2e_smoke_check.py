@@ -48,6 +48,8 @@ def run_local() -> bool:
                      "uploadForm" in r.text and "historyTable" in r.text)
         ok &= _check("no key entry in customer UI",
                      "apiKeyInput" not in r.text and "api-key-box" not in r.text)
+        ok &= _check("question-only Q&A (no filter inputs)",
+                     "qaSamplesList" in r.text and "qaDocName" not in r.text)
 
         r = client.get("/static/js/app.js")
         ok &= _check("frontend JS served", r.status_code == 200,
@@ -104,6 +106,20 @@ def run_local() -> bool:
                 ok &= _check("unsupported abstains w/o LLM spend",
                              body.get("status") == "INSUFFICIENT_EVIDENCE",
                              str(body.get("status")))
+
+        r = client.get("/api/v1/qa/samples")
+        if r.status_code == 401:
+            print("  info: API_KEYS gate is ON (anonymous samples rejected as designed)")
+        else:
+            ok &= _check("sample questions served", r.status_code == 200,
+                         f"HTTP {r.status_code}")
+            if r.status_code == 200:
+                samples = r.json().get("samples", [])
+                ok &= _check("samples without ground truth",
+                             len(samples) > 50 and all(
+                                 set(s) == {"id", "question", "category"}
+                                 for s in samples[:20]),
+                             f"{len(samples)} samples")
     return ok
 
 

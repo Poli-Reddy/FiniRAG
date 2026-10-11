@@ -233,5 +233,13 @@ INDEXING_PENDING = "finirag_indexing_pending_jobs"
 DOCUMENTS_PROCESSED = "finirag_documents_processed_total"
 DOCUMENT_LATENCY = "finirag_document_processing_duration_seconds"
 
+# Hybrid text extraction: how much OCR the page classifier avoided.
+# PAGES_TOTAL counts every PDF page by Stage-1 classification;
+# OCR_PAGES_TOTAL counts pages where any OCR ran (full page or crops).
+# ocr_pages_total vs pages_total is the avoided-OCR ratio — labels are
+# low-cardinality kinds only, never filenames or text.
+PAGES_TOTAL = "finirag_pages_total"
+OCR_PAGES_TOTAL = "finirag_ocr_pages_total"
+
 # The process-wide registry.
 metrics = MetricsRegistry()

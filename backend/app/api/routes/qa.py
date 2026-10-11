@@ -10,9 +10,11 @@ cannot pin a worker indefinitely.
 from __future__ import annotations
 
 import asyncio
+import json
 import logging
 import re
 import uuid
+from pathlib import Path
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -34,6 +36,29 @@ logger = logging.getLogger("finirag")
 router = APIRouter(prefix="/api/v1/qa", tags=["qa"])
 
 router_instance = QuestionRouter()
+
+# Curated sample questions grounded in the real 50-document corpus
+# (evaluation/rag_real_questions.json). Served WITHOUT expected answers:
+# id/question/category only — ground truth never leaves the server.
+# backend/app/api/routes/qa.py is five levels below the project root.
+_SAMPLES_PATH = Path(__file__).resolve().parent.parent.parent.parent.parent / "evaluation" / "rag_real_questions.json"
+
+
+@router.get("/samples",
+            dependencies=[Depends(require_api_key), Depends(rate_limit)])
+async def question_samples() -> dict:
+    """Clickable sample questions for the dashboard Q&A panel."""
+    try:
+        bank = json.loads(_SAMPLES_PATH.read_text(encoding="utf-8"))
+        return {"samples": [
+            {"id": q.get("id"), "question": q.get("question"),
+             "category": q.get("category")}
+            for q in bank if q.get("id") and q.get("question")],
+            "count": len(bank)}
+    except Exception as e:
+        logger.warning("Sample questions unavailable", extra={
+            "error_type": type(e).__name__})
+        return {"samples": [], "count": 0}
 
 # Heuristic field vocabulary for exact-value extraction from free text.
 # Maps to whitelisted FinancialQueryService field ids only — never to dynamic

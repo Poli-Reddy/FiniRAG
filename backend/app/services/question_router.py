@@ -30,13 +30,22 @@ _PATTERNS = [
     (re.compile(r"\b(reconcil|validation|validat|check.*pass|does.*balance|do.*books.*balance)\b", re.I), "RECONCILIATION_STATUS", True, False, True),
     (re.compile(r"\b(discrepancy|mismatch|why.*fail|failed.*check|error in|inconsisten)\b", re.I), "DISCREPANCY_ANALYSIS", True, True, True),
     (re.compile(r"\b(compare|comparison|difference|change between|vs\.?|versus|growth|increase from|across (periods|years|documents))\b", re.I), "FINANCIAL_COMPARISON", True, True, False),
-    (re.compile(r"\b(what is the|how much|total|amount of|value of|figure for|show me the|give me the)\b.*\b(total|subtotal|tax|assets?|liabilit|income|expenditure|profit|cash|equity|revenue|balance)\b", re.I), "EXACT_FINANCIAL_VALUE", True, False, False),
+    # Exact-value: question words include was/were/are (statements ask
+    # "What were total assets in 2024?"), and the field group covers the
+    # whitelisted identity fields users ask about in ordinary wording
+    # ("vendor", "invoice number", "amount paid") — verified by the
+    # 151-question real-corpus eval, where these routed to retrieval-only
+    # and exact answers were lost.
+    (re.compile(r"\b(what is the|what are the|what was|what were|how much|total|amount of|value of|figure for|show me the|give me the)\b.*\b(total|subtotal|tax|assets?|liabilit|income|expenditure|profit|cash|equity|revenue|balance|vendor|customer|invoice|number|date|due|currency|payment|method|eps|paid)\b", re.I), "EXACT_FINANCIAL_VALUE", True, False, False),
     (re.compile(r"\b(invoice (number|date|id)|find invoice|show invoice|list (invoices|documents))\b", re.I), "DOCUMENT_LOOKUP", False, True, False),
     (re.compile(r"\b(what is|what does|explain|define|meaning of|how does|why is)\b", re.I), "CONCEPTUAL_QUESTION", False, True, False),
 ]
 
 _MULTI = re.compile(r"\b(across|both|all documents|multiple|compare.*and)\b", re.I)
-_UNSUPPORTED = re.compile(r"\b(stock price|forecast|predict|recommend|should i (buy|invest)|tax advice|legal advice)\b", re.I)
+# Future-tense predictions ("what will X be next year") are advice, not
+# retrieval — verified by the real-corpus eval, where they routed to SQL
+# and produced values instead of abstaining.
+_UNSUPPORTED = re.compile(r"\b(stock price|forecast|predict|recommend|should i (buy|invest)|tax advice|legal advice|next (year|quarter|month|period))\b", re.I)
 
 
 class QuestionRouter:

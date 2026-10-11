@@ -42,6 +42,10 @@ Thumbs.db
 !evaluation/rag_questions.json
 !evaluation/rag_report.json
 !evaluation/rag_live_report.json
+# Grounded sample-question bank for the dashboard Q&A panel. Values match
+# the already-shipped results JSONs; expected answers are served only via
+# id/question/category (never ground truth) by GET /api/v1/qa/samples.
+!evaluation/rag_real_questions.json
 # Live-eval script is code, not a secret report (skips without credentials).
 !evaluation/rag_live_evaluation.py
 

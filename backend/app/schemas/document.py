@@ -32,11 +32,16 @@ class FileValidationResult(BaseModel):
 
 class ProcessingMetadata(BaseModel):
     """Metadata about how the document was processed."""
-    text_extraction_method: str = ""  # "native_pdf" | "ocr"
+    text_extraction_method: str = ""  # "native_pdf" | "ocr" | "hybrid"
     ocr_provider: str | None = None   # "google_vision" | "<llm>_vision" | "none"
     llm_provider: str = ""            # "gemini"
     processed_at: str = ""            # ISO timestamp
     processing_time_ms: int = 0
+    # Per-page hybrid extraction provenance (empty for image uploads and
+    # pre-hybrid rows): [{page_number, classification, native_text_coverage,
+    # image_block_count, ocr_blocks_processed, source_types}]. Additive —
+    # older rows simply carry [].
+    text_pages: list[dict] = Field(default_factory=list)
 
 
 # ─────────────────────────────────────────────────────────────────────

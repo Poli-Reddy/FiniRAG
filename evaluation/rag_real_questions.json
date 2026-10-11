@@ -1,0 +1,2094 @@
+[
+  {
+    "id": "inv-total-20251118_000612.jpg",
+    "question": "What is the total amount on invoice 20251118_000612.jpg?",
+    "category": "exact",
+    "relevant_documents": [
+      "20251118_000612.jpg"
+    ],
+    "expected_document": "20251118_000612.jpg",
+    "expected_value": "6862.00",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-invoice_number-20251118_000612.jpg",
+    "question": "What is the invoice number on invoice 20251118_000612.jpg?",
+    "category": "exact",
+    "relevant_documents": [
+      "20251118_000612.jpg"
+    ],
+    "expected_document": "20251118_000612.jpg",
+    "expected_value": "SCI/25-26/3331",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-line-20251118_000612.jpg",
+    "question": "What does invoice 20251118_000612.jpg charge for SAFED 800GM (24PKT) 68/-?",
+    "category": "lookup",
+    "relevant_documents": [
+      "20251118_000612.jpg"
+    ],
+    "expected_document": "20251118_000612.jpg",
+    "expected_value": "2499.84",
+    "expect_sql": false,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-total-batch1-1109.jpg",
+    "question": "What is the total amount on invoice batch1-1109.jpg?",
+    "category": "exact",
+    "relevant_documents": [
+      "batch1-1109.jpg"
+    ],
+    "expected_document": "batch1-1109.jpg",
+    "expected_value": "138.90",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-invoice_number-batch1-1109.jpg",
+    "question": "What is the invoice number on invoice batch1-1109.jpg?",
+    "category": "exact",
+    "relevant_documents": [
+      "batch1-1109.jpg"
+    ],
+    "expected_document": "batch1-1109.jpg",
+    "expected_value": "94404257",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-line-batch1-1109.jpg",
+    "question": "What does invoice batch1-1109.jpg charge for B0028NAO6C Shoeless Joe?",
+    "category": "lookup",
+    "relevant_documents": [
+      "batch1-1109.jpg"
+    ],
+    "expected_document": "batch1-1109.jpg",
+    "expected_value": "17.45",
+    "expect_sql": false,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-valid-batch1-1109.jpg",
+    "question": "Does invoice batch1-1109.jpg balance?",
+    "category": "validation",
+    "relevant_documents": [
+      "batch1-1109.jpg"
+    ],
+    "expected_document": "batch1-1109.jpg",
+    "expected_value": null,
+    "expect_sql": true,
+    "expect_retrieval": false,
+    "expect_validation": true,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-total-batch2-0499.jpg",
+    "question": "What is the total amount on invoice batch2-0499.jpg?",
+    "category": "exact",
+    "relevant_documents": [
+      "batch2-0499.jpg"
+    ],
+    "expected_document": "batch2-0499.jpg",
+    "expected_value": "157.48",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-invoice_number-batch2-0499.jpg",
+    "question": "What is the invoice number on invoice batch2-0499.jpg?",
+    "category": "exact",
+    "relevant_documents": [
+      "batch2-0499.jpg"
+    ],
+    "expected_document": "batch2-0499.jpg",
+    "expected_value": "6825",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-line-batch2-0499.jpg",
+    "question": "What does invoice batch2-0499.jpg charge for 3M 80 Rubber&Vinyl Spray Adh. Yellow 24 fl oz. 6 cans/case?",
+    "category": "lookup",
+    "relevant_documents": [
+      "batch2-0499.jpg"
+    ],
+    "expected_document": "batch2-0499.jpg",
+    "expected_value": "16.00",
+    "expect_sql": false,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-valid-batch2-0499.jpg",
+    "question": "Does invoice batch2-0499.jpg balance?",
+    "category": "validation",
+    "relevant_documents": [
+      "batch2-0499.jpg"
+    ],
+    "expected_document": "batch2-0499.jpg",
+    "expected_value": null,
+    "expect_sql": true,
+    "expect_retrieval": false,
+    "expect_validation": true,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-total-batch2-0999.jpg",
+    "question": "What is the total amount on invoice batch2-0999.jpg?",
+    "category": "exact",
+    "relevant_documents": [
+      "batch2-0999.jpg"
+    ],
+    "expected_document": "batch2-0999.jpg",
+    "expected_value": "916.47",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-subtotal-batch2-0999.jpg",
+    "question": "What is the subtotal on invoice batch2-0999.jpg?",
+    "category": "exact",
+    "relevant_documents": [
+      "batch2-0999.jpg"
+    ],
+    "expected_document": "batch2-0999.jpg",
+    "expected_value": "804",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-line-batch2-0999.jpg",
+    "question": "What does invoice batch2-0999.jpg charge for 3M Scotchcast Electrical Resin #8 - 16 lbs/kit 16 lbs/case?",
+    "category": "lookup",
+    "relevant_documents": [
+      "batch2-0999.jpg"
+    ],
+    "expected_document": "batch2-0999.jpg",
+    "expected_value": "346.00",
+    "expect_sql": false,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-total-batch3-1354.jpg",
+    "question": "What is the total amount on invoice batch3-1354.jpg?",
+    "category": "exact",
+    "relevant_documents": [
+      "batch3-1354.jpg"
+    ],
+    "expected_document": "batch3-1354.jpg",
+    "expected_value": "1274.64",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-vendor_name-batch3-1354.jpg",
+    "question": "What is the vendor on invoice batch3-1354.jpg?",
+    "category": "exact",
+    "relevant_documents": [
+      "batch3-1354.jpg"
+    ],
+    "expected_document": "batch3-1354.jpg",
+    "expected_value": "A.E. Blake Sales Ltd.",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-line-batch3-1354.jpg",
+    "question": "What does invoice batch3-1354.jpg charge for BC 27767 Araldite 2014 HT Epoxy Paste GRAY 50ml 2:1 6 cartridges/box 120 cartridges/case BC/REF# BC 27767 D.O.E on products?",
+    "category": "lookup",
+    "relevant_documents": [
+      "batch3-1354.jpg"
+    ],
+    "expected_document": "batch3-1354.jpg",
+    "expected_value": "564.00",
+    "expect_sql": false,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-valid-batch3-1354.jpg",
+    "question": "Does invoice batch3-1354.jpg balance?",
+    "category": "validation",
+    "relevant_documents": [
+      "batch3-1354.jpg"
+    ],
+    "expected_document": "batch3-1354.jpg",
+    "expected_value": null,
+    "expect_sql": true,
+    "expect_retrieval": false,
+    "expect_validation": true,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-total-batch3-1445.jpg",
+    "question": "What is the total amount on invoice batch3-1445.jpg?",
+    "category": "exact",
+    "relevant_documents": [
+      "batch3-1445.jpg"
+    ],
+    "expected_document": "batch3-1445.jpg",
+    "expected_value": "2650.00",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-amount_due-batch3-1445.jpg",
+    "question": "What is the amount due on invoice batch3-1445.jpg?",
+    "category": "exact",
+    "relevant_documents": [
+      "batch3-1445.jpg"
+    ],
+    "expected_document": "batch3-1445.jpg",
+    "expected_value": "2650.00",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-line-batch3-1445.jpg",
+    "question": "What does invoice batch3-1445.jpg charge for Replace HVAC Unit.?",
+    "category": "lookup",
+    "relevant_documents": [
+      "batch3-1445.jpg"
+    ],
+    "expected_document": "batch3-1445.jpg",
+    "expected_value": "2650.00",
+    "expect_sql": false,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-total-batch3-1495.jpg",
+    "question": "What is the total amount on invoice batch3-1495.jpg?",
+    "category": "exact",
+    "relevant_documents": [
+      "batch3-1495.jpg"
+    ],
+    "expected_document": "batch3-1495.jpg",
+    "expected_value": "5257",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-invoice_number-batch3-1495.jpg",
+    "question": "What is the invoice number on invoice batch3-1495.jpg?",
+    "category": "exact",
+    "relevant_documents": [
+      "batch3-1495.jpg"
+    ],
+    "expected_document": "batch3-1495.jpg",
+    "expected_value": "Meld #298839",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-line-batch3-1495.jpg",
+    "question": "What does invoice batch3-1495.jpg charge for 3M SJ3550 Dual Lock Fastener?",
+    "category": "lookup",
+    "relevant_documents": [
+      "batch3-1495.jpg"
+    ],
+    "expected_document": "batch3-1495.jpg",
+    "expected_value": "3303",
+    "expect_sql": false,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-co-Consolidated Balance Sheet 2017.pdf",
+    "question": "Which company is the balance sheet Consolidated Balance Sheet 2017.pdf for?",
+    "category": "conceptual",
+    "relevant_documents": [
+      "Consolidated Balance Sheet 2017.pdf"
+    ],
+    "expected_document": "Consolidated Balance Sheet 2017.pdf",
+    "expected_value": "HDFC Bank Limited",
+    "expect_sql": false,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-exact-Consolidated Balance Sheet 2017.pdf-2017",
+    "question": "What were total assets in 2017 on Consolidated Balance Sheet 2017.pdf?",
+    "category": "exact",
+    "relevant_documents": [
+      "Consolidated Balance Sheet 2017.pdf"
+    ],
+    "expected_document": "Consolidated Balance Sheet 2017.pdf",
+    "expected_value": "8923441607",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-cmp-Consolidated Balance Sheet 2017.pdf-2016-2017",
+    "question": "How did total assets change between 2016 and 2017 on Consolidated Balance Sheet 2017.pdf?",
+    "category": "compare",
+    "relevant_documents": [
+      "Consolidated Balance Sheet 2017.pdf"
+    ],
+    "expected_document": "Consolidated Balance Sheet 2017.pdf",
+    "expected_value": "1301318343",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-co-Consolidated Balance Sheet 2018.pdf",
+    "question": "Which company is the balance sheet Consolidated Balance Sheet 2018.pdf for?",
+    "category": "conceptual",
+    "relevant_documents": [
+      "Consolidated Balance Sheet 2018.pdf"
+    ],
+    "expected_document": "Consolidated Balance Sheet 2018.pdf",
+    "expected_value": "HDFC Bank Limited",
+    "expect_sql": false,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-exact-Consolidated Balance Sheet 2018.pdf-2018",
+    "question": "What were total assets in 2018 on Consolidated Balance Sheet 2018.pdf?",
+    "category": "exact",
+    "relevant_documents": [
+      "Consolidated Balance Sheet 2018.pdf"
+    ],
+    "expected_document": "Consolidated Balance Sheet 2018.pdf",
+    "expected_value": "11031861695",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-cmp-Consolidated Balance Sheet 2018.pdf-2017-2018",
+    "question": "How did total assets change between 2017 and 2018 on Consolidated Balance Sheet 2018.pdf?",
+    "category": "compare",
+    "relevant_documents": [
+      "Consolidated Balance Sheet 2018.pdf"
+    ],
+    "expected_document": "Consolidated Balance Sheet 2018.pdf",
+    "expected_value": "2108420088",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-co-Consolidated Balance Sheet 2019.pdf",
+    "question": "Which company is the balance sheet Consolidated Balance Sheet 2019.pdf for?",
+    "category": "conceptual",
+    "relevant_documents": [
+      "Consolidated Balance Sheet 2019.pdf"
+    ],
+    "expected_document": "Consolidated Balance Sheet 2019.pdf",
+    "expected_value": "HDFC Bank Limited",
+    "expect_sql": false,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-exact-Consolidated Balance Sheet 2019.pdf-2019",
+    "question": "What were total assets in 2019 on Consolidated Balance Sheet 2019.pdf?",
+    "category": "exact",
+    "relevant_documents": [
+      "Consolidated Balance Sheet 2019.pdf"
+    ],
+    "expected_document": "Consolidated Balance Sheet 2019.pdf",
+    "expected_value": "12928057065",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-cmp-Consolidated Balance Sheet 2019.pdf-2018-2019",
+    "question": "How did total assets change between 2018 and 2019 on Consolidated Balance Sheet 2019.pdf?",
+    "category": "compare",
+    "relevant_documents": [
+      "Consolidated Balance Sheet 2019.pdf"
+    ],
+    "expected_document": "Consolidated Balance Sheet 2019.pdf",
+    "expected_value": "1896195370",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-co-Consolidated Balance Sheet 2020.pdf",
+    "question": "Which company is the balance sheet Consolidated Balance Sheet 2020.pdf for?",
+    "category": "conceptual",
+    "relevant_documents": [
+      "Consolidated Balance Sheet 2020.pdf"
+    ],
+    "expected_document": "Consolidated Balance Sheet 2020.pdf",
+    "expected_value": "HDFC Bank Limited",
+    "expect_sql": false,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-exact-Consolidated Balance Sheet 2020.pdf-2020",
+    "question": "What were total assets in 2020 on Consolidated Balance Sheet 2020.pdf?",
+    "category": "exact",
+    "relevant_documents": [
+      "Consolidated Balance Sheet 2020.pdf"
+    ],
+    "expected_document": "Consolidated Balance Sheet 2020.pdf",
+    "expected_value": "15808304373",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-cmp-Consolidated Balance Sheet 2020.pdf-2019-2020",
+    "question": "How did total assets change between 2019 and 2020 on Consolidated Balance Sheet 2020.pdf?",
+    "category": "compare",
+    "relevant_documents": [
+      "Consolidated Balance Sheet 2020.pdf"
+    ],
+    "expected_document": "Consolidated Balance Sheet 2020.pdf",
+    "expected_value": "2880247308",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-exact-Consolidated Balance Sheet 2021.pdf-2021",
+    "question": "What were total assets in 2021 on Consolidated Balance Sheet 2021.pdf?",
+    "category": "exact",
+    "relevant_documents": [
+      "Consolidated Balance Sheet 2021.pdf"
+    ],
+    "expected_document": "Consolidated Balance Sheet 2021.pdf",
+    "expected_value": "17995066442",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-cmp-Consolidated Balance Sheet 2021.pdf-2020-2021",
+    "question": "How did total assets change between 2020 and 2021 on Consolidated Balance Sheet 2021.pdf?",
+    "category": "compare",
+    "relevant_documents": [
+      "Consolidated Balance Sheet 2021.pdf"
+    ],
+    "expected_document": "Consolidated Balance Sheet 2021.pdf",
+    "expected_value": "2186762069",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-exact-Consolidated Balance Sheet 2022.pdf-2022",
+    "question": "What were total assets in 2022 on Consolidated Balance Sheet 2022.pdf?",
+    "category": "exact",
+    "relevant_documents": [
+      "Consolidated Balance Sheet 2022.pdf"
+    ],
+    "expected_document": "Consolidated Balance Sheet 2022.pdf",
+    "expected_value": "2122934.30",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-cmp-Consolidated Balance Sheet 2022.pdf-2021-2022",
+    "question": "How did total assets change between 2021 and 2022 on Consolidated Balance Sheet 2022.pdf?",
+    "category": "compare",
+    "relevant_documents": [
+      "Consolidated Balance Sheet 2022.pdf"
+    ],
+    "expected_document": "Consolidated Balance Sheet 2022.pdf",
+    "expected_value": "323427.67",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-exact-Consolidated Balance Sheet 2023.pdf-2023",
+    "question": "What were total assets in 2023 on Consolidated Balance Sheet 2023.pdf?",
+    "category": "exact",
+    "relevant_documents": [
+      "Consolidated Balance Sheet 2023.pdf"
+    ],
+    "expected_document": "Consolidated Balance Sheet 2023.pdf",
+    "expected_value": "2530432.44",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-cmp-Consolidated Balance Sheet 2023.pdf-2022-2023",
+    "question": "How did total assets change between 2022 and 2023 on Consolidated Balance Sheet 2023.pdf?",
+    "category": "compare",
+    "relevant_documents": [
+      "Consolidated Balance Sheet 2023.pdf"
+    ],
+    "expected_document": "Consolidated Balance Sheet 2023.pdf",
+    "expected_value": "407498.14",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-co-Consolidated Balance Sheet 2024.pdf",
+    "question": "Which company is the balance sheet Consolidated Balance Sheet 2024.pdf for?",
+    "category": "conceptual",
+    "relevant_documents": [
+      "Consolidated Balance Sheet 2024.pdf"
+    ],
+    "expected_document": "Consolidated Balance Sheet 2024.pdf",
+    "expected_value": "HDFC Bank Limited",
+    "expect_sql": false,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-exact-Consolidated Balance Sheet 2024.pdf-2024",
+    "question": "What were total assets in 2024 on Consolidated Balance Sheet 2024.pdf?",
+    "category": "exact",
+    "relevant_documents": [
+      "Consolidated Balance Sheet 2024.pdf"
+    ],
+    "expected_document": "Consolidated Balance Sheet 2024.pdf",
+    "expected_value": "4030194.26",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-cmp-Consolidated Balance Sheet 2024.pdf-2023-2024",
+    "question": "How did total assets change between 2023 and 2024 on Consolidated Balance Sheet 2024.pdf?",
+    "category": "compare",
+    "relevant_documents": [
+      "Consolidated Balance Sheet 2024.pdf"
+    ],
+    "expected_document": "Consolidated Balance Sheet 2024.pdf",
+    "expected_value": "1499761.82",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-co-Consolidated Balance Sheet 2025.pdf",
+    "question": "Which company is the balance sheet Consolidated Balance Sheet 2025.pdf for?",
+    "category": "conceptual",
+    "relevant_documents": [
+      "Consolidated Balance Sheet 2025.pdf"
+    ],
+    "expected_document": "Consolidated Balance Sheet 2025.pdf",
+    "expected_value": "HDFC Bank Limited",
+    "expect_sql": false,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-exact-Consolidated Balance Sheet 2025.pdf-2025",
+    "question": "What were total assets in 2025 on Consolidated Balance Sheet 2025.pdf?",
+    "category": "exact",
+    "relevant_documents": [
+      "Consolidated Balance Sheet 2025.pdf"
+    ],
+    "expected_document": "Consolidated Balance Sheet 2025.pdf",
+    "expected_value": "4392417.42",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-cmp-Consolidated Balance Sheet 2025.pdf-2024-2025",
+    "question": "How did total assets change between 2024 and 2025 on Consolidated Balance Sheet 2025.pdf?",
+    "category": "compare",
+    "relevant_documents": [
+      "Consolidated Balance Sheet 2025.pdf"
+    ],
+    "expected_document": "Consolidated Balance Sheet 2025.pdf",
+    "expected_value": "362223.16",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-co-Consolidated Balance Sheet 2026.pdf",
+    "question": "Which company is the balance sheet Consolidated Balance Sheet 2026.pdf for?",
+    "category": "conceptual",
+    "relevant_documents": [
+      "Consolidated Balance Sheet 2026.pdf"
+    ],
+    "expected_document": "Consolidated Balance Sheet 2026.pdf",
+    "expected_value": "HDFC Bank Limited",
+    "expect_sql": false,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-exact-Consolidated Balance Sheet 2026.pdf-2026",
+    "question": "What were total assets in 2026 on Consolidated Balance Sheet 2026.pdf?",
+    "category": "exact",
+    "relevant_documents": [
+      "Consolidated Balance Sheet 2026.pdf"
+    ],
+    "expected_document": "Consolidated Balance Sheet 2026.pdf",
+    "expected_value": "4908040.84",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-cmp-Consolidated Balance Sheet 2026.pdf-2025-2026",
+    "question": "How did total assets change between 2025 and 2026 on Consolidated Balance Sheet 2026.pdf?",
+    "category": "compare",
+    "relevant_documents": [
+      "Consolidated Balance Sheet 2026.pdf"
+    ],
+    "expected_document": "Consolidated Balance Sheet 2026.pdf",
+    "expected_value": "515623.42",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-co-Consolidated Cash Flow Statement 2017.pdf",
+    "question": "Which company is the cash flow statement Consolidated Cash Flow Statement 2017.pdf for?",
+    "category": "conceptual",
+    "relevant_documents": [
+      "Consolidated Cash Flow Statement 2017.pdf"
+    ],
+    "expected_document": "Consolidated Cash Flow Statement 2017.pdf",
+    "expected_value": "HDFC Bank Limited",
+    "expect_sql": false,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-exact-Consolidated Cash Flow Statement 2017.pdf-2017",
+    "question": "What were net cash from operating in 2017 on Consolidated Cash Flow Statement 2017.pdf?",
+    "category": "exact",
+    "relevant_documents": [
+      "Consolidated Cash Flow Statement 2017.pdf"
+    ],
+    "expected_document": "Consolidated Cash Flow Statement 2017.pdf",
+    "expected_value": "172815931",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-cmp-Consolidated Cash Flow Statement 2017.pdf-2016-2017",
+    "question": "How did net cash from operating change between 2016 and 2017 on Consolidated Cash Flow Statement 2017.pdf?",
+    "category": "compare",
+    "relevant_documents": [
+      "Consolidated Cash Flow Statement 2017.pdf"
+    ],
+    "expected_document": "Consolidated Cash Flow Statement 2017.pdf",
+    "expected_value": "517169594",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-co-Consolidated Cash Flow Statement 2018.pdf",
+    "question": "Which company is the cash flow statement Consolidated Cash Flow Statement 2018.pdf for?",
+    "category": "conceptual",
+    "relevant_documents": [
+      "Consolidated Cash Flow Statement 2018.pdf"
+    ],
+    "expected_document": "Consolidated Cash Flow Statement 2018.pdf",
+    "expected_value": "HDFC Bank Limited",
+    "expect_sql": false,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-exact-Consolidated Cash Flow Statement 2018.pdf-2018",
+    "question": "What were net cash from operating in 2018 on Consolidated Cash Flow Statement 2018.pdf?",
+    "category": "exact",
+    "relevant_documents": [
+      "Consolidated Cash Flow Statement 2018.pdf"
+    ],
+    "expected_document": "Consolidated Cash Flow Statement 2018.pdf",
+    "expected_value": "172143764",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-cmp-Consolidated Cash Flow Statement 2018.pdf-2017-2018",
+    "question": "How did net cash from operating change between 2017 and 2018 on Consolidated Cash Flow Statement 2018.pdf?",
+    "category": "compare",
+    "relevant_documents": [
+      "Consolidated Cash Flow Statement 2018.pdf"
+    ],
+    "expected_document": "Consolidated Cash Flow Statement 2018.pdf",
+    "expected_value": "-672167",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-co-Consolidated Cash Flow Statement 2019.pdf",
+    "question": "Which company is the cash flow statement Consolidated Cash Flow Statement 2019.pdf for?",
+    "category": "conceptual",
+    "relevant_documents": [
+      "Consolidated Cash Flow Statement 2019.pdf"
+    ],
+    "expected_document": "Consolidated Cash Flow Statement 2019.pdf",
+    "expected_value": "HDFC Bank Limited",
+    "expect_sql": false,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-exact-Consolidated Cash Flow Statement 2019.pdf-2019",
+    "question": "What were net cash from operating in 2019 on Consolidated Cash Flow Statement 2019.pdf?",
+    "category": "exact",
+    "relevant_documents": [
+      "Consolidated Cash Flow Statement 2019.pdf"
+    ],
+    "expected_document": "Consolidated Cash Flow Statement 2019.pdf",
+    "expected_value": "-628715447",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-cmp-Consolidated Cash Flow Statement 2019.pdf-2018-2019",
+    "question": "How did net cash from operating change between 2018 and 2019 on Consolidated Cash Flow Statement 2019.pdf?",
+    "category": "compare",
+    "relevant_documents": [
+      "Consolidated Cash Flow Statement 2019.pdf"
+    ],
+    "expected_document": "Consolidated Cash Flow Statement 2019.pdf",
+    "expected_value": "-800859211",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-co-Consolidated Cash Flow Statement 2020.pdf",
+    "question": "Which company is the cash flow statement Consolidated Cash Flow Statement 2020.pdf for?",
+    "category": "conceptual",
+    "relevant_documents": [
+      "Consolidated Cash Flow Statement 2020.pdf"
+    ],
+    "expected_document": "Consolidated Cash Flow Statement 2020.pdf",
+    "expected_value": "HDFC Bank Limited",
+    "expect_sql": false,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-exact-Consolidated Cash Flow Statement 2020.pdf-2020",
+    "question": "What were net cash from operating in 2020 on Consolidated Cash Flow Statement 2020.pdf?",
+    "category": "exact",
+    "relevant_documents": [
+      "Consolidated Cash Flow Statement 2020.pdf"
+    ],
+    "expected_document": "Consolidated Cash Flow Statement 2020.pdf",
+    "expected_value": "-168690920",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-cmp-Consolidated Cash Flow Statement 2020.pdf-2019-2020",
+    "question": "How did net cash from operating change between 2019 and 2020 on Consolidated Cash Flow Statement 2020.pdf?",
+    "category": "compare",
+    "relevant_documents": [
+      "Consolidated Cash Flow Statement 2020.pdf"
+    ],
+    "expected_document": "Consolidated Cash Flow Statement 2020.pdf",
+    "expected_value": "460024527",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-exact-Consolidated Cash Flow Statement 2021.pdf-2021",
+    "question": "What were net cash from operating in 2021 on Consolidated Cash Flow Statement 2021.pdf?",
+    "category": "exact",
+    "relevant_documents": [
+      "Consolidated Cash Flow Statement 2021.pdf"
+    ],
+    "expected_document": "Consolidated Cash Flow Statement 2021.pdf",
+    "expected_value": "424764563",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-cmp-Consolidated Cash Flow Statement 2021.pdf-2020-2021",
+    "question": "How did net cash from operating change between 2020 and 2021 on Consolidated Cash Flow Statement 2021.pdf?",
+    "category": "compare",
+    "relevant_documents": [
+      "Consolidated Cash Flow Statement 2021.pdf"
+    ],
+    "expected_document": "Consolidated Cash Flow Statement 2021.pdf",
+    "expected_value": "593455483",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-exact-Consolidated Cash Flow Statement 2022.pdf-2022",
+    "question": "What were net cash from operating in 2022 on Consolidated Cash Flow Statement 2022.pdf?",
+    "category": "exact",
+    "relevant_documents": [
+      "Consolidated Cash Flow Statement 2022.pdf"
+    ],
+    "expected_document": "Consolidated Cash Flow Statement 2022.pdf",
+    "expected_value": "-11959.57",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-cmp-Consolidated Cash Flow Statement 2022.pdf-2021-2022",
+    "question": "How did net cash from operating change between 2021 and 2022 on Consolidated Cash Flow Statement 2022.pdf?",
+    "category": "compare",
+    "relevant_documents": [
+      "Consolidated Cash Flow Statement 2022.pdf"
+    ],
+    "expected_document": "Consolidated Cash Flow Statement 2022.pdf",
+    "expected_value": "-54436.02",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-exact-Consolidated Cash Flow Statement 2023.pdf-2023",
+    "question": "What were net cash from operating in 2023 on Consolidated Cash Flow Statement 2023.pdf?",
+    "category": "exact",
+    "relevant_documents": [
+      "Consolidated Cash Flow Statement 2023.pdf"
+    ],
+    "expected_document": "Consolidated Cash Flow Statement 2023.pdf",
+    "expected_value": "20813.70",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-cmp-Consolidated Cash Flow Statement 2023.pdf-2022-2023",
+    "question": "How did net cash from operating change between 2022 and 2023 on Consolidated Cash Flow Statement 2023.pdf?",
+    "category": "compare",
+    "relevant_documents": [
+      "Consolidated Cash Flow Statement 2023.pdf"
+    ],
+    "expected_document": "Consolidated Cash Flow Statement 2023.pdf",
+    "expected_value": "32773.27",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-co-Consolidated Cash Flow Statement 2024.pdf",
+    "question": "Which company is the cash flow statement Consolidated Cash Flow Statement 2024.pdf for?",
+    "category": "conceptual",
+    "relevant_documents": [
+      "Consolidated Cash Flow Statement 2024.pdf"
+    ],
+    "expected_document": "Consolidated Cash Flow Statement 2024.pdf",
+    "expected_value": "HDFC Bank Limited",
+    "expect_sql": false,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-exact-Consolidated Cash Flow Statement 2024.pdf-2024",
+    "question": "What were net cash from operating in 2024 on Consolidated Cash Flow Statement 2024.pdf?",
+    "category": "exact",
+    "relevant_documents": [
+      "Consolidated Cash Flow Statement 2024.pdf"
+    ],
+    "expected_document": "Consolidated Cash Flow Statement 2024.pdf",
+    "expected_value": "19069.34",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-cmp-Consolidated Cash Flow Statement 2024.pdf-2023-2024",
+    "question": "How did net cash from operating change between 2023 and 2024 on Consolidated Cash Flow Statement 2024.pdf?",
+    "category": "compare",
+    "relevant_documents": [
+      "Consolidated Cash Flow Statement 2024.pdf"
+    ],
+    "expected_document": "Consolidated Cash Flow Statement 2024.pdf",
+    "expected_value": "-1744.36",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-co-Consolidated Cash Flow Statement 2025.pdf",
+    "question": "Which company is the cash flow statement Consolidated Cash Flow Statement 2025.pdf for?",
+    "category": "conceptual",
+    "relevant_documents": [
+      "Consolidated Cash Flow Statement 2025.pdf"
+    ],
+    "expected_document": "Consolidated Cash Flow Statement 2025.pdf",
+    "expected_value": "HDFC Bank Limited",
+    "expect_sql": false,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-exact-Consolidated Cash Flow Statement 2025.pdf-2025",
+    "question": "What were net cash from operating in 2025 on Consolidated Cash Flow Statement 2025.pdf?",
+    "category": "exact",
+    "relevant_documents": [
+      "Consolidated Cash Flow Statement 2025.pdf"
+    ],
+    "expected_document": "Consolidated Cash Flow Statement 2025.pdf",
+    "expected_value": "127241.84",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-cmp-Consolidated Cash Flow Statement 2025.pdf-2024-2025",
+    "question": "How did net cash from operating change between 2024 and 2025 on Consolidated Cash Flow Statement 2025.pdf?",
+    "category": "compare",
+    "relevant_documents": [
+      "Consolidated Cash Flow Statement 2025.pdf"
+    ],
+    "expected_document": "Consolidated Cash Flow Statement 2025.pdf",
+    "expected_value": "108172.50",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-co-Consolidated Cash Flow Statement 2026.pdf",
+    "question": "Which company is the cash flow statement Consolidated Cash Flow Statement 2026.pdf for?",
+    "category": "conceptual",
+    "relevant_documents": [
+      "Consolidated Cash Flow Statement 2026.pdf"
+    ],
+    "expected_document": "Consolidated Cash Flow Statement 2026.pdf",
+    "expected_value": "HDFC Bank Limited",
+    "expect_sql": false,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-exact-Consolidated Cash Flow Statement 2026.pdf-2026",
+    "question": "What were net cash from operating in 2026 on Consolidated Cash Flow Statement 2026.pdf?",
+    "category": "exact",
+    "relevant_documents": [
+      "Consolidated Cash Flow Statement 2026.pdf"
+    ],
+    "expected_document": "Consolidated Cash Flow Statement 2026.pdf",
+    "expected_value": "113506.38",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-cmp-Consolidated Cash Flow Statement 2026.pdf-2025-2026",
+    "question": "How did net cash from operating change between 2025 and 2026 on Consolidated Cash Flow Statement 2026.pdf?",
+    "category": "compare",
+    "relevant_documents": [
+      "Consolidated Cash Flow Statement 2026.pdf"
+    ],
+    "expected_document": "Consolidated Cash Flow Statement 2026.pdf",
+    "expected_value": "-13735.46",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-co-Consolidated Profit & Loss 2017.pdf",
+    "question": "Which company is the profit and loss statement Consolidated Profit & Loss 2017.pdf for?",
+    "category": "conceptual",
+    "relevant_documents": [
+      "Consolidated Profit & Loss 2017.pdf"
+    ],
+    "expected_document": "Consolidated Profit & Loss 2017.pdf",
+    "expected_value": "HDFC Bank Limited",
+    "expect_sql": false,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-exact-Consolidated Profit & Loss 2017.pdf-2017",
+    "question": "What were total income in 2017 on Consolidated Profit & Loss 2017.pdf?",
+    "category": "exact",
+    "relevant_documents": [
+      "Consolidated Profit & Loss 2017.pdf"
+    ],
+    "expected_document": "Consolidated Profit & Loss 2017.pdf",
+    "expected_value": "861489858",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-cmp-Consolidated Profit & Loss 2017.pdf-2016-2017",
+    "question": "How did total income change between 2016 and 2017 on Consolidated Profit & Loss 2017.pdf?",
+    "category": "compare",
+    "relevant_documents": [
+      "Consolidated Profit & Loss 2017.pdf"
+    ],
+    "expected_document": "Consolidated Profit & Loss 2017.pdf",
+    "expected_value": "117757703",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-co-Consolidated Profit & Loss 2018.pdf",
+    "question": "Which company is the profit and loss statement Consolidated Profit & Loss 2018.pdf for?",
+    "category": "conceptual",
+    "relevant_documents": [
+      "Consolidated Profit & Loss 2018.pdf"
+    ],
+    "expected_document": "Consolidated Profit & Loss 2018.pdf",
+    "expected_value": "HDFC Bank Limited",
+    "expect_sql": false,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-exact-Consolidated Profit & Loss 2018.pdf-2018",
+    "question": "What were total income in 2018 on Consolidated Profit & Loss 2018.pdf?",
+    "category": "exact",
+    "relevant_documents": [
+      "Consolidated Profit & Loss 2018.pdf"
+    ],
+    "expected_document": "Consolidated Profit & Loss 2018.pdf",
+    "expected_value": "1013444478",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-cmp-Consolidated Profit & Loss 2018.pdf-2017-2018",
+    "question": "How did total income change between 2017 and 2018 on Consolidated Profit & Loss 2018.pdf?",
+    "category": "compare",
+    "relevant_documents": [
+      "Consolidated Profit & Loss 2018.pdf"
+    ],
+    "expected_document": "Consolidated Profit & Loss 2018.pdf",
+    "expected_value": "151954620",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-co-Consolidated Profit & Loss 2019.pdf",
+    "question": "Which company is the profit and loss statement Consolidated Profit & Loss 2019.pdf for?",
+    "category": "conceptual",
+    "relevant_documents": [
+      "Consolidated Profit & Loss 2019.pdf"
+    ],
+    "expected_document": "Consolidated Profit & Loss 2019.pdf",
+    "expected_value": "HDFC BANK",
+    "expect_sql": false,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-exact-Consolidated Profit & Loss 2019.pdf-2019",
+    "question": "What were total income in 2019 on Consolidated Profit & Loss 2019.pdf?",
+    "category": "exact",
+    "relevant_documents": [
+      "Consolidated Profit & Loss 2019.pdf"
+    ],
+    "expected_document": "Consolidated Profit & Loss 2019.pdf",
+    "expected_value": "1241077909",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-cmp-Consolidated Profit & Loss 2019.pdf-2018-2019",
+    "question": "How did total income change between 2018 and 2019 on Consolidated Profit & Loss 2019.pdf?",
+    "category": "compare",
+    "relevant_documents": [
+      "Consolidated Profit & Loss 2019.pdf"
+    ],
+    "expected_document": "Consolidated Profit & Loss 2019.pdf",
+    "expected_value": "227633431",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-exact-Consolidated Profit & Loss 2020.pdf-2020",
+    "question": "What were total income in 2020 on Consolidated Profit & Loss 2020.pdf?",
+    "category": "exact",
+    "relevant_documents": [
+      "Consolidated Profit & Loss 2020.pdf"
+    ],
+    "expected_document": "Consolidated Profit & Loss 2020.pdf",
+    "expected_value": "1470682663",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-cmp-Consolidated Profit & Loss 2020.pdf-2019-2020",
+    "question": "How did total income change between 2019 and 2020 on Consolidated Profit & Loss 2020.pdf?",
+    "category": "compare",
+    "relevant_documents": [
+      "Consolidated Profit & Loss 2020.pdf"
+    ],
+    "expected_document": "Consolidated Profit & Loss 2020.pdf",
+    "expected_value": "229604754",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-co-Consolidated Profit & Loss 2021.pdf",
+    "question": "Which company is the profit and loss statement Consolidated Profit & Loss 2021.pdf for?",
+    "category": "conceptual",
+    "relevant_documents": [
+      "Consolidated Profit & Loss 2021.pdf"
+    ],
+    "expected_document": "Consolidated Profit & Loss 2021.pdf",
+    "expected_value": "HDFC Bank Limited",
+    "expect_sql": false,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-exact-Consolidated Profit & Loss 2021.pdf-2021",
+    "question": "What were total income in 2021 on Consolidated Profit & Loss 2021.pdf?",
+    "category": "exact",
+    "relevant_documents": [
+      "Consolidated Profit & Loss 2021.pdf"
+    ],
+    "expected_document": "Consolidated Profit & Loss 2021.pdf",
+    "expected_value": "1558852736",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-cmp-Consolidated Profit & Loss 2021.pdf-2020-2021",
+    "question": "How did total income change between 2020 and 2021 on Consolidated Profit & Loss 2021.pdf?",
+    "category": "compare",
+    "relevant_documents": [
+      "Consolidated Profit & Loss 2021.pdf"
+    ],
+    "expected_document": "Consolidated Profit & Loss 2021.pdf",
+    "expected_value": "88170073",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-co-Consolidated Profit & Loss 2022.pdf",
+    "question": "Which company is the profit and loss statement Consolidated Profit & Loss 2022.pdf for?",
+    "category": "conceptual",
+    "relevant_documents": [
+      "Consolidated Profit & Loss 2022.pdf"
+    ],
+    "expected_document": "Consolidated Profit & Loss 2022.pdf",
+    "expected_value": "HDFC Bank Limited",
+    "expect_sql": false,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-exact-Consolidated Profit & Loss 2022.pdf-2022",
+    "question": "What were total income in 2022 on Consolidated Profit & Loss 2022.pdf?",
+    "category": "exact",
+    "relevant_documents": [
+      "Consolidated Profit & Loss 2022.pdf"
+    ],
+    "expected_document": "Consolidated Profit & Loss 2022.pdf",
+    "expected_value": "167695.40",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-cmp-Consolidated Profit & Loss 2022.pdf-2021-2022",
+    "question": "How did total income change between 2021 and 2022 on Consolidated Profit & Loss 2022.pdf?",
+    "category": "compare",
+    "relevant_documents": [
+      "Consolidated Profit & Loss 2022.pdf"
+    ],
+    "expected_document": "Consolidated Profit & Loss 2022.pdf",
+    "expected_value": "11810.12",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-co-Consolidated Profit & Loss 2023.pdf",
+    "question": "Which company is the profit and loss statement Consolidated Profit & Loss 2023.pdf for?",
+    "category": "conceptual",
+    "relevant_documents": [
+      "Consolidated Profit & Loss 2023.pdf"
+    ],
+    "expected_document": "Consolidated Profit & Loss 2023.pdf",
+    "expected_value": "HDFC Bank Limited",
+    "expect_sql": false,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-exact-Consolidated Profit & Loss 2023.pdf-2023",
+    "question": "What were total income in 2023 on Consolidated Profit & Loss 2023.pdf?",
+    "category": "exact",
+    "relevant_documents": [
+      "Consolidated Profit & Loss 2023.pdf"
+    ],
+    "expected_document": "Consolidated Profit & Loss 2023.pdf",
+    "expected_value": "204666.10",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-cmp-Consolidated Profit & Loss 2023.pdf-2022-2023",
+    "question": "How did total income change between 2022 and 2023 on Consolidated Profit & Loss 2023.pdf?",
+    "category": "compare",
+    "relevant_documents": [
+      "Consolidated Profit & Loss 2023.pdf"
+    ],
+    "expected_document": "Consolidated Profit & Loss 2023.pdf",
+    "expected_value": "36970.70",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-exact-Consolidated Profit & Loss 2024.pdf-2024",
+    "question": "What were total income in 2024 on Consolidated Profit & Loss 2024.pdf?",
+    "category": "exact",
+    "relevant_documents": [
+      "Consolidated Profit & Loss 2024.pdf"
+    ],
+    "expected_document": "Consolidated Profit & Loss 2024.pdf",
+    "expected_value": "407994.77",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-cmp-Consolidated Profit & Loss 2024.pdf-2023-2024",
+    "question": "How did total income change between 2023 and 2024 on Consolidated Profit & Loss 2024.pdf?",
+    "category": "compare",
+    "relevant_documents": [
+      "Consolidated Profit & Loss 2024.pdf"
+    ],
+    "expected_document": "Consolidated Profit & Loss 2024.pdf",
+    "expected_value": "203328.67",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-exact-Consolidated Profit & Loss 2025.pdf-2025",
+    "question": "What were total income in 2025 on Consolidated Profit & Loss 2025.pdf?",
+    "category": "exact",
+    "relevant_documents": [
+      "Consolidated Profit & Loss 2025.pdf"
+    ],
+    "expected_document": "Consolidated Profit & Loss 2025.pdf",
+    "expected_value": "470915.93",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-cmp-Consolidated Profit & Loss 2025.pdf-2024-2025",
+    "question": "How did total income change between 2024 and 2025 on Consolidated Profit & Loss 2025.pdf?",
+    "category": "compare",
+    "relevant_documents": [
+      "Consolidated Profit & Loss 2025.pdf"
+    ],
+    "expected_document": "Consolidated Profit & Loss 2025.pdf",
+    "expected_value": "62921.16",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-exact-Consolidated Profit & Loss 2026.pdf-2026",
+    "question": "What were total income in 2026 on Consolidated Profit & Loss 2026.pdf?",
+    "category": "exact",
+    "relevant_documents": [
+      "Consolidated Profit & Loss 2026.pdf"
+    ],
+    "expected_document": "Consolidated Profit & Loss 2026.pdf",
+    "expected_value": "495462.81",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "stmt-cmp-Consolidated Profit & Loss 2026.pdf-2025-2026",
+    "question": "How did total income change between 2025 and 2026 on Consolidated Profit & Loss 2026.pdf?",
+    "category": "compare",
+    "relevant_documents": [
+      "Consolidated Profit & Loss 2026.pdf"
+    ],
+    "expected_document": "Consolidated Profit & Loss 2026.pdf",
+    "expected_value": "24546.88",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-total-X00016469619.jpg",
+    "question": "What is the total amount on invoice X00016469619.jpg?",
+    "category": "exact",
+    "relevant_documents": [
+      "X00016469619.jpg"
+    ],
+    "expected_document": "X00016469619.jpg",
+    "expected_value": "60.30",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-subtotal-X00016469619.jpg",
+    "question": "What is the subtotal on invoice X00016469619.jpg?",
+    "category": "exact",
+    "relevant_documents": [
+      "X00016469619.jpg"
+    ],
+    "expected_document": "X00016469619.jpg",
+    "expected_value": "60.31",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-line-X00016469619.jpg",
+    "question": "What does invoice X00016469619.jpg charge for ST-PRIVILEGE CARD/GD INDAH 88888?",
+    "category": "lookup",
+    "relevant_documents": [
+      "X00016469619.jpg"
+    ],
+    "expected_document": "X00016469619.jpg",
+    "expected_value": "10.00",
+    "expect_sql": false,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-valid-X00016469619.jpg",
+    "question": "Does invoice X00016469619.jpg balance?",
+    "category": "validation",
+    "relevant_documents": [
+      "X00016469619.jpg"
+    ],
+    "expected_document": "X00016469619.jpg",
+    "expected_value": null,
+    "expect_sql": true,
+    "expect_retrieval": false,
+    "expect_validation": true,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-total-X51005361895.jpg",
+    "question": "What is the total amount on invoice X51005361895.jpg?",
+    "category": "exact",
+    "relevant_documents": [
+      "X51005361895.jpg"
+    ],
+    "expected_document": "X51005361895.jpg",
+    "expected_value": "9.00",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-invoice_number-X51005361895.jpg",
+    "question": "What is the invoice number on invoice X51005361895.jpg?",
+    "category": "exact",
+    "relevant_documents": [
+      "X51005361895.jpg"
+    ],
+    "expected_document": "X51005361895.jpg",
+    "expected_value": "1CR0576494",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-line-X51005361895.jpg",
+    "question": "What does invoice X51005361895.jpg charge for 013 SUMMER CUP 48X230ML?",
+    "category": "lookup",
+    "relevant_documents": [
+      "X51005361895.jpg"
+    ],
+    "expected_document": "X51005361895.jpg",
+    "expected_value": "8.49",
+    "expect_sql": false,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-total-X51005663293.jpg",
+    "question": "What is the total amount on invoice X51005663293.jpg?",
+    "category": "exact",
+    "relevant_documents": [
+      "X51005663293.jpg"
+    ],
+    "expected_document": "X51005663293.jpg",
+    "expected_value": "30.30",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-invoice_number-X51005663293.jpg",
+    "question": "What is the invoice number on invoice X51005663293.jpg?",
+    "category": "exact",
+    "relevant_documents": [
+      "X51005663293.jpg"
+    ],
+    "expected_document": "X51005663293.jpg",
+    "expected_value": "593101",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-line-X51005663293.jpg",
+    "question": "What does invoice X51005663293.jpg charge for Smoked Duck Spaghetti?",
+    "category": "lookup",
+    "relevant_documents": [
+      "X51005663293.jpg"
+    ],
+    "expected_document": "X51005663293.jpg",
+    "expected_value": "12.50",
+    "expect_sql": false,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-total-X51005719883.jpg",
+    "question": "What is the total amount on invoice X51005719883.jpg?",
+    "category": "exact",
+    "relevant_documents": [
+      "X51005719883.jpg"
+    ],
+    "expected_document": "X51005719883.jpg",
+    "expected_value": "108.50",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-subtotal-X51005719883.jpg",
+    "question": "What is the subtotal on invoice X51005719883.jpg?",
+    "category": "exact",
+    "relevant_documents": [
+      "X51005719883.jpg"
+    ],
+    "expected_document": "X51005719883.jpg",
+    "expected_value": "102.36",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-line-X51005719883.jpg",
+    "question": "What does invoice X51005719883.jpg charge for TIGER BEER CAN 4*6*320M?",
+    "category": "lookup",
+    "relevant_documents": [
+      "X51005719883.jpg"
+    ],
+    "expected_document": "X51005719883.jpg",
+    "expected_value": "108.50",
+    "expect_sql": false,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-total-X51005757342.jpg",
+    "question": "What is the total amount on invoice X51005757342.jpg?",
+    "category": "exact",
+    "relevant_documents": [
+      "X51005757342.jpg"
+    ],
+    "expected_document": "X51005757342.jpg",
+    "expected_value": "6.20",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-vendor_name-X51005757342.jpg",
+    "question": "What is the vendor on invoice X51005757342.jpg?",
+    "category": "exact",
+    "relevant_documents": [
+      "X51005757342.jpg"
+    ],
+    "expected_document": "X51005757342.jpg",
+    "expected_value": "MR. D.I.Y. (M) SDN BHD",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-line-X51005757342.jpg",
+    "question": "What does invoice X51005757342.jpg charge for MESH SPONGE 4S *S?",
+    "category": "lookup",
+    "relevant_documents": [
+      "X51005757342.jpg"
+    ],
+    "expected_document": "X51005757342.jpg",
+    "expected_value": "1.80",
+    "expect_sql": false,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-total-X51005806685.jpg",
+    "question": "What is the total amount on invoice X51005806685.jpg?",
+    "category": "exact",
+    "relevant_documents": [
+      "X51005806685.jpg"
+    ],
+    "expected_document": "X51005806685.jpg",
+    "expected_value": "29.00",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-vendor_name-X51005806685.jpg",
+    "question": "What is the vendor on invoice X51005806685.jpg?",
+    "category": "exact",
+    "relevant_documents": [
+      "X51005806685.jpg"
+    ],
+    "expected_document": "X51005806685.jpg",
+    "expected_value": "ADVANCO COMPANY",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-line-X51005806685.jpg",
+    "question": "What does invoice X51005806685.jpg charge for CANON PG-47BK E400 BLACK FINE C SR?",
+    "category": "lookup",
+    "relevant_documents": [
+      "X51005806685.jpg"
+    ],
+    "expected_document": "X51005806685.jpg",
+    "expected_value": "29.00",
+    "expect_sql": false,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-total-X51006328913.jpg",
+    "question": "What is the total amount on invoice X51006328913.jpg?",
+    "category": "exact",
+    "relevant_documents": [
+      "X51006328913.jpg"
+    ],
+    "expected_document": "X51006328913.jpg",
+    "expected_value": "165.00",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-vendor_name-X51006328913.jpg",
+    "question": "What is the vendor on invoice X51006328913.jpg?",
+    "category": "exact",
+    "relevant_documents": [
+      "X51006328913.jpg"
+    ],
+    "expected_document": "X51006328913.jpg",
+    "expected_value": "BEMED (SP) SDN. BHD.",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-line-X51006328913.jpg",
+    "question": "What does invoice X51006328913.jpg charge for ALPHA LIPID LIFE LINE 450MG 450G?",
+    "category": "lookup",
+    "relevant_documents": [
+      "X51006328913.jpg"
+    ],
+    "expected_document": "X51006328913.jpg",
+    "expected_value": "165",
+    "expect_sql": false,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-total-X51006334741.jpg",
+    "question": "What is the total amount on invoice X51006334741.jpg?",
+    "category": "exact",
+    "relevant_documents": [
+      "X51006334741.jpg"
+    ],
+    "expected_document": "X51006334741.jpg",
+    "expected_value": "20.05",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-tax_amount-X51006334741.jpg",
+    "question": "What is the tax amount on invoice X51006334741.jpg?",
+    "category": "exact",
+    "relevant_documents": [
+      "X51006334741.jpg"
+    ],
+    "expected_document": "X51006334741.jpg",
+    "expected_value": "0.99",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-line-X51006334741.jpg",
+    "question": "What does invoice X51006334741.jpg charge for UNICA PAIL 6GL 600?",
+    "category": "lookup",
+    "relevant_documents": [
+      "X51006334741.jpg"
+    ],
+    "expected_document": "X51006334741.jpg",
+    "expected_value": "17.41",
+    "expect_sql": false,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-total-X51006387931.jpg",
+    "question": "What is the total amount on invoice X51006387931.jpg?",
+    "category": "exact",
+    "relevant_documents": [
+      "X51006387931.jpg"
+    ],
+    "expected_document": "X51006387931.jpg",
+    "expected_value": "3.00",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-tax_amount-X51006387931.jpg",
+    "question": "What is the tax amount on invoice X51006387931.jpg?",
+    "category": "exact",
+    "relevant_documents": [
+      "X51006387931.jpg"
+    ],
+    "expected_document": "X51006387931.jpg",
+    "expected_value": "0.17",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-line-X51006387931.jpg",
+    "question": "What does invoice X51006387931.jpg charge for Parking Fee?",
+    "category": "lookup",
+    "relevant_documents": [
+      "X51006387931.jpg"
+    ],
+    "expected_document": "X51006387931.jpg",
+    "expected_value": "2.83",
+    "expect_sql": false,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-total-X51008099043.jpg",
+    "question": "What is the total amount on invoice X51008099043.jpg?",
+    "category": "exact",
+    "relevant_documents": [
+      "X51008099043.jpg"
+    ],
+    "expected_document": "X51008099043.jpg",
+    "expected_value": "4.60",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-invoice_number-X51008099043.jpg",
+    "question": "What is the invoice number on invoice X51008099043.jpg?",
+    "category": "exact",
+    "relevant_documents": [
+      "X51008099043.jpg"
+    ],
+    "expected_document": "X51008099043.jpg",
+    "expected_value": "1207108",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-line-X51008099043.jpg",
+    "question": "What does invoice X51008099043.jpg charge for Teh (B)?",
+    "category": "lookup",
+    "relevant_documents": [
+      "X51008099043.jpg"
+    ],
+    "expected_document": "X51008099043.jpg",
+    "expected_value": "2.10",
+    "expect_sql": false,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-valid-X51008099043.jpg",
+    "question": "Does invoice X51008099043.jpg balance?",
+    "category": "validation",
+    "relevant_documents": [
+      "X51008099043.jpg"
+    ],
+    "expected_document": "X51008099043.jpg",
+    "expected_value": null,
+    "expect_sql": true,
+    "expect_retrieval": false,
+    "expect_validation": true,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-total-X51008099071.jpg",
+    "question": "What is the total amount on invoice X51008099071.jpg?",
+    "category": "exact",
+    "relevant_documents": [
+      "X51008099071.jpg"
+    ],
+    "expected_document": "X51008099071.jpg",
+    "expected_value": "50.00",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-vendor_name-X51008099071.jpg",
+    "question": "What is the vendor on invoice X51008099071.jpg?",
+    "category": "exact",
+    "relevant_documents": [
+      "X51008099071.jpg"
+    ],
+    "expected_document": "X51008099071.jpg",
+    "expected_value": "LEONG HENG SHELL SERVICE STATION",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-line-X51008099071.jpg",
+    "question": "What does invoice X51008099071.jpg charge for Fuel Save 95?",
+    "category": "lookup",
+    "relevant_documents": [
+      "X51008099071.jpg"
+    ],
+    "expected_document": "X51008099071.jpg",
+    "expected_value": "50.00",
+    "expect_sql": false,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-total-X51008142038.jpg",
+    "question": "What is the total amount on invoice X51008142038.jpg?",
+    "category": "exact",
+    "relevant_documents": [
+      "X51008142038.jpg"
+    ],
+    "expected_document": "X51008142038.jpg",
+    "expected_value": "27.90",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-tax_amount-X51008142038.jpg",
+    "question": "What is the tax amount on invoice X51008142038.jpg?",
+    "category": "exact",
+    "relevant_documents": [
+      "X51008142038.jpg"
+    ],
+    "expected_document": "X51008142038.jpg",
+    "expected_value": "1.57",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-line-X51008142038.jpg",
+    "question": "What does invoice X51008142038.jpg charge for 973 COKE LIGHT 500ML?",
+    "category": "lookup",
+    "relevant_documents": [
+      "X51008142038.jpg"
+    ],
+    "expected_document": "X51008142038.jpg",
+    "expected_value": "4.40",
+    "expect_sql": false,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-valid-X51008142038.jpg",
+    "question": "Does invoice X51008142038.jpg balance?",
+    "category": "validation",
+    "relevant_documents": [
+      "X51008142038.jpg"
+    ],
+    "expected_document": "X51008142038.jpg",
+    "expected_value": null,
+    "expect_sql": true,
+    "expect_retrieval": false,
+    "expect_validation": true,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-total-X51008145450.jpg",
+    "question": "What is the total amount on invoice X51008145450.jpg?",
+    "category": "exact",
+    "relevant_documents": [
+      "X51008145450.jpg"
+    ],
+    "expected_document": "X51008145450.jpg",
+    "expected_value": "85.20",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-amount_paid-X51008145450.jpg",
+    "question": "What is the amount paid on invoice X51008145450.jpg?",
+    "category": "exact",
+    "relevant_documents": [
+      "X51008145450.jpg"
+    ],
+    "expected_document": "X51008145450.jpg",
+    "expected_value": "100.20",
+    "expect_sql": true,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "inv-line-X51008145450.jpg",
+    "question": "What does invoice X51008145450.jpg charge for TAU SAR PNEAH (S) 16PCS?",
+    "category": "lookup",
+    "relevant_documents": [
+      "X51008145450.jpg"
+    ],
+    "expected_document": "X51008145450.jpg",
+    "expected_value": "36.00",
+    "expect_sql": false,
+    "expect_retrieval": true,
+    "expect_validation": false,
+    "requires_abstention": false
+  },
+  {
+    "id": "unsup-0",
+    "question": "Should I invest in HDFC Bank?",
+    "category": "unsupported",
+    "relevant_documents": [],
+    "expected_document": null,
+    "expected_value": null,
+    "expect_sql": false,
+    "expect_retrieval": false,
+    "expect_validation": false,
+    "requires_abstention": true
+  },
+  {
+    "id": "unsup-1",
+    "question": "What will total income be next year?",
+    "category": "unsupported",
+    "relevant_documents": [],
+    "expected_document": null,
+    "expected_value": null,
+    "expect_sql": false,
+    "expect_retrieval": false,
+    "expect_validation": false,
+    "requires_abstention": true
+  },
+  {
+    "id": "unsup-2",
+    "question": "Is this invoice a good deal?",
+    "category": "unsupported",
+    "relevant_documents": [],
+    "expected_document": null,
+    "expected_value": null,
+    "expect_sql": false,
+    "expect_retrieval": false,
+    "expect_validation": false,
+    "requires_abstention": true
+  },
+  {
+    "id": "unsup-3",
+    "question": "Give me tax advice for this company.",
+    "category": "unsupported",
+    "relevant_documents": [],
+    "expected_document": null,
+    "expected_value": null,
+    "expect_sql": false,
+    "expect_retrieval": false,
+    "expect_validation": false,
+    "requires_abstention": true
+  }
+]

@@ -84,6 +84,51 @@ SYSTEM_RULES = """You answer financial questions using ONLY the supplied evidenc
 Status is ANSWERED or INSUFFICIENT_EVIDENCE."""
 
 
+def _trusted_calc_numbers(retrieval_metadata: dict | None) -> set[str]:
+    """Number tokens our own deterministic pipeline computed.
+
+    A calculated difference appears in NO source snippet — requiring it
+    in an evidence pool would make every comparison abstain (verified on
+    the real corpus: 30/30 compare answers lost). Trust extends ONLY to
+    numbers from an ok deterministic comparison, never to model text.
+    """
+    nums: set[str] = set()
+    cmp = (retrieval_metadata or {}).get("comparison") or {}
+    if isinstance(cmp, dict) and cmp.get("ok"):
+        for k in ("difference", "value_a", "value_b", "period_a", "period_b"):
+            nums |= set(re.findall(r"[a-z0-9]+", str(cmp.get(k) or "").lower()))
+    return nums
+
+
+def _operand_citations(comparison: dict, items: list[dict]) -> list[str]:
+    """Citation ids of the two operand evidence items, matched by
+    (document_id, field) — never by text search, never invented."""
+    if not isinstance(comparison, dict) or not comparison.get("ok"):
+        return []
+    field = comparison.get("field", "")
+    want = []
+    for side, period in (("a", comparison.get("period_a")),
+                         ("b", comparison.get("period_b"))):
+        operand = comparison.get(side) or {}
+        doc_id = str(operand.get("document_id") or "")
+        for it in items:
+            if not isinstance(it, dict) or not it.get("citation_id"):
+                continue
+            if str(it.get("document_id") or "") != doc_id:
+                continue
+            if it.get("field") == f"{field}@{period}":
+                want.append(it["citation_id"])
+                break
+    return want
+
+
+def _comparison_sentence(comparison: dict) -> str:
+    return (f"{comparison.get('field')} changed from {comparison.get('value_a')} "
+            f"({comparison.get('period_a')}) to {comparison.get('value_b')} "
+            f"({comparison.get('period_b')}): difference {comparison.get('difference')} "
+            f"{comparison.get('unit') or 'units as stored'}")
+
+
 def _sanitize(text: str) -> str:
     """Neutralize prompt-injection markers in untrusted content."""
     if _INSTRUCTION.search(text or ""):
@@ -145,16 +190,20 @@ def _groq_usage(resp) -> dict:
 
 class AnswerService:
     def _validate_claims(self, answer_text: str, citations: list,
-                         items: list[dict]) -> dict:
+                         items: list[dict],
+                         trusted_numbers: set[str] | frozenset = frozenset()) -> dict:
         """Enforce claim-level citation integrity on a candidate answer.
 
         For every factual sentence (contains a number or validation-status
         word): each `[CIT-n]` marker must resolve to the supplied evidence,
         every number (including years) must occur in at least one cited
-        item's support pool, any document filename mentioned must match a
-        cited item's document, and at least one cited item must support the
-        sentence per EvidenceService.supports. Unsupported factual sentences
-        are dropped. Financial facts are validated the same way.
+        item's support pool — except `trusted_numbers` computed by our own
+        deterministic pipeline (comparison differences, which no snippet
+        contains by construction) — any document filename mentioned must
+        match a cited item's document, and at least one cited item must
+        support the sentence per EvidenceService.supports. Unsupported
+        factual sentences are dropped. Financial facts are validated the
+        same way.
 
         Returns the repaired answer bundle. Token overlap is a basic guard,
         not entailment proof — exact values/periods/units are cross-checked
@@ -225,7 +274,7 @@ class AnswerService:
                                        str(it.get("value") or ""), str(it.get("unit") or ""))
                 if claim_ccy and not claim_ccy <= item_ccy:
                     continue  # mismatched currency/unit
-                if EvidenceService.supports(it, clean):
+                if EvidenceService.supports(it, clean, trusted_numbers):
                     ok = True
                     break
             if ok:
@@ -286,7 +335,7 @@ class AnswerService:
         backoff + jitter, and gated by a per-provider circuit breaker. Only if
         every provider refuses does the caller fall back to the template.
         """
-        prompt = self._build_prompt(question, items)
+        prompt = self._build_prompt(question, items, retrieval_metadata)
         errors: list[str] = []
         if settings.GEMINI_API_KEY or settings.GEMINI_API_KEYS:
             try:
@@ -349,13 +398,23 @@ class AnswerService:
         breaker.record_success()
         return result
 
-    def _build_prompt(self, question: str, items: list[dict]) -> str:
+    def _build_prompt(self, question: str, items: list[dict],
+                      retrieval_metadata: dict | None = None) -> str:
         ev_lines = []
         for it in items[:20]:
             _pg = it.get('page_number')
             _loc = f"p.{_pg}" if isinstance(_pg, int) else "page unverified"
             ev_lines.append(f"[{it['citation_id']}] ({it.get('document_name')} "
                             f"{_loc}) {_sanitize(it.get('content', '')[:1500])}")
+        # Deterministic comparison, stated once so the model reports it
+        # instead of recomputing (and miscomputing) it.
+        cmp = (retrieval_metadata or {}).get("comparison") or {}
+        if isinstance(cmp, dict) and cmp.get("ok"):
+            cits = _operand_citations(cmp, items)
+            cite = ("cite " + " and ".join(f"[{c}]" for c in cits)) if cits \
+                else "cite the operand evidence"
+            ev_lines.append(f"Computed comparison (deterministic, {cite}): "
+                            f"{_sanitize(_comparison_sentence(cmp))}")
         return (SYSTEM_RULES + f"\n\nQuestion: {_sanitize(question)}\n\nEvidence:\n"
                 + "\n".join(ev_lines))
 
@@ -471,8 +530,11 @@ class AnswerService:
 
         Drops fabricated citations, unsupported factual sentences and
         unsupported financial facts. Abstains when no factual claim survives.
+        Numbers from an ok deterministic comparison in retrieval_metadata
+        are trusted (they appear in no snippet by construction).
         """
-        v = self._validate_claims(answer_text, citations, items)
+        trusted = _trusted_calc_numbers(retrieval_metadata)
+        v = self._validate_claims(answer_text, citations, items, trusted)
         by_id = {it["citation_id"]: it for it in items}
         kept_facts = []
         for f in facts or []:
@@ -532,6 +594,20 @@ class AnswerService:
                 retrieval_metadata=retrieval_metadata or {})
         parts = []
         cites = []
+        # Deterministic comparison first: stated from the pipeline result,
+        # never recomputed by the template.
+        cmp = (retrieval_metadata or {}).get("comparison") or {}
+        if isinstance(cmp, dict) and cmp.get("ok"):
+            ocits = _operand_citations(cmp, items)
+            if ocits:
+                sent = _comparison_sentence(cmp)
+                marks = " ".join(f"[{c}]" for c in ocits)
+                parts.append(f"{sent} {marks}")
+                for c in ocits:
+                    it = next((i for i in items if i.get("citation_id") == c), {})
+                    cites.append({"citation_id": c,
+                                  "document_name": it.get("document_name"),
+                                  "page_number": it.get("page_number")})
         for f in facts:
             parts.append(f"{f.get('field')} = {f.get('value')} "
                          f"({f.get('unit') or 'unit as stored'}) [{f['citation_id']}]")

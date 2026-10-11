@@ -123,6 +123,24 @@ class ImagePreprocessor:
         finally:
             ImageFile.LOAD_TRUNCATED_IMAGES = previous
 
+    def render_page_image(self, page) -> Image.Image:
+        """Render one OPEN PyMuPDF page to a 300 DPI PIL Image.
+
+        The hybrid extractor classifies first and renders only pages that
+        need pixels (SCANNED fully, MIXED per image crop) — native pages
+        never pay for rendering. The pixel gate still applies per page and
+        still raises: oversized pages abort, they are never degraded.
+        """
+        zoom = self.RENDER_DPI / 72.0
+        rect = page.rect
+        if rect.width * zoom * rect.height * zoom > settings.MAX_RENDER_PIXELS_PER_PAGE:
+            raise ValueError(
+                "page would render beyond the "
+                f"{settings.MAX_RENDER_PIXELS_PER_PAGE} px cap"
+            )
+        pix = page.get_pixmap(matrix=fitz.Matrix(zoom, zoom), alpha=False)
+        return Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
+
     def render_pdf_pages(self, file_bytes: bytes) -> list[Image.Image]:
         """
         Render each PDF page to a 300 DPI PIL Image using PyMuPDF.
@@ -133,26 +151,8 @@ class ImagePreprocessor:
         doc = fitz.open(stream=file_bytes, filetype="pdf")
         images = []
 
-        # Scale factor: 300 DPI / 72 DPI (PDF default)
-        zoom = self.RENDER_DPI / 72.0
-        matrix = fitz.Matrix(zoom, zoom)
-
         for page_num in range(len(doc)):
-            page = doc[page_num]
-            # Rendered-pixel gate first: a huge page rect at 300 DPI can
-            # decode to gigapixels from a small compressed file.
-            rect = page.rect
-            if rect.width * zoom * rect.height * zoom > settings.MAX_RENDER_PIXELS_PER_PAGE:
-                doc.close()
-                raise ValueError(
-                    f"page {page_num + 1} would render beyond the "
-                    f"{settings.MAX_RENDER_PIXELS_PER_PAGE} px cap"
-                )
-            pix = page.get_pixmap(matrix=matrix, alpha=False)
-
-            # Convert PyMuPDF pixmap to PIL Image
-            img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
-            images.append(img)
+            images.append(self.render_page_image(doc[page_num]))
 
         doc.close()
 

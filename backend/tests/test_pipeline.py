@@ -483,7 +483,10 @@ async def test_render_failure_is_reported_as_text_extraction_failed(svc, monkeyp
     def _boom(*_args, **_kwargs):
         raise RuntimeError("mupdf: cannot render page")
 
-    monkeypatch.setattr(svc._preprocessor, "render_pdf_pages", _boom)
+    # Hybrid extraction renders per page (SCANNED pages and MIXED crops),
+    # so the render seam is render_page_image; a render failure must still
+    # abort the document, never degrade into partial text.
+    monkeypatch.setattr(svc._preprocessor, "render_page_image", _boom)
     r = await svc.process_document(_blank_pdf(1), "bs.pdf", "balance_sheet")
 
     assert r.processing_status == "FAILED"

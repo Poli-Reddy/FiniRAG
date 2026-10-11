@@ -105,6 +105,20 @@ def test_job_status_rejects_bad_uuid(client):
 def test_qa_routes_registered():
     paths = {getattr(r, "path", "") for r in app.routes}
     assert "/api/v1/qa/ask" in paths
+    assert "/api/v1/qa/samples" in paths
+
+
+def test_qa_samples_serve_no_ground_truth(client):
+    """Samples expose id/question/category only — expected answers stay
+    server-side."""
+    r = client.get("/api/v1/qa/samples")
+    assert r.status_code == 200
+    body = r.json()
+    assert body["count"] > 50
+    assert len(body["samples"]) == body["count"]
+    for s in body["samples"][:20]:
+        assert set(s) == {"id", "question", "category"}
+        assert "expected_value" not in s and "expect_sql" not in s
 
 
 # ── Real-pipeline behavior (findings #12/#13/#14) ──────────────────────

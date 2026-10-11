@@ -90,10 +90,16 @@ class EvidenceService:
         return pool
 
     @staticmethod
-    def supports(item: dict, claim_text: str) -> bool:
+    def supports(item: dict, claim_text: str,
+                 trusted_numbers: set[str] | frozenset = frozenset()) -> bool:
         """Claim-level support guard: normalized claim tokens appear in the
         item's support pool (snippet and/or content plus structured
         value/period/section). Existence of a citation ID is NOT support.
+
+        `trusted_numbers` exempts number tokens our own deterministic
+        pipeline computed (comparison differences) from the pool-subset
+        requirement — they appear in no source snippet by construction.
+        Everything else is checked unchanged.
 
         This is a basic deterministic guard, not proof of semantic
         entailment — the answer pipeline additionally cross-checks exact
@@ -108,8 +114,9 @@ class EvidenceService:
         if not claim:
             return True
         pool = EvidenceService.support_pool(item)
-        # Numbers must match exactly when the claim contains digits.
-        nums = {t for t in claim if any(ch.isdigit() for ch in t)}
+        # Numbers must match exactly when the claim contains digits —
+        # except pipeline-computed numbers, trusted by construction.
+        nums = {t for t in claim if any(ch.isdigit() for ch in t)} - set(trusted_numbers or ())
         if nums and not nums.issubset(pool):
             return False
         # Negation guard: explicit negations in the claim but absent from the

@@ -637,13 +637,14 @@ function healthTooltip(data) {
 }
 
 // ─── Q&A ───
+// Question-only: document scope is resolved server-side from filenames
+// embedded in the question text. Sample questions below are clickable.
 const qaAskBtn = document.getElementById('qaAskBtn');
-qaAskBtn?.addEventListener('click', async () => {
-    const question = document.getElementById('qaQuestion')?.value?.trim() || '';
-    const document_name = document.getElementById('qaDocName')?.value?.trim() || undefined;
-    const document_type = document.getElementById('qaDocType')?.value || undefined;
-    const reporting_period = document.getElementById('qaPeriod')?.value?.trim() || undefined;
-    const company = document.getElementById('qaCompany')?.value?.trim() || undefined;
+qaAskBtn?.addEventListener('click', () => askQuestion());
+
+async function askQuestion() {
+    const input = document.getElementById('qaQuestion');
+    const question = input?.value?.trim() || '';
     const loading = document.getElementById('qaLoading');
     const errorEl = document.getElementById('qaError');
     const answerEl = document.getElementById('qaAnswer');
@@ -662,7 +663,7 @@ qaAskBtn?.addEventListener('click', async () => {
         const response = await apiFetch('/api/v1/qa/ask', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ question, document_name, document_type, reporting_period, company }),
+            body: JSON.stringify({ question }),
             signal: controller.signal,
         });
         clearTimeout(timeout);
@@ -672,6 +673,7 @@ qaAskBtn?.addEventListener('click', async () => {
         }
         renderQaAnswer(data);
         answerEl.style.display = 'grid';
+        document.getElementById('qaSection')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     } catch (err) {
         errorEl.textContent = err?.name === 'AbortError' ? 'Request timed out.' : (err.message || 'Q&A failed');
         errorEl.style.display = 'block';
@@ -679,7 +681,37 @@ qaAskBtn?.addEventListener('click', async () => {
         loading.style.display = 'none';
         qaAskBtn.disabled = false;
     }
-});
+}
+
+// ─── Sample questions (click to ask) ───
+async function loadSamples() {
+    const list = document.getElementById('qaSamplesList');
+    if (!list) return;
+    try {
+        const response = await apiFetch('/api/v1/qa/samples');
+        const data = await response.json();
+        const samples = data.samples || [];
+        if (!response.ok || samples.length === 0) {
+            list.innerHTML = '<span class="empty-state">No sample questions available</span>';
+            return;
+        }
+        list.innerHTML = '';
+        for (const s of samples) {
+            const chip = document.createElement('button');
+            chip.type = 'button';
+            chip.className = 'qa-sample-chip';
+            chip.textContent = s.question;
+            chip.title = s.category || '';
+            chip.addEventListener('click', () => {
+                document.getElementById('qaQuestion').value = s.question;
+                askQuestion();
+            });
+            list.appendChild(chip);
+        }
+    } catch (err) {
+        list.innerHTML = '<span class="empty-state">Sample questions unavailable</span>';
+    }
+}
 
 function qaErrorMessage(response, data) {
     const code = data?.detail?.code || data?.error?.code || `HTTP ${response.status}`;
@@ -776,3 +808,4 @@ function formatBytes(bytes) {
 // ─── Init ───
 checkHealth();
 loadHistory();
+loadSamples();
