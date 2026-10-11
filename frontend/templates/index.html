@@ -22,18 +22,6 @@
                 <span class="status-dot"></span>
                 <span class="status-text">Checking...</span>
             </div>
-            <!-- API key gate (audit finding #11): the /api/v1 routes require
-                 X-API-Key when the server sets API_KEYS. The key is pasted
-                 here by the operator, kept in sessionStorage for the tab
-                 lifetime only, and never embedded in source or logged. -->
-            <div class="api-key-box" id="apiKeyBox" title="Required only when the server sets API_KEYS">
-                <input type="password" id="apiKeyInput" class="api-key-input"
-                       placeholder="API key (if required)" autocomplete="off"
-                       spellcheck="false" aria-label="API key">
-                <button type="button" id="apiKeySave" class="api-key-btn">Set</button>
-                <button type="button" id="apiKeyClear" class="api-key-btn api-key-clear">Clear</button>
-                <span class="api-key-state" id="apiKeyState"></span>
-            </div>
         </div>
     </header>
 

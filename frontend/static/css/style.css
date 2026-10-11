@@ -126,48 +126,6 @@ body::before {
     color: var(--text-secondary);
 }
 
-/* API key entry (audit finding #11): session-only credential for the
-   API_KEYS gate. Never prefilled, never persisted beyond the tab. */
-.api-key-box {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-size: 0.8rem;
-}
-
-.api-key-input {
-    width: 11rem;
-    padding: 0.3rem 0.5rem;
-    border-radius: 6px;
-    border: 1px solid var(--border);
-    background: rgba(255, 255, 255, 0.04);
-    color: var(--text-primary);
-}
-
-.api-key-input.key-needed {
-    border-color: var(--warning);
-    box-shadow: 0 0 0 1px var(--warning);
-}
-
-.api-key-btn {
-    padding: 0.3rem 0.6rem;
-    border-radius: 6px;
-    border: 1px solid var(--border);
-    background: var(--accent-subtle);
-    color: var(--accent);
-    cursor: pointer;
-}
-
-.api-key-clear {
-    background: transparent;
-    color: var(--text-secondary);
-}
-
-.api-key-state {
-    color: var(--text-secondary);
-    min-width: 3.5rem;
-}
-
 .status-dot {
     width: 8px;
     height: 8px;

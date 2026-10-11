@@ -146,6 +146,12 @@ class Settings(BaseSettings):
     # ownership; multi-tenant document isolation is still an open item.
     API_KEYS: str = ""
 
+    # Deliberate open-mode opt-in for production. The lifespan refuses to
+    # boot ENVIRONMENT=production without API_KEYS unless this is
+    # explicitly true — so an open deployment is always a conscious
+    # operator decision, never an unset-variable accident.
+    ALLOW_OPEN_API: bool = False
+
     # Trust X-Forwarded-For for client identity in rate limiting. OFF by
     # default: a client-supplied first hop is spoofable whenever the proxy
     # chain is unknown, and trusting it lets an attacker rotate identities

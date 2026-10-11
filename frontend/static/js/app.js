@@ -13,73 +13,13 @@ let historyPage = 1;
 const HISTORY_PAGE_SIZE = 15;
 const historySearch = document.getElementById('historySearch');
 
-// ─── API key gate (audit finding #11) ───
-// The /api/v1 routes require X-API-Key when the server sets API_KEYS. The
-// key is pasted by the operator, kept in sessionStorage for the tab
-// lifetime only, and never embedded in source, logged, or persisted
-// elsewhere. All API calls go through apiFetch() so the header is
-// attached uniformly.
-const API_KEY_SESSION_KEY = 'finirag_api_key';
-
-function storedApiKey() {
-    try {
-        return sessionStorage.getItem(API_KEY_SESSION_KEY) || '';
-    } catch (e) {
-        return '';
-    }
-}
-
-function refreshApiKeyState() {
-    const state = document.getElementById('apiKeyState');
-    const input = document.getElementById('apiKeyInput');
-    if (!state || !input) return;
-    if (storedApiKey()) {
-        state.textContent = 'key set';
-        input.value = '';
-        input.placeholder = 'API key set ✓';
-    } else {
-        state.textContent = '';
-        input.placeholder = 'API key (if required)';
-    }
-    input.classList.remove('key-needed');
-}
-
-function markKeyRequired() {
-    const input = document.getElementById('apiKeyInput');
-    if (input) input.classList.add('key-needed');
-}
-
+// ─── API calls ───
+// Same-origin requests to our own backend. If the server sets API_KEYS,
+// it answers 401 and the callers below surface that code visibly instead
+// of failing silently — there is deliberately no key entry in this UI.
 async function apiFetch(path, options = {}) {
-    const headers = Object.assign({}, options.headers || {});
-    const key = storedApiKey();
-    if (key) headers['X-API-Key'] = key;
-    const response = await window.fetch(path, Object.assign({}, options, { headers }));
-    if (response.status === 401) markKeyRequired();
-    return response;
+    return window.fetch(path, options);
 }
-
-(function initApiKeyBox() {
-    const input = document.getElementById('apiKeyInput');
-    const save = document.getElementById('apiKeySave');
-    const clear = document.getElementById('apiKeyClear');
-    if (!input || !save || !clear) return;
-    if (save) save.addEventListener('click', () => {
-        try {
-            if (input.value) sessionStorage.setItem(API_KEY_SESSION_KEY, input.value);
-        } catch (e) { /* storage unavailable: key applies to this page only */ }
-        refreshApiKeyState();
-    });
-    if (clear) clear.addEventListener('click', () => {
-        try {
-            sessionStorage.removeItem(API_KEY_SESSION_KEY);
-        } catch (e) { /* ignore */ }
-        refreshApiKeyState();
-    });
-    input.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') { e.preventDefault(); save.click(); }
-    });
-    refreshApiKeyState();
-})();
 const historyTypeFilter = document.getElementById('historyTypeFilter');
 const historyValidationFilter = document.getElementById('historyValidationFilter');
 const clearHistoryFilters = document.getElementById('clearHistoryFilters');
@@ -477,10 +417,14 @@ function renderValidation(validation) {
 // and scripts/run_indexing_worker.py directly.
 
 async function loadHistory() {
+    const tbody = document.getElementById('historyBody');
     try {
         // Fetch the complete persisted dashboard set once. Pagination is
         // client-side so changing pages never loses the stored results.
         const response = await apiFetch('/api/v1/documents?limit=1000&offset=0');
+        if (!response.ok) {
+            throw new Error(historyLoadError(response.status));
+        }
         const data = await response.json();
         historyDocuments = (data.documents || []).sort((a, b) => {
             return new Date(b.created_at || 0) - new Date(a.created_at || 0);
@@ -488,8 +432,22 @@ async function loadHistory() {
         historyPage = 1;
         renderHistoryPage();
     } catch (err) {
-        console.error('Failed to load history:', err);
+        // Visible failure, never a silent empty table.
+        historyDocuments = [];
+        if (tbody) {
+            tbody.innerHTML = `<tr><td colspan="5" class="empty-state">Could not load history: ${escapeHtml(err.message || err)}</td></tr>`;
+        }
+        const pagination = document.getElementById('historyPagination');
+        if (pagination) pagination.innerHTML = '';
     }
+}
+
+function historyLoadError(status) {
+    if (status === 401) {
+        return 'HTTP 401: this server requires an API key (API_KEYS is set). ' +
+            'Remove API_KEYS from the server environment for open access.';
+    }
+    return `HTTP ${status}: history unavailable — is the backend running?`;
 }
 
 function renderHistoryPage() {

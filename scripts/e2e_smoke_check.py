@@ -45,7 +45,9 @@ def run_local() -> bool:
         ok &= _check("frontend HTML served", r.status_code == 200,
                      f"HTTP {r.status_code}, {len(r.text)} bytes")
         ok &= _check("dashboard markup present",
-                     "apiKeyInput" in r.text and "uploadForm" in r.text)
+                     "uploadForm" in r.text and "historyTable" in r.text)
+        ok &= _check("no key entry in customer UI",
+                     "apiKeyInput" not in r.text and "api-key-box" not in r.text)
 
         r = client.get("/static/js/app.js")
         ok &= _check("frontend JS served", r.status_code == 200,
@@ -78,9 +80,17 @@ def run_local() -> bool:
             ok &= _check("document listing reads PG", r.status_code == 200,
                          f"HTTP {r.status_code}")
             if r.status_code == 200:
-                items = r.json().get("documents", r.json().get("items", []))
+                payload = r.json()
+                items = payload.get("documents", payload.get("items", []))
                 ok &= _check("live rows returned", len(items) > 0,
                              f"{len(items)} row(s)")
+                # Processing History must receive the full corpus, not a
+                # truncated page: the UI fetches limit=1000.
+                full = client.get("/api/v1/documents?limit=1000&offset=0").json()
+                ok &= _check("history gets every processed document",
+                             full.get("total", 0) >= 50
+                             and len(full.get("documents", [])) == full.get("total", -1),
+                             f"total={full.get('total')}")
 
         r = client.post("/api/v1/qa/ask",
                         json={"question": "Should I buy this stock?"})

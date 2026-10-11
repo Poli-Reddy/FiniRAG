@@ -128,9 +128,12 @@ job until it completes or instructs the operator to run the worker.
 ## Production checklist
 
 - Set `DATABASE_URL` (internal URL when co-located on Render).
-- Set `API_KEYS` — with `ENVIRONMENT=production` the app **refuses to
-  boot** without them. The dashboard header has a session-only key
-  field (never embedded in source); keys live in `sessionStorage`.
+- Either set `API_KEYS` (browser calls then need a key header — the
+  customer dashboard has no key entry, so prefer this only for
+  non-public deployments), or deliberately open the API: delete
+  `API_KEYS` and set `ALLOW_OPEN_API=true`. Without either, an
+  `ENVIRONMENT=production` boot refuses to start rather than serve
+  records open.
 - Optional: `TRUST_X_FORWARDED_FOR=true` only behind a proxy verified
   to overwrite client-supplied forwarding headers (default off).
 - `EMBEDDING_DIM` must equal the migrated `VECTOR(768)` or boot fails;

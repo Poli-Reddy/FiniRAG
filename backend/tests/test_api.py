@@ -459,6 +459,7 @@ async def test_production_boot_refuses_without_api_keys(monkeypatch):
 
     monkeypatch.setattr(main_mod.settings, "ENVIRONMENT", "production")
     monkeypatch.setattr(main_mod.settings, "API_KEYS", "")
+    monkeypatch.setattr(main_mod.settings, "ALLOW_OPEN_API", False)
 
     async def fake_init():
         raise AssertionError("must not reach init_db")
@@ -467,6 +468,31 @@ async def test_production_boot_refuses_without_api_keys(monkeypatch):
     with pytest.raises(RuntimeError, match="API_KEYS"):
         async with main_mod.lifespan(main_mod.app):
             pass  # pragma: no cover
+
+
+@pytest.mark.asyncio
+async def test_production_boot_open_only_with_explicit_opt_in(monkeypatch):
+    """ALLOW_OPEN_API=true is the single deliberate path to an open prod boot."""
+    import backend.app.main as main_mod
+
+    monkeypatch.setattr(main_mod.settings, "ENVIRONMENT", "production")
+    monkeypatch.setattr(main_mod.settings, "API_KEYS", "")
+    monkeypatch.setattr(main_mod.settings, "ALLOW_OPEN_API", True)
+
+    booted = {}
+
+    async def fake_init():
+        booted["yes"] = True
+
+    async def fake_recover():
+        return 0
+
+    monkeypatch.setattr(main_mod, "init_db", fake_init)
+    monkeypatch.setattr("backend.app.workers.indexing_worker.recover_stale_jobs",
+                        fake_recover)
+    async with main_mod.lifespan(main_mod.app):
+        pass
+    assert booted.get("yes") is True
 
 
 def test_untrusted_forwarded_header_ignored_by_default(monkeypatch):

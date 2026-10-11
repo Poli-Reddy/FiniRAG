@@ -32,6 +32,8 @@ services:
       # the dashboard before public exposure; health stays public either way.
       # REQUIRED when ENVIRONMENT=production: the app refuses to boot
       # without API_KEYS rather than serve financial records open.
+      # (Frictionless open demo instead: delete API_KEYS and set
+      # ALLOW_OPEN_API=true — an explicit opt-in, never an accident.)
       - key: API_KEYS
         sync: false
       - key: OCR_PROVIDER

@@ -38,16 +38,22 @@ async def lifespan(app: FastAPI):
     # Fail closed in production (audit finding #11): an unauthenticated
     # public deployment exposes full extracted financial records. When
     # ENVIRONMENT=production and no API_KEYS are configured, refuse to
-    # boot rather than serve the API open. Local dev (ENVIRONMENT unset
-    # or anything else) keeps the open default.
+    # boot rather than serve the API open — unless the operator has
+    # explicitly opted into open mode with ALLOW_OPEN_API=true.
+    # Local dev (ENVIRONMENT unset or anything else) keeps the open default.
     from backend.app.api.auth import auth_enabled
 
-    if settings.is_production and not auth_enabled():
+    if settings.is_production and not auth_enabled() and not settings.ALLOW_OPEN_API:
         raise RuntimeError(
             "Refusing to boot: ENVIRONMENT=production but no API_KEYS are "
             "configured. Set API_KEYS in the environment before exposing "
             "this service publicly — the API serves extracted financial "
-            "records and must not run open.")
+            "records and must not run open. (Deliberate open demo only: "
+            "set ALLOW_OPEN_API=true.)")
+    if settings.is_production and not auth_enabled() and settings.ALLOW_OPEN_API:
+        logger.warning("Booting production with OPEN API access "
+                       "(ALLOW_OPEN_API=true). Every extracted financial "
+                       "record is publicly readable.")
     await init_db()
     try:
         from backend.app.workers.indexing_worker import recover_stale_jobs
