@@ -263,6 +263,50 @@ All run for real; nothing mocked:
 
 ---
 
+## 10. Second audit round — recovery hardening (2026-10-11, live-verified)
+
+A follow-up audit (23 findings on recovery/orchestrator/packaging paths)
+was verified claim-by-claim against the code and fixed. Live proof on the
+`finitodo` Render PostgreSQL (PostgreSQL 18.6, pgvector 0.8.1):
+
+- Orchestrator rewritten: direct function calls (no `sys.argv`
+  simulation), `--dry-run` strictly read-only (migrations skipped),
+  `--skip-db-check` independent of `--skip-migrations`, `--limit`
+  honored by import + index, `--confirm` required for writes.
+- Live `--dry-run`: 54 files → 50 `SKIPPED_EXISTING` + 4 `WOULD_IMPORT`
+  (edge fixtures, now accepted as `FAILED` historical attempts);
+  zero writes confirmed.
+- Live import: 4 edge rows added (fresh UUIDs, current timestamps —
+  reported as reconstruction, not history); 50 existing rows untouched;
+  manifest written (54 entries).
+- Live `verify_recovery.py`: **54 docs (50 PASS + 4 FAILED)**, 938 active
+  chunks, 100% `gemini-embedding-2` vectors, 0 dim mismatches, 100/100
+  jobs COMPLETED, all required indexes by name, strict retrieval
+  `vector=pgvector` + `keyword=postgres-fts` non-degraded with 6
+  candidates, filtered search 3/3 same-document → `[OK] RECOVERY
+  SUCCESSFUL` (API smoke SKIPPED — no `--api-url` given, never passed).
+- Rebuild is fail-closed: aborts with imported data preserved when
+  Gemini is unavailable; `--allow-hash-embeddings` local-hosts only.
+- Retrieval filters by configured model + index version on PostgreSQL
+  (mixed vector spaces can no longer silently compare).
+- Release ZIP: `.env*` excluded except `.env.example`,
+  `evaluation/results/` + generated reports excluded by default
+  (`--include-eval-artifacts` is private-use-only), Groq/asyncpg
+  credential patterns added, unscannable files refuse by default.
+- Production refuses to boot without `API_KEYS`
+  (`ENVIRONMENT=production`); dashboard has a session-only key field;
+  request-body cap enforced at ingress (413) before multipart parsing;
+  `TRUST_X_FORWARDED_FOR` defaults off; `EMBEDDING_DIM` mismatch with
+  `VECTOR(768)` refuses boot.
+- Suite: **516 passed, 0 failed** (14 integration-deselected).
+  Residual limits: no `source_text` in the 54 JSONs (chunks are derived
+  summaries — stated in the recovery guide); claim checks remain
+  heuristic + deterministic guards, not entailment proof; single-tenant
+  API gate (no per-user row ownership); credential rotation after the
+  `.env`-in-ZIP incident is a user action (see §9).
+
+---
+
 ## 9. Operations
 
 ```powershell

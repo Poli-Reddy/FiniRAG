@@ -168,12 +168,14 @@ def _verify_draft(d: ChunkDraft, pages: list[str] | None,
     """Promote a draft's evidence to verbatim only on proof.
 
     Proof = the normalized snippet occurs in the normalized retained source
-    of the claimed page (or, failing that, of exactly one locatable page, in
-    which case the page is corrected to where the text actually is). Anything
-    else — no source retained, snippet absent, page out of range — stays
-    derived with no presented page number. Narrative chunks built directly
-    from retained source text are verbatim by construction and skipped here
-    by the caller.
+    of the claimed page. Failing that, the snippet must occur on EXACTLY ONE
+    locatable page (corrected to where the text actually is). A snippet
+    appearing on MULTIPLE pages (repeated headers/footers) proves the words
+    but not the page — those stay derived with no presented page number
+    (audit finding #15). Anything else — no source retained, snippet
+    absent, page out of range — stays derived. Narrative chunks built
+    directly from retained source text are verbatim by construction and
+    skipped here by the caller.
     """
     sev = dict(d.source_evidence or {})
     snippet = (sev.get("source_text") or "").strip()
@@ -198,10 +200,13 @@ def _verify_draft(d: ChunkDraft, pages: list[str] | None,
             and norm_snip and norm_snip in norm_pages[claimed - 1]:
         page = claimed
     else:
-        for i, p in enumerate(norm_pages, start=1):
-            if norm_snip and norm_snip in p:
-                page = i
-                break
+        # Collect EVERY matching page: first-match-wins would cite a wrong
+        # page for repeated headers/footers while looking proven.
+        matches = [i for i, p in enumerate(norm_pages, start=1)
+                   if norm_snip and norm_snip in p and _page_ok(i)]
+        if len(matches) == 1:
+            page = matches[0]
+        # Zero matches, or ambiguous (2+): page stays None below.
     if page is not None and _page_ok(page):
         sev["evidence_kind"] = "verbatim"
         sev["verbatim_available"] = True

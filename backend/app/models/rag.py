@@ -20,6 +20,7 @@ from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.types import TypeDecorator
 
 from backend.app.core.database import Base
+from backend.app.core.config import RAG_VECTOR_DIM
 
 JSON_VARIANT = JSONB().with_variant(GenericJSON(), "sqlite")
 
@@ -27,7 +28,7 @@ JSON_VARIANT = JSONB().with_variant(GenericJSON(), "sqlite")
 class EmbeddingVector(TypeDecorator):
     """pgvector on PostgreSQL, JSON fallback elsewhere (sqlite/tests).
 
-    Stores a list[float] of EMBEDDING_DIM. Rejects non-finite values.
+    Stores a list[float] of RAG_VECTOR_DIM. Rejects non-finite values.
     Similarity search uses pgvector operators on Postgres; the retrieval
     service falls back to Python cosine on other backends.
     """
@@ -35,7 +36,7 @@ class EmbeddingVector(TypeDecorator):
     impl = GenericJSON
     cache_ok = True
 
-    def __init__(self, dim: int = 768):
+    def __init__(self, dim: int = RAG_VECTOR_DIM):
         super().__init__()
         self.dim = dim
 
@@ -109,7 +110,7 @@ class DocumentChunk(Base):
     company_norm: Mapped[str | None] = mapped_column(String(255), nullable=True)
     source_evidence: Mapped[dict] = mapped_column(JSON_VARIANT, nullable=False, default=dict)
     chunk_metadata: Mapped[dict] = mapped_column("metadata", JSON_VARIANT, nullable=False, default=dict)
-    embedding: Mapped[list | None] = mapped_column(EmbeddingVector(768), nullable=True)
+    embedding: Mapped[list | None] = mapped_column(EmbeddingVector(RAG_VECTOR_DIM), nullable=True)
     embedding_model: Mapped[str] = mapped_column(String(128), nullable=False, default="")
     index_version: Mapped[str] = mapped_column(String(32), nullable=False, default="v1")
     content_hash: Mapped[str] = mapped_column(String(64), nullable=False)

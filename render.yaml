@@ -30,6 +30,8 @@ services:
         sync: false
       # Shared-secret API gate. sync:false like the provider keys — set in
       # the dashboard before public exposure; health stays public either way.
+      # REQUIRED when ENVIRONMENT=production: the app refuses to boot
+      # without API_KEYS rather than serve financial records open.
       - key: API_KEYS
         sync: false
       - key: OCR_PROVIDER

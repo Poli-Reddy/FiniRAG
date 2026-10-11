@@ -255,6 +255,16 @@ class RetrievalService:
             try:
                 await self._apply_session_guards()
                 stmt = select(DocumentChunk).where(DocumentChunk.is_active == True)  # noqa: E712
+                # Model-space guard (audit finding #3): never compare vectors
+                # from incompatible embedding spaces. Chunks from a different
+                # model or index version are invisible to vector search —
+                # silently mixing them returns nonsense ranked by meaningless
+                # distances. (Keyword search is unaffected: it uses text.)
+                # Applied on PostgreSQL only: sqlite is the offline/test
+                # backend where single-model corpora are the norm.
+                stmt = stmt.where(
+                    DocumentChunk.embedding_model == settings.EMBEDDING_MODEL,
+                    DocumentChunk.index_version == settings.INDEX_VERSION)
                 for f in filters:
                     stmt = stmt.where(f)
                 # Deterministic tie-break on chunk id so equal distances return
@@ -290,6 +300,12 @@ class RetrievalService:
         scored = []
         for c in rows:
             if not c.embedding:
+                continue
+            # Same model-space guard as the native path (audit finding #3),
+            # applied on PostgreSQL where mixed corpora can actually occur.
+            if _dialect_name(self._db) == "postgresql" and (
+                    (c.embedding_model or "") != settings.EMBEDDING_MODEL
+                    or (c.index_version or "") != settings.INDEX_VERSION):
                 continue
             try:
                 scored.append((cosine(qvec, list(c.embedding)), str(c.id), c))

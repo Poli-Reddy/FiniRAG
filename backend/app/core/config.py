@@ -13,6 +13,31 @@ from pydantic import field_validator
 from backend.app.core.key_pool import KeyPool, parse_keys
 
 
+def normalize_database_url(url: str | None) -> str:
+    """Normalize a Render-style database URL to the async SQLAlchemy form.
+
+    Single shared normalizer for the application (Settings validator below)
+    and the recovery scripts — one function, not duplicated per-callsite
+    logic (audit finding #7). Never logs or prints its input: it may
+    contain credentials.
+    """
+    if not url:
+        return url or ""
+    if url.startswith("postgres://"):
+        return url.replace("postgres://", "postgresql+asyncpg://", 1)
+    if url.startswith("postgresql://") and "+asyncpg" not in url:
+        return url.replace("postgresql://", "postgresql+asyncpg://", 1)
+    return url
+
+
+# Dimension of the pgvector column created by migration 0001_rag
+# (VECTOR(768)). The single source of truth for the runtime side:
+# models/rag.py sizes EmbeddingVector from this, and startup refuses to
+# boot when settings.EMBEDDING_DIM disagrees (audit finding #16) — a
+# config knob must never silently permit an unsupported combination.
+RAG_VECTOR_DIM = 768
+
+
 class Settings(BaseSettings):
     """Application settings loaded from environment variables."""
 
@@ -121,11 +146,14 @@ class Settings(BaseSettings):
     # ownership; multi-tenant document isolation is still an open item.
     API_KEYS: str = ""
 
-    # Trust X-Forwarded-For for client identity in rate limiting. Correct
-    # only behind a proxy that appends (not preserves) the client address,
-    # which is the Render deployment. Disable (peer IP is used instead) if
-    # the proxy chain is unknown — a client-supplied first hop is spoofable.
-    TRUST_X_FORWARDED_FOR: bool = True
+    # Trust X-Forwarded-For for client identity in rate limiting. OFF by
+    # default: a client-supplied first hop is spoofable whenever the proxy
+    # chain is unknown, and trusting it lets an attacker rotate identities
+    # past the limiter (audit finding #13). Enable ONLY behind a proxy
+    # verified to append (not preserve) the client address — the Render
+    # deployment qualifies once its header behavior is confirmed; until
+    # then the direct peer IP is used and the limiter stays effective.
+    TRUST_X_FORWARDED_FOR: bool = False
 
     # Cross-origin access. Default is same-origin only: the shipped dashboard
     # is served by the same FastAPI app, so it needs no CORS at all. Set
@@ -172,11 +200,7 @@ class Settings(BaseSettings):
     @classmethod
     def fix_database_url(cls, v: str) -> str:
         """Render provides postgres:// but SQLAlchemy needs postgresql+asyncpg://"""
-        if v.startswith("postgres://"):
-            v = v.replace("postgres://", "postgresql+asyncpg://", 1)
-        elif v.startswith("postgresql://") and "+asyncpg" not in v:
-            v = v.replace("postgresql://", "postgresql+asyncpg://", 1)
-        return v
+        return normalize_database_url(v)
 
     @property
     def max_file_size_bytes(self) -> int:

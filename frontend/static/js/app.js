@@ -12,6 +12,74 @@ let historyDocuments = [];
 let historyPage = 1;
 const HISTORY_PAGE_SIZE = 15;
 const historySearch = document.getElementById('historySearch');
+
+// ─── API key gate (audit finding #11) ───
+// The /api/v1 routes require X-API-Key when the server sets API_KEYS. The
+// key is pasted by the operator, kept in sessionStorage for the tab
+// lifetime only, and never embedded in source, logged, or persisted
+// elsewhere. All API calls go through apiFetch() so the header is
+// attached uniformly.
+const API_KEY_SESSION_KEY = 'finirag_api_key';
+
+function storedApiKey() {
+    try {
+        return sessionStorage.getItem(API_KEY_SESSION_KEY) || '';
+    } catch (e) {
+        return '';
+    }
+}
+
+function refreshApiKeyState() {
+    const state = document.getElementById('apiKeyState');
+    const input = document.getElementById('apiKeyInput');
+    if (!state || !input) return;
+    if (storedApiKey()) {
+        state.textContent = 'key set';
+        input.value = '';
+        input.placeholder = 'API key set ✓';
+    } else {
+        state.textContent = '';
+        input.placeholder = 'API key (if required)';
+    }
+    input.classList.remove('key-needed');
+}
+
+function markKeyRequired() {
+    const input = document.getElementById('apiKeyInput');
+    if (input) input.classList.add('key-needed');
+}
+
+async function apiFetch(path, options = {}) {
+    const headers = Object.assign({}, options.headers || {});
+    const key = storedApiKey();
+    if (key) headers['X-API-Key'] = key;
+    const response = await window.fetch(path, Object.assign({}, options, { headers }));
+    if (response.status === 401) markKeyRequired();
+    return response;
+}
+
+(function initApiKeyBox() {
+    const input = document.getElementById('apiKeyInput');
+    const save = document.getElementById('apiKeySave');
+    const clear = document.getElementById('apiKeyClear');
+    if (!input || !save || !clear) return;
+    if (save) save.addEventListener('click', () => {
+        try {
+            if (input.value) sessionStorage.setItem(API_KEY_SESSION_KEY, input.value);
+        } catch (e) { /* storage unavailable: key applies to this page only */ }
+        refreshApiKeyState();
+    });
+    if (clear) clear.addEventListener('click', () => {
+        try {
+            sessionStorage.removeItem(API_KEY_SESSION_KEY);
+        } catch (e) { /* ignore */ }
+        refreshApiKeyState();
+    });
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') { e.preventDefault(); save.click(); }
+    });
+    refreshApiKeyState();
+})();
 const historyTypeFilter = document.getElementById('historyTypeFilter');
 const historyValidationFilter = document.getElementById('historyValidationFilter');
 const clearHistoryFilters = document.getElementById('clearHistoryFilters');
@@ -101,7 +169,7 @@ uploadForm.addEventListener('submit', async (e) => {
         setTimeout(() => animateStep('stepValidate'), 2400),
     ];
     try {
-        const response = await fetch('/api/v1/documents/process', {
+        const response = await apiFetch('/api/v1/documents/process', {
             method: 'POST',
             body: formData,
         });
@@ -482,13 +550,15 @@ function indexPanelMarkup(st) {
                  <div class="index-job-note"></div>`;
     }
     if (st.status === 'PENDING' || st.status === 'PROCESSING') {
-        html += `<p class="empty-state">Jobs are processed by the indexing worker (<code>python scripts/run_indexing_worker.py</code>); status updates when it runs.</p>`;
+        html += `<p class="empty-state">Job QUEUED — no automatic worker drains jobs on this deployment. ` +
+            `Process it with <code>python scripts/run_indexing_worker.py</code> (jobs are also indexed inline at upload ` +
+            `and stale jobs recover at startup); status updates when it runs.</p>`;
     }
     return html;
 }
 
 async function fetchIndexStatus(documentId) {
-    const response = await fetch(`/api/v1/documents/${encodeURIComponent(documentId)}/index-status`);
+    const response = await apiFetch(`/api/v1/documents/${encodeURIComponent(documentId)}/index-status`);
     const data = await response.json();
     if (!response.ok) {
         const code = data?.detail?.code || `HTTP ${response.status}`;
@@ -503,7 +573,7 @@ async function loadResultIndex(documentName) {
     panel.innerHTML = '<p class="empty-state">Loading index status…</p>';
     try {
         // The process response carries no attempt id; resolve it by name.
-        const rec = await fetch(`/api/v1/documents/${encodeURIComponent(documentName)}`);
+        const rec = await apiFetch(`/api/v1/documents/${encodeURIComponent(documentName)}`);
         const recData = await rec.json();
         if (!rec.ok || !recData.id) {
             panel.innerHTML = '<p class="empty-state">Index status unavailable for this result.</p>';
@@ -524,18 +594,26 @@ function wireReindexButtons(root, rerender) {
             const docId = btn.getAttribute('data-reindex');
             btn.disabled = true;
             try {
-                const response = await fetch(`/api/v1/documents/${encodeURIComponent(docId)}/reindex`, { method: 'POST' });
+                const response = await apiFetch(`/api/v1/documents/${encodeURIComponent(docId)}/reindex`, { method: 'POST' });
                 const data = await response.json();
                 if (!response.ok) {
                     const code = data?.detail?.code || `HTTP ${response.status}`;
                     throw new Error(String(code));
                 }
                 if (note) note.textContent = `Reindex job ${data.job_id} (${data.status}). Refreshing status…`;
+                if (data.queued) {
+                    // Queued, not completed: no background loop drains jobs
+                    // automatically (single-service deployment). Say so
+                    // plainly instead of implying the poll will finish it.
+                    if (note) note.textContent = `Reindex QUEUED (job ${data.job_id}). ` +
+                        `No automatic worker is running — process it with ` +
+                        `python scripts/run_indexing_worker.py, then refresh status.`;
+                }
                 // Poll the job a few times; indexing is bounded server-side.
                 for (let i = 0; i < 4; i++) {
                     await new Promise(r => setTimeout(r, 2000));
                     try {
-                        const js = await fetch(`/api/v1/indexing/jobs/${encodeURIComponent(data.job_id)}`);
+                        const js = await apiFetch(`/api/v1/indexing/jobs/${encodeURIComponent(data.job_id)}`);
                         const jd = await js.json();
                         if (js.ok && (jd.status === 'COMPLETED' || jd.status === 'FAILED')) break;
                     } catch (_) { /* keep polling */ }
@@ -582,7 +660,7 @@ async function loadHistory() {
     try {
         // Fetch the complete persisted dashboard set once. Pagination is
         // client-side so changing pages never loses the stored results.
-        const response = await fetch('/api/v1/documents?limit=1000&offset=0');
+        const response = await apiFetch('/api/v1/documents?limit=1000&offset=0');
         const data = await response.json();
         historyDocuments = (data.documents || []).sort((a, b) => {
             return new Date(b.created_at || 0) - new Date(a.created_at || 0);
@@ -715,7 +793,7 @@ async function toggleHistoryResult(row, documentName) {
     row.after(detailRow);
 
     try {
-        const response = await fetch(`/api/v1/documents/${encodeURIComponent(documentName)}`);
+        const response = await apiFetch(`/api/v1/documents/${encodeURIComponent(documentName)}`);
         const result = await response.json();
         if (!response.ok) {
             const code = result?.detail?.code || `HTTP ${response.status}`;
@@ -774,7 +852,7 @@ async function checkHealth() {
     const text = statusEl.querySelector('.status-text');
 
     try {
-        const response = await fetch('/api/v1/health');
+        const response = await apiFetch('/api/v1/health');
         const data = await response.json();
 
         if (data.database === 'connected') {
@@ -817,8 +895,8 @@ async function loadOps() {
     const metricsGrid = document.getElementById('opsMetrics');
     try {
         const [healthRes, metricsRes] = await Promise.all([
-            fetch('/api/v1/health'),
-            fetch('/metrics?format=json'),
+            apiFetch('/api/v1/health'),
+            apiFetch('/metrics?format=json'),
         ]);
         const health = await healthRes.json();
         const snap = await metricsRes.json();
@@ -892,7 +970,7 @@ document.getElementById('jobLookupBtn')?.addEventListener('click', async () => {
         return;
     }
     try {
-        const response = await fetch(`/api/v1/indexing/jobs/${encodeURIComponent(jobId)}`);
+        const response = await apiFetch(`/api/v1/indexing/jobs/${encodeURIComponent(jobId)}`);
         const data = await response.json();
         if (!response.ok) {
             const code = data?.detail?.code || `HTTP ${response.status}`;
@@ -944,7 +1022,7 @@ qaAskBtn?.addEventListener('click', async () => {
     try {
         const controller = new AbortController();
         const timeout = setTimeout(() => controller.abort(), 60000);
-        const response = await fetch('/api/v1/qa/ask', {
+        const response = await apiFetch('/api/v1/qa/ask', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ question, document_id, document_name, document_type, reporting_period, company }),

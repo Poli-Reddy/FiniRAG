@@ -430,3 +430,54 @@ def test_root_serves_the_dashboard(client):
 def test_static_assets_are_mounted(client):
     r = client.get("/static/js/app.js")
     assert r.status_code == 200
+
+
+# ─────────────────────────────────────────────────────────────────────
+# Ingress body cap + production auth fail-closed (findings #11/#12)
+# ─────────────────────────────────────────────────────────────────────
+
+def test_ingress_rejects_lying_content_length_before_parsing(client, monkeypatch):
+    """Finding #12: an oversized declared body is rejected at ingress,
+    before multipart parsing — the pipeline must never run."""
+    from backend.app.core.config import settings
+
+    monkeypatch.setattr(settings, "MAX_FILE_SIZE_MB", 1)
+    up = _upload()
+    # Small actual body, lying huge Content-Length: ingress must 413.
+    r = client.post("/api/v1/documents/process",
+                    files=up["files"], data=up["data"],
+                    headers={"content-length": str(500 * 1024 * 1024)})
+    assert r.status_code == 413
+    assert r.json()["error"]["code"] == "FILE_TOO_LARGE"
+    assert StubService.calls == []
+
+
+@pytest.mark.asyncio
+async def test_production_boot_refuses_without_api_keys(monkeypatch):
+    """Finding #11: ENVIRONMENT=production with no API_KEYS refuses boot."""
+    import backend.app.main as main_mod
+
+    monkeypatch.setattr(main_mod.settings, "ENVIRONMENT", "production")
+    monkeypatch.setattr(main_mod.settings, "API_KEYS", "")
+
+    async def fake_init():
+        raise AssertionError("must not reach init_db")
+
+    monkeypatch.setattr(main_mod, "init_db", fake_init)
+    with pytest.raises(RuntimeError, match="API_KEYS"):
+        async with main_mod.lifespan(main_mod.app):
+            pass  # pragma: no cover
+
+
+def test_untrusted_forwarded_header_ignored_by_default(monkeypatch):
+    """Finding #13: with TRUST_X_FORWARDED_FOR off (the default), a forged
+    header does not change client identity."""
+    from fastapi import Request
+
+    from backend.app.api.rate_limit import client_key
+    from backend.app.core.config import settings
+
+    assert settings.TRUST_X_FORWARDED_FOR is False
+    scope = {"type": "http", "headers": [(b"x-forwarded-for", b"9.9.9.9")],
+             "client": ("10.0.0.7", 1234)}
+    assert client_key(Request(scope)) == "10.0.0.7"

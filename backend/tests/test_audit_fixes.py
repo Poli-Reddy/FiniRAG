@@ -246,9 +246,10 @@ def test_migration_chain_valid():
 def test_migration_offline_sql():
     """Generated SQL must contain the extension, VECTOR(768), FKs, indexes."""
     import subprocess
+    import sys
 
     proc = subprocess.run(
-        ["python", "-m", "alembic", "upgrade", "head", "--sql"],
+        [sys.executable, "-m", "alembic", "upgrade", "head", "--sql"],
         capture_output=True, text=True, cwd=".")
     assert proc.returncode == 0, proc.stderr[-2000:]
     sql = proc.stdout
@@ -863,9 +864,10 @@ def test_key_pools_drained_by_fixture():
 def test_migration_0003_offline_sql():
     """Finding #8/#9: source_text column + active-job uniqueness in DDL."""
     import subprocess
+    import sys
 
     proc = subprocess.run(
-        ["python", "-m", "alembic", "upgrade", "head", "--sql"],
+        [sys.executable, "-m", "alembic", "upgrade", "head", "--sql"],
         capture_output=True, text=True, cwd=".")
     assert proc.returncode == 0, proc.stderr[-2000:]
     sql = proc.stdout

@@ -35,6 +35,19 @@ from backend.app.api.routes.qa import router as qa_router
 async def lifespan(app: FastAPI):
     """Startup: init DB + best-effort stale-job recovery. Shutdown: close DB."""
     logger.info("Starting FiniRAG Document Intelligence Platform")
+    # Fail closed in production (audit finding #11): an unauthenticated
+    # public deployment exposes full extracted financial records. When
+    # ENVIRONMENT=production and no API_KEYS are configured, refuse to
+    # boot rather than serve the API open. Local dev (ENVIRONMENT unset
+    # or anything else) keeps the open default.
+    from backend.app.api.auth import auth_enabled
+
+    if settings.is_production and not auth_enabled():
+        raise RuntimeError(
+            "Refusing to boot: ENVIRONMENT=production but no API_KEYS are "
+            "configured. Set API_KEYS in the environment before exposing "
+            "this service publicly — the API serves extracted financial "
+            "records and must not run open.")
     await init_db()
     try:
         from backend.app.workers.indexing_worker import recover_stale_jobs
@@ -89,6 +102,40 @@ async def http_exception_handler(request: Request, exc: HTTPException):
         content={"error": {"code": code, "message": message}},
         headers=getattr(exc, "headers", None),
     )
+
+
+@app.middleware("http")
+async def body_cap_middleware(request: Request, call_next):
+    """Ingress request-body cap for the upload route (audit finding #12).
+
+    Runs BEFORE routing/multipart parsing: FastAPI/Starlette parses the
+    multipart body inside the route handler, so the handler-level bounded
+    read alone cannot be the first defense against huge request bodies or
+    multipart-spooling exhaustion. When Content-Length declares more than
+    the file limit plus multipart framing overhead, reject with 413
+    without ever parsing the body.
+
+    Limits of this layer (stated, not hidden): requests WITHOUT a
+    Content-Length (chunked encoding) cannot be pre-sized — those still
+    rely on the route's bounded read (limit+1 bytes) plus the decoded
+    image/PDF pixel caps. A reverse proxy `client_max_body_size`-style
+    limit remains the ideal outermost defense.
+    """
+    if request.method == "POST" and request.url.path == "/api/v1/documents/process":
+        declared = request.headers.get("content-length")
+        if declared is not None:
+            try:
+                if int(declared) > settings.max_file_size_bytes + 1024 * 1024:
+                    return JSONResponse(
+                        status_code=413,
+                        content={"error": {
+                            "code": "FILE_TOO_LARGE",
+                            "message": f"Uploads are limited to "
+                                       f"{settings.MAX_FILE_SIZE_MB} MB."}},
+                    )
+            except ValueError:
+                pass  # malformed header: route-level bounded read decides
+    return await call_next(request)
 
 
 @app.middleware("http")

@@ -165,6 +165,13 @@ async def main(argv: list[str] | None = None) -> dict:
     print(json.dumps(out, indent=2))
 
     if args.strict and args.seed:
+        # Strict means the INTENDED indexes by name — a generic "some index
+        # was used" is not proof (audit finding #20).
+        if not (out["vector_index_name"] and out["fts_index_name"]):
+            print("STRICT: intended indexes not used "
+                  "(need idx_chunks_vec + idx_chunks_fts by name)",
+                  file=sys.stderr)
+            sys.exit(2)
         if not (out["vector_index_used"] and out["fts_index_used"]):
             print("STRICT: intended index was not used", file=sys.stderr)
             sys.exit(2)

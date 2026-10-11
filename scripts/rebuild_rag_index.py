@@ -18,12 +18,31 @@ from sqlalchemy import select, func
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker
 
-from backend.app.core.config import settings
+from backend.app.core.config import normalize_database_url, settings
 from backend.app.models.document import Document
 from backend.app.models.rag import DocumentChunk, IndexingJob
 from backend.app.services.indexing_service import IndexingService
 from backend.app.services.embedding_service import EmbeddingService
 from backend.app.providers.embedding_provider import GeminiEmbeddingProvider, HashEmbeddingProvider
+
+
+def _db_host(db_url: str) -> str:
+    """Hostname of a database URL, lowercased, for production guards."""
+    try:
+        return (db_url.split("@", 1)[1].split("/", 1)[0].split(":")[0] or "").lower()
+    except Exception:
+        return ""
+
+
+def _is_production_host(db_url: str) -> bool:
+    """True unless the URL is clearly local/test.
+
+    Fail-closed default: hash embeddings are only ever permitted against
+    localhost-class hosts. Anything else (Render, any remote host) is
+    treated as production.
+    """
+    host = _db_host(db_url)
+    return host not in ("localhost", "127.0.0.1", "::1", "test", "")
 
 
 async def rebuild_index(
@@ -32,6 +51,8 @@ async def rebuild_index(
     only_missing: bool = True,
     force_reindex: bool = False,
     dry_run: bool = False,
+    allow_hash_embeddings: bool = False,
+    db_url: str | None = None,
 ) -> dict[str, Any]:
     """Rebuild document_chunks for all imported documents."""
 
@@ -55,18 +76,43 @@ async def rebuild_index(
         "details": [],
     }
 
-    # Use real embedding provider if configured, else hash for testing
+    # Embedding provider — FAIL CLOSED (audit finding #3). Hash vectors
+    # are non-semantic; writing them into a production chunks table makes
+    # RAG return nonsense while health checks still report "embeddings
+    # exist". Real Gemini embeddings, or stop with the data preserved.
+    # The guard inspects the URL this session actually targets, not just
+    # ambient settings.
+    guard_url = normalize_database_url(
+        db_url or os.environ.get("DATABASE_URL") or settings.DATABASE_URL)
     if settings.GEMINI_API_KEY or settings.GEMINI_API_KEYS:
         try:
             embedding_provider = GeminiEmbeddingProvider()
             await embedding_provider.validate()
             print("Using GeminiEmbeddingProvider (real embeddings)")
         except Exception as e:
-            print(f"GeminiEmbeddingProvider not available ({e}), falling back to HashEmbeddingProvider")
-            embedding_provider = HashEmbeddingProvider()
-    else:
-        print("No Gemini API key configured, using HashEmbeddingProvider (offline mode)")
+            print(f"GeminiEmbeddingProvider unavailable ({e}).")
+            print("Indexing ABORTED: imported financial data is preserved, "
+                  "no hash vectors were written. Fix credentials/quota and "
+                  "re-run; pass --allow-hash-embeddings ONLY for a local "
+                  "offline test database.")
+            return {"status": "ABORTED_NO_EMBEDDINGS",
+                    "message": f"Gemini unavailable: {e}",
+                    "total_documents": len(docs),
+                    "already_indexed": 0, "indexed": 0,
+                    "failed": 0, "skipped": 0, "details": []}
+    elif allow_hash_embeddings and not _is_production_host(guard_url):
+        print("Using HashEmbeddingProvider (OFFLINE TEST ONLY, local DB).")
         embedding_provider = HashEmbeddingProvider()
+    else:
+        print("No Gemini API key configured. Indexing ABORTED: refusing to "
+              "write non-semantic hash vectors into document_chunks. "
+              "Set GEMINI_API_KEY(S) and re-run; --allow-hash-embeddings "
+              "is accepted ONLY against a localhost test database.")
+        return {"status": "ABORTED_NO_EMBEDDINGS",
+                "message": "no Gemini credentials",
+                "total_documents": len(docs),
+                "already_indexed": 0, "indexed": 0,
+                "failed": 0, "skipped": 0, "details": []}
 
     embedding_service = EmbeddingService(embedding_provider)
     indexing_service = IndexingService(session, embeddings=embedding_service)
@@ -91,18 +137,22 @@ async def rebuild_index(
             })
             continue
 
-        # Create or reuse indexing job
-        job = await indexing_service.ensure_job(doc.id)
-
+        # Create or reuse indexing job — NEVER in dry-run: ensure_job
+        # inserts a PENDING row, which is a write (audit finding #2).
         if dry_run:
+            from backend.app.repositories.rag_repository import IndexingJobRepository
+
+            existing_job = await IndexingJobRepository(session).get_active_for_document(doc.id)
             stats["details"].append({
                 "document_id": str(doc.id),
                 "document_name": doc.document_name,
                 "status": "WOULD_INDEX",
-                "job_id": str(job.id),
+                "job_id": str(existing_job.id) if existing_job is not None else None,
                 "existing_chunks": chunk_count,
             })
             continue
+
+        job = await indexing_service.ensure_job(doc.id)
 
         try:
             print(f"Indexing {doc.document_name} ({doc.id})...")
@@ -139,7 +189,9 @@ async def rebuild_index(
     return stats
 
 
-async def main():
+async def main(argv: list[str] | None = None):
+    """Entry point. `argv` is injectable so the orchestrator and tests call
+    this directly — no sys.argv simulation (audit finding #2)."""
     parser = argparse.ArgumentParser(description="Rebuild RAG index from imported documents")
     parser.add_argument("--limit", type=int, help="Limit number of documents to process")
     parser.add_argument("--force", action="store_true", help="Force reindex even if chunks exist")
@@ -147,10 +199,14 @@ async def main():
                         help="Process all PASS documents, not just those missing chunks")
     parser.add_argument("--dry-run", action="store_true", help="Show what would be indexed without writing")
     parser.add_argument("--confirm", action="store_true", help="Confirm actual indexing (required for non-dry-run)")
+    parser.add_argument("--allow-hash-embeddings", action="store_true",
+                        help="Permit non-semantic hash vectors — OFFLINE LOCAL TEST "
+                             "DATABASES ONLY. Refused against any remote host.")
 
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
 
-    db_url = os.environ.get("DATABASE_URL") or settings.DATABASE_URL
+    db_url = normalize_database_url(
+        os.environ.get("DATABASE_URL") or settings.DATABASE_URL)
     if not db_url or "user:pass@host" in db_url:
         print("ERROR: DATABASE_URL not configured")
         return 1
@@ -165,7 +221,15 @@ async def main():
             only_missing=args.only_missing,
             force_reindex=args.force,
             dry_run=args.dry_run,
+            allow_hash_embeddings=args.allow_hash_embeddings,
+            db_url=db_url,
         )
+
+        if stats.get("status") == "ABORTED_NO_EMBEDDINGS":
+            print(f"\nABORTED: {stats.get('message')}")
+            print("Imported financial data is untouched. Resolve embeddings and re-run.")
+            await engine.dispose()
+            return 2
 
         print("\n=== REBUILD INDEX REPORT ===")
         for key, val in stats.items():

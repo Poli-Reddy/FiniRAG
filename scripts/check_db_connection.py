@@ -20,12 +20,15 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import create_async_engine
-from backend.app.core.config import settings
+from backend.app.core.config import normalize_database_url, settings
 
 
 async def main():
-    # 1. Confirm DATABASE_URL is available
-    db_url = os.environ.get("DATABASE_URL") or settings.DATABASE_URL
+    # 1. Confirm DATABASE_URL is available. The raw env value goes through
+    # the shared normalizer (audit finding #7) — Render supplies
+    # postgres://, SQLAlchemy needs postgresql+asyncpg://.
+    db_url = normalize_database_url(
+        os.environ.get("DATABASE_URL") or settings.DATABASE_URL)
     if not db_url or "user:pass@host" in db_url:
         print("ERROR: DATABASE_URL not configured (still has placeholder)")
         print("  Set DATABASE_URL environment variable to your Render PostgreSQL URL")

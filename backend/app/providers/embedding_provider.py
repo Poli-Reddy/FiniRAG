@@ -115,7 +115,13 @@ class GeminiEmbeddingProvider(EmbeddingProvider):
         self.batch_size = max(1, min(batch_size or settings.EMBEDDING_BATCH_SIZE, 16))
         self.timeout_s = timeout_s or settings.EMBEDDING_TIMEOUT_S
         self.max_retries = max_retries if max_retries is not None else settings.EMBEDDING_MAX_RETRIES
-        self._api_key = api_key or settings.GEMINI_API_KEY
+        # Singular key first, then the plural pool (audit finding #3): a
+        # deployment configured only with GEMINI_API_KEYS must still work.
+        from backend.app.core.key_pool import parse_keys
+
+        pool_keys = parse_keys(settings.GEMINI_API_KEYS)
+        self._api_key = api_key or settings.GEMINI_API_KEY or (
+            pool_keys[0] if pool_keys else "")
         if not self._api_key:
             logger.warning("Gemini embedding API key not configured")
 
@@ -147,23 +153,32 @@ class GeminiEmbeddingProvider(EmbeddingProvider):
         return vecs[0]
 
     async def _embed_batch(self, batch: list[str]) -> list[list[float]]:
-        last: Exception | None = None
-        for attempt in range(self.max_retries + 1):
-            try:
-                return await asyncio.wait_for(
-                    asyncio.to_thread(self._embed_sync, batch), timeout=self.timeout_s)
-            except EmbeddingError:
-                raise
-            except Exception as e:
-                last = e
-                if attempt < self.max_retries and _retryable(e):
-                    await asyncio.sleep(min(2.0 ** attempt, 8.0))
-                    continue
-                raise EmbeddingError(f"embedding failed: {type(e).__name__}",
-                                     _error_code(e)) from e
-        raise EmbeddingError("embedding failed", "EMBEDDING_FAILED") from last
+        # Per-item retry with success caching (audit finding #23): each
+        # text is requested once; only a FAILED item is retried, so a late
+        # failure never re-spends quota on earlier successes.
+        out: list[list[float] | None] = [None] * len(batch)
+        for i, text in enumerate(batch):
+            last: Exception | None = None
+            for attempt in range(self.max_retries + 1):
+                try:
+                    out[i] = await asyncio.wait_for(
+                        asyncio.to_thread(self._embed_one_sync, text),
+                        timeout=self.timeout_s)
+                    break
+                except EmbeddingError:
+                    raise
+                except Exception as e:
+                    last = e
+                    if attempt < self.max_retries and _retryable(e):
+                        await asyncio.sleep(min(2.0 ** attempt, 8.0))
+                        continue
+                    raise EmbeddingError(f"embedding failed: {type(e).__name__}",
+                                         _error_code(e)) from e
+            if out[i] is None:
+                raise EmbeddingError("embedding failed", "EMBEDDING_FAILED") from last
+        return [v for v in out if v is not None]
 
-    def _embed_sync(self, batch: list[str]) -> list[list[float]]:
+    def _embed_one_sync(self, text: str) -> list[float]:
         try:
             from google import genai as new_genai
             from google.genai import types as genai_types
@@ -172,22 +187,19 @@ class GeminiEmbeddingProvider(EmbeddingProvider):
         if not self._api_key:
             raise EmbeddingError("missing GEMINI_API_KEY", "NO_CREDENTIALS")
         client = new_genai.Client(api_key=self._api_key)
-        vectors: list[list[float]] = []
-        for text in batch:
-            try:
-                cfg = genai_types.EmbedContentConfig(output_dimensionality=self._dim)
-            except Exception:
-                cfg = {"output_dimensionality": self._dim}
-            resp = client.models.embed_content(
-                model=self._model, contents=text, config=cfg)
-            embs = getattr(resp, "embeddings", None) or []
-            if not embs:
-                raise EmbeddingError("empty embedding response", "EMPTY_RESPONSE")
-            vals = getattr(embs[0], "values", None)
-            if vals is None:
-                raise EmbeddingError("malformed embedding response", "MALFORMED_RESPONSE")
-            vectors.append([float(x) for x in list(vals)])
-        return vectors
+        try:
+            cfg = genai_types.EmbedContentConfig(output_dimensionality=self._dim)
+        except Exception:
+            cfg = {"output_dimensionality": self._dim}
+        resp = client.models.embed_content(
+            model=self._model, contents=text, config=cfg)
+        embs = getattr(resp, "embeddings", None) or []
+        if not embs:
+            raise EmbeddingError("empty embedding response", "EMPTY_RESPONSE")
+        vals = getattr(embs[0], "values", None)
+        if vals is None:
+            raise EmbeddingError("malformed embedding response", "MALFORMED_RESPONSE")
+        return [float(x) for x in list(vals)]
 
 
 def _error_code(exc: Exception) -> str:

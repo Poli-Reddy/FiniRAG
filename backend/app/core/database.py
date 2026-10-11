@@ -8,6 +8,8 @@ Every processing attempt creates a new row — no overwrites.
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine, async_sessionmaker
 from sqlalchemy.orm import DeclarativeBase
 
+from pathlib import Path
+
 from backend.app.core.config import settings
 
 
@@ -66,11 +68,38 @@ async def init_db():
     Anything else (sqlite dev/tests): create_all(), since migrations target
     PostgreSQL-only constructs (extensions, pgvector, partial indexes).
     """
+    _check_embedding_config()
     if settings.DATABASE_URL.startswith("postgresql"):
         await _run_alembic_upgrade()
         return
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
+
+
+def _check_embedding_config() -> None:
+    """Refuse to boot on an unsupported embedding model/dimension combo.
+
+    The pgvector column is VECTOR(RAG_VECTOR_DIM); a different runtime
+    dimension breaks inserts/comparisons, and a different model silently
+    mixes incompatible vector spaces (audit finding #16). A model/dim
+    change needs a versioned migration + full re-embed — never a quiet
+    config edit.
+    """
+    from backend.app.core.config import RAG_VECTOR_DIM
+    from backend.app.core.logging import logger
+
+    if settings.EMBEDDING_DIM != RAG_VECTOR_DIM:
+        raise RuntimeError(
+            f"EMBEDDING_DIM={settings.EMBEDDING_DIM} does not match the migrated "
+            f"pgvector column VECTOR({RAG_VECTOR_DIM}). Change the schema via a "
+            "versioned migration and re-embed the corpus; do not just flip "
+            "the config knob."
+        )
+    if settings.EMBEDDING_MODEL != "gemini-embedding-2":
+        logger.warning("Non-default embedding model configured", extra={
+            "model": settings.EMBEDDING_MODEL,
+            "note": "a model change requires full re-embedding; mixed vector "
+                    "spaces are rejected by retrieval model filtering"})
 
 
 async def _run_alembic_upgrade() -> None:
