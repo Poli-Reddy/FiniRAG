@@ -69,6 +69,9 @@ SYSTEM_RULES = """You answer financial questions using ONLY the supplied evidenc
   Include those ids in the "citations" array as well.
 - Prefer answering: if any supplied evidence supports the question, answer it
   and cite that evidence. Ask for nothing; state only what the evidence shows.
+- Identity questions (which company, which period, which document type) are
+  answered from the evidence headers: a matching Company/Period/Type line
+  IS sufficient evidence — do not abstain when the header states it.
 - Abstain (status INSUFFICIENT_EVIDENCE) ONLY when no supplied evidence
   addresses the question at all — not merely because evidence is partial.
 - Never invent values, documents, pages, or validation results.

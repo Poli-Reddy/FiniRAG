@@ -72,7 +72,8 @@ async def _seed(db):
 
 
 def _numbers(text: str) -> set[str]:
-    return set(re.findall(r"\d+(?:\.\d+)?", text or ""))
+    # Signed: a stated decrease ("-672167") must not score as missing.
+    return set(re.findall(r"-?\d+(?:\.\d+)?", text or ""))
 
 
 def _independent_check(q: dict, ans) -> bool | None:

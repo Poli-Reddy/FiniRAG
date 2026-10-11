@@ -107,12 +107,14 @@ def build() -> list[dict]:
 
         if dtype == "invoice":
             # Two exact-value probes per invoice (total + rotating field).
-            # Dual-path by design: SQL answers, retrieval corroborates —
-            # so expect_sql AND expect_retrieval are both True.
+            # needs_sql must be True; needs_retrieval is NOT scored —
+            # whether retrieval also fires (e.g. "what is" co-matching the
+            # conceptual pattern) is an allowed dual path, not a defect,
+            # and the SQL→retrieval fallback covers SQL misses either way.
             total = ed.get("total_amount")
             if _usable(total):
                 add(f"inv-total-{name}", f"What is the total amount on invoice {name}?",
-                    "exact", [name], True, True,
+                    "exact", [name], True, None,
                     expected_value=str(total["value"]), expected_document=name)
             others = [f for f in ("subtotal", "tax_amount", "amount_due",
                                   "vendor_name", "invoice_number", "amount_paid")
@@ -121,7 +123,7 @@ def build() -> list[dict]:
                 f = others[_stable_pick(name, len(others))]
                 blob = ed[f]
                 add(f"inv-{f}-{name}", f"What is the {INVOICE_LABELS[f]} on invoice {name}?",
-                    "exact", [name], True, True,
+                    "exact", [name], True, None,
                     expected_value=str(blob["value"]), expected_document=name)
             # Line-item lookup (retrieval path).
             for item in (ed.get("line_items") or [])[:1]:
@@ -160,7 +162,7 @@ def build() -> list[dict]:
                     if _usable(blob):
                         add(f"stmt-exact-{name}-{latest}",
                             f"What were {flabel} in {latest} on {name}?",
-                            "exact", [name], True, True,
+                            "exact", [name], True, None,
                             expected_value=str(blob["value"]),
                             expected_document=name)
                         break

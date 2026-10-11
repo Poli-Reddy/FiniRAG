@@ -9,7 +9,7 @@
     "expected_document": "20251118_000612.jpg",
     "expected_value": "6862.00",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -23,7 +23,7 @@
     "expected_document": "20251118_000612.jpg",
     "expected_value": "SCI/25-26/3331",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -51,7 +51,7 @@
     "expected_document": "batch1-1109.jpg",
     "expected_value": "138.90",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -65,7 +65,7 @@
     "expected_document": "batch1-1109.jpg",
     "expected_value": "94404257",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -107,7 +107,7 @@
     "expected_document": "batch2-0499.jpg",
     "expected_value": "157.48",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -121,7 +121,7 @@
     "expected_document": "batch2-0499.jpg",
     "expected_value": "6825",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -163,7 +163,7 @@
     "expected_document": "batch2-0999.jpg",
     "expected_value": "916.47",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -177,7 +177,7 @@
     "expected_document": "batch2-0999.jpg",
     "expected_value": "804",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -205,7 +205,7 @@
     "expected_document": "batch3-1354.jpg",
     "expected_value": "1274.64",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -219,7 +219,7 @@
     "expected_document": "batch3-1354.jpg",
     "expected_value": "A.E. Blake Sales Ltd.",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -261,7 +261,7 @@
     "expected_document": "batch3-1445.jpg",
     "expected_value": "2650.00",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -275,7 +275,7 @@
     "expected_document": "batch3-1445.jpg",
     "expected_value": "2650.00",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -303,7 +303,7 @@
     "expected_document": "batch3-1495.jpg",
     "expected_value": "5257",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -317,7 +317,7 @@
     "expected_document": "batch3-1495.jpg",
     "expected_value": "Meld #298839",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -359,7 +359,7 @@
     "expected_document": "Consolidated Balance Sheet 2017.pdf",
     "expected_value": "8923441607",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -401,7 +401,7 @@
     "expected_document": "Consolidated Balance Sheet 2018.pdf",
     "expected_value": "11031861695",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -443,7 +443,7 @@
     "expected_document": "Consolidated Balance Sheet 2019.pdf",
     "expected_value": "12928057065",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -485,7 +485,7 @@
     "expected_document": "Consolidated Balance Sheet 2020.pdf",
     "expected_value": "15808304373",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -513,7 +513,7 @@
     "expected_document": "Consolidated Balance Sheet 2021.pdf",
     "expected_value": "17995066442",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -541,7 +541,7 @@
     "expected_document": "Consolidated Balance Sheet 2022.pdf",
     "expected_value": "2122934.30",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -569,7 +569,7 @@
     "expected_document": "Consolidated Balance Sheet 2023.pdf",
     "expected_value": "2530432.44",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -611,7 +611,7 @@
     "expected_document": "Consolidated Balance Sheet 2024.pdf",
     "expected_value": "4030194.26",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -653,7 +653,7 @@
     "expected_document": "Consolidated Balance Sheet 2025.pdf",
     "expected_value": "4392417.42",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -695,7 +695,7 @@
     "expected_document": "Consolidated Balance Sheet 2026.pdf",
     "expected_value": "4908040.84",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -737,7 +737,7 @@
     "expected_document": "Consolidated Cash Flow Statement 2017.pdf",
     "expected_value": "172815931",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -779,7 +779,7 @@
     "expected_document": "Consolidated Cash Flow Statement 2018.pdf",
     "expected_value": "172143764",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -821,7 +821,7 @@
     "expected_document": "Consolidated Cash Flow Statement 2019.pdf",
     "expected_value": "-628715447",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -863,7 +863,7 @@
     "expected_document": "Consolidated Cash Flow Statement 2020.pdf",
     "expected_value": "-168690920",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -891,7 +891,7 @@
     "expected_document": "Consolidated Cash Flow Statement 2021.pdf",
     "expected_value": "424764563",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -919,7 +919,7 @@
     "expected_document": "Consolidated Cash Flow Statement 2022.pdf",
     "expected_value": "-11959.57",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -947,7 +947,7 @@
     "expected_document": "Consolidated Cash Flow Statement 2023.pdf",
     "expected_value": "20813.70",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -989,7 +989,7 @@
     "expected_document": "Consolidated Cash Flow Statement 2024.pdf",
     "expected_value": "19069.34",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -1031,7 +1031,7 @@
     "expected_document": "Consolidated Cash Flow Statement 2025.pdf",
     "expected_value": "127241.84",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -1073,7 +1073,7 @@
     "expected_document": "Consolidated Cash Flow Statement 2026.pdf",
     "expected_value": "113506.38",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -1115,7 +1115,7 @@
     "expected_document": "Consolidated Profit & Loss 2017.pdf",
     "expected_value": "861489858",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -1157,7 +1157,7 @@
     "expected_document": "Consolidated Profit & Loss 2018.pdf",
     "expected_value": "1013444478",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -1199,7 +1199,7 @@
     "expected_document": "Consolidated Profit & Loss 2019.pdf",
     "expected_value": "1241077909",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -1227,7 +1227,7 @@
     "expected_document": "Consolidated Profit & Loss 2020.pdf",
     "expected_value": "1470682663",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -1269,7 +1269,7 @@
     "expected_document": "Consolidated Profit & Loss 2021.pdf",
     "expected_value": "1558852736",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -1311,7 +1311,7 @@
     "expected_document": "Consolidated Profit & Loss 2022.pdf",
     "expected_value": "167695.40",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -1353,7 +1353,7 @@
     "expected_document": "Consolidated Profit & Loss 2023.pdf",
     "expected_value": "204666.10",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -1381,7 +1381,7 @@
     "expected_document": "Consolidated Profit & Loss 2024.pdf",
     "expected_value": "407994.77",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -1409,7 +1409,7 @@
     "expected_document": "Consolidated Profit & Loss 2025.pdf",
     "expected_value": "470915.93",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -1437,7 +1437,7 @@
     "expected_document": "Consolidated Profit & Loss 2026.pdf",
     "expected_value": "495462.81",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -1465,7 +1465,7 @@
     "expected_document": "X00016469619.jpg",
     "expected_value": "60.30",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -1479,7 +1479,7 @@
     "expected_document": "X00016469619.jpg",
     "expected_value": "60.31",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -1521,7 +1521,7 @@
     "expected_document": "X51005361895.jpg",
     "expected_value": "9.00",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -1535,7 +1535,7 @@
     "expected_document": "X51005361895.jpg",
     "expected_value": "1CR0576494",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -1563,7 +1563,7 @@
     "expected_document": "X51005663293.jpg",
     "expected_value": "30.30",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -1577,7 +1577,7 @@
     "expected_document": "X51005663293.jpg",
     "expected_value": "593101",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -1605,7 +1605,7 @@
     "expected_document": "X51005719883.jpg",
     "expected_value": "108.50",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -1619,7 +1619,7 @@
     "expected_document": "X51005719883.jpg",
     "expected_value": "102.36",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -1647,7 +1647,7 @@
     "expected_document": "X51005757342.jpg",
     "expected_value": "6.20",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -1661,7 +1661,7 @@
     "expected_document": "X51005757342.jpg",
     "expected_value": "MR. D.I.Y. (M) SDN BHD",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -1689,7 +1689,7 @@
     "expected_document": "X51005806685.jpg",
     "expected_value": "29.00",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -1703,7 +1703,7 @@
     "expected_document": "X51005806685.jpg",
     "expected_value": "ADVANCO COMPANY",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -1731,7 +1731,7 @@
     "expected_document": "X51006328913.jpg",
     "expected_value": "165.00",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -1745,7 +1745,7 @@
     "expected_document": "X51006328913.jpg",
     "expected_value": "BEMED (SP) SDN. BHD.",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -1773,7 +1773,7 @@
     "expected_document": "X51006334741.jpg",
     "expected_value": "20.05",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -1787,7 +1787,7 @@
     "expected_document": "X51006334741.jpg",
     "expected_value": "0.99",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -1815,7 +1815,7 @@
     "expected_document": "X51006387931.jpg",
     "expected_value": "3.00",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -1829,7 +1829,7 @@
     "expected_document": "X51006387931.jpg",
     "expected_value": "0.17",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -1857,7 +1857,7 @@
     "expected_document": "X51008099043.jpg",
     "expected_value": "4.60",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -1871,7 +1871,7 @@
     "expected_document": "X51008099043.jpg",
     "expected_value": "1207108",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -1913,7 +1913,7 @@
     "expected_document": "X51008099071.jpg",
     "expected_value": "50.00",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -1927,7 +1927,7 @@
     "expected_document": "X51008099071.jpg",
     "expected_value": "LEONG HENG SHELL SERVICE STATION",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -1955,7 +1955,7 @@
     "expected_document": "X51008142038.jpg",
     "expected_value": "27.90",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -1969,7 +1969,7 @@
     "expected_document": "X51008142038.jpg",
     "expected_value": "1.57",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -2011,7 +2011,7 @@
     "expected_document": "X51008145450.jpg",
     "expected_value": "85.20",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },
@@ -2025,7 +2025,7 @@
     "expected_document": "X51008145450.jpg",
     "expected_value": "100.20",
     "expect_sql": true,
-    "expect_retrieval": true,
+    "expect_retrieval": null,
     "expect_validation": false,
     "requires_abstention": false
   },

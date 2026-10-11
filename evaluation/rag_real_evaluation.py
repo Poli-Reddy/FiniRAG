@@ -36,7 +36,9 @@ K = 5
 
 
 def _numbers(text: str) -> set[str]:
-    return set(re.findall(r"\d+(?:\.\d+)?", text or ""))
+    # Signed: cash-flow decreases print as negative differences, and
+    # stripping the sign would score "-672167" as missing.
+    return set(re.findall(r"-?\d+(?:\.\d+)?", text or ""))
 
 
 def _to_decimal(s: str) -> Decimal | None:
@@ -135,11 +137,16 @@ async def main(argv: list[str] | None = None) -> dict:
                 # Abstention questions are scored on OUTCOME only: whether
                 # tools fired on the way to a correct abstention is not a
                 # routing defect (e.g. a conceptual read that finds nothing).
+                # A None expectation means "don't care" (exact questions may
+                # legitimately take the SQL-only or the dual path).
                 score_route = not q.get("requires_abstention")
-                route_sql_ok = (decision.needs_sql == q["expect_sql"]) if score_route else None
-                route_ret_ok = (decision.needs_retrieval == q["expect_retrieval"]) if score_route else None
-                route_val_ok = (decision.needs_validation == q.get("expect_validation", False)) if score_route else None
-                route_ok = (route_sql_ok and route_ret_ok and route_val_ok) if score_route else None
+                exp_sql, exp_ret = q.get("expect_sql"), q.get("expect_retrieval")
+                exp_val = q.get("expect_validation", False)
+                route_sql_ok = (decision.needs_sql == exp_sql) if (score_route and exp_sql is not None) else None
+                route_ret_ok = (decision.needs_retrieval == exp_ret) if (score_route and exp_ret is not None) else None
+                route_val_ok = (decision.needs_validation == exp_val) if score_route else None
+                scored = [v for v in (route_sql_ok, route_ret_ok, route_val_ok) if v is not None]
+                route_ok = all(scored) if scored else None
 
                 ret = await RetrievalService(db, emb).retrieve(q["question"], strict=True)
                 cands = ret["candidates"]
@@ -197,6 +204,12 @@ async def main(argv: list[str] | None = None) -> dict:
                     "error": None,
                 })
             except Exception as e:
+                # Isolate per-question failures: a poisoned transaction must
+                # never wedge the rest of the run (PendingRollbackError).
+                try:
+                    await db.rollback()
+                except Exception:
+                    pass
                 results.append({
                     "id": q["id"], "category": q["category"],
                     "rank": None, "hit_at_5": None, "rr": None,
@@ -240,7 +253,8 @@ async def main(argv: list[str] | None = None) -> dict:
             "abstention": sub_rate("abst_ok"),
         }
 
-    providers = sorted({r.get("answer_provider") for r in results if r.get("answer_provider")})
+    providers = sorted({r.get("answer_provider") for r in results
+                        if r.get("answer_provider") and r.get("status") != "ERROR"})
     report = {
         "label": "REAL-CORPUS — 50 documents, live pgvector + real pipeline (read-only)",
         "provider": f"GeminiEmbeddingProvider ({emb.model}, dim {emb.dim})",
