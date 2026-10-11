@@ -108,16 +108,12 @@
                         <span class="status-detail" id="statusDetail"></span>
                     </div>
                 </div>
-                <div class="status-meta" id="statusMeta"></div>
             </div>
 
             <!-- Tabs -->
             <div class="tabs">
                 <button class="tab active" data-tab="extracted">Extracted Data</button>
                 <button class="tab" data-tab="validation">Validation</button>
-                <button class="tab" data-tab="metadata">Metadata</button>
-                <button class="tab" data-tab="indexing">Indexing</button>
-                <button class="tab" data-tab="raw">Raw JSON</button>
             </div>
 
             <!-- Tab Content: Extracted Data -->
@@ -129,21 +125,6 @@
             <div class="tab-content" id="tab-validation">
                 <div class="validation-summary" id="validationSummary"></div>
                 <div class="validation-checks" id="validationChecks"></div>
-            </div>
-
-            <!-- Tab Content: Metadata -->
-            <div class="tab-content" id="tab-metadata">
-                <div class="metadata-grid" id="metadataGrid"></div>
-            </div>
-
-            <!-- Tab Content: Indexing -->
-            <div class="tab-content" id="tab-indexing">
-                <div id="indexPanel"><p class="empty-state">Loading index status…</p></div>
-            </div>
-
-            <!-- Tab Content: Raw JSON -->
-            <div class="tab-content" id="tab-raw">
-                <pre class="json-view" id="rawJson"></pre>
             </div>
         </section>
 
@@ -184,13 +165,11 @@
                             <th>Type</th>
                             <th>Processing</th>
                             <th>Validation</th>
-                            <th>Method</th>
-                            <th>Time</th>
                             <th>Date</th>
                         </tr>
                     </thead>
                     <tbody id="historyBody">
-                        <tr><td colspan="7" class="empty-state">No documents processed yet</td></tr>
+                        <tr><td colspan="5" class="empty-state">No documents processed yet</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -224,16 +203,12 @@
                     <label>Company (optional)
                         <input type="text" id="qaCompany" placeholder="e.g. HDFC Bank">
                     </label>
-                    <label>Document ID (optional)
-                        <input type="text" id="qaDocId" placeholder="UUID of a processing attempt">
-                    </label>
                 </div>
                 <button type="button" class="btn-primary" id="qaAskBtn">Ask</button>
                 <div class="qa-loading" id="qaLoading" style="display:none;">Answering…</div>
                 <div class="qa-error" id="qaError" style="display:none;"></div>
                 <div class="qa-answer" id="qaAnswer" style="display:none;">
                     <h3>Answer</h3>
-                    <div class="qa-provider-line" id="qaProvider"></div>
                     <div class="qa-degraded" id="qaDegraded" style="display:none;"></div>
                     <div id="qaAnswerText"></div>
                     <h4>Sources</h4>
@@ -246,26 +221,7 @@
                     <div id="qaValidation"></div>
                     <h4>Limitations</h4>
                     <div id="qaLimits"></div>
-                    <details><summary>Retrieval metadata</summary><pre id="qaMeta"></pre></details>
                 </div>
-            </div>
-        </section>
-        <!-- ─── Operations Section ─── -->
-        <section class="ops-section" id="opsSection">
-            <h2>Operations</h2>
-            <p class="upload-subtitle">Live readiness and RAG metrics. No document content or secrets are exposed here.</p>
-            <h3>System health</h3>
-            <div class="metadata-grid" id="opsHealth"><p class="empty-state">Loading health…</p></div>
-            <h3>Metrics <button type="button" class="btn-secondary" id="opsRefreshBtn">Refresh</button></h3>
-            <div class="metadata-grid" id="opsMetrics"><p class="empty-state">Loading metrics…</p></div>
-            <h3>Indexing job lookup</h3>
-            <div class="qa-card">
-                <label>Job ID (UUID)
-                    <input type="text" id="jobIdInput" placeholder="e.g. 11111111-2222-3333-4444-555555555555">
-                </label>
-                <button type="button" class="btn-primary" id="jobLookupBtn">Look up job</button>
-                <div class="qa-error" id="jobError" style="display:none;"></div>
-                <div id="jobResult"></div>
             </div>
         </section>
     </main>

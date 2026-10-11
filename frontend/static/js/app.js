@@ -1,9 +1,9 @@
 /**
  * FiniRAG — Frontend Application Logic
  *
- * Handles: file upload, API calls, result rendering, tab switching,
- * history loading, health check, Q&A with retrieval provenance,
- * per-document indexing status + reindex, operations metrics, and drag & drop.
+ * Customer surface only: file upload, extracted results + validation,
+ * processing history, and Q&A with sources. Indexing status, metrics,
+ * and job internals live behind the API for operators.
  */
 
 // ─── State ───
@@ -228,18 +228,9 @@ function showResult(result) {
         ? `Validation: ${validationStatus}`
         : `Error: ${result.error?.code || 'Unknown'}`;
 
-    const meta = result.processing_metadata || {};
-    document.getElementById('statusMeta').innerHTML = `
-        <div>Method: ${escapeHtml(meta.text_extraction_method || 'N/A')}</div>
-        <div>Time: ${escapeHtml(meta.processing_time_ms || 0)}ms</div>
-    `;
-
-    // Render tabs
+    // Render tabs (customer view: extracted values + validation only)
     renderExtractedData(result.extracted_data, result.document_type);
     renderValidation(result.validation);
-    renderMetadata(result);
-    document.getElementById('rawJson').textContent = JSON.stringify(result, null, 2);
-    loadResultIndex(result.document_name);
 
     // Reset tab to first
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -257,7 +248,6 @@ function showError(message) {
     document.getElementById('statusIcon').textContent = '❌';
     document.getElementById('statusLabel').textContent = 'Request Failed';
     document.getElementById('statusDetail').textContent = message;
-    document.getElementById('statusMeta').innerHTML = '';
 }
 
 // ─── Render Extracted Data ───
@@ -481,181 +471,11 @@ function renderValidation(validation) {
     document.getElementById('validationChecks').innerHTML = rendered.checks;
 }
 
-// ─── Render Metadata ───
-function metadataMarkup(result) {
-    const meta = result.processing_metadata || {};
-    const fv = result.file_validation || {};
-
-    return `
-        <div class="metadata-card">
-            <div class="metadata-label">Document Name</div>
-            <div class="metadata-value">${escapeHtml(result.document_name || '—')}</div>
-        </div>
-        <div class="metadata-card">
-            <div class="metadata-label">Document Type</div>
-            <div class="metadata-value">${escapeHtml(result.document_type || '—')}</div>
-        </div>
-        <div class="metadata-card">
-            <div class="metadata-label">File Type</div>
-            <div class="metadata-value">${escapeHtml(fv.file_type || '—')}</div>
-        </div>
-        <div class="metadata-card">
-            <div class="metadata-label">Page Count</div>
-            <div class="metadata-value">${escapeHtml(fv.page_count ?? '—')}</div>
-        </div>
-        <div class="metadata-card">
-            <div class="metadata-label">Text Extraction</div>
-            <div class="metadata-value">${escapeHtml(meta.text_extraction_method || '—')}</div>
-        </div>
-        <div class="metadata-card">
-            <div class="metadata-label">OCR Provider</div>
-            <div class="metadata-value">${escapeHtml(meta.ocr_provider || 'N/A (native text)')}</div>
-        </div>
-        <div class="metadata-card">
-            <div class="metadata-label">LLM Provider</div>
-            <div class="metadata-value">${escapeHtml(meta.llm_provider || '—')}</div>
-        </div>
-        <div class="metadata-card">
-            <div class="metadata-label">Processing Time</div>
-            <div class="metadata-value">${escapeHtml(meta.processing_time_ms || 0)}ms</div>
-        </div>
-    `;
-}
-
-function renderMetadata(result) {
-    document.getElementById('metadataGrid').innerHTML = metadataMarkup(result);
-}
-
-// ─── Indexing (per-document status + reindex) ───
-function indexStatusBadge(status) {
-    const cls = status === 'COMPLETED' ? 'status-pass'
-        : (status === 'FAILED' ? 'status-fail' : 'status-na');
-    return `<span class="${cls}">${escapeHtml(status || 'UNKNOWN')}</span>`;
-}
-
-function indexPanelMarkup(st) {
-    if (!st || st.error) {
-        return `<p class="empty-state">${escapeHtml(st?.error || 'Index status unavailable')}</p>`;
-    }
-    let html = `<div class="data-group"><div class="data-group-title">Index status</div>`;
-    html += `<div class="data-row"><span class="data-label">Status</span><span class="data-value">${indexStatusBadge(st.status)}</span></div>`;
-    if (st.chunk_count !== undefined) html += `<div class="data-row"><span class="data-label">Active chunks</span><span class="data-value">${escapeHtml(st.chunk_count)}</span></div>`;
-    if (st.index_version) html += `<div class="data-row"><span class="data-label">Index version</span><span class="data-value">${escapeHtml(st.index_version)}</span></div>`;
-    if (st.attempt_count !== undefined) html += `<div class="data-row"><span class="data-label">Attempts</span><span class="data-value">${escapeHtml(st.attempt_count)}</span></div>`;
-    if (st.job_id) html += `<div class="data-row"><span class="data-label">Job ID</span><span class="data-value"><code>${escapeHtml(st.job_id)}</code></span></div>`;
-    if (st.error_code) html += `<div class="data-row"><span class="data-label">Error</span><span class="data-value">${escapeHtml(st.error_code)}${st.error_message ? ` — ${escapeHtml(st.error_message)}` : ''}</span></div>`;
-    html += `</div>`;
-    if (st.document_id) {
-        html += `<button type="button" class="btn-secondary" data-reindex="${escapeHtml(st.document_id)}">Reindex document</button>
-                 <div class="index-job-note"></div>`;
-    }
-    if (st.status === 'PENDING' || st.status === 'PROCESSING') {
-        html += `<p class="empty-state">Job QUEUED — no automatic worker drains jobs on this deployment. ` +
-            `Process it with <code>python scripts/run_indexing_worker.py</code> (jobs are also indexed inline at upload ` +
-            `and stale jobs recover at startup); status updates when it runs.</p>`;
-    }
-    return html;
-}
-
-async function fetchIndexStatus(documentId) {
-    const response = await apiFetch(`/api/v1/documents/${encodeURIComponent(documentId)}/index-status`);
-    const data = await response.json();
-    if (!response.ok) {
-        const code = data?.detail?.code || `HTTP ${response.status}`;
-        return { error: String(code) };
-    }
-    return data;
-}
-
-async function loadResultIndex(documentName) {
-    const panel = document.getElementById('indexPanel');
-    if (!panel) return;
-    panel.innerHTML = '<p class="empty-state">Loading index status…</p>';
-    try {
-        // The process response carries no attempt id; resolve it by name.
-        const rec = await apiFetch(`/api/v1/documents/${encodeURIComponent(documentName)}`);
-        const recData = await rec.json();
-        if (!rec.ok || !recData.id) {
-            panel.innerHTML = '<p class="empty-state">Index status unavailable for this result.</p>';
-            return;
-        }
-        const st = await fetchIndexStatus(recData.id);
-        panel.innerHTML = indexPanelMarkup(st);
-        wireReindexButtons(panel, () => loadResultIndex(documentName));
-    } catch (err) {
-        panel.innerHTML = `<p class="empty-state">${escapeHtml(err.message || 'Index status unavailable')}</p>`;
-    }
-}
-
-function wireReindexButtons(root, rerender) {
-    root.querySelectorAll('[data-reindex]').forEach(btn => {
-        btn.addEventListener('click', async () => {
-            const note = root.querySelector('.index-job-note');
-            const docId = btn.getAttribute('data-reindex');
-            btn.disabled = true;
-            try {
-                const response = await apiFetch(`/api/v1/documents/${encodeURIComponent(docId)}/reindex`, { method: 'POST' });
-                const data = await response.json();
-                if (!response.ok) {
-                    const code = data?.detail?.code || `HTTP ${response.status}`;
-                    throw new Error(String(code));
-                }
-                if (note) note.textContent = `Reindex job ${data.job_id} (${data.status}). Refreshing status…`;
-                if (data.queued) {
-                    // Queued, not completed: no background loop drains jobs
-                    // automatically (single-service deployment). Say so
-                    // plainly instead of implying the poll will finish it.
-                    if (note) note.textContent = `Reindex QUEUED (job ${data.job_id}). ` +
-                        `No automatic worker is running — process it with ` +
-                        `python scripts/run_indexing_worker.py, then refresh status.`;
-                }
-                // Poll the job a few times; indexing is bounded server-side.
-                for (let i = 0; i < 4; i++) {
-                    await new Promise(r => setTimeout(r, 2000));
-                    try {
-                        const js = await apiFetch(`/api/v1/indexing/jobs/${encodeURIComponent(data.job_id)}`);
-                        const jd = await js.json();
-                        if (js.ok && (jd.status === 'COMPLETED' || jd.status === 'FAILED')) break;
-                    } catch (_) { /* keep polling */ }
-                }
-                await rerender();
-            } catch (err) {
-                if (note) note.textContent = `Reindex failed: ${err.message || err}`;
-            } finally {
-                btn.disabled = false;
-            }
-        });
-    });
-}
-
-// ─── Tab Switching ───
-document.querySelectorAll('.tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        document.getElementById(`tab-${tab.dataset.tab}`).classList.add('active');
-    });
-});
-
-// ─── New Upload ───
-newUploadBtn.addEventListener('click', () => {
-    resultSection.style.display = 'none';
-    uploadSection.style.display = 'block';
-    selectedFile = null;
-    filePreview.style.display = 'none';
-    dropZone.style.display = 'block';
-    fileInput.value = '';
-    documentType.value = '';
-    updateSubmitButton();
-
-    // Reset processing steps
-    document.querySelectorAll('.step').forEach(s => {
-        s.classList.remove('active', 'done');
-    });
-});
-
 // ─── History ───
+// NOTE (customer view): the metadata tab, per-document indexing panel,
+// reindex controls and job lookup were removed — operators use the API
+// and scripts/run_indexing_worker.py directly.
+
 async function loadHistory() {
     try {
         // Fetch the complete persisted dashboard set once. Pagination is
@@ -745,16 +565,15 @@ clearHistoryFilters?.addEventListener('click', () => {
 function renderHistory(documents) {
     const tbody = document.getElementById('historyBody');
     if (documents.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="7" class="empty-state">No documents processed yet</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="5" class="empty-state">No documents processed yet</td></tr>';
         return;
     }
 
     tbody.innerHTML = documents.map(doc => {
-        const meta = doc.processing_metadata || {};
-        const statusClass = doc.processing_status === 'PASS' ? 'status-pass' : 'status-fail';
         // Processing and validation are different questions: a readable
         // document whose arithmetic does not reconcile is PASS / FAIL.
         const vs = doc.validation_status || 'NOT_RUN';
+        const statusClass = doc.processing_status === 'PASS' ? 'status-pass' : 'status-fail';
         const vsClass = vs === 'PASS' ? 'status-pass'
             : vs === 'FAIL' ? 'status-fail' : 'status-na';
         const date = doc.created_at ? new Date(doc.created_at).toLocaleString() : '—';
@@ -765,8 +584,6 @@ function renderHistory(documents) {
                 <td>${escapeHtml(doc.document_type)}</td>
                 <td class="${statusClass}">${escapeHtml(doc.processing_status)}</td>
                 <td class="${vsClass}">${escapeHtml(vs)}</td>
-                <td>${escapeHtml(meta.text_extraction_method || '—')}</td>
-                <td>${escapeHtml(meta.processing_time_ms || 0)}ms</td>
                 <td>${escapeHtml(date)}</td>
             </tr>
         `;
@@ -789,7 +606,7 @@ async function toggleHistoryResult(row, documentName) {
 
     const detailRow = document.createElement('tr');
     detailRow.className = 'history-detail-row';
-    detailRow.innerHTML = '<td colspan="7"><div class="history-detail-loading">Loading stored result...</div></td>';
+    detailRow.innerHTML = '<td colspan="5"><div class="history-detail-loading">Loading stored result...</div></td>';
     row.after(detailRow);
 
     try {
@@ -801,21 +618,8 @@ async function toggleHistoryResult(row, documentName) {
             return;
         }
         detailRow.querySelector('td').innerHTML = renderInlineHistoryResult(result);
-        loadHistoryIndex(detailRow, result.id);
     } catch (err) {
         detailRow.querySelector('td').innerHTML = `<div class="history-detail-error">${escapeHtml(err.message || 'Failed to load stored result')}</div>`;
-    }
-}
-
-async function loadHistoryIndex(detailRow, documentId) {
-    const slot = detailRow.querySelector('[data-index-slot]');
-    if (!slot || !documentId) return;
-    try {
-        const st = await fetchIndexStatus(documentId);
-        slot.innerHTML = indexPanelMarkup(st);
-        wireReindexButtons(slot, () => loadHistoryIndex(detailRow, documentId));
-    } catch (err) {
-        slot.innerHTML = `<p class="empty-state">${escapeHtml(err.message || 'Index status unavailable')}</p>`;
     }
 }
 
@@ -832,14 +636,12 @@ function renderInlineHistoryResult(result) {
                     <strong>${isPass ? '✅' : '❌'} ${escapeHtml(result.document_name || 'Stored result')}</strong>
                     <span class="history-detail-status ${statusClass}">${isPass ? 'Processing Successful' : 'Processing Failed'} · Validation: ${escapeHtml(validation.overall_status || 'NOT_RUN')}</span>
                 </div>
-                <span>${escapeHtml(result.processing_metadata?.processing_time_ms || 0)}ms</span>
+                <span></span>
             </div>
             <div class="history-detail-tabs">
                 <section><h4>Extracted Data</h4><div class="data-grid">${extractedDataMarkup(result.extracted_data, result.document_type)}</div></section>
                 <section><h4>Validation</h4><div class="validation-summary">${renderedValidation.summary}</div><div class="validation-checks">${renderedValidation.checks}</div></section>
-                <section><h4>Metadata</h4><div class="metadata-grid">${metadataMarkup(result)}</div></section>
-                <section><h4>Indexing</h4><div data-index-slot><p class="empty-state">Loading index status…</p></div></section>
-                <section><h4>Raw JSON</h4><pre class="json-view">${escapeHtml(JSON.stringify(result, null, 2))}</pre></section>
+
             </div>
         </div>
     `;
@@ -872,137 +674,14 @@ async function checkHealth() {
 
 function healthTooltip(data) {
     if (!data || typeof data !== 'object') return 'Health unavailable';
-    const parts = [
-        `status: ${data.status || '?'}`,
-        `database: ${data.database || '?'}`,
-        `retrieval: ${data.retrieval_mode || '?'}`,
-        `embedding: ${data.embedding_model || '?'}${data.embedding_configured ? '' : ' (not configured)'}`,
-        `indexed: ${data.indexed_documents ?? '?'} documents / ${data.indexed_chunks ?? '?'} chunks`,
-    ];
-    const open = (data.provider_breakers || []).filter(b => b.state && b.state !== 'closed');
-    if (open.length) parts.push(`breakers open: ${open.map(b => b.provider || '?').join(', ')}`);
-    return parts.join(' • ');
+    if (data.database !== 'connected') return 'Database disconnected';
+    return `Online • ${data.indexed_documents ?? '?'} documents indexed`;
 }
-
-// ─── Operations ───
-function metricCard(label, value) {
-    return `<div class="metadata-card"><div class="metadata-label">${escapeHtml(label)}</div>` +
-        `<div class="metadata-value">${escapeHtml(value)}</div></div>`;
-}
-
-async function loadOps() {
-    const healthGrid = document.getElementById('opsHealth');
-    const metricsGrid = document.getElementById('opsMetrics');
-    try {
-        const [healthRes, metricsRes] = await Promise.all([
-            apiFetch('/api/v1/health'),
-            apiFetch('/metrics?format=json'),
-        ]);
-        const health = await healthRes.json();
-        const snap = await metricsRes.json();
-        if (!healthRes.ok) throw new Error(`health HTTP ${healthRes.status}`);
-        if (!metricsRes.ok) throw new Error(`metrics HTTP ${metricsRes.status}`);
-
-        const breakers = (health.provider_breakers || []).map(b =>
-            `${b.provider || '?'}: ${b.state || '?'}`).join(', ') || 'none tripped';
-        healthGrid.innerHTML =
-            metricCard('Status', health.status || '?') +
-            metricCard('Database', health.database || '?') +
-            metricCard('Retrieval mode', health.retrieval_mode || '?') +
-            metricCard('Embedding model', `${health.embedding_model || '?'}${health.embedding_configured ? '' : ' (not configured)'}`) +
-            metricCard('Indexed documents', health.indexed_documents ?? '?') +
-            metricCard('Active chunks', health.indexed_chunks ?? '?') +
-            metricCard('Index version', health.index_version || '?') +
-            metricCard('Provider breakers', breakers);
-
-        metricsGrid.innerHTML = opsMetricsMarkup(snap);
-    } catch (err) {
-        const msg = `<p class="empty-state">${escapeHtml(err.message || 'Operations data unavailable')}</p>`;
-        if (healthGrid) healthGrid.innerHTML = msg;
-        if (metricsGrid) metricsGrid.innerHTML = msg;
-    }
-}
-
-function opsMetricsMarkup(snap) {
-    if (!snap || typeof snap !== 'object') return '<p class="empty-state">No metrics</p>';
-    const counters = snap.counters || {};
-    const gauges = snap.gauges || {};
-    const sumCounter = (name) => Object.values(counters[name] || {}).reduce((a, b) => a + Number(b || 0), 0);
-    const sumWhere = (name, substr) => Object.entries(counters[name] || {})
-        .filter(([k]) => k.includes(substr)).reduce((a, [, b]) => a + Number(b || 0), 0);
-    const gaugeVal = (name) => {
-        const vals = Object.values(gauges[name] || {});
-        return vals.length ? vals.reduce((a, b) => a + Number(b || 0), 0) : '—';
-    };
-    const answersBy = (outcome) => sumWhere('finirag_answer_requests_total', `'outcome', '${outcome}'`);
-    const httpErr = Object.entries(counters.finirag_http_requests_total || {})
-        .filter(([k]) => /'status', '([45]\d\d)'/.test(k))
-        .reduce((a, [, b]) => a + Number(b || 0), 0);
-    return (
-        metricCard('HTTP requests', sumCounter('finirag_http_requests_total')) +
-        metricCard('HTTP errors (4xx/5xx)', httpErr) +
-        metricCard('Answers: answered', answersBy('answered')) +
-        metricCard('Answers: abstained', answersBy('abstained')) +
-        metricCard('Answer fallbacks', sumCounter('finirag_answer_fallbacks_total')) +
-        metricCard('Claims dropped', sumCounter('finirag_claims_dropped_total')) +
-        metricCard('Retrieval degraded', sumWhere('finirag_retrieval_requests_total', "'degraded', 'true'")) +
-        metricCard('Retrieval empty', sumCounter('finirag_retrieval_empty_total')) +
-        metricCard('Index jobs completed', sumWhere('finirag_indexing_jobs_total', "'status', 'completed'")) +
-        metricCard('Index jobs failed', sumWhere('finirag_indexing_jobs_total', "'status', 'failed'")) +
-        metricCard('Pending index jobs', gaugeVal('finirag_indexing_pending_jobs')) +
-        metricCard('Documents processed', sumCounter('finirag_documents_processed_total'))
-    );
-}
-
-document.getElementById('opsRefreshBtn')?.addEventListener('click', loadOps);
-
-// ─── Job lookup ───
-document.getElementById('jobLookupBtn')?.addEventListener('click', async () => {
-    const input = document.getElementById('jobIdInput');
-    const errorEl = document.getElementById('jobError');
-    const resultEl = document.getElementById('jobResult');
-    errorEl.style.display = 'none';
-    resultEl.innerHTML = '';
-    const jobId = input?.value?.trim() || '';
-    if (!jobId) {
-        errorEl.textContent = 'Enter a job ID.';
-        errorEl.style.display = 'block';
-        return;
-    }
-    try {
-        const response = await apiFetch(`/api/v1/indexing/jobs/${encodeURIComponent(jobId)}`);
-        const data = await response.json();
-        if (!response.ok) {
-            const code = data?.detail?.code || `HTTP ${response.status}`;
-            throw new Error(String(code));
-        }
-        let html = '<div class="data-group"><div class="data-group-title">Indexing job</div>';
-        const rows = [
-            ['Job ID', data.job_id], ['Document ID', data.document_id],
-            ['Status', data.status], ['Attempts', data.attempt_count],
-            ['Index version', data.index_version],
-        ];
-        for (const [label, value] of rows) {
-            html += `<div class="data-row"><span class="data-label">${escapeHtml(label)}</span><span class="data-value">${escapeHtml(value ?? '—')}</span></div>`;
-        }
-        if (data.error_code) {
-            html += `<div class="data-row"><span class="data-label">Error</span><span class="data-value">${escapeHtml(data.error_code)}${data.error_message ? ` — ${escapeHtml(data.error_message)}` : ''}</span></div>`;
-        }
-        for (const [label, key] of [['Created', 'created_at'], ['Started', 'started_at'], ['Completed', 'completed_at']]) {
-            if (data[key]) html += `<div class="data-row"><span class="data-label">${escapeHtml(label)}</span><span class="data-value">${escapeHtml(new Date(data[key]).toLocaleString())}</span></div>`;
-        }
-        resultEl.innerHTML = html + '</div>';
-    } catch (err) {
-        errorEl.textContent = err.message || 'Job lookup failed';
-        errorEl.style.display = 'block';
-    }
-});
 
 // ─── Q&A ───
 const qaAskBtn = document.getElementById('qaAskBtn');
 qaAskBtn?.addEventListener('click', async () => {
     const question = document.getElementById('qaQuestion')?.value?.trim() || '';
-    const document_id = document.getElementById('qaDocId')?.value?.trim() || undefined;
     const document_name = document.getElementById('qaDocName')?.value?.trim() || undefined;
     const document_type = document.getElementById('qaDocType')?.value || undefined;
     const reporting_period = document.getElementById('qaPeriod')?.value?.trim() || undefined;
@@ -1025,7 +704,7 @@ qaAskBtn?.addEventListener('click', async () => {
         const response = await apiFetch('/api/v1/qa/ask', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ question, document_id, document_name, document_type, reporting_period, company }),
+            body: JSON.stringify({ question, document_name, document_type, reporting_period, company }),
             signal: controller.signal,
         });
         clearTimeout(timeout);
@@ -1065,13 +744,8 @@ function renderQaAnswer(data) {
     // The API contract is a list, but normalize defensively so one shaped
     // response can never blank the whole answer panel.
     const asArray = (v) => Array.isArray(v) ? v : (v ? [v] : []);
-    const provider = data.answer_provider || 'unknown';
-    document.getElementById('qaProvider').innerHTML =
-        `Answered by <strong>${escapeHtml(provider)}</strong>` +
-        (asArray(data.intents).length ? ` · intents: ${escapeHtml(asArray(data.intents).join(', '))}` : '') +
-        (data.request_id ? ` · request <code>${escapeHtml(data.request_id)}</code>` : '');
 
-    // Retrieval health: never bury a degraded path in raw JSON.
+    // Retrieval health: never bury a degraded path — warn plainly.
     const degradedBox = document.getElementById('qaDegraded');
     const problems = [];
     if (meta.degraded) problems.push('retrieval was degraded');
@@ -1117,9 +791,6 @@ function renderQaAnswer(data) {
     ).join('')) || '<div>None</div>';
     document.getElementById('qaLimits').innerHTML = (asArray(data.limitations).map(l =>
         `<div>• ${escapeHtml(typeof l === 'string' ? l : JSON.stringify(l))}</div>`).join('')) || '<div>None</div>';
-    document.getElementById('qaMeta').textContent = JSON.stringify({
-        status: data.status, intents: data.intents, retrieval_metadata: data.retrieval_metadata,
-    }, null, 2);
     if (data.status === 'INSUFFICIENT_EVIDENCE') {
         errorEl.textContent = 'Insufficient evidence — the answer was withheld.';
         errorEl.style.display = 'block';
@@ -1147,4 +818,3 @@ function formatBytes(bytes) {
 // ─── Init ───
 checkHealth();
 loadHistory();
-loadOps();
