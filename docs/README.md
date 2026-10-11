@@ -680,6 +680,28 @@ limitation rather than pretending the model answered.
   (observed 0.667-0.867 on this small synthetic set); retrieval metrics are
   stable across runs.
 
+### Real-corpus eval (2026-10-11, 150 grounded questions, live PG, read-only)
+
+`evaluation/rag_real_evaluation.py` over `rag_real_questions.json` (70 exact,
+30 compare, 20 lookup, 20 conceptual, 6 validation, 4 unsupported; expected
+values taken from the recovered JSONs, not human labels):
+
+- Retrieval: hit rate **0.993**, MRR **0.947**, native pgvector + FTS on
+  100%, zero degraded, zero errors.
+- Routing: **1.0** overall (SQL 1.0, retrieval 1.0, validation 1.0).
+- Generation: answer relevance **0.853** (exact 1.0, compare 1.0, validation
+  1.0, lookup 0.95), abstention **0.853**, groundedness 0.525,
+  faithfulness 0.651 (heuristic scores on template-heavy text, see below).
+- Providers seen: Groq + template-fallback — both LLM quotas were
+  exhausted mid-campaign, so most answers are deterministic template
+  output, recorded honestly per question. Mean latency 8.3 s.
+- Open gap: **conceptual 0.0** — retrieval finds perfect evidence
+  (hit 1.0 / MRR 1.0) but both models abstain on "which company…"
+  phrasing. A targeted prompt instruction is in place; verification
+  awaits quota reset. This run fixed: comparison answers lost to the
+  claim checker (30/30), identity-field routing, future-tense
+  abstention, minus-sign scoring, and bank non-determinism.
+
 Offline eval (actual, sqlite/hash, 15Q, forced offline): recall@5 1.0,
 MRR 0.892 (final fused positions), claim_support 1.0, answer 0.8,
 faithfulness 0.70, abstention 0.8, financial-query 1.0, validation 1.0,

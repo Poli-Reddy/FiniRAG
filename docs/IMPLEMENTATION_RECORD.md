@@ -307,6 +307,26 @@ was verified claim-by-claim against the code and fixed. Live proof on the
 
 ---
 
+## 11. Real-corpus RAG eval + hybrid extraction (2026-10-11)
+
+- `evaluation/rag_real_questions.json`: 150 grounded questions built from
+  the actual 50-document corpus by `build_real_question_bank.py`
+  (deterministic sha256 selection — CPython salts `hash()`, so `hash()`
+  must never drive bank construction).
+- `evaluation/rag_real_evaluation.py`: live PG, real embeddings, real
+  `_answer_pipeline`, read-only. Final: hit rate 0.993, MRR 0.947,
+  routing 1.0, answer relevance 0.853 (compare 1.0 after the trusted-
+  numbers fix; conceptual 0.0 pending quota reset), 0 errors.
+- Two-stage hybrid PDF extraction (`hybrid_text_extractor.py`): per-page
+  NATIVE/SCANNED/MIXED classification, native tables, crop-only OCR in
+  one batched call, reading-order merge with native-preferred dedup,
+  per-block provenance in `processing_metadata.text_pages`,
+  `finirag_ocr_pages_total` vs `finirag_pages_total`. Method values
+  `native_pdf`/`ocr`/`hybrid`; no migration, no retrieval/answer/
+  validation changes. 13 hybrid tests; suite 534 passed.
+
+---
+
 ## 9. Operations
 
 ```powershell
